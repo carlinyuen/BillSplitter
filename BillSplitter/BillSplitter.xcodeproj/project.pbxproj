@@ -23,6 +23,8 @@
 		5F459F0C17C54FA900DCBDD9 /* pizza.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0717C54FA900DCBDD9 /* pizza.png */; };
 		5F459F0D17C54FA900DCBDD9 /* plate.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0817C54FA900DCBDD9 /* plate.png */; };
 		5F459F0E17C54FA900DCBDD9 /* salad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0917C54FA900DCBDD9 /* salad.png */; };
+		5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */; };
+		5F459F1317C5505900DCBDD9 /* BSSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */; };
 		5F7C892F1790A36700018AD7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C892E1790A36700018AD7 /* UIKit.framework */; };
 		5F7C89311790A36700018AD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89301790A36700018AD7 /* Foundation.framework */; };
 		5F7C89331790A36700018AD7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89321790A36700018AD7 /* CoreGraphics.framework */; };
@@ -60,6 +62,9 @@
 		5F459F0717C54FA900DCBDD9 /* pizza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pizza.png; sourceTree = "<group>"; };
 		5F459F0817C54FA900DCBDD9 /* plate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plate.png; sourceTree = "<group>"; };
 		5F459F0917C54FA900DCBDD9 /* salad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = salad.png; sourceTree = "<group>"; };
+		5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSummaryViewController.h; sourceTree = "<group>"; };
+		5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSummaryViewController.m; sourceTree = "<group>"; };
+		5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSSummaryViewController.xib; sourceTree = "<group>"; };
 		5F7C892B1790A36700018AD7 /* BillSplitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillSplitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7C892E1790A36700018AD7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5F7C89301790A36700018AD7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -237,6 +242,9 @@
 				5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */,
 				5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */,
 				5F459F0217C5483C00DCBDD9 /* BSTotalMarkupViewController.xib */,
+				5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */,
+				5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */,
+				5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";
@@ -305,6 +313,7 @@
 				5F459F0C17C54FA900DCBDD9 /* pizza.png in Resources */,
 				5F459F0D17C54FA900DCBDD9 /* plate.png in Resources */,
 				5F459F0E17C54FA900DCBDD9 /* salad.png in Resources */,
+				5F459F1317C5505900DCBDD9 /* BSSummaryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +335,7 @@
 				5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */,
 				5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */,
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,
+				5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

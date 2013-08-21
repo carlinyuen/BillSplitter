@@ -13,6 +13,11 @@
 #import "CustomPageControl.h"
 
 #import "InfoViewController.h"
+#import "BSHeadcountViewController.h"
+#import "BSDishSetupViewController.h"
+#import "BSDistributionViewController.h"
+#import "BSTotalMarkupViewController.h"
+#import "BSSummaryViewController.h"
 
 	#define UI_SIZE_INFO_BUTTON_MARGIN 8
 
@@ -24,7 +29,7 @@
 		AppViewControllerPageDishes,
 		AppViewControllerPageDistribution,
 		AppViewControllerPageTotal,
-		AppViewControllerPagePayment,
+		AppViewControllerPageSummary,
 		AppViewControllerPageCount
 	} AppViewControllerPage;
 
@@ -42,6 +47,7 @@
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 
 	/** Controllers for user actions */
+	@property (nonatomic, strong) NSArray *viewControllers;
 
 @end
 
@@ -54,7 +60,42 @@
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    if (self)
+	{
+		// Create pages and populate reference array
+		NSMutableArray *vcs = [[NSMutableArray alloc] init];
+		for (int i = 0; i < AppViewControllerPageCount; ++i)
+		{
+			switch (i) {
+				case AppViewControllerPageDishes:
+					[vcs addObject:[[BSDishSetupViewController alloc]
+						initWithNibName:@"BSDishSetupViewController" bundle:nil]];
+					break;
+					
+				case AppViewControllerPageDistribution:
+					[vcs addObject:[[BSDistributionViewController alloc]
+						initWithNibName:@"BSDistributionViewController" bundle:nil]];
+					break;
+					
+				case AppViewControllerPageHeadCount:
+					[vcs addObject:[[BSHeadcountViewController alloc]
+						initWithNibName:@"BSHeadcountViewController" bundle:nil]];
+					break;
+					
+				case AppViewControllerPageSummary:
+					[vcs addObject:[[BSTotalMarkupViewController alloc]
+						initWithNibName:@"BSTotalMarkupViewController" bundle:nil]];
+					break;
+					
+				case AppViewControllerPageTotal:
+					[vcs addObject:[[BSSummaryViewController alloc]
+						initWithNibName:@"BSSummaryViewController" bundle:nil]];
+					break;
+					
+				default: break;
+			}
+		}
+		_viewControllers = vcs;
     }
     return self;
 }
@@ -131,33 +172,72 @@
 	[self setupDishes:bounds];
 	[self setupDistribution:bounds];
 	[self setupTotalMarkup:bounds];
-	[self setupPayment:bounds];
+	[self setupSummary:bounds];
 	[self setupPageControl:bounds];
 }
 
 /** @brief Setup headcount view */
 - (void)setupHeadCount:(CGRect)bounds
 {
+	BSHeadcountViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
+	
+	vc.view.frame = CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount],
+		bounds.size.width, bounds.size.height);
+	
+	[self.scrollView addSubview:vc.view];
 }
 
 /** @brief Setup dishes and costs view */
 - (void)setupDishes:(CGRect)bounds
 {
+	BSDishSetupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
+	
+	vc.view.frame = CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageDishes],
+		bounds.size.width, bounds.size.height);
+	
+	
+	[self.scrollView addSubview:vc.view];
 }
 
 /** @brief Setup distribution of dishes to people view */
 - (void)setupDistribution:(CGRect)bounds
 {
+	BSDistributionViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+	
+	vc.view.frame = CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution],
+		bounds.size.width, bounds.size.height);
+	
+	
+	[self.scrollView addSubview:vc.view];
 }
 
 /** @brief Setup total markup view view */
 - (void)setupTotalMarkup:(CGRect)bounds
 {
+	BSTotalMarkupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
+	
+	vc.view.frame = CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageTotal],
+		bounds.size.width, bounds.size.height);
+	
+	
+	[self.scrollView addSubview:vc.view];
 }
 
-/** @brief Setup payment options view */
-- (void)setupPayment:(CGRect)bounds
+/** @brief Setup summary & payments options view */
+- (void)setupSummary:(CGRect)bounds
 {
+	BSSummaryViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageSummary];
+	
+	vc.view.frame = CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageSummary],
+		bounds.size.width, bounds.size.height);
+	
+	
+	[self.scrollView addSubview:vc.view];
 }
 
 /** @brief Setup page control for scrolling */
