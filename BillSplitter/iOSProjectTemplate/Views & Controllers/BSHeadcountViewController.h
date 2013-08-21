@@ -18,8 +18,11 @@
 	UITextFieldDelegate
 >
 
-	@property (weak, nonatomic) IBOutlet UIStepper *stepper;
-	@property (weak, nonatomic) IBOutlet UITextField *textField;
-	@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+	@property (strong, nonatomic) UIStepper *stepper;
+	@property (strong, nonatomic) UITextField *textField;
+	@property (strong, nonatomic) UIImageView *imageView;
+
+	/** @brief Init in screen frame */
+	- (id)initWithFrame:(CGRect)frame;
 
 @end

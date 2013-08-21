@@ -11,4 +11,7 @@
 
 @interface BSDistributionViewController : UIViewController
 
+	/** @brief Init in screen frame */
+	- (id)initWithFrame:(CGRect)frame;
+
 @end

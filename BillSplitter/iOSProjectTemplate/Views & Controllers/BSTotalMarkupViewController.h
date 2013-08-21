@@ -11,4 +11,7 @@
 
 @interface BSTotalMarkupViewController : UIViewController
 
+	/** @brief Init in screen frame */
+	- (id)initWithFrame:(CGRect)frame;
+
 @end

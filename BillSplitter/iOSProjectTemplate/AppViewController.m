@@ -66,36 +66,6 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self)
 	{
-		// Create pages and populate reference array
-		NSMutableArray *vcs = [[NSMutableArray alloc] init];
-		for (int i = 0; i < AppViewControllerPageCount; ++i)
-		{
-			switch (i) {
-				case AppViewControllerPageDishes:
-					[vcs addObject:[[BSDishSetupViewController alloc] init]];
-					break;
-					
-				case AppViewControllerPageDistribution:
-					[vcs addObject:[[BSDistributionViewController alloc] init]];
-					break;
-					
-				case AppViewControllerPageHeadCount:
-					[vcs addObject:[[BSHeadcountViewController alloc] init]];
-					break;
-					
-				case AppViewControllerPageSummary:
-					[vcs addObject:[[BSTotalMarkupViewController alloc] init]];
-					break;
-					
-				case AppViewControllerPageTotal:
-					[vcs addObject:[[BSSummaryViewController alloc] init]];
-					break;
-					
-				default: break;
-			}
-		}
-		_viewControllers = vcs;
-		
 		// Input fields storage container
 		_inputFields = [[NSMutableArray alloc] init];
     }
@@ -110,10 +80,14 @@
 {
     [super viewDidLoad];
 	
+	// Get device screen size
+	CGRect bounds = getScreenFrame();
+	bounds.origin.x = bounds.origin.y = 0;
+	
 	// UI Setup
-	[self setupNavBar];
-	[self setupScrollView];
-	[self setupAnimation];
+	[self setupNavBar:bounds];
+	[self setupScrollView:bounds];
+	[self setupAnimation:bounds];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -138,7 +112,7 @@
 #pragma mark - UI Setup
 
 /** @brief Setup Nav bar */
-- (void)setupNavBar
+- (void)setupNavBar:(CGRect)bounds
 {
 	// App title
 	self.navBar.topItem.title = NSLocalizedString(@"APP_VIEW_TITLE", nil);
@@ -159,30 +133,47 @@
 }
 
 /** @brief Setup scrollview and its contents */
-- (void)setupScrollView
+- (void)setupScrollView:(CGRect)bounds
 {
-	// Get device screen size
-	CGRect bounds = getScreenFrame();
-	bounds.origin.x = bounds.origin.y = 0;
-	
 	// Setup content size for scrolling
 	self.scrollView.frame = bounds;
 	self.scrollView.contentSize = CGSizeMake(
 		bounds.size.width, bounds.size.height * AppViewControllerPageCount);
 
-	[self setupHeadCount:bounds];
-	[self setupDishes:bounds];
-	[self setupDistribution:bounds];
-	[self setupTotalMarkup:bounds];
-	[self setupSummary:bounds];
+	
+	// Create pages and populate reference array for view controllers
+	NSMutableArray *vcs = [[NSMutableArray alloc] init];
+	for (int i = 0; i < AppViewControllerPageCount; ++i)
+	{
+		switch (i) {
+			case AppViewControllerPageHeadCount:
+				[vcs addObject:[self setupHeadCount:bounds]]; break;
+				
+			case AppViewControllerPageDishes:
+				[vcs addObject:[self setupDishes:bounds]]; break;
+				
+			case AppViewControllerPageDistribution:
+				[vcs addObject:[self setupDistribution:bounds]]; break;
+				
+			case AppViewControllerPageTotal:
+				[vcs addObject:[self setupTotalMarkup:bounds]]; break;
+				
+			case AppViewControllerPageSummary:
+				[vcs addObject:[self setupSummary:bounds]]; break;
+				
+			default: break;
+		}
+	}
+	self.viewControllers = vcs;
+	
 	[self setupPageControl:bounds];
 	[self setupKeyboardControl];
 }
 
 /** @brief Setup headcount view */
-- (void)setupHeadCount:(CGRect)bounds
+- (UIViewController *)setupHeadCount:(CGRect)bounds
 {
-	BSHeadcountViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
+	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:bounds];
 	
 	[self.inputFields addObject:vc.textField];
 	
@@ -191,58 +182,59 @@
 	vc.view.frame = frame;
 	
 	[self.scrollView addSubview:vc.view];
+	return vc;
 }
 
 /** @brief Setup dishes and costs view */
-- (void)setupDishes:(CGRect)bounds
+- (UIViewController *)setupDishes:(CGRect)bounds
 {
-	BSDishSetupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
+	BSDishSetupViewController *vc = [[BSDishSetupViewController alloc] initWithFrame:bounds];
 	
 	vc.view.frame = CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageDishes],
 		bounds.size.width, bounds.size.height);
 	
-	
 	[self.scrollView addSubview:vc.view];
+	return vc;
 }
 
 /** @brief Setup distribution of dishes to people view */
-- (void)setupDistribution:(CGRect)bounds
+- (UIViewController *)setupDistribution:(CGRect)bounds
 {
-	BSDistributionViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+	BSDistributionViewController *vc = [[BSDistributionViewController alloc] initWithFrame:bounds];
 	
 	vc.view.frame = CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution],
 		bounds.size.width, bounds.size.height);
 	
-	
 	[self.scrollView addSubview:vc.view];
+	return vc;
 }
 
 /** @brief Setup total markup view view */
-- (void)setupTotalMarkup:(CGRect)bounds
+- (UIViewController *)setupTotalMarkup:(CGRect)bounds
 {
-	BSTotalMarkupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
+	BSTotalMarkupViewController *vc = [[BSTotalMarkupViewController alloc] initWithFrame:bounds];
 	
 	vc.view.frame = CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageTotal],
 		bounds.size.width, bounds.size.height);
 	
-	
 	[self.scrollView addSubview:vc.view];
+	return vc;
 }
 
 /** @brief Setup summary & payments options view */
-- (void)setupSummary:(CGRect)bounds
+- (UIViewController *)setupSummary:(CGRect)bounds
 {
-	BSSummaryViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageSummary];
+	BSSummaryViewController *vc = [[BSSummaryViewController alloc] initWithFrame:bounds];
 	
 	vc.view.frame = CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageSummary],
 		bounds.size.width, bounds.size.height);
-	
-	
+		
 	[self.scrollView addSubview:vc.view];
+	return vc;
 }
 
 /** @brief Setup page control for scrolling */
@@ -278,7 +270,7 @@
 }
 
 /** @brief Setup animation for scrolling */
-- (void)setupAnimation
+- (void)setupAnimation:(CGRect)bounds
 {
 	self.animator = [[ParallaxScrollingFramework alloc] initWithScrollView:self.scrollView];
 }

@@ -19,10 +19,12 @@
 @implementation BSDishSetupViewController
 
 /** @brief Initialize data-related properties */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    self = [super init];
+    if (self)
+	{
+		self.view.frame = frame;
 		
     }
     return self;

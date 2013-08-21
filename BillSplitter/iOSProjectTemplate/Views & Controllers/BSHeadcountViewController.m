@@ -11,6 +11,8 @@
 
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
 
+	#define IMG_MAN @"man.png"
+
 @interface BSHeadcountViewController ()
 
 @end
@@ -21,11 +23,16 @@
 @implementation BSHeadcountViewController
 
 /** @brief Initialize data-related properties */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)initWithFrame:(CGRect)frame
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
+    self = [super init];
+    if (self)
+	{
+		self.view.frame = frame;
 		
+		_stepper = [[UIStepper alloc] initWithFrame:CGRectZero];
+		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -47,6 +54,14 @@
 	frame = self.stepper.frame;
 	frame.origin.x = self.textField.frame.origin.x + self.textField.frame.size.width;
 	self.stepper.frame = frame;
+	
+	self.imageView.frame = CGRectMake( 0, 0, 48, 80 );
+	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+	self.imageView.image = [UIImage imageNamed:IMG_MAN];
+	
+	[self.view addSubview:self.imageView];
+	[self.view addSubview:self.textField];
+	[self.view addSubview:self.stepper];
 }
 
 /** @brief Last-minute setup before view appears. */
