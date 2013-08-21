@@ -9,10 +9,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "InfoViewController.h"
-
 @interface AppViewController : UIViewController<
-	InfoViewControllerDelegate
+	UIScrollViewDelegate
 >
 
 @end

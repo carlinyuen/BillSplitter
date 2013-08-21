@@ -12,6 +12,8 @@
 #import "ParallaxScrollingFramework.h"
 #import "CustomPageControl.h"
 
+#import "InfoViewController.h"
+
 	#define UI_SIZE_INFO_BUTTON_MARGIN 8
 
 	#define UI_SIZE_PAGECONTROL_WIDTH 30
@@ -26,7 +28,10 @@
 		AppViewControllerPageCount
 	} AppViewControllerPage;
 
-@interface AppViewController () <CustomPageControlDelegate>
+@interface AppViewController () <
+	CustomPageControlDelegate,
+	InfoViewControllerDelegate
+>
 
 	/** For scrolling effect */
 	@property (nonatomic, strong) ParallaxScrollingFramework *animator;
@@ -97,6 +102,7 @@
 		
 	// Color
 	self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	self.navBar.translucent = true;
 
 	// Info button
 	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
@@ -117,6 +123,7 @@
 	bounds.origin.x = bounds.origin.y = 0;
 	
 	// Setup content size for scrolling
+	self.scrollView.frame = bounds;
 	self.scrollView.contentSize = CGSizeMake(
 		bounds.size.width, bounds.size.height * AppViewControllerPageCount);
 
@@ -187,6 +194,11 @@
 
 #pragma mark - Class Functions
 
+- (CGFloat)offsetForPageInScrollView:(AppViewControllerPage)page
+{
+	return self.scrollView.bounds.size.height * page;
+}
+
 
 #pragma mark - UI Event Handlers
 
@@ -200,12 +212,42 @@
 }
 
 
+#pragma mark - Delegates
+#pragma mark - CustomPageControlDelegate
+
+/** @brief When page control dot is tapped */
+- (void)pageControlPageDidChange:(CustomPageControl *)pageControl
+{
+	CGRect frame = self.scrollView.bounds;
+	frame.origin.y = [self offsetForPageInScrollView:pageControl.currentPage];
+	[self.scrollView scrollRectToVisible:frame animated:true];
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	// Change page control accordingly:
+	//	Update the page when more than 50% of the previous/next page is visible
+    float pageSize = scrollView.bounds.size.height;
+    int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
+	
+	// Bound page limits
+	if (page >= AppViewControllerPageCount) {
+		page = AppViewControllerPageCount - 1;
+	} else if (page < 0) {
+		page = 0;
+	}
+	
+    self.pageControl.currentPage = page;
+}
+
+
 #pragma mark - InfoViewControllerDelegate
 
 - (void)infoViewController:(InfoViewController *)vc willCloseAnimated:(bool)animated
 {
-	debugFunc(nil);
-	
 	[self dismissViewControllerAnimated:animated completion:nil];
 }
 
