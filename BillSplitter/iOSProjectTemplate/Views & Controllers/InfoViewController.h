@@ -11,12 +11,16 @@
 
 @class InfoViewController;
 @protocol InfoViewControllerDelegate <NSObject>
-@optional
-- (void)infoViewController:(InfoViewController*)vc willCloseAnimated:(bool)animated;
+
+	@optional
+	- (void)infoViewController:(InfoViewController*)vc willCloseAnimated:(bool)animated;
+
 @end
 
-@interface InfoViewController : UIViewController<
+@interface InfoViewController : UIViewController <
 	UITableViewDataSource, UITableViewDelegate
 >
-@property (nonatomic, weak) id<InfoViewControllerDelegate> delegate;
+
+	@property (nonatomic, weak) id<InfoViewControllerDelegate> delegate;
+
 @end
