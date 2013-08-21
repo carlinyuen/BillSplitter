@@ -11,20 +11,17 @@
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
 		5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */; };
 		5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */; };
-		5F459EF517C547FB00DCBDD9 /* BSHeadcountViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459EF317C547FB00DCBDD9 /* BSHeadcountViewController.xib */; };
 		5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */; };
-		5F459EFA17C5481400DCBDD9 /* BSDistributionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459EF817C5481400DCBDD9 /* BSDistributionViewController.xib */; };
 		5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */; };
-		5F459EFF17C5482100DCBDD9 /* BSDishSetupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459EFD17C5482100DCBDD9 /* BSDishSetupViewController.xib */; };
 		5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */; };
-		5F459F0417C5483C00DCBDD9 /* BSTotalMarkupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0217C5483C00DCBDD9 /* BSTotalMarkupViewController.xib */; };
 		5F459F0A17C54FA900DCBDD9 /* drink.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0517C54FA900DCBDD9 /* drink.png */; };
 		5F459F0B17C54FA900DCBDD9 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0617C54FA900DCBDD9 /* man.png */; };
 		5F459F0C17C54FA900DCBDD9 /* pizza.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0717C54FA900DCBDD9 /* pizza.png */; };
 		5F459F0D17C54FA900DCBDD9 /* plate.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0817C54FA900DCBDD9 /* plate.png */; };
 		5F459F0E17C54FA900DCBDD9 /* salad.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0917C54FA900DCBDD9 /* salad.png */; };
 		5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */; };
-		5F459F1317C5505900DCBDD9 /* BSSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */; };
+		5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */; };
+		5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */; };
 		5F7C892F1790A36700018AD7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C892E1790A36700018AD7 /* UIKit.framework */; };
 		5F7C89311790A36700018AD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89301790A36700018AD7 /* Foundation.framework */; };
 		5F7C89331790A36700018AD7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89321790A36700018AD7 /* CoreGraphics.framework */; };
@@ -47,16 +44,12 @@
 		5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSHeadcountViewController.h; sourceTree = "<group>"; };
 		5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSHeadcountViewController.m; sourceTree = "<group>"; };
-		5F459EF317C547FB00DCBDD9 /* BSHeadcountViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSHeadcountViewController.xib; sourceTree = "<group>"; };
 		5F459EF617C5481300DCBDD9 /* BSDistributionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSDistributionViewController.h; sourceTree = "<group>"; };
 		5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSDistributionViewController.m; sourceTree = "<group>"; };
-		5F459EF817C5481400DCBDD9 /* BSDistributionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSDistributionViewController.xib; sourceTree = "<group>"; };
 		5F459EFB17C5482000DCBDD9 /* BSDishSetupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSDishSetupViewController.h; sourceTree = "<group>"; };
 		5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSDishSetupViewController.m; sourceTree = "<group>"; };
-		5F459EFD17C5482100DCBDD9 /* BSDishSetupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSDishSetupViewController.xib; sourceTree = "<group>"; };
 		5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTotalMarkupViewController.h; sourceTree = "<group>"; };
 		5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTotalMarkupViewController.m; sourceTree = "<group>"; };
-		5F459F0217C5483C00DCBDD9 /* BSTotalMarkupViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSTotalMarkupViewController.xib; sourceTree = "<group>"; };
 		5F459F0517C54FA900DCBDD9 /* drink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drink.png; sourceTree = "<group>"; };
 		5F459F0617C54FA900DCBDD9 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		5F459F0717C54FA900DCBDD9 /* pizza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pizza.png; sourceTree = "<group>"; };
@@ -64,7 +57,9 @@
 		5F459F0917C54FA900DCBDD9 /* salad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = salad.png; sourceTree = "<group>"; };
 		5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSummaryViewController.h; sourceTree = "<group>"; };
 		5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSummaryViewController.m; sourceTree = "<group>"; };
-		5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSSummaryViewController.xib; sourceTree = "<group>"; };
+		5F459F1517C5719C00DCBDD9 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
+		5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
+		5F459F1817C5719C00DCBDD9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
 		5F7C892B1790A36700018AD7 /* BillSplitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillSplitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7C892E1790A36700018AD7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5F7C89301790A36700018AD7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -118,6 +113,16 @@
 				5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */,
 			);
 			path = CustomPageControl;
+			sourceTree = "<group>";
+		};
+		5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */ = {
+			isa = PBXGroup;
+			children = (
+				5F459F1517C5719C00DCBDD9 /* BSKeyboardControls.h */,
+				5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */,
+				5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */,
+			);
+			path = BSKeyboardControls;
 			sourceTree = "<group>";
 		};
 		5F7C89221790A36700018AD7 = {
@@ -184,6 +189,7 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
 				5F459EE817C526A100DCBDD9 /* CustomPageControl */,
 				5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */,
 			);
@@ -232,19 +238,14 @@
 				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
 				5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */,
 				5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */,
-				5F459EF317C547FB00DCBDD9 /* BSHeadcountViewController.xib */,
 				5F459EF617C5481300DCBDD9 /* BSDistributionViewController.h */,
 				5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */,
-				5F459EF817C5481400DCBDD9 /* BSDistributionViewController.xib */,
 				5F459EFB17C5482000DCBDD9 /* BSDishSetupViewController.h */,
 				5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */,
-				5F459EFD17C5482100DCBDD9 /* BSDishSetupViewController.xib */,
 				5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */,
 				5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */,
-				5F459F0217C5483C00DCBDD9 /* BSTotalMarkupViewController.xib */,
 				5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */,
 				5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */,
-				5F459F1117C5505900DCBDD9 /* BSSummaryViewController.xib */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";
@@ -304,16 +305,12 @@
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
 				5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */,
 				5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */,
-				5F459EF517C547FB00DCBDD9 /* BSHeadcountViewController.xib in Resources */,
-				5F459EFA17C5481400DCBDD9 /* BSDistributionViewController.xib in Resources */,
-				5F459EFF17C5482100DCBDD9 /* BSDishSetupViewController.xib in Resources */,
-				5F459F0417C5483C00DCBDD9 /* BSTotalMarkupViewController.xib in Resources */,
 				5F459F0A17C54FA900DCBDD9 /* drink.png in Resources */,
 				5F459F0B17C54FA900DCBDD9 /* man.png in Resources */,
 				5F459F0C17C54FA900DCBDD9 /* pizza.png in Resources */,
 				5F459F0D17C54FA900DCBDD9 /* plate.png in Resources */,
 				5F459F0E17C54FA900DCBDD9 /* salad.png in Resources */,
-				5F459F1317C5505900DCBDD9 /* BSSummaryViewController.xib in Resources */,
+				5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,12 +333,21 @@
 				5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */,
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,
 				5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */,
+				5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5F459F1817C5719C00DCBDD9 /* en */,
+			);
+			name = BSKeyboardControls.strings;
+			sourceTree = "<group>";
+		};
 		5F7C89371790A36700018AD7 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

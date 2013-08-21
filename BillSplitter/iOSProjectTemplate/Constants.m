@@ -19,7 +19,10 @@ NSString* const ONCE_KEY_APP_OPENED = @"onceAppOpened";
 
 // Fonts
 NSString* const FONT_NAME_BRANDING = @"Courier New";
-NSString* const FONT_NAME_HELVETICANEUE_BOLD = @"HelveticaNeue-Bold";
+NSString* const FONT_NAME_HEADERS = @"HelveticaNeue-Bold";
+NSString* const FONT_NAME_COPY = @"HelveticaNeue-Light";
+NSString* const FONT_NAME_TEXTFIELD = @"MarkerFelt-Wide";
+float const FONT_SIZE_TEXTFIELD = 40;
 float const FONT_SIZE_BRANDING = 13;
 
 // Time

@@ -206,7 +206,7 @@
 	UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TABLEVIEW_HEADER_ID];
 	
 	view.textLabel.textColor = [UIColor darkGrayColor];
-	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HELVETICANEUE_BOLD size:FONT_SIZE_SECTION_HEADER];
+	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HEADERS size:FONT_SIZE_SECTION_HEADER];
 	view.textLabel.text = [[self.tableViewData objectAtIndex:section]
 		objectForKey:TABLEVIEW_DATA_KEY_LABEL];
 	

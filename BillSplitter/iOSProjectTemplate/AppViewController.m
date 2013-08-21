@@ -11,6 +11,7 @@
 
 #import "ParallaxScrollingFramework.h"
 #import "CustomPageControl.h"
+#import "BSKeyboardControls.h"
 
 #import "InfoViewController.h"
 #import "BSHeadcountViewController.h"
@@ -35,7 +36,8 @@
 
 @interface AppViewController () <
 	CustomPageControlDelegate,
-	InfoViewControllerDelegate
+	InfoViewControllerDelegate,
+	BSKeyboardControlsDelegate
 >
 
 	/** For scrolling effect */
@@ -45,9 +47,11 @@
 	@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 	@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
+	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
 
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
+	@property (nonatomic, strong) NSMutableArray *inputFields;
 
 @end
 
@@ -68,34 +72,32 @@
 		{
 			switch (i) {
 				case AppViewControllerPageDishes:
-					[vcs addObject:[[BSDishSetupViewController alloc]
-						initWithNibName:@"BSDishSetupViewController" bundle:nil]];
+					[vcs addObject:[[BSDishSetupViewController alloc] init]];
 					break;
 					
 				case AppViewControllerPageDistribution:
-					[vcs addObject:[[BSDistributionViewController alloc]
-						initWithNibName:@"BSDistributionViewController" bundle:nil]];
+					[vcs addObject:[[BSDistributionViewController alloc] init]];
 					break;
 					
 				case AppViewControllerPageHeadCount:
-					[vcs addObject:[[BSHeadcountViewController alloc]
-						initWithNibName:@"BSHeadcountViewController" bundle:nil]];
+					[vcs addObject:[[BSHeadcountViewController alloc] init]];
 					break;
 					
 				case AppViewControllerPageSummary:
-					[vcs addObject:[[BSTotalMarkupViewController alloc]
-						initWithNibName:@"BSTotalMarkupViewController" bundle:nil]];
+					[vcs addObject:[[BSTotalMarkupViewController alloc] init]];
 					break;
 					
 				case AppViewControllerPageTotal:
-					[vcs addObject:[[BSSummaryViewController alloc]
-						initWithNibName:@"BSSummaryViewController" bundle:nil]];
+					[vcs addObject:[[BSSummaryViewController alloc] init]];
 					break;
 					
 				default: break;
 			}
 		}
 		_viewControllers = vcs;
+		
+		// Input fields storage container
+		_inputFields = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -174,6 +176,7 @@
 	[self setupTotalMarkup:bounds];
 	[self setupSummary:bounds];
 	[self setupPageControl:bounds];
+	[self setupKeyboardControl];
 }
 
 /** @brief Setup headcount view */
@@ -181,9 +184,11 @@
 {
 	BSHeadcountViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
 	
-	vc.view.frame = CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount],
-		bounds.size.width, bounds.size.height);
+	[self.inputFields addObject:vc.textField];
+	
+	CGRect frame = vc.view.frame;
+	frame.origin.y = [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + bounds.size.height / 3;
+	vc.view.frame = frame;
 	
 	[self.scrollView addSubview:vc.view];
 }
@@ -265,6 +270,13 @@
 	[self.view addSubview:self.pageControl];
 }
 
+/** @brief Setup control for keyboard */
+- (void)setupKeyboardControl
+{
+	self.keyboardControl = [[BSKeyboardControls alloc] initWithFields:self.inputFields];
+	self.keyboardControl.delegate = self;
+}
+
 /** @brief Setup animation for scrolling */
 - (void)setupAnimation
 {
@@ -302,6 +314,38 @@
 	CGRect frame = self.scrollView.bounds;
 	frame.origin.y = [self offsetForPageInScrollView:pageControl.currentPage];
 	[self.scrollView scrollRectToVisible:frame animated:true];
+}
+
+
+#pragma mark - BSKeyboardControlsDelegate
+
+- (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
+{
+    [keyboardControls.activeField resignFirstResponder];
+}
+
+- (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
+{
+	CGRect frame = field.frame;
+	frame = [self.scrollView convertRect:frame fromView:field];
+	debugRect(frame);
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+}
+
+
+#pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    [self.keyboardControl setActiveField:textField];
+}
+
+
+#pragma mark - UITextViewDelegate
+
+- (void)textViewDidBeginEditing:(UITextView *)textView
+{
+    [self.keyboardControl setActiveField:textView];
 }
 
 

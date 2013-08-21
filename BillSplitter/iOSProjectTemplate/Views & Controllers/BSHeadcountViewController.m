@@ -9,6 +9,8 @@
 
 #import "BSHeadcountViewController.h"
 
+	#define UI_SIZE_TEXTFIELD_HEIGHT 100
+
 @interface BSHeadcountViewController ()
 
 @end
@@ -35,6 +37,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	CGRect frame = self.textField.frame;
+	frame.size.height = UI_SIZE_TEXTFIELD_HEIGHT;
+	self.textField.frame = frame;
+	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_TEXTFIELD];
+	
+	self.stepper.transform = CGAffineTransformMakeRotation(degreesToRadians(10));
+	frame = self.stepper.frame;
+	frame.origin.x = self.textField.frame.origin.x + self.textField.frame.size.width;
+	self.stepper.frame = frame;
 }
 
 /** @brief Last-minute setup before view appears. */

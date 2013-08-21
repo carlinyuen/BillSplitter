@@ -10,7 +10,9 @@
 #import <UIKit/UIKit.h>
 
 @interface AppViewController : UIViewController<
-	UIScrollViewDelegate
+	UIScrollViewDelegate,
+	UITextFieldDelegate,
+	UITextViewDelegate
 >
 
 @end
