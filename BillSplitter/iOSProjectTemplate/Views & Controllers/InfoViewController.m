@@ -19,6 +19,9 @@
 	#define TABLEVIEW_CELL_ID @"SettingsRow"
 	#define TABLEVIEW_HEADER_ID @"SettingsSectionHeader"
 
+	#define TABLEVIEW_DATA_KEY_LABEL @"label"
+	#define TABLEVIEW_DATA_KEY_ROWS @"rows"
+
 @interface InfoViewController ()
 
 	/** UI Elements */
@@ -27,22 +30,15 @@
 	@property (nonatomic, strong) UITableView *tableView;
 	@property (nonatomic, strong) UIView *tableFooterView;
 
+	/** Settings views */
+	@property (nonatomic, strong) NSArray *tableViewData;
+
 @end
 
 
 #pragma mark - Implementation
 
 @implementation InfoViewController
-
-/** @brief Initialize data-related properties */
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-		self.title = NSLocalizedString(@"INFO_VIEW_TITLE", nil);
-    }
-    return self;
-}
 
 
 #pragma mark - View Lifecycle
@@ -51,6 +47,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.title = NSLocalizedString(@"INFO_VIEW_TITLE", nil);
+	
+	self.tableViewData = [[NSArray alloc] initWithObjects:
+		@{
+			TABLEVIEW_DATA_KEY_LABEL : @"Settings",
+			TABLEVIEW_DATA_KEY_ROWS : @[
+				@"Something",
+				@"Something Else",
+			],
+		},
+		@{
+			TABLEVIEW_DATA_KEY_LABEL : @"Payments",
+			TABLEVIEW_DATA_KEY_ROWS : @[
+				@"Venmo",
+				@"Paypal",
+			],
+		},
+		nil];
 
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
@@ -91,7 +106,6 @@
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
 		initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 		target:self action:@selector(doneButtonPressed:)];
-	self.navigationItem.leftBarButtonItem.tintColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
 	
 	[self.view addSubview:self.navBar];
 }
@@ -169,12 +183,12 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-	return 3;
+	return self.tableViewData.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return section + 1;
+	return [[self.tableViewData objectAtIndex:section] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -191,9 +205,10 @@
 {
 	UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TABLEVIEW_HEADER_ID];
 	
-	view.textLabel.text = @"Hello";
 	view.textLabel.textColor = [UIColor darkGrayColor];
 	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HELVETICANEUE_BOLD size:FONT_SIZE_SECTION_HEADER];
+	view.textLabel.text = [[self.tableViewData objectAtIndex:section]
+		objectForKey:TABLEVIEW_DATA_KEY_LABEL];
 	
 	return view;
 }
@@ -203,11 +218,13 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLEVIEW_CELL_ID];
 	
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:TABLEVIEW_CELL_ID];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLEVIEW_CELL_ID];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
 	
 	cell.backgroundColor = UIColorFromHex(COLOR_HEX_CELL_BACKGROUND);
+	cell.textLabel.text = [[[self.tableViewData objectAtIndex:indexPath.section]
+		objectForKey:TABLEVIEW_DATA_KEY_ROWS] objectAtIndex:indexPath.row];
 	
 	return cell;
 }
@@ -217,7 +234,6 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	self.navigationController pushViewController:<#(UIViewController *)#> animated:<#(BOOL)#>
 }
 
 
