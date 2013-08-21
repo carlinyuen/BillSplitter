@@ -1,0 +1,3 @@
+[submodule "iOSProjectTemplate/Libraries/Venmo"]
+	path = iOSProjectTemplate/Libraries/Venmo
+	url = https://github.com/venmo/venmo-your-friends-ios.git
