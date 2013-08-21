@@ -19,7 +19,8 @@ NSString* const ONCE_KEY_APP_OPENED = @"onceAppOpened";
 
 // Fonts
 NSString* const FONT_NAME_BRANDING = @"Courier New";
-float const FONT_SIZE_BRANDING = 22;
+NSString* const FONT_NAME_HELVETICANEUE_BOLD = @"HelveticaNeue-Bold";
+float const FONT_SIZE_BRANDING = 13;
 
 // Time
 int const TIME_ONE_MINUTE = 60;

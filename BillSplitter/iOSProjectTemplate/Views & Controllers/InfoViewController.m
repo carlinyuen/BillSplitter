@@ -9,11 +9,15 @@
 
 #import "InfoViewController.h"
 
-	#define UI_SIZE_TABLE_HEADER_HEIGHT 64
-	#define UI_SIZE_TABLE_FOOTER_HEIGHT 54
+	#define UI_SIZE_TABLE_FOOTER_HEIGHT 128
 
+	#define FONT_SIZE_SECTION_HEADER 18
+	
 	#define COLOR_HEX_CELL_BACKGROUND 0x888888FF
 	#define COLOR_HEX_CELL_SEPARATOR 0x555555FF
+
+	#define TABLEVIEW_CELL_ID @"SettingsRow"
+	#define TABLEVIEW_HEADER_ID @"SettingsSectionHeader"
 
 @interface InfoViewController ()
 
@@ -53,7 +57,6 @@
 	
 	[self setupNavBar];
 	[self setupTableView:bounds];
-	[self setupTableHeaderView:bounds];
 	[self setupTableFooterView:bounds];
 }
 
@@ -112,20 +115,12 @@
 	self.tableView.dataSource = self;
 	self.tableView.delegate = self;
 	
+	[self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:TABLEVIEW_HEADER_ID];
+	
 	CGRect frame = bounds;
 	frame.origin.y = UI_SIZE_MIN_TOUCH;
 	self.tableView.frame = frame;
 	[self.view addSubview:self.tableView];
-}
-
-/** @brief Setup tableHeaderView */
-- (void)setupTableHeaderView:(CGRect)bounds
-{
-	self.tableHeaderView = [[UIView alloc] initWithFrame:CGRectZero];
-
-	self.tableHeaderView.frame = CGRectMake(
-		0, 0, self.view.bounds.size.width, UI_SIZE_TABLE_HEADER_HEIGHT);
-	self.tableView.tableHeaderView = self.tableHeaderView;
 }
 
 /** @brief Setup tableFooterView */
@@ -191,12 +186,33 @@
 	return section + 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return UI_SIZE_MIN_TOUCH;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+	return UI_SIZE_MIN_TOUCH;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+	UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TABLEVIEW_HEADER_ID];
+	
+	view.textLabel.text = @"Hello";
+	view.textLabel.textColor = [UIColor darkGrayColor];
+	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HELVETICANEUE_BOLD size:FONT_SIZE_SECTION_HEADER];
+	
+	return view;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"DetailedTableViewCell"];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLEVIEW_CELL_ID];
 	
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:@"DetailedTableViewCell"];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:TABLEVIEW_CELL_ID];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
 	

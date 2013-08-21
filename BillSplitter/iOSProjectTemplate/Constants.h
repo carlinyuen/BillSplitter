@@ -19,6 +19,7 @@ extern NSString* const ONCE_KEY_APP_OPENED;
 
 // Fonts
 extern NSString* const FONT_NAME_BRANDING;
+extern NSString* const FONT_NAME_HELVETICANEUE_BOLD;
 extern float const FONT_SIZE_BRANDING;
 
 // Time
