@@ -9,7 +9,7 @@
 
 #import "InfoViewController.h"
 
-	#define UI_SIZE_TABLE_FOOTER_HEIGHT 128
+	#define UI_SIZE_TABLE_FOOTER_HEIGHT 64
 
 	#define FONT_SIZE_SECTION_HEADER 18
 	
@@ -39,6 +39,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
+		self.title = NSLocalizedString(@"INFO_VIEW_TITLE", nil);
     }
     return self;
 }
@@ -84,22 +85,14 @@
 /** @brief Setup nav bar */
 - (void)setupNavBar
 {
-	self.navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(
-		0, 0, self.view.frame.size.width, UI_SIZE_MIN_TOUCH
-	)];
-	self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	self.navigationController.navigationBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
 	
-	// Title
-	UINavigationItem *item = [[UINavigationItem alloc] initWithTitle:
-		NSLocalizedString(@"INFO_VIEW_TITLE", nil)];
-		
-	// Back button
-	item.leftBarButtonItem = [[UIBarButtonItem alloc]
+	// Close button
+	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
 		initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-		target:self action:@selector(backButtonPressed:)];
-	item.leftBarButtonItem.tintColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+		target:self action:@selector(doneButtonPressed:)];
+	self.navigationItem.leftBarButtonItem.tintColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
 	
-	[self.navBar pushNavigationItem:item animated:true];
 	[self.view addSubview:self.navBar];
 }
 
@@ -117,9 +110,7 @@
 	
 	[self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:TABLEVIEW_HEADER_ID];
 	
-	CGRect frame = bounds;
-	frame.origin.y = UI_SIZE_MIN_TOUCH;
-	self.tableView.frame = frame;
+	self.tableView.frame = bounds;
 	[self.view addSubview:self.tableView];
 }
 
@@ -165,7 +156,7 @@
 }
 
 /** @brief When back button on navigation bar is pressed */
-- (void)backButtonPressed:(UIBarButtonItem *)sender
+- (void)doneButtonPressed:(UIBarButtonItem *)sender
 {
 	if (self.delegate
 		&& [self.delegate respondsToSelector:@selector(infoViewController:willCloseAnimated:)]) {
@@ -221,6 +212,13 @@
 	return cell;
 }
 
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	self.navigationController pushViewController:<#(UIViewController *)#> animated:<#(BOOL)#>
+}
 
 
 @end

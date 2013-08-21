@@ -208,7 +208,8 @@
 	InfoViewController *controller = [[InfoViewController alloc] init];
     controller.delegate = self;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:controller animated:YES completion:nil];
+    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller]
+		animated:YES completion:nil];
 }
 
 
