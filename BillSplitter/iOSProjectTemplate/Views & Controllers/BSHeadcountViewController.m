@@ -13,6 +13,7 @@
 	#define UI_SIZE_WELCOMELABEL_HEIGHT 64
 	#define UI_SIZE_DESCRIPTIONLABEL_HEIGHT 64
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
+	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
 	#define STEPPER_MIN_VALUE 2
@@ -81,8 +82,8 @@
 	self.welcomeLabel.textColor = [UIColor lightGrayColor];
 	self.welcomeLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.welcomeLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN, frame.origin.y + frame.size.height,
-		bounds.size.width - UI_SIZE_MARGIN * 2, UI_SIZE_WELCOMELABEL_HEIGHT
+		UI_SIZE_LABEL_MARGIN, frame.origin.y + frame.size.height,
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_WELCOMELABEL_HEIGHT
 	);
 	
 	frame = self.welcomeLabel.frame;
@@ -114,8 +115,9 @@
 		(frame.size.height - self.stepper.frame.size.height) / 2 + frame.origin.y,
 		self.stepper.frame.size.width, self.stepper.frame.size.height
 	);
-	self.stepper.minimumValue = STEPPER_MIN_VALUE;
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
+	self.stepper.minimumValue = STEPPER_MIN_VALUE;
+	self.stepper.value = STEPPER_MIN_VALUE;
 	self.stepper.delegate = self;
 	
 	frame = self.imageView.frame;
@@ -127,8 +129,8 @@
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
-		bounds.size.width - UI_SIZE_MARGIN * 2, UI_SIZE_DESCRIPTIONLABEL_HEIGHT
+		UI_SIZE_LABEL_MARGIN, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_DESCRIPTIONLABEL_HEIGHT
 	);
 	
 	[self.view addSubview:self.taglineLabel];

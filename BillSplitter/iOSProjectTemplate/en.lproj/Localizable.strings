@@ -13,6 +13,6 @@
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
 
 "TAGLINE_TEXT" = "Splitting Bills the Simple Way";
-"WELCOME_TEXT" = "Welcome to Bill Splitter!\nLet's make this as easy as possible.";
+"WELCOME_TEXT" = "Welcome to Bill Splitter!\nLet's make this easy.";
 
-"HEADCOUNT_DESCRIPTION_TEXT" = "How many people are in your group?\nScroll down to continue.";
+"HEADCOUNT_DESCRIPTION_TEXT" = "How many people are dining?\nScroll down to continue.";
