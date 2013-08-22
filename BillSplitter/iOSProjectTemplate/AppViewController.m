@@ -12,6 +12,7 @@
 #import "ParallaxScrollingFramework.h"
 #import "CustomPageControl.h"
 #import "BSKeyboardControls.h"
+#import "UIViewDebugger.h"
 
 #import "InfoViewController.h"
 #import "BSHeadcountViewController.h"
@@ -53,6 +54,9 @@
 	@property (nonatomic, strong) NSArray *viewControllers;
 	@property (nonatomic, strong) NSMutableArray *inputFields;
 
+	/** Debuggin */
+	@property (nonatomic, strong) UIViewDebugger *debugger;
+
 @end
 
 
@@ -72,6 +76,8 @@
 		[[NSNotificationCenter defaultCenter] addObserver:self
 			selector:@selector(keyboardWillShow:)
 			name:UIKeyboardWillShowNotification object:nil];
+			
+		_debugger = [[UIViewDebugger alloc] init];
     }
     return self;
 }
@@ -184,6 +190,8 @@
 	
 	[self.inputFields addObject:vc.textField];
 	vc.textField.delegate = self;
+	
+//	[self.debugger debugSubviews:vc.view];
 	
 	[self.scrollView addSubview:vc.view];
 	return vc;

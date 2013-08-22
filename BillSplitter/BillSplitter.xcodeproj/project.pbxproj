@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
 		5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */; };
@@ -46,6 +47,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
+		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
 		5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxScrollingFramework.m; sourceTree = "<group>"; };
 		5F459EE917C526A100DCBDD9 /* CustomPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPageControl.h; sourceTree = "<group>"; };
@@ -116,6 +119,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5F05427117C67D0100B40CCA /* UIViewDebugger */ = {
+			isa = PBXGroup;
+			children = (
+				5F05427217C67D0100B40CCA /* UIViewDebugger.h */,
+				5F05427317C67D0100B40CCA /* UIViewDebugger.m */,
+			);
+			path = UIViewDebugger;
+			sourceTree = "<group>";
+		};
 		5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -233,6 +245,7 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5F05427117C67D0100B40CCA /* UIViewDebugger */,
 				5F459F1B17C6605800DCBDD9 /* RPVerticalStepper */,
 				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
 				5F459EE817C526A100DCBDD9 /* CustomPageControl */,
@@ -388,6 +401,7 @@
 				5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */,
 				5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */,
 				5F459F2717C6605800DCBDD9 /* RPVerticalStepper.m in Sources */,
+				5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
