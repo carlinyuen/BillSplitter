@@ -23,8 +23,8 @@
 
 	#define UI_SIZE_INFO_BUTTON_MARGIN 8
 
-	#define UI_SIZE_PAGECONTROL_WIDTH 30
-	#define UI_SIZE_PAGECONTROL_HEIGHT 100
+	#define UI_SIZE_PAGECONTROL_WIDTH 24
+	#define UI_SIZE_PAGECONTROL_HEIGHT 94
 	
 	typedef enum {
 		AppViewControllerPageHeadCount,
@@ -56,6 +56,9 @@
 
 	/** Debuggin */
 	@property (nonatomic, strong) UIViewDebugger *debugger;
+
+	/** Keep track of which page you're on */
+	@property (nonatomic, assign) AppViewControllerPage lastShownPage;
 
 @end
 
@@ -271,6 +274,7 @@
 	self.pageControl.delegate = self;
 	self.pageControl.numberOfPages = AppViewControllerPageCount;
 	self.pageControl.currentPage = AppViewControllerPageHeadCount;
+	self.lastShownPage = AppViewControllerPageHeadCount;
 	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
 	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
@@ -426,6 +430,12 @@
 	//	Update the page when more than 50% of the previous/next page is visible
     float pageSize = scrollView.bounds.size.height;
     int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
+	
+	// If page is not the same as lastShownPage, let page know it'll be shown
+	if (self.lastShownPage != page) {
+		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
+		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+	}
 	
 	// Bound page limits
 	if (page >= AppViewControllerPageCount) {

@@ -25,7 +25,6 @@
     if (self)
 	{
 		self.view.frame = frame;
-		
     }
     return self;
 }

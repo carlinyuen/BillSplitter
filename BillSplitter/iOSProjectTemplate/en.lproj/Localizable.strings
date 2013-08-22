@@ -16,3 +16,6 @@
 "WELCOME_TEXT" = "Welcome to Bill Splitter!\nLet's make this easy.";
 
 "HEADCOUNT_DESCRIPTION_TEXT" = "How many people are dining?\nScroll down to continue.";
+
+"DISHSETUP_DESCRIPTION_TEXT" = "Give us an approximate price for usual items on the menu: price of a drink, a cheaper dish, an average-priced dish, and an expensive dish.";
+

@@ -59,7 +59,6 @@
     [super viewDidLoad];
 	
 	self.view.frame = self.frame;
-	
 	CGRect bounds = self.view.bounds;
 	CGRect frame;
 
@@ -101,7 +100,7 @@
 		(frame.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2 + frame.origin.y,
 		bounds.size.width / 3 + UI_SIZE_MARGIN, UI_SIZE_TEXTFIELD_HEIGHT
 	);
-	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_TEXTFIELD];
+	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	self.textField.borderStyle = UITextBorderStyleRoundedRect;
 	self.textField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.textField.keyboardType = UIKeyboardTypeNumberPad;
