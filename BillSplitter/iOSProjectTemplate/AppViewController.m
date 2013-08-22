@@ -183,7 +183,8 @@
 /** @brief Setup headcount view */
 - (UIViewController *)setupHeadCount:(CGRect)bounds
 {
-	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:CGRectMake(
+	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc]
+		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
@@ -200,7 +201,11 @@
 /** @brief Setup dishes and costs view */
 - (UIViewController *)setupDishes:(CGRect)bounds
 {
-	BSDishSetupViewController *vc = [[BSDishSetupViewController alloc] initWithFrame:bounds];
+	BSDishSetupViewController *vc = [[BSDishSetupViewController alloc]
+		initWithFrame:CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageDishes] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+	)];
 		
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -209,7 +214,11 @@
 /** @brief Setup distribution of dishes to people view */
 - (UIViewController *)setupDistribution:(CGRect)bounds
 {
-	BSDistributionViewController *vc = [[BSDistributionViewController alloc] initWithFrame:bounds];
+	BSDistributionViewController *vc = [[BSDistributionViewController alloc]
+		initWithFrame:CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+	)];
 	
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -218,7 +227,11 @@
 /** @brief Setup total markup view view */
 - (UIViewController *)setupTotalMarkup:(CGRect)bounds
 {
-	BSTotalMarkupViewController *vc = [[BSTotalMarkupViewController alloc] initWithFrame:bounds];
+	BSTotalMarkupViewController *vc = [[BSTotalMarkupViewController alloc]
+		initWithFrame:CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageTotal] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+	)];
 		
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -227,7 +240,11 @@
 /** @brief Setup summary & payments options view */
 - (UIViewController *)setupSummary:(CGRect)bounds
 {
-	BSSummaryViewController *vc = [[BSSummaryViewController alloc] initWithFrame:bounds];
+	BSSummaryViewController *vc = [[BSSummaryViewController alloc]
+		initWithFrame:CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageSummary] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+	)];
 	
 	vc.view.frame = CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageSummary],
@@ -354,17 +371,10 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+	debugFunc(nil);
     [self.keyboardControl setActiveField:textField];
 	[textField selectAll:self];
 	[UIMenuController sharedMenuController].menuVisible = NO;
-	
-//	CGRect frame = [textField convertRect:textField.frame toView:textField.superview];
-//	frame = [textField.superview convertRect:frame toView:self.scrollView];
-//	debugRect(frame);
-//	
-//	// Adjust frame so that the actual frame will be above keyboard in screen
-//	frame.origin.y +=
-//    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string

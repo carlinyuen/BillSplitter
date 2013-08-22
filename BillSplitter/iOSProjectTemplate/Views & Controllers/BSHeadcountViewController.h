@@ -17,7 +17,6 @@
 @end
 
 @interface BSHeadcountViewController : UIViewController <
-	UITextFieldDelegate,
 	RPVerticalStepperDelegate
 >
 
