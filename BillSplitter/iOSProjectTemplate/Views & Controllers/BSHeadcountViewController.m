@@ -106,7 +106,6 @@
 	self.textField.keyboardType = UIKeyboardTypeNumberPad;
 	self.textField.textAlignment = NSTextAlignmentCenter;
 	self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	self.textField.text = [NSString stringWithFormat:@"%i", STEPPER_MIN_VALUE];
 	
 	frame = self.textField.frame;
 	self.stepper.frame = CGRectMake(
@@ -114,10 +113,10 @@
 		(frame.size.height - self.stepper.frame.size.height) / 2 + frame.origin.y,
 		self.stepper.frame.size.width, self.stepper.frame.size.height
 	);
+	self.stepper.delegate = self;
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
 	self.stepper.minimumValue = STEPPER_MIN_VALUE;
 	self.stepper.value = STEPPER_MIN_VALUE;
-	self.stepper.delegate = self;
 	
 	frame = self.imageView.frame;
 	self.descriptionLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);

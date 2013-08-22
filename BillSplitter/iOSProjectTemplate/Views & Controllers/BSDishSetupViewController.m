@@ -168,7 +168,6 @@
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		textField.adjustsFontSizeToFitWidth = true;
 		textField.minimumFontSize = FONT_SIZE_PRICE / 3;
-		textField.text = [NSString stringWithFormat:@"%.2f", stepperValue];
 		
 		frame = textField.frame;
 		stepper.frame = CGRectMake(
@@ -176,10 +175,10 @@
 			(frame.size.height - stepper.frame.size.height) / 2 + frame.origin.y,
 			stepper.frame.size.width, stepper.frame.size.height
 		);
+		stepper.delegate = self;
 		stepper.maximumValue = STEPPER_MAX_VALUE;
 		stepper.minimumValue = STEPPER_MIN_VALUE;
 		stepper.value = stepperValue;
-		stepper.delegate = self;
 		
 		frame = containerView.frame;
 		[containerView addSubview:imageView];
@@ -226,6 +225,22 @@
 
 #pragma mark - Class Functions
 
+/** @brief Returns one of the steppers used */
+- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField
+{
+	if (textField == self.drinkTextField) {
+		return self.drinkStepper;
+	} else if (textField == self.smallDishTextField) {
+		return self.smallDishStepper;
+	} else if (textField == self.mediumDishTextField) {
+		return self.mediumDishStepper;
+	} else if (textField == self.largeDishTextField) {
+		return self.largeDishStepper;
+	} else {
+		return nil;
+	}
+}
+
 
 #pragma mark - UI Setup
 
@@ -241,7 +256,7 @@
 
 - (void)stepperValueDidChange:(RPVerticalStepper *)stepper
 {
-	NSString *value = [NSString stringWithFormat:@"%.2f", stepper.value];
+	NSString *value = [NSString stringWithFormat:@"$%.2f", stepper.value];
 	
 	if (stepper == self.drinkStepper) {
 		self.drinkTextField.text = value;

@@ -11,6 +11,8 @@
 
 @interface BSDistributionViewController ()
 
+	@property (nonatomic, assign) CGRect frame;
+
 @end
 
 
@@ -24,7 +26,11 @@
     self = [super init];
     if (self)
 	{
-		self.view.frame = frame;
+		_frame = frame;
+		
+		_imageViews = [[NSMutableArray alloc] init];
+		_textFields = [[NSMutableArray alloc] init];
+		_steppers = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -36,6 +42,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.view.frame = self.frame;
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -58,6 +66,14 @@
 
 
 #pragma mark - Class Functions
+
+/** @brief Returns one of the steppers used */
+- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField
+{
+	int index = [self.textFields indexOfObject:textField];
+	return (self.steppers.count && index != NSNotFound)
+		? [self.steppers objectAtIndex:index] : nil;
+}
 
 
 #pragma mark - UI Setup

@@ -396,33 +396,68 @@
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
 	
 	// Make sure is a number
 	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
 	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	NSNumber *number = [formatter numberFromString:newText];
 	
-	// If headcount page
-	if (textField == [[self.viewControllers objectAtIndex:AppViewControllerPageHeadCount] textField])
+	// Stepper to update
+	RPVerticalStepper *stepper;
+	switch (textField.tag)
 	{
-		// Restrict to max value in stepper
-		RPVerticalStepper *stepper = [[self.viewControllers objectAtIndex:AppViewControllerPageHeadCount] stepper];
-		
-		if (!number) {
-			number = [NSNumber numberWithFloat:stepper.minimumValue];
-		} else if (number.floatValue > stepper.maximumValue) {
-			number = [NSNumber numberWithFloat:stepper.maximumValue];
-		} else if (number.floatValue < 0) {
-			number = [NSNumber numberWithFloat:stepper.minimumValue];
+		// If integer type (headcount & distribution page)
+		case AppViewControllerPageHeadCount:
+			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
+		case AppViewControllerPageDistribution:
+		{
+			if (!stepper) {
+				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
+			}
+			
+			// Restrict value
+			if (!number) {
+				number = [NSNumber numberWithFloat:stepper.minimumValue];
+			} else if (number.floatValue > stepper.maximumValue) {
+				number = [NSNumber numberWithFloat:stepper.maximumValue];
+			} else if (number.floatValue < 0) {
+				number = [NSNumber numberWithFloat:stepper.minimumValue];
+			}
+			
+			// Set stepper value
+			stepper.value = number.intValue;
+			textField.text = [NSString stringWithFormat:@"%i", number.intValue];
+			return NO;
+		}
+
+		// Price type (dish setup & total markup)
+		case AppViewControllerPageTotal:
+			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
+		case AppViewControllerPageDishes:
+		{
+			if (!stepper) {
+				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
+			}
+			
+			// Restrict value	
+			if (!number) {
+				number = [NSNumber numberWithFloat:stepper.minimumValue];
+			} else if (number.floatValue > stepper.maximumValue) {
+				number = [NSNumber numberWithFloat:stepper.maximumValue];
+			} else if (number.floatValue < 0) {
+				number = [NSNumber numberWithFloat:stepper.minimumValue];
+			}
+			
+			// Set stepper value
+			stepper.value = number.floatValue;
+			textField.text = [NSString stringWithFormat:@"$%.2f", number.floatValue];
+			return NO;
 		}
 		
-		// Set stepper value
-		stepper.value = number.intValue;
-		textField.text = [NSString stringWithFormat:@"%i", number.intValue];
-		return NO;
+		default:
+			break;
 	}
-	
 	return YES;
 }
 

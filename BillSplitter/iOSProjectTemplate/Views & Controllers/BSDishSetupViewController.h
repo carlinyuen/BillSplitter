@@ -35,4 +35,7 @@
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
 
+	/** @brief Returns one of the steppers used */
+	- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField;
+
 @end

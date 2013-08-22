@@ -9,9 +9,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BSDistributionViewController : UIViewController
+#import "RPVerticalStepper.h"
+
+@interface BSDistributionViewController : UIViewController <
+	RPVerticalStepperDelegate
+>
+
+	@property (nonatomic, strong) NSMutableArray *imageViews;
+	@property (nonatomic, strong) NSMutableArray *textFields;
+	@property (nonatomic, strong) NSMutableArray *steppers;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
+
+	/** @brief Returns one of the steppers used */
+	- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField;
 
 @end
