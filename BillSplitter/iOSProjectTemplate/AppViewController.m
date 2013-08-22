@@ -194,6 +194,7 @@
 	)];
 	
 	[self.inputFields addObject:vc.textField];
+	vc.textField.tag = AppViewControllerPageHeadCount;
 	vc.textField.delegate = self;
 	
 	[self.scrollView addSubview:vc.view];
@@ -213,6 +214,10 @@
 	[self.inputFields addObject:vc.smallDishTextField];
 	[self.inputFields addObject:vc.mediumDishTextField];
 	[self.inputFields addObject:vc.largeDishTextField];
+	vc.drinkTextField.tag = AppViewControllerPageDishes;
+	vc.smallDishTextField.tag = AppViewControllerPageDishes;
+	vc.mediumDishTextField.tag = AppViewControllerPageDishes;
+	vc.largeDishTextField.tag = AppViewControllerPageDishes;
 	vc.drinkTextField.delegate = self;
 	vc.smallDishTextField.delegate = self;
 	vc.mediumDishTextField.delegate = self;
@@ -370,12 +375,13 @@
 
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
-	// Get position of field that is active
-	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
-	
 	// Animate scroll so field is visible above keyboard
+	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
 	frame.origin.y += self.keyboardFrame.size.height;
     [self.scrollView scrollRectToVisible:frame animated:YES];
+	
+	// Change last shown page based on which field
+	self.lastShownPage = field.tag;
 }
 
 

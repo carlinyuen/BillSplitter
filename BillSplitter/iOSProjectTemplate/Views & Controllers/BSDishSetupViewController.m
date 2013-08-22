@@ -18,6 +18,10 @@
 
 	#define STEPPER_MIN_VALUE 0.0
 	#define STEPPER_MAX_VALUE 9999999.99
+	#define STEPPER_DEFAULT_VALUE_DRINK 9.0
+	#define STEPPER_DEFAULT_VALUE_SMALLDISH 5.0
+	#define STEPPER_DEFAULT_VALUE_MEDIUMDISH 15.0
+	#define STEPPER_DEFAULT_VALUE_LARGEDISH 25.0
 
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
@@ -87,6 +91,7 @@
 	UIImageView *imageView;
 	UITextField *textField;
 	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 1.5;
+	float stepperValue = 0;
 	float scale = 1;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
@@ -98,33 +103,37 @@
 				textField = self.drinkTextField;
 				imageView = self.drinkIV;
 				imageView.image = [UIImage imageNamed:IMG_DRINK];
+				stepperValue = STEPPER_DEFAULT_VALUE_DRINK;
 				scale = 1.0;
 				break;
-				
+
 			case BSDishSetupViewControllerItemSmallDish:
 				stepper = self.smallDishStepper;
 				textField = self.smallDishTextField;
 				imageView = self.smallDishIV;
 				imageView.image = [UIImage imageNamed:IMG_DISH];
+				stepperValue = STEPPER_DEFAULT_VALUE_SMALLDISH;
 				scale = IMAGEVIEW_SCALE_SMALLDISH;
 				break;
-				
+
 			case BSDishSetupViewControllerItemMediumDish:
 				stepper = self.mediumDishStepper;
 				textField = self.mediumDishTextField;
 				imageView = self.mediumDishIV;
 				imageView.image = [UIImage imageNamed:IMG_DISH];
+				stepperValue = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
 				scale = IMAGEVIEW_SCALE_MEDIUMDISH;
 				break;
-				
+
 			case BSDishSetupViewControllerItemLargeDish:
 				stepper = self.largeDishStepper;
 				textField = self.largeDishTextField;
 				imageView = self.largeDishIV;
 				imageView.image = [UIImage imageNamed:IMG_DISH];
+				stepperValue = STEPPER_DEFAULT_VALUE_LARGEDISH;
 				scale = IMAGEVIEW_SCALE_LARGEDISH;
 				break;
-				
+
 			default: break;
 		}
 		
@@ -159,7 +168,7 @@
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		textField.adjustsFontSizeToFitWidth = true;
 		textField.minimumFontSize = FONT_SIZE_PRICE / 3;
-		textField.text = @"0.00";
+		textField.text = [NSString stringWithFormat:@"%.2f", stepperValue];
 		
 		frame = textField.frame;
 		stepper.frame = CGRectMake(
@@ -169,7 +178,7 @@
 		);
 		stepper.maximumValue = STEPPER_MAX_VALUE;
 		stepper.minimumValue = STEPPER_MIN_VALUE;
-		stepper.value = STEPPER_MIN_VALUE;
+		stepper.value = stepperValue;
 		stepper.delegate = self;
 		
 		frame = containerView.frame;
@@ -233,6 +242,16 @@
 - (void)stepperValueDidChange:(RPVerticalStepper *)stepper
 {
 	NSString *value = [NSString stringWithFormat:@"%.2f", stepper.value];
+	
+	if (stepper == self.drinkStepper) {
+		self.drinkTextField.text = value;
+	} else if (stepper == self.smallDishStepper) {
+		self.smallDishTextField.text = value;
+	} else if (stepper == self.mediumDishStepper) {
+		self.mediumDishTextField.text = value;
+	} else if (stepper == self.largeDishStepper) {
+		self.largeDishTextField.text = value;
+	}
 	
 	// Change image based on number
 	// TODO
