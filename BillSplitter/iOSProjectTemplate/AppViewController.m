@@ -328,7 +328,7 @@
 	frame = [field.superview convertRect:frame toView:self.scrollView];
 	
 	// Animate scroll so field is visible above keyboard
-	frame.origin.y += keyboardFrame.size.height - UI_SIZE_MIN_TOUCH;
+	frame.origin.y += keyboardFrame.size.height - UI_SIZE_MIN_TOUCH * 2;
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 

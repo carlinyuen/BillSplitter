@@ -13,7 +13,6 @@
 	#define UI_SIZE_WELCOMELABEL_HEIGHT 64
 	#define UI_SIZE_DESCRIPTIONLABEL_HEIGHT 64
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
-	#define UI_SIZE_IMAGEVIEW_HEIGHT 300
 	#define UI_SIZE_MARGIN 16
 
 	#define STEPPER_MIN_VALUE 2
@@ -89,7 +88,7 @@
 	frame = self.welcomeLabel.frame;
 	self.imageView.frame = CGRectMake(
 		UI_SIZE_MARGIN, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
-		bounds.size.width / 3, UI_SIZE_IMAGEVIEW_HEIGHT
+		bounds.size.width / 3, bounds.size.height / 3 * 2
 	);
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.imageView.image = [UIImage imageNamed:IMG_MAN];
@@ -98,7 +97,7 @@
 	frame = self.imageView.frame;
 	self.textField.frame = CGRectMake(
 		frame.origin.x + frame.size.width,
-		(bounds.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2,
+		(frame.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2 + frame.origin.y,
 		bounds.size.width / 3 + UI_SIZE_MARGIN, UI_SIZE_TEXTFIELD_HEIGHT
 	);
 	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_TEXTFIELD];
@@ -112,7 +111,7 @@
 	frame = self.textField.frame;
 	self.stepper.frame = CGRectMake(
 		frame.origin.x + frame.size.width + UI_SIZE_MARGIN,
-		(bounds.size.height - self.stepper.frame.size.height) / 2,
+		(frame.size.height - self.stepper.frame.size.height) / 2 + frame.origin.y,
 		self.stepper.frame.size.width, self.stepper.frame.size.height
 	);
 	self.stepper.minimumValue = STEPPER_MIN_VALUE;
