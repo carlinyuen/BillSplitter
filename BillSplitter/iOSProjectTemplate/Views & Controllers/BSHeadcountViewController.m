@@ -115,12 +115,6 @@
 #pragma mark - Class Functions
 
 
-#pragma mark - UI Setup
-
-
-#pragma mark - UI Events
-
-
 #pragma mark - Utility Functions
 
 
@@ -130,6 +124,9 @@
 - (void)stepperValueDidChange:(RPVerticalStepper *)stepper
 {
 	self.textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+	
+	// Change image based on number
+	// TODO
 }
 
 

@@ -68,6 +68,10 @@
 	{
 		// Input fields storage container
 		_inputFields = [[NSMutableArray alloc] init];
+		
+		[[NSNotificationCenter defaultCenter] addObserver:self
+			selector:@selector(keyboardWillShow:)
+			name:UIKeyboardWillShowNotification object:nil];
     }
     return self;
 }
@@ -298,6 +302,24 @@
 		animated:YES completion:nil];
 }
 
+/** @brief When keyboard is shown */
+- (void)keyboardWillShow:(NSNotification *)sender
+{
+	// Get keyboard position
+	NSDictionary* keyboardInfo = [sender userInfo];
+    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
+    CGRect keyboardFrame = [keyboardFrameBegin CGRectValue];
+	
+	// Get position of field that is active
+	UIView *field = self.keyboardControl.activeField;
+	CGRect frame = [field convertRect:field.frame toView:field.superview];
+	frame = [field.superview convertRect:frame toView:self.scrollView];
+	
+	// Animate scroll so field is visible above keyboard
+	frame.origin.y += keyboardFrame.size.height - UI_SIZE_MIN_TOUCH;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+}
+
 
 #pragma mark - Delegates
 #pragma mark - CustomPageControlDelegate
@@ -316,14 +338,20 @@
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
 {
     [keyboardControls.activeField resignFirstResponder];
+	
+	// Scroll back to normal page position
+	[self.scrollView scrollRectToVisible:CGRectMake(
+		0, [self offsetForPageInScrollView:self.pageControl.currentPage],
+		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
+	) animated:true];
 }
 
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
-	CGRect frame = field.frame;
-	frame = [self.scrollView convertRect:frame fromView:field];
-	debugRect(frame);
-    [self.scrollView scrollRectToVisible:frame animated:YES];
+//	CGRect frame = [field convertRect:field.frame toView:field.superview];
+//	frame = [field.superview convertRect:frame toView:self.scrollView];
+//	debugRect(frame);
+//    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 
@@ -334,6 +362,14 @@
     [self.keyboardControl setActiveField:textField];
 	[textField selectAll:self];
 	[UIMenuController sharedMenuController].menuVisible = NO;
+	
+//	CGRect frame = [textField convertRect:textField.frame toView:textField.superview];
+//	frame = [textField.superview convertRect:frame toView:self.scrollView];
+//	debugRect(frame);
+//	
+//	// Adjust frame so that the actual frame will be above keyboard in screen
+//	frame.origin.y +=
+//    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
