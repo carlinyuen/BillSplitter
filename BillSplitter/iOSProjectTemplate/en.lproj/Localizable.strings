@@ -17,5 +17,5 @@
 
 "HEADCOUNT_DESCRIPTION_TEXT" = "How many people are dining?\nScroll down to continue.";
 
-"DISHSETUP_DESCRIPTION_TEXT" = "Give us approximate prices for menu items: a drink, a cheap, an average, and an expensive dish.";
+"DISHSETUP_DESCRIPTION_TEXT" = "Give us approximate prices for menu items: an average drink, a cheap dish, an average dish, and an expensive dish.";
 

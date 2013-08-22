@@ -49,6 +49,7 @@
 	@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
+	@property (nonatomic, assign) CGRect keyboardFrame;
 
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
@@ -293,7 +294,6 @@
 /** @brief Setup control for keyboard */
 - (void)setupKeyboardControl
 {
-	debugObject(self.inputFields);
 	self.keyboardControl = [[BSKeyboardControls alloc] initWithFields:self.inputFields];
 	self.keyboardControl.delegate = self;
 }
@@ -331,15 +331,14 @@
 	// Get keyboard position
 	NSDictionary* keyboardInfo = [sender userInfo];
     NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
-    CGRect keyboardFrame = [keyboardFrameBegin CGRectValue];
+    self.keyboardFrame = [keyboardFrameBegin CGRectValue];
 	
 	// Get position of field that is active
 	UIView *field = self.keyboardControl.activeField;
-	CGRect frame = [field convertRect:field.frame toView:field.superview];
-	frame = [field.superview convertRect:frame toView:self.scrollView];
+	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
 	
 	// Animate scroll so field is visible above keyboard
-	frame.origin.y += keyboardFrame.size.height - UI_SIZE_MIN_TOUCH * 2;
+	frame.origin.y += self.keyboardFrame.size.height - UI_SIZE_MIN_TOUCH * 2;
     [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
@@ -364,17 +363,19 @@
 	
 	// Scroll back to normal page position
 	[self.scrollView scrollRectToVisible:CGRectMake(
-		0, [self offsetForPageInScrollView:self.pageControl.currentPage],
+		0, [self offsetForPageInScrollView:self.lastShownPage],
 		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
 	) animated:true];
 }
 
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
-//	CGRect frame = [field convertRect:field.frame toView:field.superview];
-//	frame = [field.superview convertRect:frame toView:self.scrollView];
-//	debugRect(frame);
-//    [self.scrollView scrollRectToVisible:frame animated:YES];
+	// Get position of field that is active
+	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
+	
+	// Animate scroll so field is visible above keyboard
+	frame.origin.y += self.keyboardFrame.size.height;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
 }
 
 
@@ -382,7 +383,6 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-	debugFunc(nil);
     [self.keyboardControl setActiveField:textField];
 	[textField selectAll:self];
 	[UIMenuController sharedMenuController].menuVisible = NO;
@@ -452,6 +452,13 @@
 	}
 	
     self.pageControl.currentPage = page;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+	if (self.lastShownPage != self.pageControl.currentPage) {
+		self.lastShownPage = self.pageControl.currentPage;
+	}
 }
 
 

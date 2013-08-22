@@ -83,9 +83,10 @@
 
 	// Loop through and layout elements
 	RPVerticalStepper *stepper;
+	UIView *containerView;
 	UIImageView *imageView;
 	UITextField *textField;
-	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 2;
+	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 1.5;
 	float scale = 1;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
@@ -127,10 +128,15 @@
 			default: break;
 		}
 		
+		// Create container view
+		containerView = [[UIView alloc] initWithFrame:CGRectMake(
+			0, frame.origin.y + frame.size.height + UI_SIZE_MARGIN,
+			bounds.size.width, itemSize
+		)];
+		
 		// Setup layout
 		imageView.frame = CGRectMake(
-			UI_SIZE_MARGIN,
-			frame.origin.y + frame.size.height + UI_SIZE_MARGIN * 1.5,
+			UI_SIZE_MARGIN, 0,
 			bounds.size.width / 4, itemSize
 		);
 		CGPoint center = imageView.center;
@@ -165,9 +171,14 @@
 		stepper.minimumValue = STEPPER_MIN_VALUE;
 		stepper.value = STEPPER_MIN_VALUE;
 		stepper.delegate = self;
+		
+		frame = containerView.frame;
+		[containerView addSubview:imageView];
+		[containerView addSubview:textField];
+		[containerView addSubview:stepper];
+		[self.view addSubview:containerView];
 	}
 
-	frame = imageView.frame;
 	self.descriptionLabel.text = NSLocalizedString(@"DISHSETUP_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
 	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -177,26 +188,10 @@
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
 		UI_SIZE_LABEL_MARGIN,
-		frame.origin.y + frame.size.height + UI_SIZE_MARGIN,
+		frame.origin.y + frame.size.height,
 		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-		bounds.size.height - UI_SIZE_MARGIN
-			- (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
+		bounds.size.height - (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
 	);
-
-	[self.view addSubview:self.drinkIV];
-	[self.view addSubview:self.smallDishIV];
-	[self.view addSubview:self.mediumDishIV];
-	[self.view addSubview:self.largeDishIV];
-	
-	[self.view addSubview:self.drinkStepper];
-	[self.view addSubview:self.smallDishStepper];
-	[self.view addSubview:self.mediumDishStepper];
-	[self.view addSubview:self.largeDishStepper];
-	
-	[self.view addSubview:self.drinkTextField];
-	[self.view addSubview:self.smallDishTextField];
-	[self.view addSubview:self.mediumDishTextField];
-	[self.view addSubview:self.largeDishTextField];
 	
 	[self.view addSubview:self.descriptionLabel];
 }
@@ -233,6 +228,15 @@
 
 
 #pragma mark - Delegates
+#pragma mark - RPVerticalStepperDelegate
+
+- (void)stepperValueDidChange:(RPVerticalStepper *)stepper
+{
+	NSString *value = [NSString stringWithFormat:@"%.2f", stepper.value];
+	
+	// Change image based on number
+	// TODO
+}
 
 
 @end
