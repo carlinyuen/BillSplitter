@@ -22,6 +22,9 @@ extern NSString* const FONT_NAME_BRANDING;
 extern NSString* const FONT_NAME_HEADERS;
 extern NSString* const FONT_NAME_COPY;
 extern NSString* const FONT_NAME_TEXTFIELD;
+extern NSString* const FONT_NAME_TAGLINE;
+extern float const FONT_SIZE_TAGLINE;
+extern float const FONT_SIZE_COPY;
 extern float const FONT_SIZE_TEXTFIELD;
 extern float const FONT_SIZE_BRANDING;
 

@@ -22,7 +22,10 @@ NSString* const FONT_NAME_BRANDING = @"Courier New";
 NSString* const FONT_NAME_HEADERS = @"HelveticaNeue-Bold";
 NSString* const FONT_NAME_COPY = @"HelveticaNeue-Light";
 NSString* const FONT_NAME_TEXTFIELD = @"MarkerFelt-Wide";
+NSString* const FONT_NAME_TAGLINE = @"MarkerFelt-Thin";
+float const FONT_SIZE_TAGLINE = 24;
 float const FONT_SIZE_TEXTFIELD = 50;
+float const FONT_SIZE_COPY = 18;
 float const FONT_SIZE_BRANDING = 13;
 
 // Time

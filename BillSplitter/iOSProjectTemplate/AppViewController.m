@@ -177,14 +177,13 @@
 /** @brief Setup headcount view */
 - (UIViewController *)setupHeadCount:(CGRect)bounds
 {
-	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:CGRectMake(0, 150, 320, 300)];
+	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:CGRectMake(
+		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+	)];
 	
 	[self.inputFields addObject:vc.textField];
 	vc.textField.delegate = self;
-	
-	CGRect frame = vc.view.frame;
-	frame.origin.y = [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + bounds.size.height / 3;
-	vc.view.frame = frame;
 	
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -194,11 +193,7 @@
 - (UIViewController *)setupDishes:(CGRect)bounds
 {
 	BSDishSetupViewController *vc = [[BSDishSetupViewController alloc] initWithFrame:bounds];
-	
-	vc.view.frame = CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageDishes],
-		bounds.size.width, bounds.size.height);
-	
+		
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
@@ -208,10 +203,6 @@
 {
 	BSDistributionViewController *vc = [[BSDistributionViewController alloc] initWithFrame:bounds];
 	
-	vc.view.frame = CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution],
-		bounds.size.width, bounds.size.height);
-	
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
@@ -220,11 +211,7 @@
 - (UIViewController *)setupTotalMarkup:(CGRect)bounds
 {
 	BSTotalMarkupViewController *vc = [[BSTotalMarkupViewController alloc] initWithFrame:bounds];
-	
-	vc.view.frame = CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageTotal],
-		bounds.size.width, bounds.size.height);
-	
+		
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
