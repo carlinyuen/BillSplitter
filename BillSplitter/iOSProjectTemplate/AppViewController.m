@@ -195,8 +195,6 @@
 	[self.inputFields addObject:vc.textField];
 	vc.textField.delegate = self;
 	
-//	[self.debugger debugSubviews:vc.view];
-	
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
@@ -210,6 +208,15 @@
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
 		
+	[self.inputFields addObject:vc.drinkTextField];
+	[self.inputFields addObject:vc.smallDishTextField];
+	[self.inputFields addObject:vc.mediumDishTextField];
+	[self.inputFields addObject:vc.largeDishTextField];
+	vc.drinkTextField.delegate = self;
+	vc.smallDishTextField.delegate = self;
+	vc.mediumDishTextField.delegate = self;
+	vc.largeDishTextField.delegate = self;
+	
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }

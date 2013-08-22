@@ -151,6 +151,8 @@
 		textField.keyboardType = UIKeyboardTypeNumberPad;
 		textField.textAlignment = NSTextAlignmentCenter;
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+		textField.adjustsFontSizeToFitWidth = true;
+		textField.minimumFontSize = FONT_SIZE_PRICE / 3;
 		textField.text = @"0.00";
 		
 		frame = textField.frame;
