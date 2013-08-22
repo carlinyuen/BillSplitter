@@ -9,6 +9,8 @@
 
 #import "BSHeadcountViewController.h"
 
+	#define UI_SIZE_WELCOMELABEL_HEIGHT 64
+	#define UI_SIZE_DESCRIPTIONLABEL_HEIGHT 64
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
 	#define UI_SIZE_MARGIN 16
 
@@ -36,9 +38,12 @@
 	{
 		_frame = frame;
 		
-		_stepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
-		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_taglineLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_welcomeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
+		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_stepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
+		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -55,6 +60,22 @@
 	
 	CGRect bounds = self.view.bounds;
 	CGRect frame;
+
+	self.taglineLabel.text = NSLocalizedString(@"TAGLINE_TEXT", nil);
+	self.taglineLabel.backgroundColor = [UIColor clearColor];
+	self.taglineLabel.textAlignment = NSTextAlignmentCenter;
+	self.taglineLabel.textColor = [UIColor darkGrayColor];
+	self.taglineLabel.frame = CGRectMake(
+		0, 0, 0, 0
+	);
+	
+	self.welcomeLabel.text = NSLocalizedString(@"WELCOME_TEXT", nil);
+	self.welcomeLabel.backgroundColor = [UIColor clearColor];
+	self.welcomeLabel.textAlignment = NSTextAlignmentCenter;
+	self.welcomeLabel.textColor = [UIColor darkGrayColor];
+	self.welcomeLabel.frame = CGRectMake(
+		0, 0, 0, 0
+	);
 	
 	self.imageView.frame = CGRectMake(
 		UI_SIZE_MARGIN, UI_SIZE_MARGIN,
@@ -87,6 +108,14 @@
 	self.stepper.minimumValue = STEPPER_MIN_VALUE;
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
 	self.stepper.delegate = self;
+	
+	self.descriptionLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);
+	self.descriptionLabel.backgroundColor = [UIColor clearColor];
+	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
+	self.descriptionLabel.textColor = [UIColor darkGrayColor];
+	self.descriptionLabel.frame = CGRectMake(
+		0, 0, 0, 0
+	);
 	
 	[self.view addSubview:self.imageView];
 	[self.view addSubview:self.textField];

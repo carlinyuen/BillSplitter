@@ -21,9 +21,12 @@
 	RPVerticalStepperDelegate
 >
 
-	@property (strong, nonatomic) UITextField *textField;
+	@property (nonatomic, strong) UILabel *taglineLabel;
+	@property (nonatomic, strong) UILabel *welcomeLabel;
 	@property (strong, nonatomic) UIImageView *imageView;
+	@property (strong, nonatomic) UITextField *textField;
 	@property (nonatomic, strong) RPVerticalStepper *stepper;
+	@property (nonatomic, strong) UILabel *descriptionLabel;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
