@@ -85,7 +85,7 @@
 	RPVerticalStepper *stepper;
 	UIImageView *imageView;
 	UITextField *textField;
-	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
+	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 2;
 	float scale = 1;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
@@ -129,16 +129,19 @@
 		
 		// Setup layout
 		imageView.frame = CGRectMake(
-			UI_SIZE_MARGIN, frame.origin.y + frame.size.height + UI_SIZE_MARGIN,
+			UI_SIZE_MARGIN,
+			frame.origin.y + frame.size.height + UI_SIZE_MARGIN * 1.5,
 			bounds.size.width / 4, itemSize
 		);
+		CGPoint center = imageView.center;
 		imageView.contentMode = UIViewContentModeScaleAspectFit;
 		imageView.clipsToBounds = true;
 		imageView.transform = CGAffineTransformMakeScale(scale, scale);
+		imageView.center = center;
 		
 		frame = imageView.frame;
 		textField.frame = CGRectMake(
-			bounds.size.width / 4 + UI_SIZE_MARGIN,
+			bounds.size.width / 4 + UI_SIZE_MARGIN / 2,
 			(frame.size.height - itemSize) / 2 + frame.origin.y,
 			bounds.size.width / 2, itemSize
 		);
@@ -171,10 +174,12 @@
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN, frame.origin.y + frame.size.height,
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, itemSize
+		UI_SIZE_LABEL_MARGIN,
+		frame.origin.y + frame.size.height + UI_SIZE_MARGIN,
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
+		bounds.size.height - UI_SIZE_MARGIN
+			- (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
 	);
-	
 
 	[self.view addSubview:self.drinkIV];
 	[self.view addSubview:self.smallDishIV];
