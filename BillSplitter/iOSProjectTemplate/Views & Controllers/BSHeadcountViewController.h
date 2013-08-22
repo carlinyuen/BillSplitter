@@ -9,18 +9,21 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RPVerticalStepper.h"
+
 @class BSHeadcountViewController;
 @protocol BSHeadcountViewControllerDelegate <NSObject>
 
 @end
 
 @interface BSHeadcountViewController : UIViewController <
-	UITextFieldDelegate
+	UITextFieldDelegate,
+	RPVerticalStepperDelegate
 >
 
-	@property (strong, nonatomic) UIStepper *stepper;
 	@property (strong, nonatomic) UITextField *textField;
 	@property (strong, nonatomic) UIImageView *imageView;
+	@property (nonatomic, strong) RPVerticalStepper *stepper;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;

@@ -173,9 +173,10 @@
 /** @brief Setup headcount view */
 - (UIViewController *)setupHeadCount:(CGRect)bounds
 {
-	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:bounds];
+	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc] initWithFrame:CGRectMake(0, 150, 320, 300)];
 	
 	[self.inputFields addObject:vc.textField];
+	vc.textField.delegate = self;
 	
 	CGRect frame = vc.view.frame;
 	frame.origin.y = [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + bounds.size.height / 3;
@@ -265,6 +266,7 @@
 /** @brief Setup control for keyboard */
 - (void)setupKeyboardControl
 {
+	debugObject(self.inputFields);
 	self.keyboardControl = [[BSKeyboardControls alloc] initWithFields:self.inputFields];
 	self.keyboardControl.delegate = self;
 }
@@ -330,6 +332,40 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self.keyboardControl setActiveField:textField];
+	[textField selectAll:self];
+	[UIMenuController sharedMenuController].menuVisible = NO;
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+	NSString *newText = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	
+	// Make sure is a number
+	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+	NSNumber *number = [formatter numberFromString:newText];
+	
+	// If headcount page
+	if (textField == [[self.viewControllers objectAtIndex:AppViewControllerPageHeadCount] textField])
+	{
+		// Restrict to max value in stepper
+		RPVerticalStepper *stepper = [[self.viewControllers objectAtIndex:AppViewControllerPageHeadCount] stepper];
+		
+		if (!number) {
+			number = [NSNumber numberWithFloat:stepper.minimumValue];
+		} else if (number.floatValue > stepper.maximumValue) {
+			number = [NSNumber numberWithFloat:stepper.maximumValue];
+		} else if (number.floatValue < 0) {
+			number = [NSNumber numberWithFloat:stepper.minimumValue];
+		}
+		
+		// Set stepper value
+		stepper.value = number.intValue;
+		textField.text = [NSString stringWithFormat:@"%i", number.intValue];
+		return NO;
+	}
+	
+	return YES;
 }
 
 
