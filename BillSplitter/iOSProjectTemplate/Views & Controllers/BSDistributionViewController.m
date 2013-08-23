@@ -71,12 +71,8 @@
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
 	CGRect frame = CGRectZero;
-	
-	// Setup
-	[self setupScrollView:bounds];
-	
+
 	// Description label
-	frame = self.scrollView.frame;
 	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
 	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -85,15 +81,21 @@
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN,
-		frame.origin.y + frame.size.height,
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-		bounds.size.height - (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
+		UI_SIZE_MARGIN, frame.origin.y + frame.size.height,
+		bounds.size.width - UI_SIZE_MARGIN * 2, bounds.size.height / 8
 	);
 	
 	[self.view addSubview:self.descriptionLabel];
+
+	// ScrollView
+	[self setupScrollView:bounds];
 	
-	self.view.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	// Background view
+	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 8, bounds.size.width, bounds.size.height * 1.5
+	)];
+	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	[self.view addSubview:backgroundView];
 }
 
 /** @brief Last-minute setup before view appears. */

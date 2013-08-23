@@ -333,6 +333,8 @@
 	// Update distribution page
 	distribution.numDiners = headCount.stepper.value;
 	
+	debugLog(@"updatePage: %i", self.pageControl.currentPage);
+	
 	// Page-based update
 	switch (self.pageControl.currentPage)
 	{
@@ -555,22 +557,22 @@
 	//	Update the page when more than 50% of the previous/next page is visible
     float pageSize = scrollView.bounds.size.height;
     int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
-	
-	// If page is not the same as lastShownPage, let page know it'll be shown
-	if (self.lastShownPage != page) {
-		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
-		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
-		[self updatePages];
-	}
-	
+
 	// Bound page limits
 	if (page >= AppViewControllerPageCount) {
 		page = AppViewControllerPageCount - 1;
 	} else if (page < 0) {
 		page = 0;
 	}
+		
+	// If page is not the same as lastShownPage, let page know it'll be shown
+	if (self.lastShownPage != page) {
+		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
+		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+	}
 	
     self.pageControl.currentPage = page;
+	[self updatePages];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
