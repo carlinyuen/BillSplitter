@@ -13,8 +13,7 @@
 
 @interface BSDistributionViewController : UIViewController <
 	RPVerticalStepperDelegate,
-	UITableViewDataSource,
-	UITableViewDelegate
+	UIScrollViewDelegate
 >
 
 	@property (nonatomic, assign) int numDiners;

@@ -9,8 +9,11 @@
 
 #import "BSDistributionViewController.h"
 
+#import "CustomPageControl.h"
+
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
+	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
@@ -27,12 +30,13 @@
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
 
-@interface BSDistributionViewController ()
+@interface BSDistributionViewController () <CustomPageControlDelegate>
 
 	@property (nonatomic, assign) CGRect frame;
 
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
+	@property (nonatomic, strong) CustomPageControl *pageControl;
 
 @end
 
@@ -71,6 +75,13 @@
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
 	CGRect frame = CGRectZero;
+	
+	// Background view
+	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 8, bounds.size.width, bounds.size.height * 1.5
+	)];
+	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	[self.view addSubview:backgroundView];
 
 	// Description label
 	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
@@ -89,13 +100,7 @@
 
 	// ScrollView
 	[self setupScrollView:bounds];
-	
-	// Background view
-	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 8, bounds.size.width, bounds.size.height * 1.5
-	)];
-	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-	[self.view addSubview:backgroundView];
+	[self setupPageControl:bounds];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -144,6 +149,12 @@
 	}
 }
 
+/** @brief Returns point offset for given page in scroll view */
+- (CGFloat)offsetForPageInScrollView:(int)page
+{
+	return self.scrollView.bounds.size.width * page;
+}
+
 
 #pragma mark - UI Setup
 
@@ -151,9 +162,37 @@
 - (void)setupScrollView:(CGRect)bounds
 {
 	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4, bounds.size.width, bounds.size.height / 2
+		0, bounds.size.height / 8, bounds.size.width, bounds.size.height / 2
 	)];
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
+	self.scrollView.backgroundColor = [UIColor grayColor];
+	self.scrollView.showsHorizontalScrollIndicator = false;
+	self.scrollView.showsVerticalScrollIndicator = false;
+	self.scrollView.clipsToBounds = false;
+	self.scrollView.delegate = self;
+	
+	[self.view addSubview:self.scrollView];
+}
+
+/** @brief Setup page control */
+- (void)setupPageControl:(CGRect)bounds
+{
+	CGRect frame = self.scrollView.frame;
+	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+		0, frame.origin.y + frame.size.height,
+		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
+	)];
+	
+	// Configure
+	self.pageControl.delegate = self;
+	self.pageControl.numberOfPages = 1;
+	self.pageControl.currentPage = 0;
+	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
+	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+	
+	// Set images
+	
+	[self.view addSubview:self.pageControl];
 }
 
 
@@ -164,7 +203,34 @@
 
 
 #pragma mark - Delegates
+#pragma mark - CustomPageControlDelegate
 
+- (void)pageControlPageDidChange:(CustomPageControl *)pageControl
+{
+	CGRect frame = self.scrollView.bounds;
+	frame.origin.x = [self offsetForPageInScrollView:pageControl.currentPage];
+	[self.scrollView scrollRectToVisible:frame animated:true];	
+}
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+	// Change page control accordingly:
+	//	Update the page when more than 50% of the previous/next page is visible
+    float pageSize = scrollView.bounds.size.height;
+    int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
+
+	// Bound page limits
+	if (page >= self.textFields.count) {
+		page = self.textFields.count - 1;
+	} else if (page < 0) {
+		page = 0;
+	}
+		
+    self.pageControl.currentPage = page;
+}
 
 
 @end
