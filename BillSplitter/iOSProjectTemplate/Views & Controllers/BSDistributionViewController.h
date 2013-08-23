@@ -11,10 +11,16 @@
 
 #import "RPVerticalStepper.h"
 
+#import "BSDistributionTableViewCell.h"
+
 @interface BSDistributionViewController : UIViewController <
-	RPVerticalStepperDelegate
+	RPVerticalStepperDelegate,
+	UITableViewDataSource,
+	UITableViewDelegate
 >
 
+	@property (nonatomic, strong) UITableView *tableView;
+	@property (nonatomic, strong) BSDistributionTableViewCell *headerView;
 	@property (nonatomic, strong) NSMutableArray *imageViews;
 	@property (nonatomic, strong) NSMutableArray *textFields;
 	@property (nonatomic, strong) NSMutableArray *steppers;

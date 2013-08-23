@@ -9,6 +9,8 @@
 
 #import "BSDistributionViewController.h"
 
+	#define TABLEVIEW_ROW_ID @"RowCell"
+
 @interface BSDistributionViewController ()
 
 	@property (nonatomic, assign) CGRect frame;
@@ -28,6 +30,8 @@
 	{
 		_frame = frame;
 		
+		_tableView = [[UITableView alloc] init];
+		_headerView = [[BSDistributionTableViewCell alloc] init];
 		_imageViews = [[NSMutableArray alloc] init];
 		_textFields = [[NSMutableArray alloc] init];
 		_steppers = [[NSMutableArray alloc] init];
@@ -44,6 +48,26 @@
     [super viewDidLoad];
 	
 	self.view.frame = self.frame;
+	CGRect bounds = self.view.bounds;
+	CGRect frame = CGRectZero;
+	
+	// Setup tableview
+	self.tableView.frame = bounds;
+	self.tableView.backgroundColor = [UIColor clearColor];
+	self.tableView.dataSource = self;
+	self.tableView.delegate = self;
+	
+	// Setup header view
+	self.headerView.textLabel.text = @"Drag item here to add new diner";
+	self.headerView.backgroundView = nil;
+	self.headerView.backgroundColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+	
+	self.tableView.tableHeaderView = self.headerView;
+	self.tableView.tableFooterView = [[UIView alloc] init];
+	[self.tableView registerClass:[BSDistributionTableViewCell class]
+		forCellReuseIdentifier:TABLEVIEW_ROW_ID];
+	[self.view addSubview:self.tableView];
+	
 	self.view.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 }
 
@@ -87,6 +111,34 @@
 
 
 #pragma mark - Delegates
+#pragma mark - UITableViewDataSource
+
+- (int)numberOfSectionsInTableView:(UITableView *)tableView
+{
+	return 1;
+}
+
+- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+	return self.textFields.count;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	BSDistributionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLEVIEW_ROW_ID];
+	
+	cell.textLabel.text = @"Hello";
+	
+	return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+
+- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	return [BSDistributionTableViewCell cellHeight];
+}
 
 
 @end

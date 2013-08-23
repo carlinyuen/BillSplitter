@@ -227,8 +227,8 @@
 {
 	BSDistributionViewController *vc = [[BSDistributionViewController alloc]
 		initWithFrame:CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH * 2,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH * 2
+		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH * 3,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH * 3
 	)];
 	
 	[self.scrollView addSubview:vc.view];
