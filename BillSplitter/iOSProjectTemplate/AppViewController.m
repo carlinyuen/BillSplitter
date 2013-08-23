@@ -312,9 +312,21 @@
 
 #pragma mark - Class Functions
 
+/** @brief Returns point offset for given page in scroll view */
 - (CGFloat)offsetForPageInScrollView:(AppViewControllerPage)page
 {
 	return self.scrollView.bounds.size.height * page;
+}
+
+/** @brief Set textfield cursor position */
+- (void)selectRangeInTextField:(UITextField *)input atRange:(NSRange)range
+{
+	UITextPosition *start = [input
+		positionFromPosition:[input beginningOfDocument] offset:range.location];
+    UITextPosition *end = [input
+		positionFromPosition:start offset:range.length];
+    [input setSelectedTextRange:[input
+		textRangeFromPosition:start toPosition:end]];
 }
 
 
@@ -427,6 +439,7 @@
 			// Set stepper value, always to integer
 			stepper.value = number.intValue;
 			textField.text = [NSString stringWithFormat:@"%i", number.intValue];
+			
 			return NO;
 		}
 
@@ -438,22 +451,42 @@
 			if (!stepper) {
 				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
 			}
-		
-			// Get new text, replace $ and periods
-			NSMutableString *newText = [[[textField.text  stringByReplacingOccurrencesOfString:@"$" withString:@""]
-				stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
 			
-			// Do some extra work: shift numbers up when typed in, replace 0's
-			NSRange rangeOfZeroInDecimals = [newText rangeOfString:@"0"
+			// Look for zeros in the decimal places so we can replace them
+			NSString *currentText = textField.text;
+			NSRange zeroDecimalRange = [currentText rangeOfString:@"0"
 				options:NSCaseInsensitiveSearch
-				range:NSMakeRange(newText.length-2, newText.length)];
+				range:NSMakeRange(currentText.length - 2, 2)];
+				
+			// If first zero is in tenths decimal place, need to make sure
+			//	there is a zero in the hundredths decimal place
+			bool hasZeroHundredthsDigit = (
+				(zeroDecimalRange.location == currentText.length - 1)
+				|| NSNotFound != [currentText rangeOfString:@"0"
+					options:NSCaseInsensitiveSearch
+					range:NSMakeRange(currentText.length - 1, 1)].location
+			);
 			
-			// Zeroes found, replace first zero with number user typed
-			if (rangeOfZeroInDecimals.location != NSNotFound) {
-				newText = [[newText stringByReplacingCharactersInRange:rangeOfZeroInDecimals withString:string] mutableCopy];
-			} else {	// Otherwise, just push onto number
-				newText = [[newText stringByReplacingCharactersInRange:range withString:string] mutableCopy];
-			}
+			// If they're trying to add another zero, means they want to shift
+			bool userEnteredZero = [string isEqualToString:@"0"];
+				
+			// See if user is trying to add a number after the decimal point
+			bool userEnteredAfterDecimalPoint = (range.location >= currentText.length - 2);
+			
+			// Get new text, if user was adding numbers at end
+			//	and zero found in decimal place and user not adding a zero,
+			//	then replace with number user typed,
+			//	otherwise just shift number up and replace $ and periods
+			NSMutableString *newText = [[[[currentText
+				stringByReplacingCharactersInRange:(
+					(!userEnteredZero
+						&& userEnteredAfterDecimalPoint
+						&& hasZeroHundredthsDigit
+						&& zeroDecimalRange.location != NSNotFound)
+						? zeroDecimalRange : range)
+					withString:string]
+				stringByReplacingOccurrencesOfString:@"$" withString:@""]
+				stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
 			
 			// Add in decimal point now
 			[newText insertString:@"." atIndex:newText.length - 2];
@@ -475,6 +508,7 @@
 			// Set stepper value
 			stepper.value = number.floatValue;
 			textField.text = [NSString stringWithFormat:@"$%.2f", number.floatValue];
+			
 			return NO;
 		}
 		
