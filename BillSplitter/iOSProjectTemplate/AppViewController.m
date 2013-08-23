@@ -390,19 +390,10 @@
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
     [self.keyboardControl setActiveField:textField];
-	[textField selectAll:self];
-	[UIMenuController sharedMenuController].menuVisible = NO;
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
-	NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-	
-	// Make sure is a number
-	NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-	[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	NSNumber *number = [formatter numberFromString:newText];
-	
 	// Stepper to update
 	RPVerticalStepper *stepper;
 	switch (textField.tag)
@@ -416,6 +407,14 @@
 				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
 			}
 			
+			// Get new text, add user entered text & replace $ signs and periods
+			NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+	
+			// Make sure is a number
+			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+			NSNumber *number = [formatter numberFromString:newText];
+				
 			// Restrict value
 			if (!number) {
 				number = [NSNumber numberWithFloat:stepper.minimumValue];
@@ -425,7 +424,7 @@
 				number = [NSNumber numberWithFloat:stepper.minimumValue];
 			}
 			
-			// Set stepper value
+			// Set stepper value, always to integer
 			stepper.value = number.intValue;
 			textField.text = [NSString stringWithFormat:@"%i", number.intValue];
 			return NO;
@@ -439,6 +438,30 @@
 			if (!stepper) {
 				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
 			}
+		
+			// Get new text, replace $ and periods
+			NSMutableString *newText = [[[textField.text  stringByReplacingOccurrencesOfString:@"$" withString:@""]
+				stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
+			
+			// Do some extra work: shift numbers up when typed in, replace 0's
+			NSRange rangeOfZeroInDecimals = [newText rangeOfString:@"0"
+				options:NSCaseInsensitiveSearch
+				range:NSMakeRange(newText.length-2, newText.length)];
+			
+			// Zeroes found, replace first zero with number user typed
+			if (rangeOfZeroInDecimals.location != NSNotFound) {
+				newText = [[newText stringByReplacingCharactersInRange:rangeOfZeroInDecimals withString:string] mutableCopy];
+			} else {	// Otherwise, just push onto number
+				newText = [[newText stringByReplacingCharactersInRange:range withString:string] mutableCopy];
+			}
+			
+			// Add in decimal point now
+			[newText insertString:@"." atIndex:newText.length - 2];
+	
+			// Make sure is a number
+			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
+			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
+			NSNumber *number = [formatter numberFromString:newText];
 			
 			// Restrict value	
 			if (!number) {
