@@ -49,7 +49,6 @@
 	@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
-	@property (nonatomic, assign) CGRect keyboardFrame;
 
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
@@ -77,10 +76,6 @@
 		// Input fields storage container
 		_inputFields = [[NSMutableArray alloc] init];
 		
-		[[NSNotificationCenter defaultCenter] addObserver:self
-			selector:@selector(keyboardWillShow:)
-			name:UIKeyboardWillShowNotification object:nil];
-			
 		_debugger = [[UIViewDebugger alloc] init];
     }
     return self;
@@ -232,8 +227,8 @@
 {
 	BSDistributionViewController *vc = [[BSDistributionViewController alloc]
 		initWithFrame:CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH * 2,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH * 2
 	)];
 	
 	[self.scrollView addSubview:vc.view];
@@ -342,23 +337,6 @@
 		animated:YES completion:nil];
 }
 
-/** @brief When keyboard is shown */
-- (void)keyboardWillShow:(NSNotification *)sender
-{
-	// Get keyboard position
-	NSDictionary* keyboardInfo = [sender userInfo];
-    NSValue* keyboardFrameBegin = [keyboardInfo valueForKey:UIKeyboardFrameBeginUserInfoKey];
-    self.keyboardFrame = [keyboardFrameBegin CGRectValue];
-	
-	// Get position of field that is active
-	UIView *field = self.keyboardControl.activeField;
-	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
-	
-	// Animate scroll so field is visible above keyboard
-	frame.origin.y += self.keyboardFrame.size.height - UI_SIZE_MIN_TOUCH * 2;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-}
-
 
 #pragma mark - Delegates
 #pragma mark - CustomPageControlDelegate
@@ -378,6 +356,9 @@
 {
     [keyboardControls.activeField resignFirstResponder];
 	
+	// Re-enable paging once done with keyboard
+	self.scrollView.pagingEnabled = true;
+	
 	// Scroll back to normal page position
 	[self.scrollView scrollRectToVisible:CGRectMake(
 		0, [self offsetForPageInScrollView:self.lastShownPage],
@@ -387,9 +368,15 @@
 
 - (void)keyboardControls:(BSKeyboardControls *)keyboardControls selectedField:(UIView *)field inDirection:(BSKeyboardControlsDirection)direction
 {
+	// To prevent stuttering of scrolling
+	self.scrollView.pagingEnabled = false;
+	
 	// Animate scroll so field is visible above keyboard
-	CGRect frame = [field convertRect:field.frame toView:self.scrollView];
-	frame.origin.y += self.keyboardFrame.size.height;
+	CGRect frame = [self.scrollView convertRect:field.frame fromView:field.superview];
+	frame = CGRectMake(
+		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 3,
+		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
+	);
     [self.scrollView scrollRectToVisible:frame animated:YES];
 	
 	// Change last shown page based on which field
@@ -401,6 +388,17 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+	// To prevent stuttering of scrolling
+	self.scrollView.pagingEnabled = false;
+	
+	// Animate scroll so field is visible above keyboard
+	CGRect frame = [self.scrollView convertRect:textField.frame fromView:textField.superview];
+	frame = CGRectMake(
+		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 3,
+		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
+	);
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+	
     [self.keyboardControl setActiveField:textField];
 }
 

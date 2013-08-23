@@ -44,6 +44,7 @@
     [super viewDidLoad];
 	
 	self.view.frame = self.frame;
+	self.view.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 }
 
 /** @brief Last-minute setup before view appears. */
