@@ -324,6 +324,28 @@
 		textRangeFromPosition:start toPosition:end]];
 }
 
+/** @brief Update pages that need to depends on other pages' data */
+- (void)updatePages
+{
+	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
+	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+	
+	// Update distribution page
+	distribution.numDiners = headCount.stepper.value;
+	
+	// Page-based update
+	switch (self.pageControl.currentPage)
+	{
+		case AppViewControllerPageDistribution:
+			self.pageControl.currentDotTintColor = [UIColor whiteColor];
+			break;
+		
+		default:
+			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+			break;
+	}
+}
+
 
 #pragma mark - UI Event Handlers
 
@@ -538,6 +560,7 @@
 	if (self.lastShownPage != page) {
 		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
 		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+		[self updatePages];
 	}
 	
 	// Bound page limits
@@ -554,6 +577,7 @@
 {
 	if (self.lastShownPage != self.pageControl.currentPage) {
 		self.lastShownPage = self.pageControl.currentPage;
+		[self updatePages];
 	}
 }
 

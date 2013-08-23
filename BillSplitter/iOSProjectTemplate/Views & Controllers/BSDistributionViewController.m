@@ -11,9 +11,28 @@
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
+	#define UI_SIZE_LABEL_MARGIN 24
+	#define UI_SIZE_MARGIN 16
+
+	#define IMAGEVIEW_SCALE_SMALLDISH 0.7
+	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
+	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
+
+	#define STEPPER_MIN_VALUE 1
+	#define STEPPER_DEFAULT_VALUE_DRINK 9.0
+	#define STEPPER_DEFAULT_VALUE_SMALLDISH 5.0
+	#define STEPPER_DEFAULT_VALUE_MEDIUMDISH 15.0
+	#define STEPPER_DEFAULT_VALUE_LARGEDISH 25.0
+
+	#define IMG_DRINK @"drink.png"
+	#define IMG_DISH @"plate.png"
+
 @interface BSDistributionViewController ()
 
 	@property (nonatomic, assign) CGRect frame;
+
+	/** For sideswipping between diners */
+	@property (nonatomic, strong) UIScrollView *scrollView;
 
 @end
 
@@ -30,11 +49,13 @@
 	{
 		_frame = frame;
 		
-		_tableView = [[UITableView alloc] init];
-		_headerView = [[BSDistributionTableViewCell alloc] init];
+		_numDiners = 1;
+		
 		_imageViews = [[NSMutableArray alloc] init];
 		_textFields = [[NSMutableArray alloc] init];
 		_steppers = [[NSMutableArray alloc] init];
+		
+		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -51,22 +72,26 @@
 	CGRect bounds = self.view.bounds;
 	CGRect frame = CGRectZero;
 	
-	// Setup tableview
-	self.tableView.frame = bounds;
-	self.tableView.backgroundColor = [UIColor clearColor];
-	self.tableView.dataSource = self;
-	self.tableView.delegate = self;
+	// Setup
+	[self setupScrollView:bounds];
 	
-	// Setup header view
-	self.headerView.textLabel.text = @"Drag item here to add new diner";
-	self.headerView.backgroundView = nil;
-	self.headerView.backgroundColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+	// Description label
+	frame = self.scrollView.frame;
+	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
+	self.descriptionLabel.numberOfLines = 0;
+	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+	self.descriptionLabel.backgroundColor = [UIColor clearColor];
+	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
+	self.descriptionLabel.textColor = [UIColor lightGrayColor];
+	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+	self.descriptionLabel.frame = CGRectMake(
+		UI_SIZE_LABEL_MARGIN,
+		frame.origin.y + frame.size.height,
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
+		bounds.size.height - (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
+	);
 	
-	self.tableView.tableHeaderView = self.headerView;
-	self.tableView.tableFooterView = [[UIView alloc] init];
-	[self.tableView registerClass:[BSDistributionTableViewCell class]
-		forCellReuseIdentifier:TABLEVIEW_ROW_ID];
-	[self.view addSubview:self.tableView];
+	[self.view addSubview:self.descriptionLabel];
 	
 	self.view.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 }
@@ -100,8 +125,34 @@
 		? [self.steppers objectAtIndex:index] : nil;
 }
 
+/** @brief When setting the number of diners, also update steppers maxes */
+- (void)setNumDiners:(int)numDiners
+{
+	_numDiners = numDiners;
+	
+	// Update steppers
+	[self updateSteppers];
+}
+
+/** @brief Updates all steppers with numDiners as max */
+- (void)updateSteppers
+{
+	for (RPVerticalStepper *stepper in self.steppers) {
+		stepper.maximumValue = self.numDiners;
+	}
+}
+
 
 #pragma mark - UI Setup
+
+/** @brief Setup scrollView */
+- (void)setupScrollView:(CGRect)bounds
+{
+	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 4, bounds.size.width, bounds.size.height / 2
+	)];
+	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
+}
 
 
 #pragma mark - UI Events
@@ -111,34 +162,7 @@
 
 
 #pragma mark - Delegates
-#pragma mark - UITableViewDataSource
 
-- (int)numberOfSectionsInTableView:(UITableView *)tableView
-{
-	return 1;
-}
-
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-	return self.textFields.count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	BSDistributionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLEVIEW_ROW_ID];
-	
-	cell.textLabel.text = @"Hello";
-	
-	return cell;
-}
-
-
-#pragma mark - UITableViewDelegate
-
-- (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-	return [BSDistributionTableViewCell cellHeight];
-}
 
 
 @end
