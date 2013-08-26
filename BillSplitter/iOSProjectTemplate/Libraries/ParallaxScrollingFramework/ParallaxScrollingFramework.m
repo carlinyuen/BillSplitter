@@ -33,10 +33,13 @@
 - (id)initWithScrollView:(UIScrollView *)scrollView
 {
     self = [super init];
-    if (self) {
+    if (self)
+	{
 		_keyframes = [[NSMutableDictionary alloc] init];
 		
 		_direction = ParallaxScrollingFrameworkDirectionHorizontal;
+		
+		_enabled = true;
 		
 		[self setScrollView:scrollView];
     }
@@ -150,8 +153,16 @@
 	// Iterate through all the keys (objects that have been keyframed)
 	[self.keyframes enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop)
 	{
-		// Setup & get frames to interpolate with
+		// Get view to interpolate on
 		UIView* view = [(NSDictionary*)obj objectForKey:KEYFRAME_KEY_VIEW];
+		
+		// If not enabled, reset transform
+		if (!self.enabled) {
+			view.transform = CGAffineTransformIdentity;
+			return;
+		}
+
+		// Setup & get frames to interpolate with
 		NSArray* frames = [(NSDictionary*)obj objectForKey:KEYFRAME_KEY_FRAMES];
 		int index = [self indexOfInsertion:@{
 			ParallaxScrollingKeyFrameOffset : @(offset)

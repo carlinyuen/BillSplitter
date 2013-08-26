@@ -227,8 +227,8 @@
 {
 	BSDistributionViewController *vc = [[BSDistributionViewController alloc]
 		initWithFrame:CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH * 3,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH * 3
+		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
 	
 	[self.scrollView addSubview:vc.view];
@@ -632,6 +632,7 @@
 	
 	// Re-enable paging once done with keyboard
 	self.scrollView.pagingEnabled = true;
+	self.animator.enabled = true;
 	
 	// Scroll back to normal page position
 	[self.scrollView scrollRectToVisible:CGRectMake(
@@ -644,6 +645,7 @@
 {
 	// To prevent stuttering of scrolling
 	self.scrollView.pagingEnabled = false;
+	self.animator.enabled = false;
 	
 	// Animate scroll so field is visible above keyboard
 	CGRect frame = [self.scrollView convertRect:field.frame fromView:field.superview];
@@ -664,6 +666,7 @@
 {
 	// To prevent stuttering of scrolling
 	self.scrollView.pagingEnabled = false;
+	self.animator.enabled = false;
 	
 	// Animate scroll so field is visible above keyboard
 	CGRect frame = [self.scrollView convertRect:textField.frame fromView:textField.superview];

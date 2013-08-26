@@ -17,6 +17,8 @@
 
 	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
 
+	#define UI_SIZE_ITEM_HEADER (UI_SIZE_MIN_TOUCH * 2)
+
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
 	#define UI_SIZE_MARGIN 16
@@ -131,6 +133,16 @@
 	[self updateSteppers];
 }
 
+/** @brief Current number of diners set up */
+- (int)dinerCount
+{
+	int count = 0;
+	for (RPVerticalStepper *stepper in self.steppers) {
+		count += stepper.value;
+	}
+	return count;
+}
+
 /** @brief Updates all steppers with numDiners as max */
 - (void)updateSteppers
 {
@@ -177,9 +189,6 @@
 		bounds.size.width / 4, itemSize / 2
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-//	textField.borderStyle = UITextBorderStyleRoundedRect;
-//	textField.keyboardAppearance = UIKeyboardAppearanceAlert;
-//	textField.keyboardType = UIKeyboardTypeNumberPad;
 	textField.textAlignment = NSTextAlignmentCenter;
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	textField.userInteractionEnabled = false;
@@ -194,7 +203,8 @@
 	);
 	stepper.maximumValue = self.numDiners;
 	stepper.minimumValue = STEPPER_MIN_VALUE;
-	stepper.value = STEPPER_DEFAULT_VALUE;
+	stepper.value = ([self dinerCount] >= self.numDiners)
+		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
 	[containerView addSubview:stepper];
 	
@@ -217,7 +227,8 @@
 - (void)setupBackgroundView:(CGRect) bounds
 {
 	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 8, bounds.size.width, bounds.size.height * 1.5
+		0, UI_SIZE_ITEM_HEADER + bounds.size.height / 8,
+		bounds.size.width, bounds.size.height * 1.15
 	)];
 	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 	[self.view addSubview:backgroundView];
@@ -234,7 +245,7 @@
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN, 0,
+		UI_SIZE_MARGIN, UI_SIZE_ITEM_HEADER,
 		bounds.size.width - UI_SIZE_MARGIN * 2, bounds.size.height / 8
 	);
 	
@@ -244,9 +255,11 @@
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
+	CGRect frame = self.descriptionLabel.frame;
 	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
-		UI_SIZE_MARGIN, bounds.size.height / 8 + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN, bounds.size.height / 2
+		UI_SIZE_MARGIN,
+		frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT,
+		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN, bounds.size.height / 5 * 2
 	)];
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
@@ -262,8 +275,9 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
+	CGRect frame = self.descriptionLabel.frame;
 	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 8,
+		0, frame.origin.y + frame.size.height,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
 	)];
 	
@@ -324,7 +338,7 @@
 		} completion:nil];
 }
 
-/** @brief Add button is pressed */
+/** @brief Add button is pressed / dropped */
 - (void)addButtonPressed:(UIButton *)button
 {
 	[self addDiner];
@@ -355,6 +369,7 @@
 /** @brief Item dropped on diner */
 - (void)dinerItemDropped:(UIButton *)button
 {
+	debugFunc(nil);
 }
 
 
