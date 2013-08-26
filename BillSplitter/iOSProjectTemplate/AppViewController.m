@@ -583,7 +583,7 @@
 	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
 	
 	// Update distribution page
-	distribution.numDiners = headCount.stepper.value;
+	distribution.headCount = headCount.stepper.value;
 	
 	// Page-based update
 	switch (self.pageControl.currentPage)

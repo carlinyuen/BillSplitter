@@ -16,7 +16,7 @@
 	UIScrollViewDelegate
 >
 
-	@property (nonatomic, assign) int numDiners;
+	@property (nonatomic, assign) int headCount;
 
 	@property (nonatomic, strong) UIButton *addButton;
 

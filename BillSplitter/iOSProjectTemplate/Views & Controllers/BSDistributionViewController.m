@@ -59,7 +59,7 @@
 	{
 		_frame = frame;
 		
-		_numDiners = STEPPER_DEFAULT_MAX_VALUE;
+		_headCount = STEPPER_DEFAULT_MAX_VALUE;
 		
 		_addButton = [[UIButton alloc] init];
 		
@@ -126,12 +126,18 @@
 }
 
 /** @brief When setting the number of diners, also update steppers maxes */
-- (void)setNumDiners:(int)numDiners
+- (void)setHeadCount:(int)headCount
 {
-	_numDiners = numDiners;
+	_headCount = headCount;
 	
 	// Update steppers
 	[self updateSteppers];
+}
+
+/** @brief Current number of diner profiles set up */
+- (int)profileCount
+{
+	return self.steppers.count;
 }
 
 /** @brief Current number of diners set up */
@@ -144,11 +150,11 @@
 	return count;
 }
 
-/** @brief Updates all steppers with numDiners as max */
+/** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
 	for (RPVerticalStepper *stepper in self.steppers) {
-		stepper.maximumValue = self.numDiners;
+		stepper.maximumValue = self.headCount;
 	}
 }
 
@@ -156,6 +162,15 @@
 - (CGFloat)offsetForPageInScrollView:(int)page
 {
 	return self.scrollView.bounds.size.width * page;
+}
+
+/** @brief Scrolls scrollview to page */
+- (void)scrollToPage:(int)page
+{
+	[self.scrollView scrollRectToVisible:CGRectMake(
+		[self offsetForPageInScrollView:page], 0,
+		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
+	) animated:true];
 }
 
 /** @brief Adds a new diner */
@@ -166,7 +181,7 @@
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
-	frame.origin.x = [self offsetForPageInScrollView:self.textFields.count];
+	frame.origin.x = [self offsetForPageInScrollView:[self profileCount]];
 	frame.size.width -= UI_SIZE_MARGIN;
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.backgroundColor = [UIColor whiteColor];
@@ -213,9 +228,9 @@
 		(frame.size.height - stepper.frame.size.height) / 2 + frame.origin.y,
 		stepper.frame.size.width, stepper.frame.size.height
 	);
-	stepper.maximumValue = self.numDiners;
+	stepper.maximumValue = self.headCount;
 	stepper.minimumValue = STEPPER_MIN_VALUE;
-	stepper.value = ([self dinerCount] >= self.numDiners)
+	stepper.value = ([self dinerCount] >= self.headCount)
 		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
 	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
@@ -228,9 +243,9 @@
 	[self.steppers addObject:stepper];
 	
 	// Update page control & content size of scrollview
-	self.pageControl.numberOfPages = self.textFields.count;
+	self.pageControl.numberOfPages = [self profileCount];
 	self.scrollView.contentSize = CGSizeMake(
-		bounds.size.width * self.textFields.count, bounds.size.height);
+		bounds.size.width * self.pageControl.numberOfPages, bounds.size.height);
 	[self.scrollView addSubview:containerView];
 }
 
@@ -341,6 +356,13 @@
 	[self.addButton addTarget:self action:@selector(addButtonHoverOver:) forControlEvents:UIControlEventTouchDragEnter];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOut:) forControlEvents:UIControlEventTouchDragExit];
 	
+	// Add gesture using swipe
+	UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(addButtonSwiped:)];
+	swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+	swipe.delaysTouchesBegan = false;
+	swipe.delaysTouchesEnded = false;
+	[self.addButton addGestureRecognizer:swipe];
+	
 	[self.view addSubview:self.addButton];
 }
 
@@ -373,6 +395,14 @@
 - (void)addButtonPressed:(UIButton *)button
 {
 	[self addDiner];
+	[self scrollToPage:[self profileCount] - 1];
+}
+
+/** @brief Add button is swiped on */
+- (void)addButtonSwiped:(UISwipeGestureRecognizer *)gesture
+{
+	[self addDiner];
+	[self scrollToPage:[self profileCount] - 1];
 }
 
 /** @brief Diner item not hovered */
@@ -428,8 +458,8 @@
     int page = floor((scrollView.contentOffset.x - pageSize / 2) / pageSize) + 1;
 
 	// Bound page limits
-	if (page >= self.textFields.count) {
-		page = self.textFields.count - 1;
+	if (page >= [self profileCount]) {
+		page = [self profileCount] - 1;
 	} else if (page < 0) {
 		page = 0;
 	}
