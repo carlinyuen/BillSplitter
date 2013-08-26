@@ -246,6 +246,8 @@
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
 	self.scrollView.showsVerticalScrollIndicator = false;
+	self.scrollView.directionalLockEnabled = true;
+	self.scrollView.pagingEnabled = true;
 	self.scrollView.clipsToBounds = false;
 	self.scrollView.delegate = self;
 	
