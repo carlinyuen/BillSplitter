@@ -201,7 +201,7 @@
 	// Update page control & content size of scrollview
 	self.pageControl.numberOfPages = self.textFields.count;
 	self.scrollView.contentSize = CGSizeMake(
-		frame.size.width * self.textFields.count, frame.size.height);
+		bounds.size.width * self.textFields.count, bounds.size.height);
 	[self.scrollView addSubview:containerView];
 }
 
