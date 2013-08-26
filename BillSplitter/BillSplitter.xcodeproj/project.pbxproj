@@ -44,6 +44,8 @@
 		5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C897B1790AF3300018AD7 /* AppViewController.xib */; };
 		5F7C89801790B17800018AD7 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C897F1790B17800018AD7 /* InfoViewController.m */; };
 		5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C8981179439A600018AD7 /* Default-568h@2x.png */; };
+		5FE425BD17CBE330009F7652 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BB17CBE330009F7652 /* minus.png */; };
+		5FE425BE17CBE330009F7652 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BC17CBE330009F7652 /* plus.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +104,8 @@
 		5F7C897E1790B17700018AD7 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		5F7C897F1790B17800018AD7 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5F7C8981179439A600018AD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
+		5FE425BB17CBE330009F7652 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
+		5FE425BC17CBE330009F7652 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +284,8 @@
 		5F7C89771790AF0900018AD7 /* images */ = {
 			isa = PBXGroup;
 			children = (
+				5FE425BB17CBE330009F7652 /* minus.png */,
+				5FE425BC17CBE330009F7652 /* plus.png */,
 				5F459F0517C54FA900DCBDD9 /* drink.png */,
 				5F459F0617C54FA900DCBDD9 /* man.png */,
 				5F459F0717C54FA900DCBDD9 /* pizza.png */,
@@ -377,6 +383,8 @@
 				5F459F2D17C6605800DCBDD9 /* stepperPlusSymbol@2x.png in Resources */,
 				5F459F2E17C6605800DCBDD9 /* stepperTopButton.png in Resources */,
 				5F459F2F17C6605800DCBDD9 /* stepperTopButton@2x.png in Resources */,
+				5FE425BD17CBE330009F7652 /* minus.png in Resources */,
+				5FE425BE17CBE330009F7652 /* plus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

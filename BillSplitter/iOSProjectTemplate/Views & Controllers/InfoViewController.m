@@ -25,7 +25,6 @@
 @interface InfoViewController ()
 
 	/** UI Elements */
-	@property (nonatomic, strong) UINavigationBar *navBar;
 	@property (nonatomic, strong) UIView *tableHeaderView;
 	@property (nonatomic, strong) UITableView *tableView;
 	@property (nonatomic, strong) UIView *tableFooterView;
@@ -106,8 +105,7 @@
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
 		initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 		target:self action:@selector(doneButtonPressed:)];
-	
-	[self.view addSubview:self.navBar];
+	self.navigationItem.leftBarButtonItem.tintColor = UIColorFromHex(COLOR_HEX_LIGHT_ACCENT);
 }
 
 /** @brief Setup tableview */

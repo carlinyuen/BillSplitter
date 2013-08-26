@@ -9,13 +9,14 @@
 
 #import "BSDistributionViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "CustomPageControl.h"
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
 	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
 
-	#define UI_SIZE_SCROLLVIEW_HEIGHT 80
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
 	#define UI_SIZE_MARGIN 16
@@ -154,11 +155,16 @@
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	frame.origin.x = [self offsetForPageInScrollView:self.textFields.count];
+	frame.size.width -= UI_SIZE_MARGIN;
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
+	containerView.backgroundColor = [UIColor whiteColor];
+	containerView.layer.shadowRadius = 4;
+	containerView.layer.shadowOffset = CGSizeMake(0, 4);
+	containerView.layer.shadowOpacity = 0.3;
 	
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
-		bounds.size.width / 4, itemSize
+		bounds.size.width / 2, itemSize
 	)];
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
 	button.contentMode = UIViewContentModeScaleAspectFill;
@@ -170,14 +176,14 @@
 	frame = button.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
 		frame.origin.x + frame.size.width, UI_SIZE_DINER_MARGIN,
-		bounds.size.width / 2, itemSize
+		bounds.size.width / 4, itemSize / 2
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	textField.borderStyle = UITextBorderStyleRoundedRect;
 	textField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	textField.keyboardType = UIKeyboardTypeNumberPad;
 	textField.textAlignment = NSTextAlignmentCenter;
-	textField.backgroundColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+	textField.backgroundColor = UIColorFromHex(COLOR_HEX_LIGHT_ACCENT);
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	[containerView addSubview:textField];
 
@@ -240,8 +246,8 @@
 - (void)setupScrollView:(CGRect)bounds
 {
 	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
-		bounds.size.width / 8, bounds.size.height / 8,
-		bounds.size.width / 8 * 6, UI_SIZE_SCROLLVIEW_HEIGHT
+		UI_SIZE_MARGIN, bounds.size.height / 8 + UI_SIZE_PAGECONTROL_HEIGHT,
+		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN, bounds.size.height / 2
 	)];
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
@@ -257,9 +263,8 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
-	CGRect frame = self.scrollView.frame;
 	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, frame.origin.y + frame.size.height,
+		0, bounds.size.height / 8,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
 	)];
 	
@@ -268,7 +273,7 @@
 	self.pageControl.numberOfPages = 0;
 	self.pageControl.currentPage = 0;
 	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
-	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_NAVBAR_BUTTON);
+	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
 	// Set images
 	
@@ -279,11 +284,15 @@
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		bounds.size.width / 6 * 5, 0,
-		bounds.size.width / 6, bounds.size.height
+		bounds.size.width / 8 * 7, self.scrollView.frame.origin.y,
+		bounds.size.width / 8, self.scrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
-	self.addButton.contentMode = UIViewContentModeScaleAspectFit;
+	self.addButton.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	self.addButton.layer.shadowRadius = 4;
+	self.addButton.layer.shadowOffset = CGSizeMake(0, 4);
+	self.addButton.layer.shadowOpacity = 0.3;
+	self.addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 	[self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOver:) forControlEvents:UIControlEventTouchDragEnter];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOut:) forControlEvents:UIControlEventTouchDragExit];
@@ -370,8 +379,8 @@
 {
 	// Change page control accordingly:
 	//	Update the page when more than 50% of the previous/next page is visible
-    float pageSize = scrollView.bounds.size.height;
-    int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
+    float pageSize = scrollView.bounds.size.width;
+    int page = floor((scrollView.contentOffset.x - pageSize / 2) / pageSize) + 1;
 
 	// Bound page limits
 	if (page >= self.textFields.count) {
