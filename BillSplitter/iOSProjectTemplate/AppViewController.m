@@ -333,8 +333,6 @@
 	// Update distribution page
 	distribution.numDiners = headCount.stepper.value;
 	
-	debugLog(@"updatePage: %i", self.pageControl.currentPage);
-	
 	// Page-based update
 	switch (self.pageControl.currentPage)
 	{
