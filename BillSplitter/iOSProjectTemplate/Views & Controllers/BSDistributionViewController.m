@@ -63,6 +63,7 @@
 		
 		_addButton = [[UIButton alloc] init];
 		
+		_dishViews = [[NSMutableArray alloc] init];
 		_buttons = [[NSMutableArray alloc] init];
 		_textFields = [[NSMutableArray alloc] init];
 		_steppers = [[NSMutableArray alloc] init];
@@ -164,6 +165,7 @@
 	CGRect frame = bounds;
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
+	// Container for elements
 	frame.origin.x = [self offsetForPageInScrollView:self.textFields.count];
 	frame.size.width -= UI_SIZE_MARGIN;
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
@@ -172,6 +174,14 @@
 	containerView.layer.shadowOffset = CGSizeMake(0, 4);
 	containerView.layer.shadowOpacity = 0.3;
 	
+	// Container for dishes
+	UIView *dishView = [[UIView alloc] initWithFrame:CGRectMake(
+		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN, UI_SIZE_MIN_TOUCH, itemSize
+	)];
+	dishView.backgroundColor = [UIColor clearColor];
+	[containerView addSubview:dishView];
+	
+	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
 		bounds.size.width / 2, itemSize
@@ -183,6 +193,7 @@
 	[button addTarget:self action:@selector(dinerItemHoveredOut:) forControlEvents:UIControlEventTouchDragExit];
 	[containerView addSubview:button];
 	
+	// Textfield for count of diners
 	frame = button.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
 		frame.origin.x + frame.size.width, UI_SIZE_DINER_MARGIN,
@@ -194,6 +205,7 @@
 	textField.userInteractionEnabled = false;
 	[containerView addSubview:textField];
 
+	// Stepper for textfield
 	frame = textField.frame;
 	RPVerticalStepper *stepper = [[RPVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
@@ -206,10 +218,12 @@
 	stepper.value = ([self dinerCount] >= self.numDiners)
 		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
+	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[containerView addSubview:stepper];
 	
-	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+	// Keeping track of elements
 	[self.textFields addObject:textField];
+	[self.dishViews addObject:dishView];
 	[self.buttons addObject:button];
 	[self.steppers addObject:stepper];
 	
@@ -301,11 +315,28 @@
 		bounds.size.width / 8, self.scrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
-	self.addButton.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
+		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
+		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN
+	);
 	self.addButton.layer.shadowRadius = 4;
 	self.addButton.layer.shadowOffset = CGSizeMake(0, 4);
 	self.addButton.layer.shadowOpacity = 0.3;
 	self.addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	
+	// Gradient background
+	CAGradientLayer *gradientBG = [CAGradientLayer layer];
+	gradientBG.colors = [NSArray arrayWithObjects:
+		(id)UIColorFromHex(0xFFFFFF11).CGColor,
+		(id)UIColorFromHex(0xFFFFFFFF).CGColor,
+		nil
+	];
+	gradientBG.transform = CATransform3DMakeRotation(
+		degreesToRadians(-90), 0, 0, 1);
+	gradientBG.frame = self.addButton.bounds;
+	[self.addButton.layer insertSublayer:gradientBG atIndex:0];
+//	self.addButton.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	
 	[self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOver:) forControlEvents:UIControlEventTouchDragEnter];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOut:) forControlEvents:UIControlEventTouchDragExit];

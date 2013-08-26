@@ -20,6 +20,7 @@
 
 	@property (nonatomic, strong) UIButton *addButton;
 
+	@property (nonatomic, strong) NSMutableArray *dishViews;
 	@property (nonatomic, strong) NSMutableArray *buttons;
 	@property (nonatomic, strong) NSMutableArray *textFields;
 	@property (nonatomic, strong) NSMutableArray *steppers;
