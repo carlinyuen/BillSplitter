@@ -149,7 +149,7 @@
 			bounds.size.width / 4, itemSize
 		);
 		CGPoint center = button.center;
-		button.contentMode = UIViewContentModeScaleAspectFit;
+		button.imageView.contentMode = UIViewContentModeScaleAspectFit;
 		button.clipsToBounds = true;
 		button.transform = CGAffineTransformMakeScale(scale, scale);
 		button.center = center;

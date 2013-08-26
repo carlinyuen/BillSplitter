@@ -25,11 +25,9 @@
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
 
-	#define STEPPER_MIN_VALUE 1
-	#define STEPPER_DEFAULT_VALUE_DRINK 9.0
-	#define STEPPER_DEFAULT_VALUE_SMALLDISH 5.0
-	#define STEPPER_DEFAULT_VALUE_MEDIUMDISH 15.0
-	#define STEPPER_DEFAULT_VALUE_LARGEDISH 25.0
+	#define STEPPER_MIN_VALUE 0
+	#define STEPPER_DEFAULT_VALUE 1
+	#define STEPPER_DEFAULT_MAX_VALUE 2
 
 	#define IMG_DINER @"man.png"
 	#define IMG_DRINK @"drink.png"
@@ -59,7 +57,7 @@
 	{
 		_frame = frame;
 		
-		_numDiners = 1;
+		_numDiners = STEPPER_DEFAULT_MAX_VALUE;
 		
 		_addButton = [[UIButton alloc] init];
 		
@@ -179,27 +177,28 @@
 		bounds.size.width / 4, itemSize / 2
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-	textField.borderStyle = UITextBorderStyleRoundedRect;
-	textField.keyboardAppearance = UIKeyboardAppearanceAlert;
-	textField.keyboardType = UIKeyboardTypeNumberPad;
+//	textField.borderStyle = UITextBorderStyleRoundedRect;
+//	textField.keyboardAppearance = UIKeyboardAppearanceAlert;
+//	textField.keyboardType = UIKeyboardTypeNumberPad;
 	textField.textAlignment = NSTextAlignmentCenter;
-	textField.backgroundColor = UIColorFromHex(COLOR_HEX_LIGHT_ACCENT);
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	textField.userInteractionEnabled = false;
 	[containerView addSubview:textField];
 
 	frame = textField.frame;
 	RPVerticalStepper *stepper = [[RPVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
-		frame.origin.x + frame.size.width + UI_SIZE_DINER_MARGIN,
+		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
 		(frame.size.height - stepper.frame.size.height) / 2 + frame.origin.y,
 		stepper.frame.size.width, stepper.frame.size.height
 	);
 	stepper.maximumValue = self.numDiners;
 	stepper.minimumValue = STEPPER_MIN_VALUE;
-	stepper.value = STEPPER_MIN_VALUE;
+	stepper.value = STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
 	[containerView addSubview:stepper];
 	
+	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[self.textFields addObject:textField];
 	[self.buttons addObject:button];
 	[self.steppers addObject:stepper];
