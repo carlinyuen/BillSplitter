@@ -205,6 +205,21 @@
 		[dishView addSubview:dish];
 	}
 	
+	// Close button
+	UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(
+		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2 - UI_SIZE_DINER_MARGIN,
+		UI_SIZE_DINER_MARGIN,
+		UI_SIZE_MIN_TOUCH / 2, UI_SIZE_MIN_TOUCH / 2
+	)];
+	[closeButton setTitle:@"X" forState:UIControlStateNormal];
+	closeButton.contentHorizontalAlignment
+		= UIControlContentHorizontalAlignmentCenter;
+	closeButton.contentVerticalAlignment
+		= UIControlContentVerticalAlignmentCenter;
+	[closeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_DARK) forState:UIControlStateNormal];
+	closeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+	[containerView addSubview:closeButton];
+	
 	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
@@ -220,7 +235,8 @@
 	// Textfield for count of diners
 	frame = button.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
-		frame.origin.x + frame.size.width, UI_SIZE_DINER_MARGIN,
+		frame.origin.x + frame.size.width,
+		containerView.bounds.size.height - itemSize / 2 - UI_SIZE_DINER_MARGIN,
 		bounds.size.width / 4, itemSize / 2
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
@@ -297,7 +313,8 @@
 	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
 		UI_SIZE_MARGIN,
 		frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN, bounds.size.height / 5 * 2
+		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN,
+		bounds.size.height - UI_SIZE_MIN_TOUCH - (frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT)
 	)];
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
@@ -352,6 +369,7 @@
 	CAGradientLayer *gradientBG = [CAGradientLayer layer];
 	gradientBG.colors = [NSArray arrayWithObjects:
 		(id)UIColorFromHex(0xFFFFFF11).CGColor,
+		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
 		(id)UIColorFromHex(0xFFFFFFFF).CGColor,
 		nil
 	];
