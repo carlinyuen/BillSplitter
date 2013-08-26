@@ -93,7 +93,7 @@
 	[self setupAddView:bounds];
 	
 	// Add first diner
-	[self addDiner];
+	[self addDiner:nil];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -174,7 +174,7 @@
 }
 
 /** @brief Adds a new diner */
-- (void)addDiner
+- (void)addDiner:(UIView *)dish
 {
 	CGRect bounds = self.scrollView.bounds;
 	CGRect frame = bounds;
@@ -195,6 +195,15 @@
 	)];
 	dishView.backgroundColor = [UIColor clearColor];
 	[containerView addSubview:dishView];
+	
+	// Adding dish if exists
+	if (dish) {
+		dish.frame = CGRectMake(
+			0, dishView.subviews.count * (dishView.bounds.size.height + UI_SIZE_DINER_MARGIN),
+			dishView.bounds.size.width, dishView.bounds.size.height
+		);
+		[dishView addSubview:dish];
+	}
 	
 	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
@@ -350,7 +359,6 @@
 		degreesToRadians(-90), 0, 0, 1);
 	gradientBG.frame = self.addButton.bounds;
 	[self.addButton.layer insertSublayer:gradientBG atIndex:0];
-//	self.addButton.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
 	[self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	[self.addButton addTarget:self action:@selector(addButtonHoverOver:) forControlEvents:UIControlEventTouchDragEnter];
@@ -394,14 +402,14 @@
 /** @brief Add button is pressed / dropped */
 - (void)addButtonPressed:(UIButton *)button
 {
-	[self addDiner];
+	[self addDiner:nil];
 	[self scrollToPage:[self profileCount] - 1];
 }
 
 /** @brief Add button is swiped on */
 - (void)addButtonSwiped:(UISwipeGestureRecognizer *)gesture
 {
-	[self addDiner];
+	[self addDiner:nil];
 	[self scrollToPage:[self profileCount] - 1];
 }
 
