@@ -202,7 +202,7 @@
 		bounds.size.width / 2, itemSize
 	)];
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
-	button.contentMode = UIViewContentModeScaleAspectFill;
+	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[button addTarget:self action:@selector(dinerItemDropped:) forControlEvents:UIControlEventTouchUpInside];
 	[button addTarget:self action:@selector(dinerItemHoveredOver:) forControlEvents:UIControlEventTouchDragEnter];
 	[button addTarget:self action:@selector(dinerItemHoveredOut:) forControlEvents:UIControlEventTouchDragExit];
