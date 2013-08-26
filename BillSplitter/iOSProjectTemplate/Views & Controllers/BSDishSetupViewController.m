@@ -182,9 +182,9 @@
 		stepper.value = stepperValue;
 		
 		frame = containerView.frame;
-		[containerView addSubview:button];
-		[containerView addSubview:textField];
 		[containerView addSubview:stepper];
+		[containerView addSubview:textField];
+		[containerView addSubview:button];
 		[self.view addSubview:containerView];
 	}
 

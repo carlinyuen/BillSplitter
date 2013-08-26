@@ -327,6 +327,7 @@
 		vc.mediumDishTextField,
 		vc.largeDishStepper,
 		vc.largeDishTextField,
+		vc.descriptionLabel,
 		nil];
 
 	// Starting point
@@ -341,20 +342,21 @@
 	}
 
 	// Move with scroll for a bit
-	difference = bounds.size.height / 2;
-	for (UIView *element in elements) {
-		[self.animator setKeyFrameWithOffset: yOffset + difference
-			translate:CGPointMake(0, difference)
+	difference = bounds.size.height / 8;
+	for (int i = 0; i < elements.count; ++i) {
+		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH * (i/2))
+			translate:CGPointMake(0, difference + (UI_SIZE_MIN_TOUCH * (i/2)))
 			scale:CGSizeMake(1, 1)
 			rotate:0
 			alpha:1
-			forView:element
+			forView:[elements objectAtIndex:i]
 		];
 	}
 	
 	// Hide
+	difference = bounds.size.height / 4;
 	for (int i = 0; i < elements.count; ++i) {
-		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH / (i+1))
+		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH * (i/2))
 			translate:CGPointMake(0, 0)
 			scale:CGSizeMake(1, 1)
 			rotate:0
