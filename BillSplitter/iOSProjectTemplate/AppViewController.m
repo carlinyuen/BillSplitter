@@ -310,97 +310,106 @@
 	CGAffineTransform transform;
 	float yOffset = 0;
 	float xOffset = 0;
+	float difference = 0;
 	
-	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
 	BSDishSetupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
 	
-	transform = vc.drinkIV.transform;
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(transform.a, transform.d)
-		rotate:0
-		alpha:1
-		forView:vc.drinkIV
-	];
-	transform = vc.smallDishIV.transform;
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(transform.a, transform.d)
-		rotate:0
-		alpha:1
-		forView:vc.smallDishIV
-	];
-	transform = vc.mediumDishIV.transform;
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(transform.a, transform.d)
-		rotate:0
-		alpha:1
-		forView:vc.mediumDishIV
-	];
-	transform = vc.largeDishIV.transform;
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(transform.a, transform.d)
-		rotate:0
-		alpha:1
-		forView:vc.largeDishIV
-	];
-	
-	yOffset += 20;
-	targetSize = CGSizeMake(1.2, 1.2);
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:targetSize
-		rotate:0
-		alpha:1
-		forView:vc.drinkIV
-	];
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:targetSize
-		rotate:0
-		alpha:1
-		forView:vc.smallDishIV
-	];
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:targetSize
-		rotate:0
-		alpha:1
-		forView:vc.mediumDishIV
-	];
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:targetSize
-		rotate:0
-		alpha:1
-		forView:vc.largeDishIV
-	];
-	
-	yOffset += bounds.size.height / 2;
-	xOffset = bounds.size.width / 4;
+	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
+	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	tempFrame = vc.view.frame;
-	tempSize = targetSize;
-	targetSize = CGSizeMake(1, 1);
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(vc.drinkIV.frame) + UI_SIZE_MIN_TOUCH / 2;
-	targetPoint.x = xOffset;
+	
+	NSArray *elements = [NSArray arrayWithObjects:
+		vc.drinkStepper,
+		vc.drinkTextField,
+		vc.smallDishStepper,
+		vc.smallDishTextField,
+		vc.mediumDishStepper,
+		vc.mediumDishTextField,
+		vc.largeDishStepper,
+		vc.largeDishTextField,
+		nil];
+
+	// Starting point
+	for (UIView *element in elements) {
+		[self.animator setKeyFrameWithOffset: yOffset
+			translate:CGPointMake(0, 0)
+			scale:CGSizeMake(1, 1)
+			rotate:0
+			alpha:1
+			forView:element
+		];
+	}
+
+	// Move with scroll for a bit
+	difference = bounds.size.height / 2;
+	for (UIView *element in elements) {
+		[self.animator setKeyFrameWithOffset: yOffset + difference
+			translate:CGPointMake(0, difference)
+			scale:CGSizeMake(1, 1)
+			rotate:0
+			alpha:1
+			forView:element
+		];
+	}
+	
+	// Hide
+	for (int i = 0; i < elements.count; ++i) {
+		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH / (i+1))
+			translate:CGPointMake(0, 0)
+			scale:CGSizeMake(1, 1)
+			rotate:0
+			alpha:0
+			forView:[elements objectAtIndex:i]
+		];
+	}
+	
+	// Drink 
+	transform = vc.drinkIV.transform;
+	tempSize = CGSizeMake(transform.a, transform.d);
+	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
 	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:tempSize
+		rotate:0
+		alpha:1
+		forView:vc.drinkIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.drinkIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 4
+		translate:CGPointMake(0, bounds.size.height / 4)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.drinkIV
+	];
+	targetFrame = [vc.view convertRect:vc.drinkIV.frame fromView:vc.drinkIV.superview];
+	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.x = 0;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
 		alpha:1
 		forView:vc.drinkIV
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + 20
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 + UI_SIZE_MIN_TOUCH
 		translate:targetPoint
-		scale:targetSize
+		scale:tempSize
 		rotate:0
 		alpha:1
 		forView:vc.drinkIV
 	];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(vc.smallDishIV.frame) + UI_SIZE_MIN_TOUCH / 2;
-	targetPoint.x += xOffset;
+	
+	transform = vc.smallDishIV.transform;
+	tempSize = CGSizeMake(transform.a, transform.d);
+	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
+	targetPoint = CGPointMake(0, UI_SIZE_MIN_TOUCH);
 	[self.animator setKeyFrameWithOffset: yOffset
 		translate:CGPointMake(0, 0)
 		scale:tempSize
@@ -408,15 +417,42 @@
 		alpha:1
 		forView:vc.smallDishIV
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + 20
+	[self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.smallDishIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 4
+		translate:CGPointMake(0, bounds.size.height / 4)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.smallDishIV
+	];
+	targetFrame = [vc.view convertRect:vc.smallDishIV.frame fromView:vc.smallDishIV.superview];
+	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.x = 1 * xOffset;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
 		alpha:1
 		forView:vc.smallDishIV
 	];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(vc.mediumDishIV.frame) + UI_SIZE_MIN_TOUCH / 2;
-	targetPoint.x += xOffset;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 + UI_SIZE_MIN_TOUCH
+		translate:targetPoint
+		scale:tempSize
+		rotate:0
+		alpha:1
+		forView:vc.smallDishIV
+	];
+	
+	transform = vc.mediumDishIV.transform;
+	tempSize = CGSizeMake(transform.a, transform.d);
+	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
+	targetPoint = CGPointMake(0, UI_SIZE_MIN_TOUCH);
 	[self.animator setKeyFrameWithOffset: yOffset
 		translate:CGPointMake(0, 0)
 		scale:tempSize
@@ -424,15 +460,42 @@
 		alpha:1
 		forView:vc.mediumDishIV
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + 20
+	[self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.mediumDishIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 4
+		translate:CGPointMake(0, bounds.size.height / 4)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.mediumDishIV
+	];
+	targetFrame = [vc.view convertRect:vc.mediumDishIV.frame fromView:vc.mediumDishIV.superview];
+	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.x = 2 * xOffset;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
 		alpha:1
 		forView:vc.mediumDishIV
 	];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(vc.largeDishIV.frame) + UI_SIZE_MIN_TOUCH / 2;
-	targetPoint.x += xOffset;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 + UI_SIZE_MIN_TOUCH
+		translate:targetPoint
+		scale:tempSize
+		rotate:0
+		alpha:1
+		forView:vc.mediumDishIV
+	];
+	
+	transform = vc.largeDishIV.transform;
+	tempSize = CGSizeMake(transform.a, transform.d);
+	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
+	targetPoint = CGPointMake(0, UI_SIZE_MIN_TOUCH);
 	[self.animator setKeyFrameWithOffset: yOffset
 		translate:CGPointMake(0, 0)
 		scale:tempSize
@@ -440,9 +503,33 @@
 		alpha:1
 		forView:vc.largeDishIV
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + 20
+	[self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.largeDishIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 4
+		translate:CGPointMake(0, bounds.size.height / 4)
+		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.largeDishIV
+	];
+	targetFrame = [vc.view convertRect:vc.largeDishIV.frame fromView:vc.largeDishIV.superview];
+	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.x = 3 * xOffset;
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
 		scale:targetSize
+		rotate:0
+		alpha:1
+		forView:vc.largeDishIV
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 + UI_SIZE_MIN_TOUCH
+		translate:targetPoint
+		scale:tempSize
 		rotate:0
 		alpha:1
 		forView:vc.largeDishIV

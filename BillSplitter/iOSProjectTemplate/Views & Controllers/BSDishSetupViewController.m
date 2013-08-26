@@ -53,10 +53,10 @@
 	{
 		_frame = frame;
 		
-		_drinkIV = [[UIImageView alloc] initWithFrame:CGRectZero];
-		_smallDishIV = [[UIImageView alloc] initWithFrame:CGRectZero];
-		_mediumDishIV = [[UIImageView alloc] initWithFrame:CGRectZero];
-		_largeDishIV = [[UIImageView alloc] initWithFrame:CGRectZero];
+		_drinkIV = [[UIButton alloc] initWithFrame:CGRectZero];
+		_smallDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
+		_mediumDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
+		_largeDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
 		
 		_drinkTextField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_smallDishTextField = [[UITextField alloc] initWithFrame:CGRectZero];
@@ -88,7 +88,7 @@
 	// Loop through and layout elements
 	RPVerticalStepper *stepper;
 	UIView *containerView;
-	UIImageView *imageView;
+	UIButton *button;
 	UITextField *textField;
 	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 1.5;
 	float stepperValue = 0;
@@ -101,8 +101,8 @@
 			case BSDishSetupViewControllerItemDrink:
 				stepper = self.drinkStepper;
 				textField = self.drinkTextField;
-				imageView = self.drinkIV;
-				imageView.image = [UIImage imageNamed:IMG_DRINK];
+				button = self.drinkIV;
+				[button setImage:[UIImage imageNamed:IMG_DRINK] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_DRINK;
 				scale = 1.0;
 				break;
@@ -110,8 +110,8 @@
 			case BSDishSetupViewControllerItemSmallDish:
 				stepper = self.smallDishStepper;
 				textField = self.smallDishTextField;
-				imageView = self.smallDishIV;
-				imageView.image = [UIImage imageNamed:IMG_DISH];
+				button = self.smallDishIV;
+				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_SMALLDISH;
 				scale = IMAGEVIEW_SCALE_SMALLDISH;
 				break;
@@ -119,8 +119,8 @@
 			case BSDishSetupViewControllerItemMediumDish:
 				stepper = self.mediumDishStepper;
 				textField = self.mediumDishTextField;
-				imageView = self.mediumDishIV;
-				imageView.image = [UIImage imageNamed:IMG_DISH];
+				button = self.mediumDishIV;
+				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
 				scale = IMAGEVIEW_SCALE_MEDIUMDISH;
 				break;
@@ -128,8 +128,8 @@
 			case BSDishSetupViewControllerItemLargeDish:
 				stepper = self.largeDishStepper;
 				textField = self.largeDishTextField;
-				imageView = self.largeDishIV;
-				imageView.image = [UIImage imageNamed:IMG_DISH];
+				button = self.largeDishIV;
+				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_LARGEDISH;
 				scale = IMAGEVIEW_SCALE_LARGEDISH;
 				break;
@@ -144,17 +144,18 @@
 		)];
 		
 		// Setup layout
-		imageView.frame = CGRectMake(
+		button.frame = CGRectMake(
 			UI_SIZE_MARGIN, 0,
 			bounds.size.width / 4, itemSize
 		);
-		CGPoint center = imageView.center;
-		imageView.contentMode = UIViewContentModeScaleAspectFit;
-		imageView.clipsToBounds = true;
-		imageView.transform = CGAffineTransformMakeScale(scale, scale);
-		imageView.center = center;
+		CGPoint center = button.center;
+		button.contentMode = UIViewContentModeScaleAspectFit;
+		button.clipsToBounds = true;
+		button.transform = CGAffineTransformMakeScale(scale, scale);
+		button.center = center;
+		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 		
-		frame = imageView.frame;
+		frame = button.frame;
 		textField.frame = CGRectMake(
 			bounds.size.width / 4 + UI_SIZE_MARGIN / 2,
 			(frame.size.height - itemSize) / 2 + frame.origin.y,
@@ -181,7 +182,7 @@
 		stepper.value = stepperValue;
 		
 		frame = containerView.frame;
-		[containerView addSubview:imageView];
+		[containerView addSubview:button];
 		[containerView addSubview:textField];
 		[containerView addSubview:stepper];
 		[self.view addSubview:containerView];
@@ -246,6 +247,11 @@
 
 
 #pragma mark - UI Events
+
+- (void)buttonPressed:(UIButton *)sender
+{
+	debugFunc(sender);
+}
 
 
 #pragma mark - Utility Functions
