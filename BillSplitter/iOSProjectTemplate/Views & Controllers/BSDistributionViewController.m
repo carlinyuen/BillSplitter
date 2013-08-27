@@ -105,9 +105,9 @@
 	CGRect bounds = self.view.bounds;
 	
 	// UI Setup
-	[self setupBackgroundView:bounds];
 	[self setupDishes:bounds];
 	[self setupDescriptionLabel:bounds];
+	[self setupBackgroundView:bounds];
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
 	[self setupAddView:bounds];
@@ -305,17 +305,6 @@
 
 #pragma mark - UI Setup
 
-/** @brief Setup background view */
-- (void)setupBackgroundView:(CGRect)bounds
-{
-	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 7 + bounds.size.height / 8,
-		bounds.size.width, bounds.size.height * 1.15
-	)];
-	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-	[self.view addSubview:backgroundView];
-}
-
 /** @brief Setup buttons for dishes */
 - (void)setupDishes:(CGRect)bounds
 {
@@ -361,6 +350,17 @@
 	);
 	
 	[self.view addSubview:self.descriptionLabel];
+}
+
+/** @brief Setup background view */
+- (void)setupBackgroundView:(CGRect)bounds
+{
+	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 7 + bounds.size.height / 8,
+		bounds.size.width, bounds.size.height * 1.15
+	)];
+	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	[self.view addSubview:backgroundView];
 }
 
 /** @brief Setup scrollView */
