@@ -699,7 +699,7 @@
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
 	// Show / hide remove button
-	[self displayRemoveButton:([[self profileCount] > 1)];
+	[self displayRemoveButton:([self profileCount] > 1)];
 }
 
 
