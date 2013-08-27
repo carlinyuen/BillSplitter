@@ -44,10 +44,11 @@
 @end
 @implementation BSDistributionContainerView
 - (UIView *) hitTest:(CGPoint) point withEvent:(UIEvent *)event {
-	if ([self pointInside:point withEvent:event]) {
-		return self.scrollView;
+	UIView* child = nil;
+    if ((child = [super hitTest:point withEvent:event]) == self) {
+    	return self.scrollView;
 	}
-	return nil;
+    return child;
 }
 @end
 
@@ -335,11 +336,18 @@
 - (void)setupScrollView:(CGRect)bounds
 {
 	CGRect frame = self.descriptionLabel.frame;
-	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
-		UI_SIZE_MARGIN,
+	BSDistributionContainerView *containerView
+		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
+		0,
 		frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width / 8 * 7 - UI_SIZE_MARGIN,
+		bounds.size.width,
 		bounds.size.height - UI_SIZE_MIN_TOUCH - (frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT)
+	)];
+	containerView.userInteractionEnabled = true;
+	
+	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
+		bounds.size.width / 4, 0,
+		bounds.size.width / 2, containerView.bounds.size.height
 	)];
 	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
@@ -349,7 +357,9 @@
 	self.scrollView.clipsToBounds = false;
 	self.scrollView.delegate = self;
 	
-	[self.view addSubview:self.scrollView];
+	containerView.scrollView = self.scrollView;
+	[containerView addSubview:self.scrollView];
+	[self.view addSubview:containerView];
 }
 
 /** @brief Setup page control */
@@ -368,8 +378,6 @@
 	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
 	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
-	// Set images
-	
 	[self.view addSubview:self.pageControl];
 }
 
@@ -377,8 +385,10 @@
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		bounds.size.width / 8 * 7, self.scrollView.frame.origin.y,
-		bounds.size.width / 8, self.scrollView.bounds.size.height
+		bounds.size.width / 8 * 7,
+		self.pageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
+		bounds.size.width / 8,
+		self.scrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
 	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
@@ -393,7 +403,7 @@
 	// Gradient background
 	CAGradientLayer *gradientBG = [CAGradientLayer layer];
 	gradientBG.colors = [NSArray arrayWithObjects:
-		(id)UIColorFromHex(0xFFFFFF11).CGColor,
+		(id)UIColorFromHex(0xFFFFFF44).CGColor,
 		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
 		(id)UIColorFromHex(0xFFFFFFFF).CGColor,
 		nil
