@@ -322,7 +322,7 @@
 	self.animator = [[ParallaxScrollingFramework alloc] initWithScrollView:self.scrollView];
 	self.animator.direction = ParallaxScrollingFrameworkDirectionVertical;
 	
-	CGRect tempFrame, targetFrame;
+	CGRect refFrame, targetFrame;
 	CGPoint tempPoint, targetPoint;
 	CGSize tempSize, targetSize;
 	CGAffineTransform transform;
@@ -334,7 +334,7 @@
 	
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
-	tempFrame = vc.view.frame;
+	refFrame = vc.view.frame;
 	
 	NSArray *elements = [NSArray arrayWithObjects:
 		vc.drinkStepper,
@@ -423,7 +423,7 @@
 		forView:vc.drinkIV
 	];
 	targetFrame = [vc.view convertRect:vc.drinkIV.frame fromView:vc.drinkIV.superview];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
 	targetPoint.x = 0;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
@@ -467,7 +467,7 @@
 		forView:vc.smallDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.smallDishIV.frame fromView:vc.smallDishIV.superview];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
 	targetPoint.x = 1 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 
 		translate:targetPoint
@@ -511,7 +511,7 @@
 		forView:vc.mediumDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.mediumDishIV.frame fromView:vc.mediumDishIV.superview];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
 	targetPoint.x = 2 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
@@ -555,7 +555,7 @@
 		forView:vc.largeDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.largeDishIV.frame fromView:vc.largeDishIV.superview];
-	targetPoint.y = tempFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
 	targetPoint.x = 3 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
@@ -647,9 +647,6 @@
 - (void)keyboardControlsDonePressed:(BSKeyboardControls *)keyboardControls
 {
     [keyboardControls.activeField resignFirstResponder];
-	
-	// Re-enable paging once done with keyboard
-	self.scrollView.pagingEnabled = true;
 	
 	// Re-enable animator
 	self.enableAnimator = true;
@@ -863,6 +860,9 @@
 		self.enableAnimator = false;
 		self.scrollView.contentOffset = self.scrollView.contentOffset;
 	}
+	
+	// Re-enable paging once done with animation
+	self.scrollView.pagingEnabled = true;
 }
 
 #pragma mark - InfoViewControllerDelegate
