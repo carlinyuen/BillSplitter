@@ -326,9 +326,8 @@
 	CGPoint tempPoint, targetPoint;
 	CGSize tempSize, targetSize;
 	CGAffineTransform transform;
-	float yOffset = 0;
-	float xOffset = 0;
-	float difference = 0;
+	float yOffset = 0, xOffset = 0;
+	float difference = 0, temp = 0;
 	
 	BSDishSetupViewController *vc = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
 	
@@ -396,7 +395,8 @@
 		];
 	}
 	
-	// Drink 
+	// Drink
+	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 7;
 	transform = vc.drinkIV.transform;
 	tempSize = CGSizeMake(transform.a, transform.d);
 	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
@@ -423,7 +423,7 @@
 		forView:vc.drinkIV
 	];
 	targetFrame = [vc.view convertRect:vc.drinkIV.frame fromView:vc.drinkIV.superview];
-	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + temp;
 	targetPoint.x = 0;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
@@ -467,7 +467,7 @@
 		forView:vc.smallDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.smallDishIV.frame fromView:vc.smallDishIV.superview];
-	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + temp;
 	targetPoint.x = 1 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2 
 		translate:targetPoint
@@ -511,7 +511,7 @@
 		forView:vc.mediumDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.mediumDishIV.frame fromView:vc.mediumDishIV.superview];
-	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + temp;
 	targetPoint.x = 2 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
@@ -555,7 +555,7 @@
 		forView:vc.largeDishIV
 	];
 	targetFrame = [vc.view convertRect:vc.largeDishIV.frame fromView:vc.largeDishIV.superview];
-	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + UI_SIZE_MIN_TOUCH * 3;
+	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame) + temp;
 	targetPoint.x = 3 * xOffset;
 	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height / 2
 		translate:targetPoint
