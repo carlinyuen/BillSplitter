@@ -249,12 +249,9 @@
 	// Image button to drag items onto
 	frame = dishView.frame;
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
-		0, 0, bounds.size.width / 2, itemSize / 4 * 3
+		(containerView.frame.size.width - bounds.size.width / 2) / 2, UI_SIZE_DINER_MARGIN,
+		bounds.size.width / 2, itemSize / 4 * 3
 	)];
-	button.center = containerView.center;
-	frame = button.frame;
-	frame.origin.y = UI_SIZE_DINER_MARGIN;
-	button.frame = frame;
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
 	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[button addTarget:self action:@selector(dinerItemDropped:) forControlEvents:UIControlEventTouchUpInside];
