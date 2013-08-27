@@ -226,7 +226,7 @@
 	
 	// Remove Diner button
 	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2,
+		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 3 - UI_SIZE_DINER_MARGIN,
 		UI_SIZE_DINER_MARGIN,
 		UI_SIZE_MIN_TOUCH / 2, UI_SIZE_MIN_TOUCH / 2
 	)];
