@@ -199,7 +199,7 @@
 	
 	// Container for elements
 	frame.origin.x = [self offsetForPageInScrollView:[self profileCount]];
-	frame.size.width -= UI_SIZE_MARGIN;
+	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.backgroundColor = [UIColor whiteColor];
 	containerView.layer.shadowRadius = 4;
@@ -347,7 +347,8 @@
 		bounds.size.width / 4, 0,
 		bounds.size.width / 2, containerView.bounds.size.height
 	)];
-	self.scrollView.contentSize = CGSizeMake(bounds.size.width + 1, self.scrollView.bounds.size.height);
+	self.scrollView.contentSize = CGSizeMake(
+		bounds.size.width + 1, self.scrollView.bounds.size.height);
 	self.scrollView.showsHorizontalScrollIndicator = false;
 	self.scrollView.showsVerticalScrollIndicator = false;
 	self.scrollView.directionalLockEnabled = true;
