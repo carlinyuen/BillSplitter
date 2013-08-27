@@ -14,6 +14,7 @@
 #import "CustomPageControl.h"
 
 #import "BSDishSetupViewController.h"
+#import "DraggableImageView.h"
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 

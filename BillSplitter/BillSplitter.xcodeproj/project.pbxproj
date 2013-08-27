@@ -46,6 +46,7 @@
 		5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C8981179439A600018AD7 /* Default-568h@2x.png */; };
 		5FE425BD17CBE330009F7652 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BB17CBE330009F7652 /* minus.png */; };
 		5FE425BE17CBE330009F7652 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BC17CBE330009F7652 /* plus.png */; };
+		5FE425C117CD4043009F7652 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE425C017CD4043009F7652 /* DraggableImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +107,8 @@
 		5F7C8981179439A600018AD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5FE425BB17CBE330009F7652 /* minus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = minus.png; sourceTree = "<group>"; };
 		5FE425BC17CBE330009F7652 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
+		5FE425BF17CD4043009F7652 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
+		5FE425C017CD4043009F7652 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +313,8 @@
 				5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */,
 				5F7C897E1790B17700018AD7 /* InfoViewController.h */,
 				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
+				5FE425BF17CD4043009F7652 /* DraggableImageView.h */,
+				5FE425C017CD4043009F7652 /* DraggableImageView.m */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";
@@ -410,6 +415,7 @@
 				5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */,
 				5F459F2717C6605800DCBDD9 /* RPVerticalStepper.m in Sources */,
 				5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */,
+				5FE425C117CD4043009F7652 /* DraggableImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
