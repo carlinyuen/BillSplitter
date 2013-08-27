@@ -35,6 +35,19 @@
 		AppViewControllerPageCount
 	} AppViewControllerPage;
 
+
+#pragma mark - Internal mini class for restricted navigation controller
+
+@interface InfoViewNavigationController : UINavigationController @end
+@implementation InfoViewNavigationController
+	- (NSUInteger)supportedInterfaceOrientations {
+		return UIInterfaceOrientationMaskPortrait;
+	}
+@end
+
+
+#pragma mark - AppViewController
+
 @interface AppViewController () <
 	CustomPageControlDelegate,
 	InfoViewControllerDelegate,
@@ -612,7 +625,7 @@
 	InfoViewController *controller = [[InfoViewController alloc] init];
     controller.delegate = self;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:[[UINavigationController alloc] initWithRootViewController:controller]
+    [self presentViewController:[[InfoViewNavigationController alloc] initWithRootViewController:controller]
 		animated:YES completion:nil];
 }
 

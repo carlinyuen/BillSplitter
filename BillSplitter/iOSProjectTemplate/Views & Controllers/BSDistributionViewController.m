@@ -51,6 +51,9 @@
 }
 @end
 
+
+#pragma mark - BSDistributionViewController
+
 @interface BSDistributionViewController () <CustomPageControlDelegate>
 
 	@property (nonatomic, assign) CGRect frame;
