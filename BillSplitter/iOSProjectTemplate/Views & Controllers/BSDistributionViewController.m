@@ -110,6 +110,7 @@
 	[self setupBackgroundView:bounds];
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
+	[self setupRemoveButton:bounds];
 	[self setupAddView:bounds];
 	
 	// Add first diner
@@ -224,27 +225,6 @@
 		);
 		[dishView addSubview:dish];
 	}
-	
-	// Remove Diner button
-	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2 - UI_SIZE_DINER_MARGIN,
-		UI_SIZE_DINER_MARGIN,
-		UI_SIZE_MIN_TOUCH / 3, UI_SIZE_MIN_TOUCH / 2
-	)];
-	[removeButton setTitle:@"X" forState:UIControlStateNormal];
-	removeButton.contentHorizontalAlignment
-		= UIControlContentHorizontalAlignmentCenter;
-	removeButton.contentVerticalAlignment
-		= UIControlContentVerticalAlignmentCenter;
-	[removeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT)
-		forState:UIControlStateNormal];
-	[removeButton setTitleColor:[UIColor grayColor]
-		forState:UIControlStateHighlighted];
-	removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
-	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
-		forControlEvents:UIControlEventTouchUpInside];
-	removeButton.tag = [self profileCount];
-	[containerView addSubview:removeButton];
 	
 	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
@@ -427,6 +407,32 @@
 	[self.view addSubview:self.pageControl];
 }
 
+/** @brief Remove view button */
+- (void)setupRemoveButton:(CGRect)bounds
+{
+	// Remove Diner button
+	self.removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
+		self.scrollView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2,
+		UI_SIZE_DINER_MARGIN,
+		UI_SIZE_MIN_TOUCH / 2,
+		UI_SIZE_MIN_TOUCH / 2
+	)];
+	self.removeButton.alpha = 0;
+	[self.removeButton setTitle:@"X" forState:UIControlStateNormal];
+	self.removeButton.contentHorizontalAlignment
+		= UIControlContentHorizontalAlignmentCenter;
+	self.removeButton.contentVerticalAlignment
+		= UIControlContentVerticalAlignmentCenter;
+	[self.removeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT)
+		forState:UIControlStateNormal];
+	[self.removeButton setTitleColor:[UIColor grayColor]
+		forState:UIControlStateHighlighted];
+	self.removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+	[self.removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
+		forControlEvents:UIControlEventTouchUpInside];
+	[self.scrollView addSubview:self.removeButton];
+}
+
 /** @brief Setup add view */
 - (void)setupAddView:(CGRect)bounds
 {
@@ -552,7 +558,7 @@
 	self.scrollView.userInteractionEnabled = false;
 
 	// Remove card at index
-	int index = button.tag;
+	int index = self.pageControl.currentPage;
 	UIView *card = [[self.textFields objectAtIndex:index] superview];
 	CGRect bounds = self.scrollView.bounds;
 	
@@ -565,8 +571,8 @@
 			card.alpha = 0;
 			
 			// Setup for animation
+			CGRect frame = card.frame;
 			UIView *temp;
-			CGRect frame = temp.frame;
 			
 			// If is last card on right, then shift scrollview left
 			if (index == [self profileCount] - 1)
@@ -644,6 +650,17 @@
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+	// Hide remove button
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseInOut
+		animations:^{
+			self.removeButton.alpha = 0;
+		} completion:nil];
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	// Change page control accordingly:
@@ -659,6 +676,19 @@
 	}
 		
     self.pageControl.currentPage = page;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+	// Show remove button if more than one diner profile
+	if ([self profileCount] > 1) {
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				self.removeButton.alpha = 1;
+			} completion:nil];
+	}
 }
 
 

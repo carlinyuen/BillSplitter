@@ -19,6 +19,8 @@
 	@property (nonatomic, assign) int headCount;
 
 	@property (nonatomic, strong) UIButton *addButton;
+	@property (nonatomic, strong) UIButton *removeButton;
+
 	@property (nonatomic, strong) UIButton *drinkButton;
 	@property (nonatomic, strong) UIButton *smallDishButton;
 	@property (nonatomic, strong) UIButton *mediumDishButton;
