@@ -53,10 +53,10 @@
 	{
 		_frame = frame;
 		
-		_drinkIV = [[UIButton alloc] initWithFrame:CGRectZero];
-		_smallDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
-		_mediumDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
-		_largeDishIV = [[UIButton alloc] initWithFrame:CGRectZero];
+		_drinkButton = [[UIButton alloc] initWithFrame:CGRectZero];
+		_smallDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
+		_mediumDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
+		_largeDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		
 		_drinkTextField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_smallDishTextField = [[UITextField alloc] initWithFrame:CGRectZero];
@@ -101,7 +101,7 @@
 			case BSDishSetupViewControllerItemDrink:
 				stepper = self.drinkStepper;
 				textField = self.drinkTextField;
-				button = self.drinkIV;
+				button = self.drinkButton;
 				[button setImage:[UIImage imageNamed:IMG_DRINK] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_DRINK;
 				scale = 1.0;
@@ -110,7 +110,7 @@
 			case BSDishSetupViewControllerItemSmallDish:
 				stepper = self.smallDishStepper;
 				textField = self.smallDishTextField;
-				button = self.smallDishIV;
+				button = self.smallDishButton;
 				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_SMALLDISH;
 				scale = IMAGEVIEW_SCALE_SMALLDISH;
@@ -119,7 +119,7 @@
 			case BSDishSetupViewControllerItemMediumDish:
 				stepper = self.mediumDishStepper;
 				textField = self.mediumDishTextField;
-				button = self.mediumDishIV;
+				button = self.mediumDishButton;
 				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
 				scale = IMAGEVIEW_SCALE_MEDIUMDISH;
@@ -128,7 +128,7 @@
 			case BSDishSetupViewControllerItemLargeDish:
 				stepper = self.largeDishStepper;
 				textField = self.largeDishTextField;
-				button = self.largeDishIV;
+				button = self.largeDishButton;
 				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_LARGEDISH;
 				scale = IMAGEVIEW_SCALE_LARGEDISH;

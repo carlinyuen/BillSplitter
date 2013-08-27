@@ -38,13 +38,13 @@
 #pragma mark - Internal mini class for scrollView container
 
 @interface BSDistributionContainerView : UIView
-	@property (nonatomic, strong) UIScrollView *scrollView;
+	@property (nonatomic, strong) UIView *targetView;
 @end
 @implementation BSDistributionContainerView
 - (UIView *) hitTest:(CGPoint) point withEvent:(UIEvent *)event {
 	UIView* child = nil;
     if ((child = [super hitTest:point withEvent:event]) == self) {
-    	return self.scrollView;
+    	return self.targetView;
 	}
     return child;
 }
@@ -103,7 +103,7 @@
 	
 	// UI Setup
 	[self setupBackgroundView:bounds];
-	[self setupButtons:bounds];
+	[self setupDishes:bounds];
 	[self setupDescriptionLabel:bounds];
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
@@ -222,20 +222,26 @@
 		[dishView addSubview:dish];
 	}
 	
-	// Close button
-	UIButton *closeButton = [[UIButton alloc] initWithFrame:CGRectMake(
+	// Remove Diner button
+	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
 		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2 - UI_SIZE_DINER_MARGIN,
 		UI_SIZE_DINER_MARGIN,
-		UI_SIZE_MIN_TOUCH / 2, UI_SIZE_MIN_TOUCH / 2
+		UI_SIZE_MIN_TOUCH / 3, UI_SIZE_MIN_TOUCH / 2
 	)];
-	[closeButton setTitle:@"X" forState:UIControlStateNormal];
-	closeButton.contentHorizontalAlignment
+	[removeButton setTitle:@"X" forState:UIControlStateNormal];
+	removeButton.contentHorizontalAlignment
 		= UIControlContentHorizontalAlignmentCenter;
-	closeButton.contentVerticalAlignment
+	removeButton.contentVerticalAlignment
 		= UIControlContentVerticalAlignmentCenter;
-	[closeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_DARK) forState:UIControlStateNormal];
-	closeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
-	[containerView addSubview:closeButton];
+	[removeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT)
+		forState:UIControlStateNormal];
+	[removeButton setTitleColor:[UIColor grayColor]
+		forState:UIControlStateHighlighted];
+	removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
+		forControlEvents:UIControlEventTouchUpInside];
+	removeButton.tag = [self profileCount];
+	[containerView addSubview:removeButton];
 	
 	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
@@ -308,8 +314,32 @@
 }
 
 /** @brief Setup buttons for dishes */
-- (void)setupButtons:(CGRect)bounds
+- (void)setupDishes:(CGRect)bounds
 {
+	CGRect frame = CGRectMake(
+		UI_SIZE_MARGIN + UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
+		(bounds.size.width - UI_SIZE_DINER_MARGIN * 5 - UI_SIZE_MARGIN * 2) / 4,
+		bounds.size.height / 6 - UI_SIZE_DINER_MARGIN * 2
+	);
+	BSDistributionContainerView *containerView
+		= [[BSDistributionContainerView alloc] initWithFrame:frame];
+	containerView.targetView = self.drinkButton;
+	[self.view addSubview:containerView];
+	
+	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
+	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
+	containerView.targetView = self.smallDishButton;
+	[self.view addSubview:containerView];
+	
+	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
+	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
+	containerView.targetView = self.mediumDishButton;
+	[self.view addSubview:containerView];
+	
+	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
+	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
+	containerView.targetView = self.largeDishButton;
+	[self.view addSubview:containerView];
 }
 
 /** @brief Setup description label */
@@ -356,7 +386,7 @@
 	self.scrollView.clipsToBounds = false;
 	self.scrollView.delegate = self;
 	
-	containerView.scrollView = self.scrollView;
+	containerView.targetView = self.scrollView;
 	[containerView addSubview:self.scrollView];
 	[self.view addSubview:containerView];
 }
@@ -491,6 +521,16 @@
 - (void)dinerItemDropped:(UIButton *)button
 {
 	debugFunc(nil);
+}
+
+/** @brief X button pressed on diner profile card */
+- (void)removeDinerButtonPressed:(UIButton *)button
+{
+	// Disable interaction while animating
+	self.scrollView.userInteractionEnabled = false;
+
+	// Remove card at index
+	int index = button.tag;
 }
 
 

@@ -19,6 +19,10 @@
 	@property (nonatomic, assign) int headCount;
 
 	@property (nonatomic, strong) UIButton *addButton;
+	@property (nonatomic, strong) UIButton *drinkButton;
+	@property (nonatomic, strong) UIButton *smallDishButton;
+	@property (nonatomic, strong) UIButton *mediumDishButton;
+	@property (nonatomic, strong) UIButton *largeDishButton;
 
 	@property (nonatomic, strong) NSMutableArray *dishViews;
 	@property (nonatomic, strong) NSMutableArray *buttons;

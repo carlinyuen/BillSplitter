@@ -15,10 +15,10 @@
 	RPVerticalStepperDelegate
 >
 
-	@property (nonatomic, strong) UIButton *drinkIV;
-	@property (nonatomic, strong) UIButton *smallDishIV;
-	@property (nonatomic, strong) UIButton *mediumDishIV;
-	@property (nonatomic, strong) UIButton *largeDishIV;
+	@property (nonatomic, strong) UIButton *drinkButton;
+	@property (nonatomic, strong) UIButton *smallDishButton;
+	@property (nonatomic, strong) UIButton *mediumDishButton;
+	@property (nonatomic, strong) UIButton *largeDishButton;
 
 	@property (nonatomic, strong) RPVerticalStepper *drinkStepper;
 	@property (nonatomic, strong) RPVerticalStepper *smallDishStepper;
