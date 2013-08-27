@@ -289,6 +289,17 @@
 	);
 }
 
+/** @brief Show / hide remove button */
+- (void)displayRemoveButton:(bool)show
+{
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseInOut
+		animations:^{
+			self.removeButton.alpha = show;
+		} completion:nil];
+}
+
 
 #pragma mark - UI Setup
 
@@ -412,10 +423,9 @@
 {
 	// Remove Diner button
 	self.removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		self.scrollView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2,
-		UI_SIZE_DINER_MARGIN,
-		UI_SIZE_MIN_TOUCH / 2,
-		UI_SIZE_MIN_TOUCH / 2
+		CGRectGetMaxX(self.scrollView.frame) - UI_SIZE_MIN_TOUCH,
+		CGRectGetMaxY(self.pageControl.frame),
+		UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH
 	)];
 	self.removeButton.alpha = 0;
 	[self.removeButton setTitle:@"X" forState:UIControlStateNormal];
@@ -430,7 +440,7 @@
 	self.removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
 	[self.removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
-	[self.scrollView addSubview:self.removeButton];
+	[self.view addSubview:self.removeButton];
 }
 
 /** @brief Setup add view */
@@ -554,6 +564,11 @@
 /** @brief X button pressed on diner profile card */
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
+	// Only remove if there's stuff to remove
+	if (![self profileCount]) {
+		return;
+	}
+
 	// Disable interaction while animating
 	self.scrollView.userInteractionEnabled = false;
 
@@ -653,12 +668,7 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
 	// Hide remove button
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			self.removeButton.alpha = 0;
-		} completion:nil];
+	[self displayRemoveButton:false];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -682,13 +692,14 @@
 {
 	// Show remove button if more than one diner profile
 	if ([self profileCount] > 1) {
-		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-			options:UIViewAnimationOptionBeginFromCurrentState
-				| UIViewAnimationOptionCurveEaseInOut
-			animations:^{
-				self.removeButton.alpha = 1;
-			} completion:nil];
+		[self displayRemoveButton:true];
 	}
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+	// Show / hide remove button
+	[self displayRemoveButton:([[self profileCount] > 1)];
 }
 
 
