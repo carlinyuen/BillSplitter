@@ -11,6 +11,14 @@
 
 #import "RPVerticalStepper.h"
 
+	typedef enum {
+		BSDishSetupViewControllerItemDrink,
+		BSDishSetupViewControllerItemSmallDish,
+		BSDishSetupViewControllerItemMediumDish,
+		BSDishSetupViewControllerItemLargeDish,
+		BSDishSetupViewControllerItemCount
+	} BSDishSetupViewControllerItem;
+
 @interface BSDishSetupViewController : UIViewController <
 	RPVerticalStepperDelegate
 >

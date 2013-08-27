@@ -26,14 +26,6 @@
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
 
-	typedef enum {
-		BSDishSetupViewControllerItemDrink,
-		BSDishSetupViewControllerItemSmallDish,
-		BSDishSetupViewControllerItemMediumDish,
-		BSDishSetupViewControllerItemLargeDish,
-		BSDishSetupViewControllerItemCount
-	} BSDishSetupViewControllerItem;
-
 @interface BSDishSetupViewController ()
 
 	@property (nonatomic, assign) CGRect frame;
@@ -153,6 +145,7 @@
 		button.clipsToBounds = true;
 		button.transform = CGAffineTransformMakeScale(scale, scale);
 		button.center = center;
+		button.tag = i;
 		[button addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
 		
 		frame = button.frame;

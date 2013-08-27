@@ -13,6 +13,8 @@
 
 #import "CustomPageControl.h"
 
+#import "BSDishSetupViewController.h"
+
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
 	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
@@ -462,6 +464,7 @@
 /** @brief Add button is not hovered over anymore */
 - (void)addButtonHoverOut:(UIButton *)button
 {
+	debugLog(@"addButtonHoverOut");
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
 			| UIViewAnimationOptionCurveEaseInOut
@@ -473,6 +476,7 @@
 /** @brief Add button is hovered over */
 - (void)addButtonHoverOver:(UIButton *)button
 {
+	debugLog(@"addButtonHoverOver");
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
 			| UIViewAnimationOptionCurveEaseInOut
@@ -484,6 +488,7 @@
 /** @brief Add button is pressed / dropped */
 - (void)addButtonPressed:(UIButton *)button
 {
+	debugLog(@"addButtonPressed");
 	[self addDiner:nil];
 	[self scrollToPage:[self profileCount] - 1];
 }
@@ -498,6 +503,7 @@
 /** @brief Diner item not hovered */
 - (void)dinerItemHoveredOut:(UIButton *)button
 {
+	debugLog(@"dinerItemHoveredOut");
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
 			| UIViewAnimationOptionCurveEaseInOut
@@ -509,6 +515,7 @@
 /** @brief Diner item hovered over */
 - (void)dinerItemHoveredOver:(UIButton *)button
 {
+	debugLog(@"dinerItemHoveredOver");
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
 			| UIViewAnimationOptionCurveEaseInOut
