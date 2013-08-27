@@ -69,6 +69,7 @@
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
+	@property (nonatomic, assign) int lastShownProfile;
 
 @end
 
@@ -90,6 +91,7 @@
 		_addButton = [[UIButton alloc] init];
 		
 		_profiles = [[NSMutableArray alloc] init];
+		_lastShownProfile = 0;
 		
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
@@ -224,9 +226,9 @@
 	
 	// Remove Diner button
 	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2 - UI_SIZE_DINER_MARGIN,
+		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2,
 		UI_SIZE_DINER_MARGIN,
-		UI_SIZE_MIN_TOUCH / 3, UI_SIZE_MIN_TOUCH / 2
+		UI_SIZE_MIN_TOUCH / 2, UI_SIZE_MIN_TOUCH / 2
 	)];
 	[removeButton setTitle:@"X" forState:UIControlStateNormal];
 	removeButton.contentHorizontalAlignment
@@ -241,6 +243,7 @@
 	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
 	removeButton.tag = [self profileCount];
+	removeButton.alpha = 0;
 	[containerView addSubview:removeButton];
 	
 	// Image button to drag items onto
@@ -661,6 +664,25 @@
 		page = [self profileCount] - 1;
 	} else if (page < 0) {
 		page = 0;
+	}
+	
+	// If new page not the same as last shown page, update
+	if (page != self.lastShownProfile)
+	{
+		// Show / hide remove buttons
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				[[[self.profiles objectAtIndex:page]
+					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
+						setAlpha:1];
+				[[[self.profiles objectAtIndex:self.lastShownProfile]
+					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
+						setAlpha:0];
+			} completion:nil];
+
+		self.lastShownProfile = page;
 	}
 		
     self.pageControl.currentPage = page;
