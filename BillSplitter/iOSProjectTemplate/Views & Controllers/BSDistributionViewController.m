@@ -247,10 +247,14 @@
 	[containerView addSubview:removeButton];
 	
 	// Image button to drag items onto
+	frame = dishView.frame;
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
-		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
-		bounds.size.width / 2, itemSize
+		0, 0, bounds.size.width / 2, itemSize / 3 * 2
 	)];
+	button.center = containerView.center;
+	frame = button.frame;
+	frame.origin.y = UI_SIZE_DINER_MARGIN;
+	button.frame = frame;
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
 	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[button addTarget:self action:@selector(dinerItemDropped:) forControlEvents:UIControlEventTouchUpInside];
@@ -261,18 +265,29 @@
 	// Textfield for count of diners
 	frame = button.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
-		frame.origin.x + frame.size.width,
-		containerView.bounds.size.height - itemSize / 2 - UI_SIZE_DINER_MARGIN,
-		bounds.size.width / 4, itemSize / 2
+		frame.origin.x, CGRectGetMaxY(frame),
+		bounds.size.width / 3, itemSize / 3
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	textField.textAlignment = NSTextAlignmentCenter;
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	textField.userInteractionEnabled = false;
 	[containerView addSubview:textField];
+	
+	// Label for textfield
+	frame = textField.frame;
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(
+		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH,
+		frame.size.width, UI_SIZE_MIN_TOUCH
+	)];
+	label.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = UIColorFromHex(COLOR_HEX_COPY_LIGHT);
+	label.textAlignment = NSTextAlignmentCenter;
+	label.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+	[containerView addSubview:label];
 
 	// Stepper for textfield
-	frame = textField.frame;
 	RPVerticalStepper *stepper = [[RPVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
 		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
