@@ -273,21 +273,9 @@
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	textField.userInteractionEnabled = false;
 	[containerView addSubview:textField];
-	
-	// Label for textfield
-	frame = textField.frame;
-	UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(
-		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH,
-		frame.size.width, UI_SIZE_MIN_TOUCH
-	)];
-	label.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
-	label.backgroundColor = [UIColor clearColor];
-	label.textColor = UIColorFromHex(COLOR_HEX_COPY_LIGHT);
-	label.textAlignment = NSTextAlignmentCenter;
-	label.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
-	[containerView addSubview:label];
 
 	// Stepper for textfield
+	frame = textField.frame;
 	RPVerticalStepper *stepper = [[RPVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
 		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
@@ -301,6 +289,21 @@
 	stepper.delegate = self;
 	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[containerView addSubview:stepper];
+	
+	// Label for textfield
+	frame = textField.frame;
+	UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
+	label.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
+	[label sizeToFit];
+	label.frame = CGRectMake(
+		frame.origin.x, frame.origin.y - label.frame.size.height,
+		CGRectGetMaxX(stepper.frame) - frame.origin.x, label.frame.size.height
+	);
+	label.backgroundColor = [UIColor clearColor];
+	label.textColor = UIColorFromHex(COLOR_HEX_COPY_LIGHT);
+	label.textAlignment = NSTextAlignmentCenter;
+	label.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_SMALL_LABEL];
+	[containerView addSubview:label];
 	
 	// Keeping track of elements
 	[self.profiles addObject:@{
