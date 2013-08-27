@@ -291,15 +291,22 @@
 	[self.textFields addObject:textField];
 	[self.dishViews addObject:dishView];
 	[self.buttons addObject:button];
-	[self.steppers addObject:stepper];
+	[self.steppers addObject:stepper];;
+	[self.scrollView addSubview:containerView];
 	
-	// Update page control & content size of scrollview
+	// Update scrollview
+	[self refreshScrollView];
+}
+
+/** @brief Update page control & content size of scrollview */
+- (void)refreshScrollView
+{
+	CGRect bounds = self.scrollView.bounds;
 	self.pageControl.numberOfPages = [self profileCount];
 	self.scrollView.contentSize = CGSizeMake(
 		bounds.size.width * self.pageControl.numberOfPages + 1,
 		bounds.size.height
 	);
-	[self.scrollView addSubview:containerView];
 }
 
 
@@ -313,25 +320,32 @@
 		(bounds.size.width - UI_SIZE_DINER_MARGIN * 5 - UI_SIZE_MARGIN * 2) / 4,
 		bounds.size.height / 6 - UI_SIZE_DINER_MARGIN * 2
 	);
-	BSDistributionContainerView *containerView
-		= [[BSDistributionContainerView alloc] initWithFrame:frame];
-	containerView.targetView = self.drinkButton;
-	[self.view addSubview:containerView];
+	UIButton *button = [[UIButton alloc] initWithFrame:frame];
+	[button addTarget:self action:@selector(dishButtonPressed:)
+		forControlEvents:UIControlEventTouchDown];
+	button.tag = self.drinkButton.tag;
+	[self.view addSubview:button];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
-	containerView.targetView = self.smallDishButton;
-	[self.view addSubview:containerView];
+	button = [[UIButton alloc] initWithFrame:frame];
+	[button addTarget:self action:@selector(dishButtonPressed:)
+		forControlEvents:UIControlEventTouchDown];
+	button.tag = self.smallDishButton.tag;
+	[self.view addSubview:button];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
-	containerView.targetView = self.mediumDishButton;
-	[self.view addSubview:containerView];
+	button = [[UIButton alloc] initWithFrame:frame];
+	[button addTarget:self action:@selector(dishButtonPressed:)
+		forControlEvents:UIControlEventTouchDown];
+	button.tag = self.mediumDishButton.tag;
+	[self.view addSubview:button];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	containerView = [[BSDistributionContainerView alloc] initWithFrame:frame];
-	containerView.targetView = self.largeDishButton;
-	[self.view addSubview:containerView];
+	button = [[UIButton alloc] initWithFrame:frame];
+	[button addTarget:self action:@selector(dishButtonPressed:)
+		forControlEvents:UIControlEventTouchDown];
+	button.tag = self.largeDishButton.tag;
+	[self.view addSubview:button];
 }
 
 /** @brief Setup description label */
@@ -539,6 +553,78 @@
 
 	// Remove card at index
 	int index = button.tag;
+	UIView *card = [[self.textFields objectAtIndex:index] superview];
+	CGRect bounds = self.scrollView.bounds;
+	
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseInOut
+		animations:^
+		{
+			// Hide card being removed
+			card.alpha = 0;
+			
+			// Setup for animation
+			UIView *temp;
+			CGRect frame = temp.frame;
+			
+			// If is last card on right, then shift scrollview left
+			if (index == [self profileCount] - 1)
+			{
+				frame.origin.x -= bounds.size.width;
+				self.scrollView.contentOffset = frame.origin;
+			}
+			else	// Shift over cards on the right
+			{
+				for (int i = index + 1; i < [self profileCount]; ++i) {
+					temp = [[self.textFields objectAtIndex:i] superview];
+					frame = temp.frame;
+					frame.origin.x -= bounds.size.width;
+					temp.frame = frame;
+				}
+			}
+		}
+		completion:^(BOOL finished)
+		{
+			// Remove card & data
+			[card removeFromSuperview];
+			[self.steppers removeObjectAtIndex:index];
+			[self.textFields removeObjectAtIndex:index];
+			[self.dishViews removeObjectAtIndex:index];
+			[self.buttons removeObjectAtIndex:index];
+			
+			// Resize contentSize of scrollview
+			[self refreshScrollView];
+			self.scrollView.userInteractionEnabled = true;
+		}];
+}
+
+/** @brief Dish button touch down on */
+- (void)dishButtonPressed:(UIButton *)button
+{
+	// Figure out which dish was pressed
+	UIButton *dish;
+	switch (button.tag)
+	{
+		case BSDishSetupViewControllerItemDrink:
+			dish = self.drinkButton; break;
+			
+		case BSDishSetupViewControllerItemSmallDish:
+			dish = self.smallDishButton; break;
+			
+		case BSDishSetupViewControllerItemMediumDish:
+			dish = self.mediumDishButton; break;
+			
+		case BSDishSetupViewControllerItemLargeDish:
+			dish = self.largeDishButton; break;
+			
+		default: break;
+	}
+	
+	// Create draggable
+	DraggableImageView *imageView = [[DraggableImageView alloc]
+		initWithFrame:dish.frame];
+	imageView.image = dish.imageView.image;
 }
 
 

@@ -696,10 +696,12 @@
 	{
 		case AppViewControllerPageDistribution:
 			self.pageControl.currentDotTintColor = [UIColor whiteColor];
+			self.scrollView.delaysContentTouches = true;
 			break;
 		
 		default:
 			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+			self.scrollView.delaysContentTouches = false;
 			break;
 	}
 }
