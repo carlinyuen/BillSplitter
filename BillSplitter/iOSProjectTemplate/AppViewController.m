@@ -792,14 +792,10 @@
 	RPVerticalStepper *stepper;
 	switch (textField.tag)
 	{
-		// If integer type (headcount & distribution page)
+		// If integer type (headcount)
 		case AppViewControllerPageHeadCount:
-			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
-		case AppViewControllerPageDistribution:
 		{
-			if (!stepper) {
-				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
-			}
+			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
 			
 			// Get new text, add user entered text & replace $ signs and periods
 			NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];

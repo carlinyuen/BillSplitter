@@ -37,6 +37,12 @@
 	#define IMG_DISH @"plate.png"
 	#define IMG_PLUS @"plus.png"
 
+	NSString* const BSDistributionViewControllerProfileViewDishes = @"dishes";
+	NSString* const BSDistributionViewControllerProfileViewImageButton = @"image";
+	NSString* const BSDistributionViewControllerProfileViewRemoveButton = @"remove";
+	NSString* const BSDistributionViewControllerProfileViewTextField = @"textField";
+	NSString* const BSDistributionViewControllerProfileViewStepper = @"stepper";
+	NSString* const BSDistributionViewControllerProfileViewCard = @"card";
 
 #pragma mark - Internal mini class for scrollView container
 
@@ -83,10 +89,7 @@
 		
 		_addButton = [[UIButton alloc] init];
 		
-		_dishViews = [[NSMutableArray alloc] init];
-		_buttons = [[NSMutableArray alloc] init];
-		_textFields = [[NSMutableArray alloc] init];
-		_steppers = [[NSMutableArray alloc] init];
+		_profiles = [[NSMutableArray alloc] init];
 		
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
@@ -110,7 +113,6 @@
 	[self setupBackgroundView:bounds];
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
-	[self setupRemoveButton:bounds];
 	[self setupAddView:bounds];
 	
 	// Add first diner
@@ -138,14 +140,6 @@
 
 #pragma mark - Class Functions
 
-/** @brief Returns one of the steppers used */
-- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField
-{
-	int index = [self.textFields indexOfObject:textField];
-	return (self.steppers.count && index != NSNotFound)
-		? [self.steppers objectAtIndex:index] : nil;
-}
-
 /** @brief When setting the number of diners, also update steppers maxes */
 - (void)setHeadCount:(int)headCount
 {
@@ -158,14 +152,15 @@
 /** @brief Current number of diner profiles set up */
 - (int)profileCount
 {
-	return self.steppers.count;
+	return self.profiles.count;
 }
 
 /** @brief Current number of diners set up */
 - (int)dinerCount
 {
 	int count = 0;
-	for (RPVerticalStepper *stepper in self.steppers) {
+	for (NSDictionary *profile in self.profiles) {
+		RPVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
 		count += stepper.value;
 	}
 	return count;
@@ -174,7 +169,8 @@
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
-	for (RPVerticalStepper *stepper in self.steppers) {
+	for (NSDictionary *profile in self.profiles) {
+		RPVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
 		stepper.maximumValue = self.headCount;
 	}
 }
@@ -226,6 +222,27 @@
 		[dishView addSubview:dish];
 	}
 	
+	// Remove Diner button
+	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
+		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 2 - UI_SIZE_DINER_MARGIN,
+		UI_SIZE_DINER_MARGIN,
+		UI_SIZE_MIN_TOUCH / 3, UI_SIZE_MIN_TOUCH / 2
+	)];
+	[removeButton setTitle:@"X" forState:UIControlStateNormal];
+	removeButton.contentHorizontalAlignment
+		= UIControlContentHorizontalAlignmentCenter;
+	removeButton.contentVerticalAlignment
+		= UIControlContentVerticalAlignmentCenter;
+	[removeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT)
+		forState:UIControlStateNormal];
+	[removeButton setTitleColor:[UIColor grayColor]
+		forState:UIControlStateHighlighted];
+	removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
+		forControlEvents:UIControlEventTouchUpInside];
+	removeButton.tag = [self profileCount];
+	[containerView addSubview:removeButton];
+	
 	// Image button to drag items onto
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
@@ -268,10 +285,14 @@
 	[containerView addSubview:stepper];
 	
 	// Keeping track of elements
-	[self.textFields addObject:textField];
-	[self.dishViews addObject:dishView];
-	[self.buttons addObject:button];
-	[self.steppers addObject:stepper];;
+	[self.profiles addObject:@{
+		BSDistributionViewControllerProfileViewDishes : dishView,
+		BSDistributionViewControllerProfileViewImageButton : button,
+		BSDistributionViewControllerProfileViewRemoveButton : removeButton,
+		BSDistributionViewControllerProfileViewTextField : textField,
+		BSDistributionViewControllerProfileViewStepper : stepper,
+		BSDistributionViewControllerProfileViewCard : containerView,
+	}];
 	[self.scrollView addSubview:containerView];
 	
 	// Update scrollview
@@ -287,17 +308,6 @@
 		bounds.size.width * self.pageControl.numberOfPages + 1,
 		bounds.size.height
 	);
-}
-
-/** @brief Show / hide remove button */
-- (void)displayRemoveButton:(bool)show
-{
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			self.removeButton.alpha = show;
-		} completion:nil];
 }
 
 
@@ -416,31 +426,6 @@
 	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
 	[self.view addSubview:self.pageControl];
-}
-
-/** @brief Remove view button */
-- (void)setupRemoveButton:(CGRect)bounds
-{
-	// Remove Diner button
-	self.removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		CGRectGetMaxX(self.scrollView.frame) - UI_SIZE_MIN_TOUCH,
-		CGRectGetMaxY(self.pageControl.frame),
-		UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH
-	)];
-	self.removeButton.alpha = 0;
-	[self.removeButton setTitle:@"X" forState:UIControlStateNormal];
-	self.removeButton.contentHorizontalAlignment
-		= UIControlContentHorizontalAlignmentCenter;
-	self.removeButton.contentVerticalAlignment
-		= UIControlContentVerticalAlignmentCenter;
-	[self.removeButton setTitleColor:UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT)
-		forState:UIControlStateNormal];
-	[self.removeButton setTitleColor:[UIColor grayColor]
-		forState:UIControlStateHighlighted];
-	self.removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
-	[self.removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
-		forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:self.removeButton];
 }
 
 /** @brief Setup add view */
@@ -564,17 +549,18 @@
 /** @brief X button pressed on diner profile card */
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
-	// Only remove if there's stuff to remove
+	// Insanity check
 	if (![self profileCount]) {
 		return;
 	}
-
+	
 	// Disable interaction while animating
 	self.scrollView.userInteractionEnabled = false;
 
-	// Remove card at index
+	// Remove card at current page
 	int index = self.pageControl.currentPage;
-	UIView *card = [[self.textFields objectAtIndex:index] superview];
+	UIView *card = [[self.profiles objectAtIndex:index]
+		objectForKey:BSDistributionViewControllerProfileViewCard];
 	CGRect bounds = self.scrollView.bounds;
 	
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
@@ -598,7 +584,8 @@
 			else	// Shift over cards on the right
 			{
 				for (int i = index + 1; i < [self profileCount]; ++i) {
-					temp = [[self.textFields objectAtIndex:i] superview];
+					temp = [[self.profiles objectAtIndex:index]
+						objectForKey:BSDistributionViewControllerProfileViewCard];
 					frame = temp.frame;
 					frame.origin.x -= bounds.size.width;
 					temp.frame = frame;
@@ -609,10 +596,7 @@
 		{
 			// Remove card & data
 			[card removeFromSuperview];
-			[self.steppers removeObjectAtIndex:index];
-			[self.textFields removeObjectAtIndex:index];
-			[self.dishViews removeObjectAtIndex:index];
-			[self.buttons removeObjectAtIndex:index];
+			[self.profiles removeObjectAtIndex:index];
 			
 			// Resize contentSize of scrollview
 			[self refreshScrollView];
@@ -665,12 +649,6 @@
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-	// Hide remove button
-	[self displayRemoveButton:false];
-}
-
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
 	// Change page control accordingly:
@@ -688,28 +666,14 @@
     self.pageControl.currentPage = page;
 }
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-	// Show remove button if more than one diner profile
-	if ([self profileCount] > 1) {
-		[self displayRemoveButton:true];
-	}
-}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-{
-	// Show / hide remove button
-	[self displayRemoveButton:([self profileCount] > 1)];
-}
-
 
 #pragma mark - RPVerticalStepperDelegate
 
 - (void)stepperValueDidChange:(RPVerticalStepper *)stepper
 {
-	int index = [self.steppers indexOfObject:stepper];
-	[[self.textFields objectAtIndex:index] setText:[NSString
-		stringWithFormat:@"%i", (int)stepper.value]];
+	[[[self.profiles objectAtIndex:self.pageControl.currentPage]
+		objectForKey:BSDistributionViewControllerProfileViewTextField]
+			setText:[NSString stringWithFormat:@"%i", (int)stepper.value]];
 }
 
 

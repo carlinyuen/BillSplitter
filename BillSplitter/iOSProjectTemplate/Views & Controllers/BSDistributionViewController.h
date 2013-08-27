@@ -11,6 +11,13 @@
 
 #import "RPVerticalStepper.h"
 
+	extern NSString* const BSDistributionViewControllerProfileViewDishes;
+	extern NSString* const BSDistributionViewControllerProfileViewImageButton;
+	extern NSString* const BSDistributionViewControllerProfileViewRemoveButton;
+	extern NSString* const BSDistributionViewControllerProfileViewTextField;
+	extern NSString* const BSDistributionViewControllerProfileViewStepper;
+	extern NSString* const BSDistributionViewControllerProfileViewCard;
+
 @interface BSDistributionViewController : UIViewController <
 	RPVerticalStepperDelegate,
 	UIScrollViewDelegate
@@ -26,17 +33,11 @@
 	@property (nonatomic, strong) UIButton *mediumDishButton;
 	@property (nonatomic, strong) UIButton *largeDishButton;
 
-	@property (nonatomic, strong) NSMutableArray *dishViews;
-	@property (nonatomic, strong) NSMutableArray *buttons;
-	@property (nonatomic, strong) NSMutableArray *textFields;
-	@property (nonatomic, strong) NSMutableArray *steppers;
+	@property (nonatomic, strong) NSMutableArray *profiles;
 
 	@property (nonatomic, strong) UILabel *descriptionLabel;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
-
-	/** @brief Returns one of the steppers used */
-	- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField;
 
 @end
