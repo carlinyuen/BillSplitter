@@ -601,6 +601,9 @@
 			}
 			else	// Shift over cards on the right
 			{
+				[[[self.profiles objectAtIndex:index + 1]
+					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
+						setAlpha:1];
 				for (int i = index + 1; i < [self profileCount]; ++i) {
 					temp = [[self.profiles objectAtIndex:i]
 						objectForKey:BSDistributionViewControllerProfileViewCard];
