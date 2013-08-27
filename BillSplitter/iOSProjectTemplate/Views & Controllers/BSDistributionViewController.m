@@ -249,7 +249,7 @@
 	// Image button to drag items onto
 	frame = dishView.frame;
 	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
-		0, 0, bounds.size.width / 2, itemSize / 3 * 2
+		0, 0, bounds.size.width / 2, itemSize / 4 * 3
 	)];
 	button.center = containerView.center;
 	frame = button.frame;
@@ -266,7 +266,7 @@
 	frame = button.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
 		frame.origin.x, CGRectGetMaxY(frame),
-		bounds.size.width / 3, itemSize / 3
+		bounds.size.width / 3, itemSize / 4
 	)];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	textField.textAlignment = NSTextAlignmentCenter;
