@@ -36,6 +36,21 @@
 	#define IMG_DISH @"plate.png"
 	#define IMG_PLUS @"plus.png"
 
+
+#pragma mark - Internal mini class for scrollView container
+
+@interface BSDistributionContainerView : UIView
+	@property (nonatomic, strong) UIScrollView *scrollView;
+@end
+@implementation BSDistributionContainerView
+- (UIView *) hitTest:(CGPoint) point withEvent:(UIEvent *)event {
+	if ([self pointInside:point withEvent:event]) {
+		return self.scrollView;
+	}
+	return nil;
+}
+@end
+
 @interface BSDistributionViewController () <CustomPageControlDelegate>
 
 	@property (nonatomic, assign) CGRect frame;
@@ -270,7 +285,9 @@
 	// Update page control & content size of scrollview
 	self.pageControl.numberOfPages = [self profileCount];
 	self.scrollView.contentSize = CGSizeMake(
-		bounds.size.width * self.pageControl.numberOfPages, bounds.size.height);
+		bounds.size.width * self.pageControl.numberOfPages + 1,
+		bounds.size.height
+	);
 	[self.scrollView addSubview:containerView];
 }
 

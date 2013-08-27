@@ -43,6 +43,7 @@
 
 	/** For scrolling effect */
 	@property (nonatomic, strong) ParallaxScrollingFramework *animator;
+	@property (nonatomic, assign) bool enableAnimator;
 
 	/** Main UI Elements */
 	@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
@@ -76,6 +77,10 @@
 		// Input fields storage container
 		_inputFields = [[NSMutableArray alloc] init];
 		
+		// Animator
+		_enableAnimator = false;
+		
+		// Debugging
 		_debugger = [[UIViewDebugger alloc] init];
     }
     return self;
@@ -632,7 +637,9 @@
 	
 	// Re-enable paging once done with keyboard
 	self.scrollView.pagingEnabled = true;
-	self.animator.enabled = true;
+	
+	// Re-enable animator
+	self.enableAnimator = true;
 	
 	// Scroll back to normal page position
 	[self.scrollView scrollRectToVisible:CGRectMake(
@@ -836,6 +843,14 @@
 	}
 }
 
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+	if (self.enableAnimator) {
+		self.animator.enabled = true;
+		self.enableAnimator = false;
+		self.scrollView.contentOffset = self.scrollView.contentOffset;
+	}
+}
 
 #pragma mark - InfoViewControllerDelegate
 
