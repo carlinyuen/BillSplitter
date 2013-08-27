@@ -409,14 +409,14 @@
 		translate:CGPointMake(0, 0)
 		scale:CGSizeMake(1, 1)
 		rotate:0
-		alpha:0
+		alpha:1
 		forView:distribution.descriptionLabel
 	];
 	[self.animator setKeyFrameWithOffset: yTempOffset + bounds.size.height / 3
 		translate:CGPointMake(0, bounds.size.height / 3)
 		scale:CGSizeMake(1, 1)
 		rotate:0
-		alpha:0
+		alpha:1
 		forView:distribution.descriptionLabel
 	];
 	
