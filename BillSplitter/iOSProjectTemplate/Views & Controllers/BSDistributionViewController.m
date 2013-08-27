@@ -584,7 +584,7 @@
 			else	// Shift over cards on the right
 			{
 				for (int i = index + 1; i < [self profileCount]; ++i) {
-					temp = [[self.profiles objectAtIndex:index]
+					temp = [[self.profiles objectAtIndex:i]
 						objectForKey:BSDistributionViewControllerProfileViewCard];
 					frame = temp.frame;
 					frame.origin.x -= bounds.size.width;
