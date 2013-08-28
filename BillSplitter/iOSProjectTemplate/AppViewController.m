@@ -345,6 +345,12 @@
 	BSTotalMarkupViewController *total = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
 	BSSummaryViewController *summary = [self.viewControllers objectAtIndex:AppViewControllerPageSummary];
 
+
+	/////////////////////////////////////////////
+	// Headcount Page
+	yOffset = [self offsetForPageInScrollView:AppViewControllerPageHeadCount];
+
+
 	/////////////////////////////////////////////
 	// Dish Setup Page
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
