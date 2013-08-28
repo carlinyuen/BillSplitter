@@ -712,6 +712,7 @@
 						if (self.dragTargetView == self.addButton)
 						{
 							[self addDiner:self.draggedView];
+							[self scrollToPage:[self profileCount] - 1];
 							self.draggedView = nil;
 						}
 						else	// Find diner profile to add to
