@@ -634,11 +634,10 @@
 				frame.origin.x -= bounds.size.width;
 				self.scrollView.contentOffset = frame.origin;
 			}
-			else	// Shift over cards on the right
+			else	// Shift over cards on the right, display focus on next one
 			{
-				[[[self.profiles objectAtIndex:index + 1]
-					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
-						setAlpha:1];
+				[self profileAtIndex:index + 1 shouldShowFocus:true];
+			
 				for (int i = index + 1; i < self.profiles.count; ++i) {
 					temp = [[self.profiles objectAtIndex:i]
 						objectForKey:BSDistributionViewControllerProfileViewCard];
