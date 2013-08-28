@@ -303,6 +303,7 @@
 	
 	// Update scrollview & scroll over to new card section
 	[self refreshScrollView];
+	[self updateSteppers];
 	[self scrollToPage:self.profiles.count - 1];
 	
 	// Animate card in

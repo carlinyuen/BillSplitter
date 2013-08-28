@@ -16,7 +16,7 @@
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
-	#define STEPPER_MIN_VALUE 2
+	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_MAX_VALUE 50
 
 	#define IMG_MAN @"man.png"
