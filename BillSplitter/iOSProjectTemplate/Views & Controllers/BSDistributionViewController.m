@@ -754,8 +754,18 @@
 			// See if pointer is in add view
 			if (CGRectContainsPoint(self.addButton.frame, self.dragPointer)) {
 				targetView = self.addButton;
-			} else {	// Find a profile target
-				targetView = [self profileViewMostIntersectedByRect:self.draggedView.frame];
+			}
+			else	// Get potential profile target
+			{
+				targetView = [self profileViewIntersectedByPoint:self.dragPointer];
+				
+				// If dragged to profile not on current page
+				if (targetView && targetView.tag != self.pageControl.currentPage) {
+					// If point is far enough
+//					if () {
+						[self scrollToPage:targetView.tag];
+//					}
+				}
 			}
 			
 			// If targetView and dragTargetView are different, animate change
@@ -766,7 +776,7 @@
 				self.dragTargetView = targetView;
 			}
 		} // Allow to fall through and translate
-		
+			
 		// Move view to translated location
 		default:
 		{
@@ -790,10 +800,29 @@
 
 #pragma mark - Utility Functions
 
+/** @brief Returns first view that contains the given point, with the index in the view's tag property */
+- (UIView *)profileViewIntersectedByPoint:(CGPoint)point
+{
+	UIView *tempView;
+	
+	// Loop through profiles and calculate
+	for (int i = 0; i < self.profiles.count; ++i)
+	{
+		tempView = [[self.profiles objectAtIndex:i]
+			objectForKey:BSDistributionViewControllerProfileViewCard];
+		tempView.tag = i;
+		
+		if (CGRectContainsPoint(
+			[self.view convertRect:tempView.frame fromView:tempView.superview], point)) {
+			return tempView;
+		}
+	}
+	return nil;
+}
+
 /** @brief Returns view that is most overlapped by the given CGRect, with the index in the view's tag property */
 - (UIView *)profileViewMostIntersectedByRect:(CGRect)frame
 {
-	debugRect(frame);
 	float largestArea = 0, tempArea = 0;
 	UIView *largestView, *tempView;
 	CGRect tempFrame;
