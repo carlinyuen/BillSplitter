@@ -724,7 +724,8 @@
 							
 							// Insanity checks
 							if (index == NSNotFound) {
-								NSLog(@"Error: drag target not a valid profile!");
+								NSLog(NSLocalizedString(
+									@"ERROR_DISTRIBUTION_PROFILE_SEARCH", nil));
 							}
 							else	// Add dish to diner with animation
 							{
