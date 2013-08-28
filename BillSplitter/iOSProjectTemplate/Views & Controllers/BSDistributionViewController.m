@@ -200,7 +200,7 @@
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
-	frame.origin.x = [self offsetForPageInScrollView:[self profileCount]];
+	frame.origin.x = [self offsetForPageInScrollView:[self profileCount] + 1];
 	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.backgroundColor = [UIColor whiteColor];
@@ -315,6 +315,16 @@
 	
 	// Update scrollview
 	[self refreshScrollView];
+	
+	// Animate card in
+	frame = containerView.frame;
+	frame.origin.x -= bounds.size.width;
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseInOut
+		animations:^{
+			containerView.frame = frame;
+		} completion:nil];
 }
 
 /** @brief Update page control & content size of scrollview */
@@ -685,7 +695,7 @@
 	}
 	
 	// If new page not the same as last shown page, update
-	if (page != self.lastShownProfile)
+	if (page != self.lastShownProfile && [self profileCount])
 	{
 		// Show / hide remove buttons
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
