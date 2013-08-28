@@ -667,6 +667,9 @@
 			// Resize contentSize of scrollview
 			[self refreshScrollView];
 			self.scrollView.userInteractionEnabled = true;
+			
+			// Update steppers
+			[self updateSteppers];
 		}];
 }
 
