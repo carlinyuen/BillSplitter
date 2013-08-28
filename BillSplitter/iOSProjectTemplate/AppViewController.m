@@ -441,7 +441,7 @@
 		forView:distribution.instructionLabel
 	];
 	[self.animator setKeyFrameWithOffset: yTempOffset + bounds.size.height / 6
-		translate:CGPointMake(0, bounds.size.height / 3)
+		translate:CGPointMake(0, bounds.size.height / 6)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
