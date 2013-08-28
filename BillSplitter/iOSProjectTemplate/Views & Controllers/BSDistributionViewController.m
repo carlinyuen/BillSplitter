@@ -170,9 +170,13 @@
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
-	for (NSDictionary *profile in self.profiles) {
+	int currentCount = [self dinerCount];
+	debugLog(@"currentCount: %i", currentCount);
+
+	for (NSDictionary *profile in self.profiles)
+	{
 		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
-		stepper.maximumValue = self.headCount;
+		stepper.maximumValue = (self.headCount - currentCount) + stepper.value;
 	}
 }
 
@@ -759,12 +763,9 @@
 			{
 				targetView = [self profileViewIntersectedByPoint:self.dragPointer];
 				
-				// If dragged to profile not on current page
+				// If dragged to profile not on current page, shift over one
 				if (targetView && targetView.tag != self.pageControl.currentPage) {
-					// If point is far enough
-//					if () {
-						[self scrollToPage:targetView.tag];
-//					}
+					[self scrollToPage:targetView.tag];
 				}
 			}
 			
@@ -775,7 +776,7 @@
 				[self droppableHoveredOut:self.dragTargetView];
 				self.dragTargetView = targetView;
 			}
-		} // Allow to fall through and translate
+		} // No break to allow to fall through and translate
 			
 		// Move view to translated location
 		default:
@@ -943,6 +944,9 @@
 	[[[self.profiles objectAtIndex:self.pageControl.currentPage]
 		objectForKey:BSDistributionViewControllerProfileViewTextField]
 			setText:[NSString stringWithFormat:@"%i", (int)stepper.value]];
+			
+	// Update all other steppers
+	[self updateSteppers];
 }
 
 
