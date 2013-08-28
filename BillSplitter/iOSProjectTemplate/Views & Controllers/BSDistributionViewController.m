@@ -196,6 +196,7 @@
 	frame.origin.x = [self offsetForPageInScrollView:[self profileCount] + 1];
 	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
+	containerView.clipsToBounds = true;
 	containerView.backgroundColor = [UIColor whiteColor];
 	containerView.layer.shadowRadius = 4;
 	containerView.layer.shadowOffset = CGSizeMake(0, 4);
