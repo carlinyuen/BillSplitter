@@ -20,6 +20,7 @@
 	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
 
 	#define DRAG_SPEED 0.05
+	#define DRAG_ALPHA 0.66
 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
@@ -688,6 +689,7 @@
 	)];
 	self.draggedView.image = dish.imageView.image;
 	self.draggedView.contentMode = UIViewContentModeScaleAspectFit;
+	self.draggedView.alpha = DRAG_ALPHA;
 	[self.view addSubview:self.draggedView];
 }
 
@@ -700,10 +702,8 @@
 	}
 	
 	CGPoint translation = [gesture translationInView:gesture.view];
-    CGPoint velocity = [gesture velocityInView:gesture.view];
-	CGRect frame = self.draggedView.frame;
-	frame.origin.x += translation.x;
-	frame.origin.y += translation.y;
+	CGRect frame = CGRectOffset(self.draggedView.frame,
+		translation.x, translation.y);
 	
 	switch (gesture.state)
 	{
