@@ -28,6 +28,9 @@
 	@property (nonatomic, strong) UIButton *addButton;
 	@property (nonatomic, strong) UIButton *removeButton;
 
+	/** For dragging items */
+	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+
 	@property (nonatomic, strong) UIButton *drinkButton;
 	@property (nonatomic, strong) UIButton *smallDishButton;
 	@property (nonatomic, strong) UIButton *mediumDishButton;

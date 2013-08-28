@@ -255,6 +255,9 @@
 	vc.mediumDishButton = dishes.mediumDishButton;
 	vc.largeDishButton = dishes.largeDishButton;
 	
+	// Allow scrolling with drag & drop
+	[vc.panGesture requireGestureRecognizerToFail:self.scrollView.panGestureRecognizer];
+	
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }

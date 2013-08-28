@@ -17,7 +17,7 @@
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
-	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
+	#define ADD_BUTTON_SCALE_HOVER_OVER 1.1
 
 	#define DRAG_SPEED 0.05
 	#define DRAG_ALPHA 0.66
@@ -71,7 +71,6 @@
 	/** For dragging & dropping items */
 	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIView *dragTargetView;
-	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
@@ -105,6 +104,7 @@
 		
 		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
 		_panGesture.delaysTouchesBegan = false;
+		
     }
     return self;
 }
