@@ -246,8 +246,9 @@
 		containerView.bounds.size.height - stepper.frame.size.height - UI_SIZE_DINER_MARGIN,
 		stepper.frame.size.width, stepper.frame.size.height
 	);
-	stepper.maximumValue = (self.headCount - [self dinerCount]);
 	stepper.minimumValue = STEPPER_MIN_VALUE;
+	stepper.maximumValue = MAX(STEPPER_MIN_VALUE,
+		(self.headCount - [self dinerCount]));
 	stepper.value = ([self dinerCount] >= self.headCount)
 		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
