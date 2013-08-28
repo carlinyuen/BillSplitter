@@ -750,6 +750,7 @@
 									self.draggedView.transform
 										= CGAffineTransformMakeScale(
 											scale, scale);
+									self.draggedView.alpha = 1;
 								} completion:^(BOOL finished) {
 									self.draggedView = nil;
 								}];
