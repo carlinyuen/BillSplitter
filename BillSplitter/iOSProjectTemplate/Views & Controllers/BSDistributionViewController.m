@@ -239,25 +239,12 @@
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
 	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[containerView addSubview:button];
-	
-	// Textfield for count of diners
-	frame = button.frame;
-	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
-		frame.origin.x, CGRectGetMaxY(frame),
-		bounds.size.width / 3, itemSize / 4
-	)];
-	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-	textField.textAlignment = NSTextAlignmentCenter;
-	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	textField.userInteractionEnabled = false;
-	[containerView addSubview:textField];
 
 	// Stepper for textfield
-	frame = textField.frame;
 	UIVerticalStepper *stepper = [[UIVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
 		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
-		(frame.size.height - stepper.frame.size.height) / 2 + frame.origin.y,
+		(itemSize / 4 - stepper.frame.size.height) / 2 + (itemSize / 4 * 3),
 		stepper.frame.size.width, stepper.frame.size.height
 	);
 	stepper.maximumValue = self.headCount;
@@ -265,8 +252,20 @@
 	stepper.value = ([self dinerCount] >= self.headCount)
 		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
-	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[containerView addSubview:stepper];
+	
+	// Textfield for count of diners
+	frame = stepper.frame;
+	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
+		CGRectGetMinX(button.frame), itemSize / 4 * 3,
+		CGRectGetWidth(button.frame), itemSize / 4
+	)];
+	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+	textField.textAlignment = NSTextAlignmentCenter;
+	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+	textField.userInteractionEnabled = false;
+	[containerView addSubview:textField];
 
 	// Keeping track of elements
 	[self.profiles addObject:@{
