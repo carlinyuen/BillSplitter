@@ -63,7 +63,7 @@
 	CGRect frame;
 
 	self.taglineLabel.text = NSLocalizedString(@"TAGLINE_TEXT", nil);
-	self.taglineLabel.backgroundColor = [UIColor clearColor];
+	self.taglineLabel.backgroundColor = [UIColor whiteColor];
 	self.taglineLabel.textAlignment = NSTextAlignmentCenter;
 	self.taglineLabel.textColor = [UIColor lightGrayColor];
 	self.taglineLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
@@ -76,7 +76,7 @@
 	self.welcomeLabel.text = NSLocalizedString(@"WELCOME_TEXT", nil);
 	self.welcomeLabel.numberOfLines = 0;
 	self.welcomeLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.welcomeLabel.backgroundColor = [UIColor clearColor];
+	self.welcomeLabel.backgroundColor = [UIColor whiteColor];
 	self.welcomeLabel.textAlignment = NSTextAlignmentCenter;
 	self.welcomeLabel.textColor = [UIColor lightGrayColor];
 	self.welcomeLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
@@ -122,7 +122,7 @@
 	self.descriptionLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
 	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor clearColor];
+	self.descriptionLabel.backgroundColor = [UIColor whiteColor];
 	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];

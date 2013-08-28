@@ -212,7 +212,7 @@
 	UIView *dishView = [[UIView alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN, UI_SIZE_MIN_TOUCH, itemSize
 	)];
-	dishView.backgroundColor = [UIColor clearColor];
+	dishView.backgroundColor = [UIColor whiteColor];
 	[containerView addSubview:dishView];
 	
 	// Adding dish if exists
@@ -296,7 +296,7 @@
 		frame.origin.x, frame.origin.y - label.frame.size.height,
 		CGRectGetMaxX(stepper.frame) - frame.origin.x, label.frame.size.height
 	);
-	label.backgroundColor = [UIColor clearColor];
+	label.backgroundColor = [UIColor whiteColor];
 	label.textColor = UIColorFromHex(COLOR_HEX_COPY_LIGHT);
 	label.textAlignment = NSTextAlignmentCenter;
 	label.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_SMALL_LABEL];
@@ -383,7 +383,7 @@
 	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
 	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor clearColor];
+	self.descriptionLabel.backgroundColor = [UIColor whiteColor];
 	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];

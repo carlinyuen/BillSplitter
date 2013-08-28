@@ -9,6 +9,8 @@
 
 #import "BSDishSetupViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
@@ -189,13 +191,12 @@
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN,
-		frame.origin.y + frame.size.height,
+		UI_SIZE_LABEL_MARGIN, CGRectGetMaxY(frame),
 		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-		bounds.size.height - (frame.origin.y + frame.size.height + UI_SIZE_MARGIN)
+		bounds.size.height - CGRectGetMaxY(frame) - UI_SIZE_MARGIN
 	);
 	
-	[self.view addSubview:self.descriptionLabel];
+	[self.view insertSubview:self.descriptionLabel atIndex:0];
 }
 
 /** @brief Last-minute setup before view appears. */

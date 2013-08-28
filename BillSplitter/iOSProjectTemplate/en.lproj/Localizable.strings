@@ -19,8 +19,8 @@
 
 "DISHSETUP_DESCRIPTION_TEXT" = "Give us approximate prices for menu items: an average drink, a cheap dish, an average dish, and an expensive dish.";
 
-"DISTRIBUTION_DESCRIPTION_TEXT" = "Drag and drop items to distribute!";
-"DISTRIBUTION_PROFILE_LABEL" = "# of Diners:";
+"DISTRIBUTION_DESCRIPTION_TEXT" = "Drag & drop items into diner types!";
+"DISTRIBUTION_PROFILE_LABEL" = "# of Diners";
 
 "TOTALMARKUP_DESCRIPTION_TEXT" = "How much was the total bill?\nHow much do you want to tip?";
 

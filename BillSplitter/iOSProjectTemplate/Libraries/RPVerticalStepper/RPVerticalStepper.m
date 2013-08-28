@@ -97,11 +97,17 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 - (UIButton *)stepperButtonWithFrame:(CGRect)frame bgImageNamed:(NSString *)bgImageName imageNamed:(NSString *)imageName
 {
     UIButton *stepperButton = [[UIButton alloc] initWithFrame:frame];
-    [stepperButton setBackgroundImage:[UIImage imageNamed:bgImageName] forState:UIControlStateNormal];
-	[stepperButton setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
+    [stepperButton setBackgroundImage:[UIImage imageNamed:bgImageName]
+		forState:UIControlStateNormal];
+	[stepperButton setImage:[UIImage imageNamed:imageName]
+		forState:UIControlStateNormal];
 	[stepperButton setAutoresizingMask:UIViewAutoresizingNone];
-    [stepperButton addTarget:self action:@selector(didPressButton:) forControlEvents:UIControlEventTouchDown];
-    [stepperButton addTarget:self action:@selector(didEndButtonPress:) forControlEvents:UIControlEventTouchUpInside];
+    [stepperButton addTarget:self action:@selector(didEndButtonPress:)
+		forControlEvents:UIControlEventTouchDragExit];
+    [stepperButton addTarget:self action:@selector(didPressButton:)
+		forControlEvents:UIControlEventTouchDown];
+    [stepperButton addTarget:self action:@selector(didEndButtonPress:)
+		forControlEvents:UIControlEventTouchUpInside];
     return stepperButton;
 }
 
@@ -117,6 +123,11 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 	}
 	
 	_minimumValue = minValue;
+	
+	// Fix current value if min value is greater
+	if (self.value < minValue) {
+		self.value = minValue;
+	}
 }
 
 - (void)setStepValue:(CGFloat)stepValue
@@ -141,6 +152,11 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 	}
 	
 	_maximumValue = maxValue;
+	
+	// Fix current value if max value is less
+	if (self.value > maxValue) {
+		self.value = maxValue;
+	}
 }
 
 - (void)setValue:(CGFloat)val
