@@ -807,6 +807,7 @@
 /** @brief Returns view that is most overlapped by the given CGRect, with the index in the view's tag property */
 - (UIView *)profileViewMostIntersectedByRect:(CGRect)frame
 {
+	debugRect(frame);
 	float largestArea = 0, tempArea = 0;
 	UIView *largestView, *tempView;
 	CGRect tempFrame;
@@ -817,7 +818,8 @@
 		tempView = [[self.profiles objectAtIndex:i]
 			objectForKey:BSDistributionViewControllerProfileViewCard];
 		tempView.tag = i;
-		tempFrame = CGRectIntersection(frame, tempView.frame);
+		tempFrame = CGRectIntersection(frame,
+			[self.view convertRect:tempView.frame fromView:tempView.superview]);
 		tempArea = tempFrame.size.width * tempFrame.size.height;
 		
 		// Compare
