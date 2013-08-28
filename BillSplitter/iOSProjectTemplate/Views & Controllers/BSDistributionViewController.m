@@ -70,6 +70,7 @@
 
 	/** For dragging & dropping items */
 	@property (nonatomic, strong) UIImageView *draggedView;
+	@property (nonatomic, strong) UIView *dragTargetView;
 	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 	/** For sideswipping between diners */
@@ -165,23 +166,6 @@
 	[self updateSteppers];
 }
 
-/** @brief Current number of diner profiles set up */
-- (int)profileCount
-{
-	return self.profiles.count;
-}
-
-/** @brief Current number of diners set up */
-- (int)dinerCount
-{
-	int count = 0;
-	for (NSDictionary *profile in self.profiles) {
-		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
-		count += stepper.value;
-	}
-	return count;
-}
-
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
@@ -189,12 +173,6 @@
 		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
 		stepper.maximumValue = self.headCount;
 	}
-}
-
-/** @brief Returns point offset for given page in scroll view */
-- (CGFloat)offsetForPageInScrollView:(int)page
-{
-	return self.scrollView.bounds.size.width * page;
 }
 
 /** @brief Scrolls scrollview to page */
@@ -224,7 +202,7 @@
 	
 	// Container for dishes
 	UIView *dishView = [[UIView alloc] initWithFrame:CGRectMake(
-		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN, UI_SIZE_MIN_TOUCH, itemSize
+		0, 0, UI_SIZE_MIN_TOUCH, itemSize
 	)];
 	dishView.backgroundColor = [UIColor clearColor];
 	[containerView addSubview:dishView];
@@ -232,8 +210,8 @@
 	// Adding dish if exists
 	if (dish) {
 		dish.frame = CGRectMake(
-			0, dishView.subviews.count * (dishView.bounds.size.height + UI_SIZE_DINER_MARGIN),
-			dishView.bounds.size.width, dishView.bounds.size.height
+			0, dishView.subviews.count * (dishView.bounds.size.width),
+			dishView.bounds.size.width, dishView.bounds.size.width
 		);
 		[dishView addSubview:dish];
 	}
@@ -268,9 +246,6 @@
 	)];
 	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
 	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
-	[button addTarget:self action:@selector(dinerItemDropped:) forControlEvents:UIControlEventTouchUpInside];
-	[button addTarget:self action:@selector(dinerItemHoveredOver:) forControlEvents:UIControlEventTouchDragEnter];
-	[button addTarget:self action:@selector(dinerItemHoveredOut:) forControlEvents:UIControlEventTouchDragExit];
 	[containerView addSubview:button];
 	
 	// Textfield for count of diners
@@ -506,8 +481,6 @@
 	[self.addButton.layer insertSublayer:gradientBG atIndex:0];
 	
 	[self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
-	[self.addButton addTarget:self action:@selector(addButtonHoverOver:) forControlEvents:UIControlEventTouchDragEnter];
-	[self.addButton addTarget:self action:@selector(addButtonHoverOut:) forControlEvents:UIControlEventTouchDragExit];
 	
 	// Add gesture using swipe
 	UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(addButtonSwiped:)];
@@ -561,32 +534,35 @@
 	[self scrollToPage:[self profileCount] - 1];
 }
 
-/** @brief Diner item not hovered */
-- (void)dinerItemHoveredOut:(UIButton *)button
+/** @brief Diner not hovered */
+- (void)profileHoveredOut:(UIView *)view
 {
-	debugLog(@"dinerItemHoveredOut");
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			button.transform = CGAffineTransformIdentity;
-		} completion:nil];
+	if (view) {
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				view.transform = CGAffineTransformIdentity;
+			} completion:nil];
+	}
 }
 
-/** @brief Diner item hovered over */
-- (void)dinerItemHoveredOver:(UIButton *)button
+/** @brief Diner hovered over */
+- (void)profileHoveredOver:(UIView *)view
 {
-	debugLog(@"dinerItemHoveredOver");
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			button.transform = CGAffineTransformMakeScale(ADD_BUTTON_SCALE_HOVER_OVER, ADD_BUTTON_SCALE_HOVER_OVER);
-		} completion:nil];
+	if (view) {
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				view.transform = CGAffineTransformMakeScale(
+					ADD_BUTTON_SCALE_HOVER_OVER, ADD_BUTTON_SCALE_HOVER_OVER);
+			} completion:nil];
+	}
 }
 
 /** @brief Item dropped on diner */
-- (void)dinerItemDropped:(UIButton *)button
+- (void)profileItemDropped:(UIButton *)button
 {
 	debugFunc(nil);
 }
@@ -690,6 +666,7 @@
 	self.draggedView.image = dish.imageView.image;
 	self.draggedView.contentMode = UIViewContentModeScaleAspectFit;
 	self.draggedView.alpha = DRAG_ALPHA;
+	self.draggedView.tag = button.tag;
 	[self.view addSubview:self.draggedView];
 }
 
@@ -703,11 +680,109 @@
 	
 	switch (gesture.state)
 	{
+		// Started dragging, reset
+		case UIGestureRecognizerStateBegan: {
+			self.dragTargetView = nil;
+		} break;
+	
+		// Stopped dragging, let go of item
 		case UIGestureRecognizerStateEnded:
-			debugLog(@"ended");
-			break;
+		{
+			[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+				options:UIViewAnimationOptionBeginFromCurrentState
+					| UIViewAnimationOptionCurveEaseIn
+				animations:^{
+					// Shrink
+					self.draggedView.transform
+						= CGAffineTransformMakeScale(0, 0);
+				}
+				completion:^(BOOL finished)
+				{
+					// If there's a target, add to diner
+					if (self.dragTargetView)
+					{
+						// Get index of view
+						int index = [self indexOfProfileView:self.dragTargetView];
+						
+						// Scale back to normal & remove pointer
+						[self profileHoveredOut:self.dragTargetView];
+						self.dragTargetView = nil;
+						
+						// Insanity checks
+						if (index == NSNotFound) {
+							NSLog(@"Error: drag target not a valid profile!");
+						}
+						else	// Add dish to diner with animation
+						{
+							UIView *dishView = [[self.profiles objectAtIndex:index]
+								objectForKey:BSDistributionViewControllerProfileViewDishes];
+						
+							// Frame it should be in dish view
+							CGRect frame = CGRectMake(
+								0, dishView.subviews.count * (dishView.bounds.size.width),
+								dishView.bounds.size.width, dishView.bounds.size.width
+							);
+							
+							// Reset to zero size, identity transform
+							self.draggedView.transform
+								= CGAffineTransformIdentity;
+							self.draggedView.frame = frame;
+							self.draggedView.transform
+								= CGAffineTransformMakeScale(0, 0);
+							[dishView addSubview:self.draggedView];
+							
+							// Setup for scale to animate to
+							float scale = 1;
+							switch (self.draggedView.tag)
+							{
+								case BSDishSetupViewControllerItemSmallDish:
+									scale = IMAGEVIEW_SCALE_SMALLDISH; break;
+								case BSDishSetupViewControllerItemMediumDish:
+									scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
+								default: break;
+							}
+							
+							// Animate blow up in dish view
+							[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+								options:UIViewAnimationOptionBeginFromCurrentState
+									| UIViewAnimationOptionCurveEaseOut
+								animations:^{
+									self.draggedView.transform
+										= CGAffineTransformMakeScale(
+											scale, scale);
+								} completion:^(BOOL finished) {
+									self.draggedView = nil;
+								}];
+						}
+					}
+					else	// Remove and clear
+					{
+						[self.draggedView removeFromSuperview];
+						self.draggedView = nil;
+					}
+				}];
 			
-		default: {
+		} break;
+		
+		// Mid-drag, calculate potential targets
+		case UIGestureRecognizerStateChanged:
+		{
+			// Find a target
+			UIView *targetView = [self profileViewMostIntersectedByRect:self.draggedView.frame];
+			
+			// If targetView and dragTargetView are different, animate change
+			if (self.dragTargetView != targetView)
+			{
+				[self profileHoveredOver:targetView];
+				[self profileHoveredOut:self.dragTargetView];
+				
+				self.dragTargetView = targetView;
+			}
+		} // Allow to fall through and translate
+		
+		// Move view to translated location
+		default:
+		{
 			CGPoint translation = [gesture translationInView:gesture.view];
 			CGRect frame = CGRectOffset(self.draggedView.frame,
 				translation.x, translation.y);
@@ -727,6 +802,70 @@
 
 
 #pragma mark - Utility Functions
+
+/** @brief Returns view that is most overlapped by the given CGRect, with the index in the view's tag property */
+- (UIView *)profileViewMostIntersectedByRect:(CGRect)frame
+{
+	float largestArea = 0, tempArea = 0;
+	UIView *largestView, *tempView;
+	CGRect tempFrame;
+	
+	// Loop through profiles and calculate
+	for (int i = 0; i < self.profiles.count; ++i)
+	{
+		tempView = [[self.profiles objectAtIndex:i]
+			objectForKey:BSDistributionViewControllerProfileViewCard];
+		tempView.tag = i;
+		tempFrame = CGRectIntersection(frame, tempView.frame);
+		tempArea = tempFrame.size.width * tempFrame.size.height;
+		
+		// Compare
+		if (tempArea > largestArea)
+		{
+			largestArea = tempArea;
+			largestView = tempView;
+		}
+	}
+	
+	return largestView;
+}
+
+/** @brief Get index of card, for dragging target finding */
+- (int)indexOfProfileView:(UIView *)profile
+{
+	for (int i = 0; i < self.profiles.count; ++i) {
+		if ([[self.profiles objectAtIndex:i]
+				objectForKey:BSDistributionViewControllerProfileViewCard]
+					== profile) {
+			return i;
+		}
+	}
+	
+	return NSNotFound;
+}
+
+/** @brief Current number of diner profiles set up */
+- (int)profileCount
+{
+	return self.profiles.count;
+}
+
+/** @brief Current number of diners set up */
+- (int)dinerCount
+{
+	int count = 0;
+	for (NSDictionary *profile in self.profiles) {
+		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
+		count += stepper.value;
+	}
+	return count;
+}
+
+/** @brief Returns point offset for given page in scroll view */
+- (CGFloat)offsetForPageInScrollView:(int)page
+{
+	return self.scrollView.bounds.size.width * page;
+}
 
 
 #pragma mark - Delegates
