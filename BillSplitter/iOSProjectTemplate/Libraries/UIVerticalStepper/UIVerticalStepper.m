@@ -131,6 +131,9 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 	if (self.value < minValue) {
 		self.value = minValue;
 	}
+    
+    // Check if we need to enable/disable a button
+    [self checkButtonInteraction];
 }
 
 - (void)setStepValue:(CGFloat)stepValue
@@ -160,6 +163,9 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 	if (self.value > maxValue) {
 		self.value = maxValue;
 	}
+    
+    // Check if we need to enable/disable a button
+    [self checkButtonInteraction];
 }
 
 - (void)setValue:(CGFloat)val
@@ -218,8 +224,8 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
 // Check if values are at a max or min and show a "disabled" state if necessary
 - (void)checkButtonInteraction
 {
-    BOOL atMax = (_value == _maximumValue);
-    BOOL atMin = (_value == _minimumValue);
+    BOOL atMax = (_value >= _maximumValue);
+    BOOL atMin = (_value <= _minimumValue);
     
     [incrementButton setUserInteractionEnabled:!atMax];
     [incrementButton setAlpha:(atMax ? 0.5 : 1.0)];

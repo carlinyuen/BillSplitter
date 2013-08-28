@@ -358,6 +358,16 @@
 	);
 }
 
+/** @brief When bringing profile into focus / becomes the current page */
+- (void)profileAtIndex:(int)index shouldShowFocus:(bool)show
+{
+	NSDictionary *profile = [self.profiles objectAtIndex:index];
+	[[profile objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
+		setAlpha:show];
+	[[profile objectForKey:BSDistributionViewControllerProfileViewStepper]
+		setAlpha:show];
+}
+
 
 #pragma mark - UI Setup
 
@@ -922,12 +932,8 @@
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
-				[[[self.profiles objectAtIndex:page]
-					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
-						setAlpha:1];
-				[[[self.profiles objectAtIndex:self.lastShownProfile]
-					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
-						setAlpha:0];
+				[self profileAtIndex:page shouldShowFocus:true];
+				[self profileAtIndex:self.lastShownProfile shouldShowFocus:false];
 			} completion:nil];
 
 		self.lastShownProfile = page;
