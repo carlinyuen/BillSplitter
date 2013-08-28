@@ -554,7 +554,7 @@
 - (void)droppableHoveredOut:(UIView *)view
 {
 	if (view) {
-		[UIView animateWithDuration:HOVER_SPEED delay:0
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
@@ -569,7 +569,7 @@
 	if (view) {
 		[UIView animateWithDuration:HOVER_SPEED delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
-				| UIViewAnimationOptionCurveEaseInOut
+				| UIViewAnimationOptionCurveEaseOut
 			animations:^{
 				view.transform = CGAffineTransformMakeScale(
 					HOVER_SCALE, HOVER_SCALE);
