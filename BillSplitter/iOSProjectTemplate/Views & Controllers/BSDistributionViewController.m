@@ -647,6 +647,11 @@
 					temp.frame = frame;
 				}
 			}
+			
+			// If no more cards, fade out instructions
+			if (self.profiles.count == 1) {
+				self.instructionLabel.alpha = 0;
+			}
 		}
 		completion:^(BOOL finished)
 		{
