@@ -23,15 +23,6 @@
 		5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */; };
 		5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */; };
 		5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */; };
-		5F459F2717C6605800DCBDD9 /* RPVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1D17C6605800DCBDD9 /* RPVerticalStepper.m */; };
-		5F459F2817C6605800DCBDD9 /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1F17C6605800DCBDD9 /* stepperBottomButton.png */; };
-		5F459F2917C6605800DCBDD9 /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2017C6605800DCBDD9 /* stepperBottomButton@2x.png */; };
-		5F459F2A17C6605800DCBDD9 /* stepperMinusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2117C6605800DCBDD9 /* stepperMinusSymbol.png */; };
-		5F459F2B17C6605800DCBDD9 /* stepperMinusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2217C6605800DCBDD9 /* stepperMinusSymbol@2x.png */; };
-		5F459F2C17C6605800DCBDD9 /* stepperPlusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2317C6605800DCBDD9 /* stepperPlusSymbol.png */; };
-		5F459F2D17C6605800DCBDD9 /* stepperPlusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2417C6605800DCBDD9 /* stepperPlusSymbol@2x.png */; };
-		5F459F2E17C6605800DCBDD9 /* stepperTopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2517C6605800DCBDD9 /* stepperTopButton.png */; };
-		5F459F2F17C6605800DCBDD9 /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F2617C6605800DCBDD9 /* stepperTopButton@2x.png */; };
 		5F7C892F1790A36700018AD7 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C892E1790A36700018AD7 /* UIKit.framework */; };
 		5F7C89311790A36700018AD7 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89301790A36700018AD7 /* Foundation.framework */; };
 		5F7C89331790A36700018AD7 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F7C89321790A36700018AD7 /* CoreGraphics.framework */; };
@@ -47,6 +38,15 @@
 		5FE425BD17CBE330009F7652 /* minus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BB17CBE330009F7652 /* minus.png */; };
 		5FE425BE17CBE330009F7652 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BC17CBE330009F7652 /* plus.png */; };
 		5FE425C117CD4043009F7652 /* DraggableImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE425C017CD4043009F7652 /* DraggableImageView.m */; };
+		5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261517CE3C77009F7652 /* stepperBottomButton.png */; };
+		5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */; };
+		5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */; };
+		5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */; };
+		5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */; };
+		5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */; };
+		5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261B17CE3C77009F7652 /* stepperTopButton.png */; };
+		5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */; };
+		5FE4262717CE3C77009F7652 /* UIVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,16 +75,6 @@
 		5F459F1517C5719C00DCBDD9 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
 		5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSKeyboardControls.m; sourceTree = "<group>"; };
 		5F459F1817C5719C00DCBDD9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/BSKeyboardControls.strings; sourceTree = "<group>"; };
-		5F459F1C17C6605800DCBDD9 /* RPVerticalStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RPVerticalStepper.h; sourceTree = "<group>"; };
-		5F459F1D17C6605800DCBDD9 /* RPVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RPVerticalStepper.m; sourceTree = "<group>"; };
-		5F459F1F17C6605800DCBDD9 /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
-		5F459F2017C6605800DCBDD9 /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
-		5F459F2117C6605800DCBDD9 /* stepperMinusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperMinusSymbol.png; sourceTree = "<group>"; };
-		5F459F2217C6605800DCBDD9 /* stepperMinusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperMinusSymbol@2x.png"; sourceTree = "<group>"; };
-		5F459F2317C6605800DCBDD9 /* stepperPlusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperPlusSymbol.png; sourceTree = "<group>"; };
-		5F459F2417C6605800DCBDD9 /* stepperPlusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperPlusSymbol@2x.png"; sourceTree = "<group>"; };
-		5F459F2517C6605800DCBDD9 /* stepperTopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperTopButton.png; sourceTree = "<group>"; };
-		5F459F2617C6605800DCBDD9 /* stepperTopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperTopButton@2x.png"; sourceTree = "<group>"; };
 		5F7C892B1790A36700018AD7 /* BillSplitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BillSplitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F7C892E1790A36700018AD7 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		5F7C89301790A36700018AD7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -109,6 +99,16 @@
 		5FE425BC17CBE330009F7652 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		5FE425BF17CD4043009F7652 /* DraggableImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DraggableImageView.h; sourceTree = "<group>"; };
 		5FE425C017CD4043009F7652 /* DraggableImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DraggableImageView.m; sourceTree = "<group>"; };
+		5FE4261517CE3C77009F7652 /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
+		5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
+		5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperMinusSymbol.png; sourceTree = "<group>"; };
+		5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperMinusSymbol@2x.png"; sourceTree = "<group>"; };
+		5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperPlusSymbol.png; sourceTree = "<group>"; };
+		5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperPlusSymbol@2x.png"; sourceTree = "<group>"; };
+		5FE4261B17CE3C77009F7652 /* stepperTopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperTopButton.png; sourceTree = "<group>"; };
+		5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperTopButton@2x.png"; sourceTree = "<group>"; };
+		5FE4261D17CE3C77009F7652 /* UIVerticalStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVerticalStepper.h; sourceTree = "<group>"; };
+		5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIVerticalStepper.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,31 +161,6 @@
 				5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */,
 			);
 			path = BSKeyboardControls;
-			sourceTree = "<group>";
-		};
-		5F459F1B17C6605800DCBDD9 /* RPVerticalStepper */ = {
-			isa = PBXGroup;
-			children = (
-				5F459F1C17C6605800DCBDD9 /* RPVerticalStepper.h */,
-				5F459F1D17C6605800DCBDD9 /* RPVerticalStepper.m */,
-				5F459F1E17C6605800DCBDD9 /* Stepper Images */,
-			);
-			path = RPVerticalStepper;
-			sourceTree = "<group>";
-		};
-		5F459F1E17C6605800DCBDD9 /* Stepper Images */ = {
-			isa = PBXGroup;
-			children = (
-				5F459F1F17C6605800DCBDD9 /* stepperBottomButton.png */,
-				5F459F2017C6605800DCBDD9 /* stepperBottomButton@2x.png */,
-				5F459F2117C6605800DCBDD9 /* stepperMinusSymbol.png */,
-				5F459F2217C6605800DCBDD9 /* stepperMinusSymbol@2x.png */,
-				5F459F2317C6605800DCBDD9 /* stepperPlusSymbol.png */,
-				5F459F2417C6605800DCBDD9 /* stepperPlusSymbol@2x.png */,
-				5F459F2517C6605800DCBDD9 /* stepperTopButton.png */,
-				5F459F2617C6605800DCBDD9 /* stepperTopButton@2x.png */,
-			);
-			path = "Stepper Images";
 			sourceTree = "<group>";
 		};
 		5F7C89221790A36700018AD7 = {
@@ -252,8 +227,8 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5FE4261317CE3C77009F7652 /* UIVerticalStepper */,
 				5F05427117C67D0100B40CCA /* UIViewDebugger */,
-				5F459F1B17C6605800DCBDD9 /* RPVerticalStepper */,
 				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
 				5F459EE817C526A100DCBDD9 /* CustomPageControl */,
 				5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */,
@@ -319,6 +294,31 @@
 			path = "Views & Controllers";
 			sourceTree = "<group>";
 		};
+		5FE4261317CE3C77009F7652 /* UIVerticalStepper */ = {
+			isa = PBXGroup;
+			children = (
+				5FE4261417CE3C77009F7652 /* Stepper Images */,
+				5FE4261D17CE3C77009F7652 /* UIVerticalStepper.h */,
+				5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */,
+			);
+			path = UIVerticalStepper;
+			sourceTree = "<group>";
+		};
+		5FE4261417CE3C77009F7652 /* Stepper Images */ = {
+			isa = PBXGroup;
+			children = (
+				5FE4261517CE3C77009F7652 /* stepperBottomButton.png */,
+				5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */,
+				5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */,
+				5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */,
+				5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */,
+				5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */,
+				5FE4261B17CE3C77009F7652 /* stepperTopButton.png */,
+				5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */,
+			);
+			path = "Stepper Images";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -380,16 +380,16 @@
 				5F459F0D17C54FA900DCBDD9 /* plate.png in Resources */,
 				5F459F0E17C54FA900DCBDD9 /* salad.png in Resources */,
 				5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */,
-				5F459F2817C6605800DCBDD9 /* stepperBottomButton.png in Resources */,
-				5F459F2917C6605800DCBDD9 /* stepperBottomButton@2x.png in Resources */,
-				5F459F2A17C6605800DCBDD9 /* stepperMinusSymbol.png in Resources */,
-				5F459F2B17C6605800DCBDD9 /* stepperMinusSymbol@2x.png in Resources */,
-				5F459F2C17C6605800DCBDD9 /* stepperPlusSymbol.png in Resources */,
-				5F459F2D17C6605800DCBDD9 /* stepperPlusSymbol@2x.png in Resources */,
-				5F459F2E17C6605800DCBDD9 /* stepperTopButton.png in Resources */,
-				5F459F2F17C6605800DCBDD9 /* stepperTopButton@2x.png in Resources */,
 				5FE425BD17CBE330009F7652 /* minus.png in Resources */,
 				5FE425BE17CBE330009F7652 /* plus.png in Resources */,
+				5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */,
+				5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */,
+				5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */,
+				5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */,
+				5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */,
+				5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */,
+				5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */,
+				5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -413,9 +413,9 @@
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,
 				5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */,
 				5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */,
-				5F459F2717C6605800DCBDD9 /* RPVerticalStepper.m in Sources */,
 				5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */,
 				5FE425C117CD4043009F7652 /* DraggableImageView.m in Sources */,
+				5FE4262717CE3C77009F7652 /* UIVerticalStepper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

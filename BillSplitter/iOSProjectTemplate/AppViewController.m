@@ -789,7 +789,7 @@
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
 {
 	// Stepper to update
-	RPVerticalStepper *stepper;
+	UIVerticalStepper *stepper;
 	switch (textField.tag)
 	{
 		// If integer type (headcount)

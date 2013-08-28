@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
 	extern NSString* const BSDistributionViewControllerProfileViewDishes;
 	extern NSString* const BSDistributionViewControllerProfileViewImageButton;
@@ -19,7 +19,7 @@
 	extern NSString* const BSDistributionViewControllerProfileViewCard;
 
 @interface BSDistributionViewController : UIViewController <
-	RPVerticalStepperDelegate,
+	UIVerticalStepperDelegate,
 	UIScrollViewDelegate
 >
 

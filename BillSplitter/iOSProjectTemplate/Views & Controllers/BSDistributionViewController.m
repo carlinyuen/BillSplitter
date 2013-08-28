@@ -162,7 +162,7 @@
 {
 	int count = 0;
 	for (NSDictionary *profile in self.profiles) {
-		RPVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
+		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
 		count += stepper.value;
 	}
 	return count;
@@ -172,7 +172,7 @@
 - (void)updateSteppers
 {
 	for (NSDictionary *profile in self.profiles) {
-		RPVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
+		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
 		stepper.maximumValue = self.headCount;
 	}
 }
@@ -273,7 +273,7 @@
 
 	// Stepper for textfield
 	frame = textField.frame;
-	RPVerticalStepper *stepper = [[RPVerticalStepper alloc] init];
+	UIVerticalStepper *stepper = [[UIVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
 		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
 		(frame.size.height - stepper.frame.size.height) / 2 + frame.origin.y,
@@ -717,9 +717,9 @@
 }
 
 
-#pragma mark - RPVerticalStepperDelegate
+#pragma mark - UIVerticalStepperDelegate
 
-- (void)stepperValueDidChange:(RPVerticalStepper *)stepper
+- (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
 	[[[self.profiles objectAtIndex:self.pageControl.currentPage]
 		objectForKey:BSDistributionViewControllerProfileViewTextField]

@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
 @class BSHeadcountViewController;
 @protocol BSHeadcountViewControllerDelegate <NSObject>
@@ -17,14 +17,14 @@
 @end
 
 @interface BSHeadcountViewController : UIViewController <
-	RPVerticalStepperDelegate
+	UIVerticalStepperDelegate
 >
 
 	@property (nonatomic, strong) UILabel *taglineLabel;
 	@property (nonatomic, strong) UILabel *welcomeLabel;
 	@property (strong, nonatomic) UIImageView *imageView;
 	@property (strong, nonatomic) UITextField *textField;
-	@property (nonatomic, strong) RPVerticalStepper *stepper;
+	@property (nonatomic, strong) UIVerticalStepper *stepper;
 	@property (nonatomic, strong) UILabel *descriptionLabel;
 
 	/** @brief Init in screen frame */

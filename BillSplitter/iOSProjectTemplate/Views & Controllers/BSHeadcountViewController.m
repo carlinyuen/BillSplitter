@@ -44,7 +44,7 @@
 		_welcomeLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
-		_stepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
+		_stepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
@@ -165,9 +165,9 @@
 
 
 #pragma mark - Delegates
-#pragma mark - RPVerticalStepperDelegate
+#pragma mark - UIVerticalStepperDelegate
 
-- (void)stepperValueDidChange:(RPVerticalStepper *)stepper
+- (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
 	self.textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	

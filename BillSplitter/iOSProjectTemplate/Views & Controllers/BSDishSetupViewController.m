@@ -57,10 +57,10 @@
 		_mediumDishTextField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_largeDishTextField = [[UITextField alloc] initWithFrame:CGRectZero];
 		
-		_drinkStepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
-		_smallDishStepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
-		_mediumDishStepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
-		_largeDishStepper = [[RPVerticalStepper alloc] initWithFrame:CGRectZero];
+		_drinkStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+		_smallDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+		_mediumDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+		_largeDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
@@ -80,7 +80,7 @@
 	CGRect frame = CGRectZero;
 
 	// Loop through and layout elements
-	RPVerticalStepper *stepper;
+	UIVerticalStepper *stepper;
 	UIView *containerView;
 	UIButton *button;
 	UITextField *textField;
@@ -221,7 +221,7 @@
 #pragma mark - Class Functions
 
 /** @brief Returns one of the steppers used */
-- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField
+- (UIVerticalStepper *)stepperForTextField:(UITextField *)textField
 {
 	if (textField == self.drinkTextField) {
 		return self.drinkStepper;
@@ -252,9 +252,9 @@
 
 
 #pragma mark - Delegates
-#pragma mark - RPVerticalStepperDelegate
+#pragma mark - UIVerticalStepperDelegate
 
-- (void)stepperValueDidChange:(RPVerticalStepper *)stepper
+- (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
 	NSString *value = [NSString stringWithFormat:@"$%.2f", stepper.value];
 	

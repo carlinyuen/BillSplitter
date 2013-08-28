@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RPVerticalStepper.h"
+#import "UIVerticalStepper.h"
 
 	typedef enum {
 		BSDishSetupViewControllerItemDrink,
@@ -20,7 +20,7 @@
 	} BSDishSetupViewControllerItem;
 
 @interface BSDishSetupViewController : UIViewController <
-	RPVerticalStepperDelegate
+	UIVerticalStepperDelegate
 >
 
 	@property (nonatomic, strong) UIButton *drinkButton;
@@ -28,10 +28,10 @@
 	@property (nonatomic, strong) UIButton *mediumDishButton;
 	@property (nonatomic, strong) UIButton *largeDishButton;
 
-	@property (nonatomic, strong) RPVerticalStepper *drinkStepper;
-	@property (nonatomic, strong) RPVerticalStepper *smallDishStepper;
-	@property (nonatomic, strong) RPVerticalStepper *mediumDishStepper;
-	@property (nonatomic, strong) RPVerticalStepper *largeDishStepper;
+	@property (nonatomic, strong) UIVerticalStepper *drinkStepper;
+	@property (nonatomic, strong) UIVerticalStepper *smallDishStepper;
+	@property (nonatomic, strong) UIVerticalStepper *mediumDishStepper;
+	@property (nonatomic, strong) UIVerticalStepper *largeDishStepper;
 
 	@property (nonatomic, strong) UITextField *drinkTextField;
 	@property (nonatomic, strong) UITextField *smallDishTextField;
@@ -44,6 +44,6 @@
 	- (id)initWithFrame:(CGRect)frame;
 
 	/** @brief Returns one of the steppers used */
-	- (RPVerticalStepper *)stepperForTextField:(UITextField *)textField;
+	- (UIVerticalStepper *)stepperForTextField:(UITextField *)textField;
 
 @end

@@ -1,8 +1,9 @@
 //
-//  RPVerticalStepper.h
-//  RPVerticalStepper
+//  UIVerticalStepper.h
+//  UIVerticalStepper
 //
 //  Created by Rob Phillips on 2/25/13.
+//	Edited by Carlin Yuen on 8/28/13.
 //  Copyright (c) 2013 Rob Phillips. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -25,15 +26,15 @@
 
 #import <Foundation/Foundation.h>
 
-@class RPVerticalStepper;
-@protocol RPVerticalStepperDelegate <NSObject>
+@class UIVerticalStepper;
+@protocol UIVerticalStepperDelegate <NSObject>
 @optional
-- (void)stepperValueDidChange:(RPVerticalStepper *)stepper;
+- (void)stepperValueDidChange:(UIVerticalStepper *)stepper;
 @end
 
-@interface RPVerticalStepper : UIControl
+@interface UIVerticalStepper : UIControl
 
-@property (nonatomic, weak) id <RPVerticalStepperDelegate> delegate;
+@property (nonatomic, weak) id <UIVerticalStepperDelegate> delegate;
 
 @property (nonatomic, assign) CGFloat value;
 @property (nonatomic, assign) CGFloat minimumValue;
