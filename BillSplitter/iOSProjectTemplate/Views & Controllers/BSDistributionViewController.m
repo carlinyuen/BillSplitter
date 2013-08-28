@@ -206,16 +206,7 @@
 	)];
 	dishView.backgroundColor = [UIColor clearColor];
 	[containerView addSubview:dishView];
-	
-	// Adding dish if exists
-	if (dish) {
-		dish.frame = CGRectMake(
-			0, dishView.subviews.count * (dishView.bounds.size.width),
-			dishView.bounds.size.width, dishView.bounds.size.width
-		);
-		[dishView addSubview:dish];
-	}
-	
+
 	// Remove Diner button
 	UIButton *removeButton = [[UIButton alloc] initWithFrame:CGRectMake(
 		containerView.bounds.size.width - UI_SIZE_MIN_TOUCH / 5 * 2 - UI_SIZE_DINER_MARGIN,
@@ -275,8 +266,7 @@
 	stepper.delegate = self;
 	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[containerView addSubview:stepper];
-	
-	
+
 	// Keeping track of elements
 	[self.profiles addObject:@{
 		BSDistributionViewControllerProfileViewDishes : dishView,
@@ -300,6 +290,53 @@
 		animations:^{
 			containerView.frame = frame;
 		} completion:nil];
+	
+	// Adding dish if exists
+	if (dish) {
+		[self addDish:dish toDinerAtIndex:[self profileCount]-1 completion:nil];
+	}
+	
+}
+
+/** @brief Add dish to diner */
+- (void)addDish:(UIView *)dish toDinerAtIndex:(int)index completion:(void (^)(BOOL finished))completion
+{
+	UIView *dishView = [[self.profiles objectAtIndex:index]
+		objectForKey:BSDistributionViewControllerProfileViewDishes];
+
+	// Frame it should be in dish view
+	CGRect frame = CGRectMake(
+		0, dishView.subviews.count * (dishView.bounds.size.width),
+		dishView.bounds.size.width, dishView.bounds.size.width
+	);
+	
+	// Reset to zero size, identity transform
+	dish.transform = CGAffineTransformIdentity;
+	dish.frame = frame;
+	dish.transform = CGAffineTransformMakeScale(0, 0);
+	[dishView addSubview:dish];
+	
+	// Setup for scale to animate to
+	float scale = 1;
+	switch (dish.tag)
+	{
+		case BSDishSetupViewControllerItemSmallDish:
+			scale = IMAGEVIEW_SCALE_SMALLDISH; break;
+		case BSDishSetupViewControllerItemMediumDish:
+			scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
+		default: break;
+	}
+	
+	// Animate blow up in dish view
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseOut
+		animations:^{
+			dish.transform
+				= CGAffineTransformMakeScale(
+					scale, scale);
+			dish.alpha = 1;
+		} completion:completion];
 }
 
 /** @brief Update page control & content size of scrollview */
@@ -495,35 +532,10 @@
 
 #pragma mark - UI Events
 
-/** @brief Add button is not hovered over anymore */
-- (void)addButtonHoverOut:(UIButton *)button
-{
-	debugLog(@"addButtonHoverOut");
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			button.transform = CGAffineTransformIdentity;
-		} completion:nil];
-}
-
-/** @brief Add button is hovered over */
-- (void)addButtonHoverOver:(UIButton *)button
-{
-	debugLog(@"addButtonHoverOver");
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
-			button.transform = CGAffineTransformMakeScale(ADD_BUTTON_SCALE_HOVER_OVER, ADD_BUTTON_SCALE_HOVER_OVER);
-		} completion:nil];
-}
-
 /** @brief Add button is pressed / dropped */
-- (void)addButtonPressed:(UIButton *)button
+- (void)addButtonPressed:(UIView *)view
 {
-	debugLog(@"addButtonPressed");
-	[self addDiner:nil];
+	[self addDiner:(view == self.addButton ? nil : view)];
 	[self scrollToPage:[self profileCount] - 1];
 }
 
@@ -534,8 +546,8 @@
 	[self scrollToPage:[self profileCount] - 1];
 }
 
-/** @brief Diner not hovered */
-- (void)profileHoveredOut:(UIView *)view
+/** @brief Droppable view not hovered over any more */
+- (void)droppableHoveredOut:(UIView *)view
 {
 	if (view) {
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
@@ -547,8 +559,8 @@
 	}
 }
 
-/** @brief Diner hovered over */
-- (void)profileHoveredOver:(UIView *)view
+/** @brief Droppable view hovered over */
+- (void)droppableHoveredOver:(UIView *)view
 {
 	if (view) {
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
@@ -650,14 +662,6 @@
 		default: break;
 	}
 	
-	debugLog(@"dishPressed: %i", button.tag);
-	
-	// Clear if exists for some reason
-	if (self.draggedView) {
-		[self.draggedView removeFromSuperview];
-		self.draggedView = nil;
-	}
-	
 	// Create draggable
 	self.draggedView = [[UIImageView alloc] initWithFrame:CGRectMake(
 		button.frame.origin.x, button.frame.origin.y,
@@ -692,71 +696,43 @@
 				options:UIViewAnimationOptionBeginFromCurrentState
 					| UIViewAnimationOptionCurveEaseIn
 				animations:^{
-					// Shrink
+					// Shrink animation for drop
 					self.draggedView.transform
 						= CGAffineTransformMakeScale(0, 0);
 				}
 				completion:^(BOOL finished)
 				{
-					// If there's a target, add to diner
+					// If there's a target, add to it
 					if (self.dragTargetView)
 					{
-						// Get index of view
-						int index = [self indexOfProfileView:self.dragTargetView];
+						// Scale target back to normal
+						[self droppableHoveredOut:self.dragTargetView];
 						
-						// Scale back to normal & remove pointer
-						[self profileHoveredOut:self.dragTargetView];
-						self.dragTargetView = nil;
-						
-						// Insanity checks
-						if (index == NSNotFound) {
-							NSLog(@"Error: drag target not a valid profile!");
-						}
-						else	// Add dish to diner with animation
+						// If is add button, then add new diner with dish
+						if (self.dragTargetView == self.addButton)
 						{
-							UIView *dishView = [[self.profiles objectAtIndex:index]
-								objectForKey:BSDistributionViewControllerProfileViewDishes];
-						
-							// Frame it should be in dish view
-							CGRect frame = CGRectMake(
-								0, dishView.subviews.count * (dishView.bounds.size.width),
-								dishView.bounds.size.width, dishView.bounds.size.width
-							);
+							[self addDiner:self.draggedView];
+							self.draggedView = nil;
+						}
+						else	// Find diner profile to add to
+						{
+							// Get index of view
+							int index = [self indexOfProfileView:self.dragTargetView];
 							
-							// Reset to zero size, identity transform
-							self.draggedView.transform
-								= CGAffineTransformIdentity;
-							self.draggedView.frame = frame;
-							self.draggedView.transform
-								= CGAffineTransformMakeScale(0, 0);
-							[dishView addSubview:self.draggedView];
-							
-							// Setup for scale to animate to
-							float scale = 1;
-							switch (self.draggedView.tag)
-							{
-								case BSDishSetupViewControllerItemSmallDish:
-									scale = IMAGEVIEW_SCALE_SMALLDISH; break;
-								case BSDishSetupViewControllerItemMediumDish:
-									scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
-								default: break;
+							// Insanity checks
+							if (index == NSNotFound) {
+								NSLog(@"Error: drag target not a valid profile!");
 							}
-							
-							// Animate blow up in dish view
-							[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-								options:UIViewAnimationOptionBeginFromCurrentState
-									| UIViewAnimationOptionCurveEaseOut
-								animations:^{
-									self.draggedView.transform
-										= CGAffineTransformMakeScale(
-											scale, scale);
-									self.draggedView.alpha = 1;
-								} completion:^(BOOL finished) {
-									self.draggedView = nil;
-								}];
+							else	// Add dish to diner with animation
+							{
+								[self addDish:self.draggedView
+									toDinerAtIndex:index
+									completion:nil];
+								self.draggedView = nil;
+							}
 						}
 					}
-					else	// Remove and clear
+					else	// Not dropped in anything, remove and clear
 					{
 						[self.draggedView removeFromSuperview];
 						self.draggedView = nil;
@@ -768,15 +744,21 @@
 		// Mid-drag, calculate potential targets
 		case UIGestureRecognizerStateChanged:
 		{
-			// Find a target
-			UIView *targetView = [self profileViewMostIntersectedByRect:self.draggedView.frame];
+			// Find a view target
+			UIView *targetView;
+			
+			// See if intersecting with add view
+			if (CGRectIntersectsRect(self.draggedView.frame, self.addButton.frame)) {
+				targetView = self.addButton;
+			} else {	// Find a profile target
+				targetView = [self profileViewMostIntersectedByRect:self.draggedView.frame];
+			}
 			
 			// If targetView and dragTargetView are different, animate change
 			if (self.dragTargetView != targetView)
 			{
-				[self profileHoveredOver:targetView];
-				[self profileHoveredOut:self.dragTargetView];
-				
+				[self droppableHoveredOver:targetView];
+				[self droppableHoveredOut:self.dragTargetView];
 				self.dragTargetView = targetView;
 			}
 		} // Allow to fall through and translate
