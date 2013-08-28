@@ -197,7 +197,7 @@
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
-	frame.origin.x = [self offsetForPageInScrollView:[self profileCount] + 1];
+	frame.origin.x = [self offsetForPageInScrollView:self.profiles.count + 1];
 	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.clipsToBounds = true;
@@ -231,7 +231,7 @@
 	removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
 	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
-	removeButton.tag = [self profileCount];
+	removeButton.tag = self.profiles.count;
 	[containerView addSubview:removeButton];
 
 	// Stepper for textfield
@@ -274,6 +274,16 @@
 	imageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[containerView addSubview:imageButton];
 
+	// Animate in instruction label if there were none
+	if (!self.profiles.count) {
+		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				self.instructionLabel.alpha = 1;
+			} completion:nil];
+	}
+	
 	// Keeping track of elements
 	[self.profiles addObject:@{
 		BSDistributionViewControllerProfileViewDishes : dishView,
@@ -287,7 +297,7 @@
 	
 	// Update scrollview & scroll over to new card section
 	[self refreshScrollView];
-	[self scrollToPage:[self profileCount] - 1];
+	[self scrollToPage:self.profiles.count - 1];
 	
 	// Animate card in
 	frame = containerView.frame;
@@ -301,9 +311,8 @@
 	
 	// Adding dish if exists
 	if (dish) {
-		[self addDish:dish toDinerAtIndex:[self profileCount]-1 completion:nil];
+		[self addDish:dish toDinerAtIndex:self.profiles.count-1 completion:nil];
 	}
-	
 }
 
 /** @brief Add dish to diner */
@@ -351,7 +360,7 @@
 - (void)refreshScrollView
 {
 	CGRect bounds = self.scrollView.bounds;
-	self.pageControl.numberOfPages = [self profileCount];
+	self.pageControl.numberOfPages = self.profiles.count;
 	self.scrollView.contentSize = CGSizeMake(
 		bounds.size.width * self.pageControl.numberOfPages + 1,
 		bounds.size.height
@@ -542,6 +551,7 @@
 	swipe.direction = UISwipeGestureRecognizerDirectionLeft;
 	swipe.delaysTouchesBegan = false;
 	swipe.delaysTouchesEnded = false;
+	[self.panGesture requireGestureRecognizerToFail:swipe];
 	[self.addButton addGestureRecognizer:swipe];
 	
 	[self.view addSubview:self.addButton];
@@ -593,7 +603,7 @@
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
 	// Insanity check
-	if (![self profileCount]) {
+	if (!self.profiles.count) {
 		return;
 	}
 	
@@ -619,7 +629,7 @@
 			UIView *temp;
 			
 			// If is last card on right, then shift scrollview left
-			if (index == [self profileCount] - 1)
+			if (index == self.profiles.count - 1)
 			{
 				frame.origin.x -= bounds.size.width;
 				self.scrollView.contentOffset = frame.origin;
@@ -629,7 +639,7 @@
 				[[[self.profiles objectAtIndex:index + 1]
 					objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
 						setAlpha:1];
-				for (int i = index + 1; i < [self profileCount]; ++i) {
+				for (int i = index + 1; i < self.profiles.count; ++i) {
 					temp = [[self.profiles objectAtIndex:i]
 						objectForKey:BSDistributionViewControllerProfileViewCard];
 					frame = temp.frame;
@@ -870,12 +880,6 @@
 	return NSNotFound;
 }
 
-/** @brief Current number of diner profiles set up */
-- (int)profileCount
-{
-	return self.profiles.count;
-}
-
 /** @brief Current number of diners set up */
 - (int)dinerCount
 {
@@ -915,14 +919,14 @@
     int page = floor((scrollView.contentOffset.x - pageSize / 2) / pageSize) + 1;
 
 	// Bound page limits
-	if (page >= [self profileCount]) {
-		page = [self profileCount] - 1;
+	if (page >= self.profiles.count) {
+		page = self.profiles.count - 1;
 	} else if (page < 0) {
 		page = 0;
 	}
 	
 	// If new page not the same as last shown page, update
-	if (page != self.lastShownProfile && [self profileCount])
+	if (page != self.lastShownProfile && self.profiles.count)
 	{
 		// Show / hide remove buttons
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
