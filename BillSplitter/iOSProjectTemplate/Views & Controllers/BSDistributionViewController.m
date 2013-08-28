@@ -94,6 +94,7 @@
 		_lastShownProfile = 0;
 		
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -116,6 +117,7 @@
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
 	[self setupAddView:bounds];
+	[self setupInstructionLabel:bounds];
 	
 	// Add first diner
 	[self addDiner:nil];
@@ -287,20 +289,6 @@
 	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	[containerView addSubview:stepper];
 	
-	// Label for textfield
-	frame = textField.frame;
-	UILabel *label = [[UILabel alloc] initWithFrame:CGRectZero];
-	label.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
-	[label sizeToFit];
-	label.frame = CGRectMake(
-		frame.origin.x, frame.origin.y - label.frame.size.height,
-		CGRectGetMaxX(stepper.frame) - frame.origin.x, label.frame.size.height
-	);
-	label.backgroundColor = [UIColor whiteColor];
-	label.textColor = UIColorFromHex(COLOR_HEX_COPY_LIGHT);
-	label.textAlignment = NSTextAlignmentCenter;
-	label.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_SMALL_LABEL];
-	[containerView addSubview:label];
 	
 	// Keeping track of elements
 	[self.profiles addObject:@{
@@ -378,7 +366,7 @@
 }
 
 /** @brief Setup description label */
-- (void)setupDescriptionLabel:(CGRect) bounds
+- (void)setupDescriptionLabel:(CGRect)bounds
 {
 	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
@@ -393,6 +381,23 @@
 	);
 	
 	[self.view addSubview:self.descriptionLabel];
+}
+
+/** @brief Setup profile instruction label */
+- (void)setupInstructionLabel:(CGRect)bounds
+{
+	self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
+	self.instructionLabel.frame = CGRectMake(
+		0, bounds.size.height - UI_SIZE_MIN_TOUCH,
+		bounds.size.width, UI_SIZE_MIN_TOUCH
+	);
+	self.instructionLabel.numberOfLines = 0;
+	self.instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+	self.instructionLabel.backgroundColor = [UIColor clearColor];
+	self.instructionLabel.textColor = [UIColor whiteColor];
+	self.instructionLabel.textAlignment = NSTextAlignmentCenter;
+	self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+	[self.view addSubview:self.instructionLabel];
 }
 
 /** @brief Setup background view */
@@ -412,10 +417,10 @@
 	CGRect frame = self.descriptionLabel.frame;
 	BSDistributionContainerView *containerView
 		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
-		0,
-		frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT,
+		0, CGRectGetMaxY(frame) + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width,
-		bounds.size.height - UI_SIZE_MIN_TOUCH - (frame.origin.y + frame.size.height + UI_SIZE_PAGECONTROL_HEIGHT)
+		bounds.size.height - UI_SIZE_MIN_TOUCH
+			- (CGRectGetMaxY(frame) + UI_SIZE_PAGECONTROL_HEIGHT)
 	)];
 	containerView.userInteractionEnabled = true;
 	
