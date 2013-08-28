@@ -66,6 +66,10 @@
 
 	@property (nonatomic, assign) CGRect frame;
 
+	/** For dragging & dropping items */
+	@property (nonatomic, strong) DraggableImageView *draggedView;
+	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
+
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
@@ -95,6 +99,9 @@
 		
 		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		
+		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
+		_panGesture.delaysTouchesBegan = false;
     }
     return self;
 }
@@ -121,6 +128,9 @@
 	
 	// Add first diner
 	[self addDiner:nil];
+	
+	// Add pan gesture for dragging
+	[self.view addGestureRecognizer:self.panGesture];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -214,7 +224,7 @@
 	UIView *dishView = [[UIView alloc] initWithFrame:CGRectMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN, UI_SIZE_MIN_TOUCH, itemSize
 	)];
-	dishView.backgroundColor = [UIColor whiteColor];
+	dishView.backgroundColor = [UIColor clearColor];
 	[containerView addSubview:dishView];
 	
 	// Adding dish if exists
@@ -388,14 +398,14 @@
 {
 	self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
 	self.instructionLabel.frame = CGRectMake(
-		0, bounds.size.height - UI_SIZE_MIN_TOUCH,
+		UI_SIZE_MARGIN, bounds.size.height - UI_SIZE_MIN_TOUCH,
 		bounds.size.width, UI_SIZE_MIN_TOUCH
 	);
 	self.instructionLabel.numberOfLines = 0;
 	self.instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.instructionLabel.backgroundColor = [UIColor clearColor];
 	self.instructionLabel.textColor = [UIColor whiteColor];
-	self.instructionLabel.textAlignment = NSTextAlignmentCenter;
+	self.instructionLabel.textAlignment = NSTextAlignmentLeft;
 	self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
 	[self.view addSubview:self.instructionLabel];
 }
@@ -662,10 +672,53 @@
 		default: break;
 	}
 	
+	debugLog(@"dishPressed: %i", button.tag);
+	
+	// Clear if exists for some reason
+	if (self.draggedView) {
+		[self.draggedView removeFromSuperview];
+		self.draggedView = nil;
+	}
+	
 	// Create draggable
-	DraggableImageView *imageView = [[DraggableImageView alloc]
-		initWithFrame:dish.frame];
-	imageView.image = dish.imageView.image;
+	self.draggedView = [[DraggableImageView alloc] initWithFrame:CGRectMake(
+		button.frame.origin.x, button.frame.origin.y,
+		dish.frame.size.width, dish.frame.size.height
+	)];
+	self.draggedView.image = dish.imageView.image;
+	[self.view addSubview:self.draggedView];
+}
+
+/** @brief View panned on, to do dragging */
+- (void)viewPanned:(UIPanGestureRecognizer *)gesture
+{
+	// Only do stuff if dragged view exists
+	if (!self.draggedView) {
+		return;
+	}
+	
+	CGPoint translation = [gesture translationInView:gesture.view];
+    CGPoint velocity = [gesture velocityInView:gesture.view];
+	debugLog(@"viewPanned: %@", NSStringFromCGPoint(translation));
+	
+	switch (gesture.state)
+	{
+		case UIGestureRecognizerStateChanged:
+		case UIGestureRecognizerStateEnded: {
+			[UIView animateWithDuration:0.1 delay:0
+				options:UIViewAnimationOptionBeginFromCurrentState
+					| UIViewAnimationOptionCurveEaseInOut
+				animations:^{
+					self.draggedView.transform
+						= CGAffineTransformMakeTranslation(
+							translation.x, translation.y);
+				} completion:nil];
+		} break;
+			
+		case UIGestureRecognizerStateBegan:
+		default:
+			break;
+	}
 }
 
 
