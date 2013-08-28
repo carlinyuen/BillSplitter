@@ -171,12 +171,12 @@
 - (void)updateSteppers
 {
 	int currentCount = [self dinerCount];
-	debugLog(@"currentCount: %i", currentCount);
 
 	for (NSDictionary *profile in self.profiles)
 	{
 		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
-		stepper.maximumValue = (self.headCount - currentCount) + stepper.value;
+		stepper.maximumValue = MAX(stepper.minimumValue,
+			(self.headCount - currentCount) + stepper.value);
 	}
 }
 
