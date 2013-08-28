@@ -105,6 +105,8 @@ float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButto
     [stepperButton addTarget:self action:@selector(didEndButtonPress:)
 		forControlEvents:UIControlEventTouchDragExit];
     [stepperButton addTarget:self action:@selector(didPressButton:)
+		forControlEvents:UIControlEventTouchDragEnter];
+    [stepperButton addTarget:self action:@selector(didPressButton:)
 		forControlEvents:UIControlEventTouchDown];
     [stepperButton addTarget:self action:@selector(didEndButtonPress:)
 		forControlEvents:UIControlEventTouchUpInside];
