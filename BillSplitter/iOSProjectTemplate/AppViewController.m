@@ -339,8 +339,14 @@
 	float yTempOffset = 0, xTempOffset = 0;
 	float difference = 0, temp = 0;
 	
+	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
 	BSDishSetupViewController *dishSetup = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
-	
+	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+	BSTotalMarkupViewController *total = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
+	BSSummaryViewController *summary = [self.viewControllers objectAtIndex:AppViewControllerPageSummary];
+
+	/////////////////////////////////////////////
+	// Dish Setup Page
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
@@ -405,9 +411,12 @@
 		];
 	}
 	
-	// Distribution description
-	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+
+	/////////////////////////////////////////////
+	// Distribution Page
 	yTempOffset = [self offsetForPageInScrollView:AppViewControllerPageDistribution];
+	
+	// Distribution description
 	[self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointMake(0, 0)
 		scale:CGSizeMake(1, 1)
@@ -421,6 +430,22 @@
 		rotate:0
 		alpha:1
 		forView:distribution.descriptionLabel
+	];
+	
+	// Distribution instructions
+	[self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.instructionLabel
+	];
+	[self.animator setKeyFrameWithOffset: yTempOffset + bounds.size.height / 6
+		translate:CGPointMake(0, bounds.size.height / 3)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:distribution.instructionLabel
 	];
 	
 	// Drink
@@ -663,6 +688,9 @@
 		forView:dishSetup.largeDishButton
 	];
 	
+
+	/////////////////////////////////////////////
+	// Total Markup Page
 }
 
 
