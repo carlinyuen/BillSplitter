@@ -229,22 +229,12 @@
 	removeButton.tag = [self profileCount];
 	removeButton.alpha = 0;
 	[containerView addSubview:removeButton];
-	
-	// Image button to drag items onto
-	frame = dishView.frame;
-	UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(
-		(containerView.frame.size.width - bounds.size.width / 2) / 2, UI_SIZE_DINER_MARGIN,
-		bounds.size.width / 2, itemSize / 4 * 3
-	)];
-	[button setImage:[UIImage imageNamed:IMG_DINER] forState:UIControlStateNormal];
-	button.imageView.contentMode = UIViewContentModeScaleAspectFill;
-	[containerView addSubview:button];
 
 	// Stepper for textfield
 	UIVerticalStepper *stepper = [[UIVerticalStepper alloc] init];
 	stepper.frame = CGRectMake(
 		containerView.bounds.size.width - stepper.frame.size.width - UI_SIZE_DINER_MARGIN,
-		(itemSize / 4 - stepper.frame.size.height) / 2 + (itemSize / 4 * 3),
+		containerView.bounds.size.height - stepper.frame.size.height - UI_SIZE_DINER_MARGIN,
 		stepper.frame.size.width, stepper.frame.size.height
 	);
 	stepper.maximumValue = self.headCount;
@@ -257,8 +247,10 @@
 	// Textfield for count of diners
 	frame = stepper.frame;
 	UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(
-		CGRectGetMinX(button.frame), itemSize / 4 * 3,
-		CGRectGetWidth(button.frame), itemSize / 4
+		(containerView.frame.size.width - bounds.size.width / 2) / 2,
+		CGRectGetMinY(frame),
+		bounds.size.width / 2,
+		CGRectGetHeight(frame)
 	)];
 	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
@@ -266,11 +258,22 @@
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	textField.userInteractionEnabled = false;
 	[containerView addSubview:textField];
+	
+	// Image button to drag items onto
+	frame = textField.frame;
+	UIButton *imageButton = [[UIButton alloc] initWithFrame:CGRectMake(
+		CGRectGetMinX(frame), UI_SIZE_DINER_MARGIN,
+		CGRectGetWidth(frame), bounds.size.height - UI_SIZE_DINER_MARGIN - CGRectGetHeight(frame)
+	)];
+	[imageButton setImage:[UIImage imageNamed:IMG_DINER]
+		forState:UIControlStateNormal];
+	imageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
+	[containerView addSubview:imageButton];
 
 	// Keeping track of elements
 	[self.profiles addObject:@{
 		BSDistributionViewControllerProfileViewDishes : dishView,
-		BSDistributionViewControllerProfileViewImageButton : button,
+		BSDistributionViewControllerProfileViewImageButton : imageButton,
 		BSDistributionViewControllerProfileViewRemoveButton : removeButton,
 		BSDistributionViewControllerProfileViewTextField : textField,
 		BSDistributionViewControllerProfileViewStepper : stepper,
