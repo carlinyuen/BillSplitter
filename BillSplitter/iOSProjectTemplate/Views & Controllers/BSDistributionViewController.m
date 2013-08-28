@@ -14,11 +14,12 @@
 #import "CustomPageControl.h"
 
 #import "BSDishSetupViewController.h"
-#import "DraggableImageView.h"
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
 	#define ADD_BUTTON_SCALE_HOVER_OVER 1.2
+
+	#define DRAG_SPEED 0.05
 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
@@ -67,7 +68,7 @@
 	@property (nonatomic, assign) CGRect frame;
 
 	/** For dragging & dropping items */
-	@property (nonatomic, strong) DraggableImageView *draggedView;
+	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
 	/** For sideswipping between diners */
@@ -681,11 +682,12 @@
 	}
 	
 	// Create draggable
-	self.draggedView = [[DraggableImageView alloc] initWithFrame:CGRectMake(
+	self.draggedView = [[UIImageView alloc] initWithFrame:CGRectMake(
 		button.frame.origin.x, button.frame.origin.y,
 		dish.frame.size.width, dish.frame.size.height
 	)];
 	self.draggedView.image = dish.imageView.image;
+	self.draggedView.contentMode = UIViewContentModeScaleAspectFit;
 	[self.view addSubview:self.draggedView];
 }
 
@@ -699,19 +701,19 @@
 	
 	CGPoint translation = [gesture translationInView:gesture.view];
     CGPoint velocity = [gesture velocityInView:gesture.view];
-	debugLog(@"viewPanned: %@", NSStringFromCGPoint(translation));
+	CGRect frame = self.draggedView.frame;
+	frame.origin.x += translation.x;
+	frame.origin.y += translation.y;
 	
 	switch (gesture.state)
 	{
 		case UIGestureRecognizerStateChanged:
 		case UIGestureRecognizerStateEnded: {
-			[UIView animateWithDuration:0.1 delay:0
+			[UIView animateWithDuration:DRAG_SPEED delay:0
 				options:UIViewAnimationOptionBeginFromCurrentState
-					| UIViewAnimationOptionCurveEaseInOut
+					| UIViewAnimationOptionCurveEaseOut
 				animations:^{
-					self.draggedView.transform
-						= CGAffineTransformMakeTranslation(
-							translation.x, translation.y);
+					self.draggedView.frame = frame;
 				} completion:nil];
 		} break;
 			
@@ -719,6 +721,9 @@
 		default:
 			break;
 	}
+	
+	// Reset so we can add incrementally
+	[gesture setTranslation:CGPointZero inView:gesture.view];
 }
 
 
