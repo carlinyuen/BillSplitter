@@ -232,7 +232,6 @@
 	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
 	removeButton.tag = [self profileCount];
-	removeButton.alpha = 0;
 	[containerView addSubview:removeButton];
 
 	// Stepper for textfield
@@ -286,8 +285,9 @@
 	}];
 	[self.scrollView addSubview:containerView];
 	
-	// Update scrollview
+	// Update scrollview & scroll over to new card section
 	[self refreshScrollView];
+	[self scrollToPage:[self profileCount] - 1];
 	
 	// Animate card in
 	frame = containerView.frame;
@@ -554,14 +554,12 @@
 - (void)addButtonPressed:(UIView *)view
 {
 	[self addDiner:(view == self.addButton ? nil : view)];
-	[self scrollToPage:[self profileCount] - 1];
 }
 
 /** @brief Add button is swiped on */
 - (void)addButtonSwiped:(UISwipeGestureRecognizer *)gesture
 {
 	[self addDiner:nil];
-	[self scrollToPage:[self profileCount] - 1];
 }
 
 /** @brief Droppable view not hovered over any more */
@@ -728,7 +726,6 @@
 						if (self.dragTargetView == self.addButton)
 						{
 							[self addDiner:self.draggedView];
-							[self scrollToPage:[self profileCount] - 1];
 							self.draggedView = nil;
 						}
 						else	// Find diner profile to add to
