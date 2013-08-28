@@ -103,7 +103,7 @@
 		_instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		
 		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
-		_panGesture.delaysTouchesBegan = false;
+		_panGesture.delaysTouchesBegan = true;
 		
     }
     return self;
