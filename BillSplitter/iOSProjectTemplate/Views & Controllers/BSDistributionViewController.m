@@ -174,9 +174,14 @@
 
 	for (NSDictionary *profile in self.profiles)
 	{
-		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
+		UIVerticalStepper *stepper = [profile
+			objectForKey:BSDistributionViewControllerProfileViewStepper];
 		stepper.maximumValue = MAX(stepper.minimumValue,
 			(self.headCount - currentCount) + stepper.value);
+			
+		UITextField *textField = [profile
+			objectForKey:BSDistributionViewControllerProfileViewTextField];
+		textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	}
 }
 
