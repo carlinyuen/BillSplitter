@@ -701,14 +701,17 @@
 		return;
 	}
 	
-	CGPoint translation = [gesture translationInView:gesture.view];
-	CGRect frame = CGRectOffset(self.draggedView.frame,
-		translation.x, translation.y);
-	
 	switch (gesture.state)
 	{
-		case UIGestureRecognizerStateChanged:
-		case UIGestureRecognizerStateEnded: {
+		case UIGestureRecognizerStateEnded:
+			debugLog(@"ended");
+			break;
+			
+		default: {
+			CGPoint translation = [gesture translationInView:gesture.view];
+			CGRect frame = CGRectOffset(self.draggedView.frame,
+				translation.x, translation.y);
+			
 			[UIView animateWithDuration:DRAG_SPEED delay:0
 				options:UIViewAnimationOptionBeginFromCurrentState
 					| UIViewAnimationOptionCurveEaseOut
@@ -716,10 +719,6 @@
 					self.draggedView.frame = frame;
 				} completion:nil];
 		} break;
-			
-		case UIGestureRecognizerStateBegan:
-		default:
-			break;
 	}
 	
 	// Reset so we can add incrementally
