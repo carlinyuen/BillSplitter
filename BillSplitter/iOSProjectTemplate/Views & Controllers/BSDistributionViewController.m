@@ -17,8 +17,8 @@
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
-	#define ADD_BUTTON_SCALE_HOVER_OVER 1.1
-
+	#define HOVER_SCALE 1.05
+	#define HOVER_SPEED 0.1
 	#define DRAG_SPEED 0.05
 	#define DRAG_ALPHA 0.66
 
@@ -554,7 +554,7 @@
 - (void)droppableHoveredOut:(UIView *)view
 {
 	if (view) {
-		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		[UIView animateWithDuration:HOVER_SPEED delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
@@ -567,12 +567,12 @@
 - (void)droppableHoveredOver:(UIView *)view
 {
 	if (view) {
-		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		[UIView animateWithDuration:HOVER_SPEED delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
 				view.transform = CGAffineTransformMakeScale(
-					ADD_BUTTON_SCALE_HOVER_OVER, ADD_BUTTON_SCALE_HOVER_OVER);
+					HOVER_SCALE, HOVER_SCALE);
 			} completion:nil];
 	}
 }
