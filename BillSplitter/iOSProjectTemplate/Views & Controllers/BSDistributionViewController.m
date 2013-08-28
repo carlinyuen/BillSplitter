@@ -71,6 +71,7 @@
 	/** For dragging & dropping items */
 	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIView *dragTargetView;
+	@property (nonatomic, assign) CGPoint dragPointer;
 
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
@@ -573,12 +574,6 @@
 	}
 }
 
-/** @brief Item dropped on diner */
-- (void)profileItemDropped:(UIButton *)button
-{
-	debugFunc(nil);
-}
-
 /** @brief X button pressed on diner profile card */
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
@@ -682,6 +677,10 @@
 		return;
 	}
 	
+	// Keep track of pointer
+	self.dragPointer = [gesture locationInView:self.view];
+	
+	// Actions based on state
 	switch (gesture.state)
 	{
 		// Started dragging, reset
@@ -748,8 +747,8 @@
 			// Find a view target
 			UIView *targetView;
 			
-			// See if intersecting with add view
-			if (CGRectIntersectsRect(self.draggedView.frame, self.addButton.frame)) {
+			// See if pointer is in add view
+			if (CGRectContainsPoint(self.addButton.frame, self.dragPointer)) {
 				targetView = self.addButton;
 			} else {	// Find a profile target
 				targetView = [self profileViewMostIntersectedByRect:self.draggedView.frame];
