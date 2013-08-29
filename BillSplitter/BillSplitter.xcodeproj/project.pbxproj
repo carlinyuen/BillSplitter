@@ -556,6 +556,7 @@
 		5F7C89531790A36700018AD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
@@ -566,6 +567,7 @@
 					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
 				);
 				PRODUCT_NAME = BillSplitter;
+				PROVISIONING_PROFILE = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
