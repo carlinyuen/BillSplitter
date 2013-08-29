@@ -561,8 +561,8 @@
 		5F7C89531790A36700018AD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Carlin Yuen (8FWA72NP3B)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Carlin Yuen (8FWA72NP3B)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
 				INFOPLIST_FILE = "iOSProjectTemplate/BillSplitter-Info.plist";
@@ -572,8 +572,8 @@
 					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
 				);
 				PRODUCT_NAME = BillSplitter;
-				PROVISIONING_PROFILE = "";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
+				PROVISIONING_PROFILE = "248E8B40-8695-41DB-A9F6-29472E93D6F0";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "248E8B40-8695-41DB-A9F6-29472E93D6F0";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
