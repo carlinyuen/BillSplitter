@@ -349,7 +349,53 @@
 	/////////////////////////////////////////////
 	// Headcount Page
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageHeadCount];
-
+		
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.stepper
+	];
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.textField
+	];
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.imageView
+	];
+	
+	// Animate out sideways
+	difference = bounds.size.height / 2;
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(bounds.size.width, difference)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.stepper
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(bounds.size.width, difference)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.textField
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(-bounds.size.width, difference)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.imageView
+	];
+	
 
 	/////////////////////////////////////////////
 	// Dish Setup Page
