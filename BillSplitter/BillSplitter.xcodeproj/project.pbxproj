@@ -46,6 +46,10 @@
 		5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261B17CE3C77009F7652 /* stepperTopButton.png */; };
 		5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */; };
 		5FE4262717CE3C77009F7652 /* UIVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */; };
+		5FE4262F17CEE58C009F7652 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE4262917CEE58C009F7652 /* libTestFlight.a */; };
+		5FE4263017CEE58C009F7652 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262A17CEE58C009F7652 /* README.md */; };
+		5FE4263117CEE58C009F7652 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262B17CEE58C009F7652 /* release_notes.md */; };
+		5FE4263317CEE5DE009F7652 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE4263217CEE5DD009F7652 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -106,6 +110,13 @@
 		5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperTopButton@2x.png"; sourceTree = "<group>"; };
 		5FE4261D17CE3C77009F7652 /* UIVerticalStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVerticalStepper.h; sourceTree = "<group>"; };
 		5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIVerticalStepper.m; sourceTree = "<group>"; };
+		5FE4262917CEE58C009F7652 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		5FE4262A17CEE58C009F7652 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		5FE4262B17CEE58C009F7652 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		5FE4262C17CEE58C009F7652 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		5FE4262D17CEE58C009F7652 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		5FE4262E17CEE58C009F7652 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		5FE4263217CEE5DD009F7652 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,10 +124,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE4263317CEE5DE009F7652 /* libz.dylib in Frameworks */,
 				5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */,
 				5F7C892F1790A36700018AD7 /* UIKit.framework in Frameworks */,
 				5F7C89311790A36700018AD7 /* Foundation.framework in Frameworks */,
 				5F7C89331790A36700018AD7 /* CoreGraphics.framework in Frameworks */,
+				5FE4262F17CEE58C009F7652 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +176,7 @@
 		5F7C89221790A36700018AD7 = {
 			isa = PBXGroup;
 			children = (
+				5FE4263217CEE5DD009F7652 /* libz.dylib */,
 				5F7C89341790A36700018AD7 /* iOSProjectTemplate */,
 				5F7C892D1790A36700018AD7 /* Frameworks */,
 				5F7C892C1790A36700018AD7 /* Products */,
@@ -224,6 +238,7 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				5FE4262817CEE58B009F7652 /* TestFlightSDK2.0.0 */,
 				5FE4261317CE3C77009F7652 /* UIVerticalStepper */,
 				5F05427117C67D0100B40CCA /* UIViewDebugger */,
 				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
@@ -314,6 +329,19 @@
 			path = "Stepper Images";
 			sourceTree = "<group>";
 		};
+		5FE4262817CEE58B009F7652 /* TestFlightSDK2.0.0 */ = {
+			isa = PBXGroup;
+			children = (
+				5FE4262917CEE58C009F7652 /* libTestFlight.a */,
+				5FE4262A17CEE58C009F7652 /* README.md */,
+				5FE4262B17CEE58C009F7652 /* release_notes.md */,
+				5FE4262C17CEE58C009F7652 /* TestFlight+AsyncLogging.h */,
+				5FE4262D17CEE58C009F7652 /* TestFlight+ManualSessions.h */,
+				5FE4262E17CEE58C009F7652 /* TestFlight.h */,
+			);
+			path = TestFlightSDK2.0.0;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -385,6 +413,8 @@
 				5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */,
 				5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */,
 				5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */,
+				5FE4263017CEE58C009F7652 /* README.md in Resources */,
+				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,11 +536,19 @@
 		5F7C89521790A36700018AD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Carlin Yuen (CB7P22G8XW)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carlin Yuen (CB7P22G8XW)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
 				INFOPLIST_FILE = "iOSProjectTemplate/BillSplitter-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
+				);
 				PRODUCT_NAME = BillSplitter;
+				PROVISIONING_PROFILE = "6284A248-F13E-40B9-BD5E-033A4BC04EF5";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "6284A248-F13E-40B9-BD5E-033A4BC04EF5";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -518,11 +556,17 @@
 		5F7C89531790A36700018AD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
 				INFOPLIST_FILE = "iOSProjectTemplate/BillSplitter-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
+				);
 				PRODUCT_NAME = BillSplitter;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
