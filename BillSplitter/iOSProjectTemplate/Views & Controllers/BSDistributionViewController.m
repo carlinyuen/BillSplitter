@@ -447,7 +447,7 @@
 {
 	self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
 	self.instructionLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN, bounds.size.height - UI_SIZE_MIN_TOUCH,
+		UI_SIZE_MARGIN * 2, bounds.size.height - UI_SIZE_MIN_TOUCH,
 		bounds.size.width, UI_SIZE_MIN_TOUCH
 	);
 	self.instructionLabel.numberOfLines = 0;
