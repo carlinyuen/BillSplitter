@@ -209,6 +209,12 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+	
+	// Reset values
+	self.drinkStepper.value = STEPPER_DEFAULT_VALUE_DRINK;
+	self.smallDishStepper.value = STEPPER_DEFAULT_VALUE_SMALLDISH;
+	self.mediumDishStepper.value = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
+	self.largeDishStepper.value = STEPPER_DEFAULT_VALUE_LARGEDISH;
 }
 
 /** @brief Return supported orientations */

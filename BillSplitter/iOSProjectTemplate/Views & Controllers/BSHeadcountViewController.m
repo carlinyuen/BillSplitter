@@ -149,6 +149,9 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+	
+	// Reset values
+	self.stepper.value = STEPPER_MIN_VALUE;
 }
 
 /** @brief Return supported orientations */
