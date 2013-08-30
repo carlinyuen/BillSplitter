@@ -12,7 +12,8 @@
 @interface AppViewController : UIViewController<
 	UIScrollViewDelegate,
 	UITextFieldDelegate,
-	UITextViewDelegate
+	UITextViewDelegate,
+	UIAlertViewDelegate
 >
 
 @end

@@ -9,6 +9,8 @@
 
 #import "AppViewController.h"
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "ParallaxScrollingFramework.h"
 #import "CustomPageControl.h"
 #import "BSKeyboardControls.h"
@@ -22,9 +24,12 @@
 #import "BSSummaryViewController.h"
 
 	#define UI_SIZE_INFO_BUTTON_MARGIN 8
-
+	#define UI_SIZE_RESET_BUTTON_HEIGHT 16
+	#define UI_SIZE_CORNER_RADIUS 8
 	#define UI_SIZE_PAGECONTROL_WIDTH 24
 	#define UI_SIZE_PAGECONTROL_HEIGHT 94
+
+	#define IMG_RESET @"reset.png"
 	
 	typedef enum {
 		AppViewControllerPageHeadCount,
@@ -63,6 +68,7 @@
 	@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
+	@property (nonatomic, strong) UIButton *resetButton;
 
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
@@ -110,6 +116,9 @@
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
 	bounds.origin.x = bounds.origin.y = 0;
+	
+	// Setup view
+	self.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
 	
 	// UI Setup
 	[self setupNavBar:bounds];
@@ -195,6 +204,7 @@
 	
 	[self setupPageControl:bounds];
 	[self setupKeyboardControl];
+	[self setupResetButton:bounds];
 }
 
 /** @brief Setup headcount view */
@@ -323,6 +333,21 @@
 {
 	self.keyboardControl = [[BSKeyboardControls alloc] initWithFields:self.inputFields];
 	self.keyboardControl.delegate = self;
+}
+
+/** @brief Setup reset button */
+- (void)setupResetButton:(CGRect)bounds
+{
+	UIImage *image = [UIImage imageNamed:IMG_RESET];
+	self.resetButton = [[UIButton alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height - UI_SIZE_RESET_BUTTON_HEIGHT,
+		UI_SIZE_RESET_BUTTON_HEIGHT, UI_SIZE_RESET_BUTTON_HEIGHT
+	)];
+	[self.resetButton setBackgroundImage:image forState:UIControlStateNormal];
+	self.resetButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
+	[self.resetButton addTarget:self action:@selector(resetButtonPressed:)
+		forControlEvents:UIControlEventTouchUpInside];
+	[self.view addSubview:self.resetButton];
 }
 
 /** @brief Setup animation for scrolling */
@@ -814,6 +839,25 @@
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:[[InfoViewNavigationController alloc] initWithRootViewController:controller]
 		animated:YES completion:nil];
+}
+
+/** @brief Reset button pressed */
+- (void)resetButtonPressed:(UIButton *)sender
+{
+	[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"APP_VIEW_WARNING_TITLE", nil)
+		message:NSLocalizedString(@"APP_VIEW_WARNING_RESET", nil)
+		delegate:self
+		cancelButtonTitle:NSLocalizedString(@"POPUP_CANCEL", nil)
+		otherButtonTitles:NSLocalizedString(@"APP_VIEW_WARNING_RESET_OK", nil), nil] show];
+}
+
+/** @brief Alert view button pressed */
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+	if (buttonIndex)	// Not cancel, reset data
+	{
+		// TODO: Reset all fields
+	}
 }
 
 
