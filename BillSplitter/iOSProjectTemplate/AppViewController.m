@@ -24,8 +24,9 @@
 #import "BSSummaryViewController.h"
 
 	#define UI_SIZE_INFO_BUTTON_MARGIN 8
-	#define UI_SIZE_RESET_BUTTON_HEIGHT 16
-	#define UI_SIZE_CORNER_RADIUS 8
+	#define UI_SIZE_RESET_BUTTON_HEIGHT 24
+	#define UI_SIZE_RESET_BUTTON_MARGIN 4
+	#define UI_SIZE_CORNER_RADIUS 12
 	#define UI_SIZE_PAGECONTROL_WIDTH 24
 	#define UI_SIZE_PAGECONTROL_HEIGHT 94
 
@@ -340,7 +341,8 @@
 {
 	UIImage *image = [UIImage imageNamed:IMG_RESET];
 	self.resetButton = [[UIButton alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height - UI_SIZE_RESET_BUTTON_HEIGHT,
+		UI_SIZE_RESET_BUTTON_MARGIN,
+		bounds.size.height - UI_SIZE_RESET_BUTTON_HEIGHT - UI_SIZE_RESET_BUTTON_MARGIN,
 		UI_SIZE_RESET_BUTTON_HEIGHT, UI_SIZE_RESET_BUTTON_HEIGHT
 	)];
 	[self.resetButton setBackgroundImage:image forState:UIControlStateNormal];
