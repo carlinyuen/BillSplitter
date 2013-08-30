@@ -830,6 +830,14 @@
 	}
 }
 
+/** @brief Resets all the pages to defaults */
+- (void)resetPages
+{
+	for (UIViewController *vc in self.viewControllers) {
+		[vc didReceiveMemoryWarning];	// Reset
+	}
+}
+
 
 #pragma mark - UI Event Handlers
 
@@ -858,7 +866,7 @@
 {
 	if (buttonIndex)	// Not cancel, reset data
 	{
-		// TODO: Reset all fields
+		[self resetPages];
 	}
 }
 
