@@ -69,6 +69,7 @@
 	@property (nonatomic, assign) CGRect frame;
 
 	/** For dragging & dropping items */
+	@property (nonatomic, assign) UIButton *tappedDish;
 	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIView *dragTargetView;
 	@property (nonatomic, assign) CGPoint dragPointer;
@@ -677,40 +678,50 @@
 /** @brief Dish button touch down on */
 - (void)dishButtonPressed:(UIButton *)button
 {
-	// Figure out which dish was pressed
-	UIButton *dish;
-	switch (button.tag)
-	{
-		case BSDishSetupViewControllerItemDrink:
-			dish = self.drinkButton; break;
-			
-		case BSDishSetupViewControllerItemSmallDish:
-			dish = self.smallDishButton; break;
-			
-		case BSDishSetupViewControllerItemMediumDish:
-			dish = self.mediumDishButton; break;
-			
-		case BSDishSetupViewControllerItemLargeDish:
-			dish = self.largeDishButton; break;
-			
-		default: break;
-	}
-	
-	// Create draggable
-	self.draggedView = [[UIImageView alloc] initWithFrame:CGRectMake(
-		button.frame.origin.x, button.frame.origin.y,
-		dish.frame.size.width, dish.frame.size.height
-	)];
-	self.draggedView.image = dish.imageView.image;
-	self.draggedView.contentMode = UIViewContentModeScaleAspectFit;
-	self.draggedView.alpha = DRAG_ALPHA;
-	self.draggedView.tag = button.tag;
-	[self.view addSubview:self.draggedView];
+	self.tappedDish = button;
 }
 
 /** @brief View panned on, to do dragging */
 - (void)viewPanned:(UIPanGestureRecognizer *)gesture
 {
+	debugLog(@"gesture state: %i", gesture.state);
+	
+	if (gesture.state == UIGestureRecognizerStateBegan)
+	{
+		// Figure out which dish was pressed
+		UIButton *dish;
+		switch (self.tappedDish.tag)
+		{
+			case BSDishSetupViewControllerItemDrink:
+				dish = self.drinkButton; break;
+				
+			case BSDishSetupViewControllerItemSmallDish:
+				dish = self.smallDishButton; break;
+				
+			case BSDishSetupViewControllerItemMediumDish:
+				dish = self.mediumDishButton; break;
+				
+			case BSDishSetupViewControllerItemLargeDish:
+				dish = self.largeDishButton; break;
+				
+			default: break;
+		}
+	
+		// Create draggable
+		self.draggedView = [[UIImageView alloc] initWithFrame:CGRectMake(
+			self.tappedDish.frame.origin.x, self.tappedDish.frame.origin.y,
+			dish.frame.size.width, dish.frame.size.height
+		)];
+		self.draggedView.image = dish.imageView.image;
+		self.draggedView.contentMode = UIViewContentModeScaleAspectFit;
+		self.draggedView.alpha = DRAG_ALPHA;
+		self.draggedView.tag = self.tappedDish.tag;
+		[self.view addSubview:self.draggedView];
+	
+		// Reset target
+		self.dragTargetView = nil;
+	}
+
 	// Only do stuff if dragged view exists
 	if (!self.draggedView) {
 		return;
@@ -722,11 +733,6 @@
 	// Actions based on state
 	switch (gesture.state)
 	{
-		// Started dragging, reset
-		case UIGestureRecognizerStateBegan: {
-			self.dragTargetView = nil;
-		} break;
-	
 		// Stopped dragging, let go of item
 		case UIGestureRecognizerStateEnded:
 		{
@@ -778,6 +784,8 @@
 					}
 				}];
 			
+			// Reset tapped dish
+			self.tappedDish = nil;
 		} break;
 		
 		// Mid-drag, calculate potential targets
