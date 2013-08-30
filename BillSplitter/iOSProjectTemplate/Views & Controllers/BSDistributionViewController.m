@@ -447,14 +447,14 @@
 {
 	self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
 	self.instructionLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN * 2, bounds.size.height - UI_SIZE_MIN_TOUCH,
+		0, bounds.size.height - UI_SIZE_MIN_TOUCH,
 		bounds.size.width, UI_SIZE_MIN_TOUCH
 	);
 	self.instructionLabel.numberOfLines = 0;
 	self.instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.instructionLabel.backgroundColor = [UIColor clearColor];
 	self.instructionLabel.textColor = [UIColor whiteColor];
-	self.instructionLabel.textAlignment = NSTextAlignmentLeft;
+	self.instructionLabel.textAlignment = NSTextAlignmentCenter;
 	self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
 	[self.view addSubview:self.instructionLabel];
 }
