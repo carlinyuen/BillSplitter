@@ -136,12 +136,6 @@
 	
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
-	
-	// Add tap gesture for clearing tapped button
-	UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]
-		initWithTarget:self action:@selector(viewTapped:)];
-	[tap requireGestureRecognizerToFail:self.panGesture];
-	[self.view addGestureRecognizer:tap];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -687,16 +681,11 @@
 	self.tappedDish = button;
 }
 
-/** @brief View tapped on, clear tapped dish */
-- (void)viewTapped:(UITapGestureRecognizer *)gesture
-{
-	self.tappedDish = nil;
-}
-
 /** @brief View panned on, to do dragging */
 - (void)viewPanned:(UIPanGestureRecognizer *)gesture
 {
-	if (gesture.state == UIGestureRecognizerStateBegan)
+	// Create a draggable if panning started & tappedDish exists
+	if (self.tappedDish && gesture.state == UIGestureRecognizerStateBegan)
 	{
 		// Figure out which dish was pressed
 		UIButton *dish;
