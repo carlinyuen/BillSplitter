@@ -371,6 +371,13 @@
 		alpha:1
 		forView:headCount.imageView
 	];
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.descriptionLabel
+	];
 	
 	// Animate out sideways
 	difference = bounds.size.height / 2;
@@ -394,6 +401,13 @@
 		rotate:0
 		alpha:1
 		forView:headCount.imageView
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:headCount.descriptionLabel
 	];
 	
 
