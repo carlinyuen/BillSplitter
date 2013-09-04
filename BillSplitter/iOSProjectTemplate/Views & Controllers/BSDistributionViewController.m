@@ -148,6 +148,8 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+	
+	// Reset view
 }
 
 /** @brief Return supported orientations */
