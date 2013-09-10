@@ -86,7 +86,7 @@
 	UIView *containerView;
 	UIButton *button;
 	UITextField *textField;
-	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN * 1.5;
+	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	float stepperValue = 0;
 	float scale = 1;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
@@ -141,7 +141,7 @@
 		
 		// Setup layout
 		button.frame = CGRectMake(
-			UI_SIZE_MARGIN, 0,
+			UI_SIZE_MARGIN / 2, 0,
 			bounds.size.width / 4, itemSize
 		);
 		CGPoint center = button.center;

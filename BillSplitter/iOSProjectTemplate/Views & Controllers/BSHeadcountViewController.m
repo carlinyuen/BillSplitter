@@ -65,7 +65,7 @@
 	self.taglineLabel.text = NSLocalizedString(@"TAGLINE_TEXT", nil);
 	self.taglineLabel.backgroundColor = [UIColor whiteColor];
 	self.taglineLabel.textAlignment = NSTextAlignmentCenter;
-	self.taglineLabel.textColor = [UIColor lightGrayColor];
+	self.taglineLabel.textColor = [UIColor darkGrayColor];
 	self.taglineLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
 	self.taglineLabel.frame = CGRectMake(
 		UI_SIZE_MARGIN, UI_SIZE_MARGIN,
