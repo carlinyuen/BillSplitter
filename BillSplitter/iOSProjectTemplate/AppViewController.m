@@ -831,6 +831,10 @@
 	for (UIViewController *vc in self.viewControllers) {
 		[vc didReceiveMemoryWarning];	// Reset
 	}
+	
+	// Scroll to first page
+	self.pageControl.currentPage = AppViewControllerPageHeadCount;
+	[self pageControlPageDidChange:self.pageControl];
 }
 
 
