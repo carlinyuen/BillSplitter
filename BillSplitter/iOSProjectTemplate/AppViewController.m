@@ -812,11 +812,13 @@
 	switch (self.pageControl.currentPage)
 	{
 		case AppViewControllerPageDistribution:
-			self.pageControl.currentDotTintColor = [UIColor whiteColor];
+			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+			self.pageControl.dotTintColor = [UIColor grayColor];
 			self.scrollView.delaysContentTouches = false;
 			break;
 		
 		default:
+			self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
 			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
 			self.scrollView.delaysContentTouches = true;
 			break;
