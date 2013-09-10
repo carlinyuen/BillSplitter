@@ -20,6 +20,11 @@
 	@property (strong, nonatomic) UITextField *totalField;
 	@property (nonatomic, strong) UIVerticalStepper *totalStepper;
 
+	@property (nonatomic, strong) UILabel *taxLabel;
+	@property (strong, nonatomic) UIImageView *taxIV;
+	@property (strong, nonatomic) UITextField *taxField;
+	@property (nonatomic, strong) UIVerticalStepper *taxStepper;
+
 	@property (nonatomic, strong) UILabel *tipLabel;
 	@property (strong, nonatomic) UIImageView *tipIV;
 	@property (strong, nonatomic) UITextField *tipField;

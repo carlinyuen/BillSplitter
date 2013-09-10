@@ -11,6 +11,8 @@
 
 @interface BSTotalMarkupViewController ()
 
+	@property (nonatomic, assign) CGRect frame;
+
 @end
 
 
@@ -24,12 +26,17 @@
     self = [super init];
     if (self)
 	{
-		self.view.frame = frame;
+		_frame = frame;
 	
 		_totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_totalIV = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_totalField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_totalStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+		
+		_taxLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_taxIV = [[UIImageView alloc] initWithFrame:CGRectZero];
+		_taxField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_taxStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		
 		_tipLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_tipIV = [[UIImageView alloc] initWithFrame:CGRectZero];
@@ -48,6 +55,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+	
+	self.view.frame = self.frame;
+	CGRect bounds = self.view.bounds;
+	CGRect frame;
+	
+	// Setup
+	[self setupTotal:bounds];
+	[self setupTax:bounds];
+	[self setupTip:bounds];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -73,6 +89,21 @@
 
 
 #pragma mark - UI Setup
+
+/** @brief Setup Total Fields */
+- (void)setupTotal:(CGRect)bounds
+{
+}
+
+/** @brief Setup Tax Fields */
+- (void)setupTax:(CGRect)bounds
+{
+}
+
+/** @brief Setup Tip Fields */
+- (void)setupTip:(CGRect)bounds
+{
+}
 
 
 #pragma mark - UI Events
