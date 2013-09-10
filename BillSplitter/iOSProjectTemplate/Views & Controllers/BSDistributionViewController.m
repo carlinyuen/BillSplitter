@@ -157,6 +157,12 @@
 				removeFromSuperview];
 	}
 	[self.profiles removeAllObjects];
+	
+	// Update first, or will crash when adding diner
+	[self refreshScrollView];
+	[self updateSteppers];
+	
+	// Add default diner again
 	[self addDiner:nil];
 	self.scrollView.userInteractionEnabled = true;
 }
