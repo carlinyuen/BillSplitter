@@ -432,7 +432,7 @@
 	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
 	self.descriptionLabel.numberOfLines = 0;
 	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor whiteColor];
+	self.descriptionLabel.backgroundColor = [UIColor clearColor];
 	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
 	self.descriptionLabel.textColor = [UIColor lightGrayColor];
 	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
