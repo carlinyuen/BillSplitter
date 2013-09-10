@@ -205,14 +205,11 @@
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
-	frame.origin.x = [self offsetForPageInScrollView:self.profiles.count + 1];
+	frame.origin.x = -self.scrollView.frame.origin.x - bounds.size.width;
 	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.clipsToBounds = true;
 	containerView.backgroundColor = [UIColor whiteColor];
-	containerView.layer.shadowRadius = 4;
-	containerView.layer.shadowOffset = CGSizeMake(0, 4);
-	containerView.layer.shadowOpacity = 0.3;
 	
 	// Container for dishes
 	UIView *dishView = [[UIView alloc] initWithFrame:CGRectMake(
@@ -294,29 +291,41 @@
 	}
 	
 	// Keeping track of elements
-	[self.profiles addObject:@{
+	[self.profiles insertObject:@{
 		BSDistributionViewControllerProfileViewDishes : dishView,
 		BSDistributionViewControllerProfileViewImageButton : imageButton,
 		BSDistributionViewControllerProfileViewRemoveButton : removeButton,
 		BSDistributionViewControllerProfileViewTextField : textField,
 		BSDistributionViewControllerProfileViewStepper : stepper,
 		BSDistributionViewControllerProfileViewCard : containerView,
-	}];
+	} atIndex:0];
 	[self.scrollView addSubview:containerView];
 	
 	// Update scrollview & scroll over to new card section
 	[self refreshScrollView];
 	[self updateSteppers];
-	[self scrollToPage:self.profiles.count - 1];
+	[self scrollToPage:0];
 	
-	// Animate card in
+	// Animate card in and other cards over one
 	frame = containerView.frame;
-	frame.origin.x -= bounds.size.width;
+	frame.origin.x = 0;
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
 			| UIViewAnimationOptionCurveEaseInOut
-		animations:^{
+		animations:^
+		{
 			containerView.frame = frame;
+			UIView *tempView;
+			CGRect tempFrame;
+			
+			// Animate other cards to right
+			for (int i = 1; i < self.profiles.count; ++i) {
+				tempView = [[self.profiles objectAtIndex:i]
+					objectForKey:BSDistributionViewControllerProfileViewCard];
+				tempFrame = tempView.frame;
+				tempFrame.origin.x += bounds.size.width;
+				tempView.frame = tempFrame;
+			}
 		} completion:nil];
 	
 	// Adding dish if exists
@@ -526,19 +535,14 @@
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		bounds.size.width / 8 * 7,
-		self.pageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width / 8,
-		self.scrollView.bounds.size.height
+		0, self.pageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
+		bounds.size.width / 8, self.scrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
 	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
 		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN
 	);
-	self.addButton.layer.shadowRadius = 4;
-	self.addButton.layer.shadowOffset = CGSizeMake(0, 4);
-	self.addButton.layer.shadowOpacity = 0.3;
 	self.addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 	
 	// Gradient background
@@ -550,7 +554,7 @@
 		nil
 	];
 	gradientBG.transform = CATransform3DMakeRotation(
-		degreesToRadians(-90), 0, 0, 1);
+		degreesToRadians(90), 0, 0, 1);
 	gradientBG.frame = self.addButton.bounds;
 	[self.addButton.layer insertSublayer:gradientBG atIndex:0];
 	
@@ -558,7 +562,7 @@
 	
 	// Add gesture using swipe
 	UISwipeGestureRecognizer *swipe = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(addButtonSwiped:)];
-	swipe.direction = UISwipeGestureRecognizerDirectionLeft;
+	swipe.direction = UISwipeGestureRecognizerDirectionRight;
 	swipe.delaysTouchesBegan = false;
 	swipe.delaysTouchesEnded = false;
 	[self.panGesture requireGestureRecognizerToFail:swipe];

@@ -382,6 +382,20 @@
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
+		forView:headCount.welcomeLabel
+	];	
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:headCount.taglineLabel
+	];
+	[self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
 		forView:headCount.stepper
 	];
 	[self.animator setKeyFrameWithOffset: yOffset
@@ -435,6 +449,20 @@
 		rotate:0
 		alpha:0
 		forView:headCount.descriptionLabel
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(0, difference)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:headCount.welcomeLabel
+	];
+	[self.animator setKeyFrameWithOffset: yOffset + difference
+		translate:CGPointMake(0, difference)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:headCount.taglineLabel
 	];
 	
 
