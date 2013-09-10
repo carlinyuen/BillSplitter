@@ -121,6 +121,7 @@
 	
 	// Setup view
 	self.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
+	self.view.clipsToBounds = true;
 	
 	// UI Setup
 	[self setupNavBar:bounds];
