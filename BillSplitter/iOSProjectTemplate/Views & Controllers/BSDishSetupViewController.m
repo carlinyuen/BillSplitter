@@ -26,7 +26,9 @@
 	#define STEPPER_DEFAULT_VALUE_LARGEDISH 25.0
 
 	#define IMG_DRINK @"drink.png"
-	#define IMG_DISH @"plate.png"
+	#define IMG_DISH1 @"dish1.png"
+	#define IMG_DISH2 @"dish2.png"
+	#define IMG_DISH3 @"dish3.png"
 
 @interface BSDishSetupViewController ()
 
@@ -105,7 +107,7 @@
 				stepper = self.smallDishStepper;
 				textField = self.smallDishTextField;
 				button = self.smallDishButton;
-				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
+				[button setImage:[UIImage imageNamed:IMG_DISH1] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_SMALLDISH;
 				scale = IMAGEVIEW_SCALE_SMALLDISH;
 				break;
@@ -114,7 +116,7 @@
 				stepper = self.mediumDishStepper;
 				textField = self.mediumDishTextField;
 				button = self.mediumDishButton;
-				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
+				[button setImage:[UIImage imageNamed:IMG_DISH2] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
 				scale = IMAGEVIEW_SCALE_MEDIUMDISH;
 				break;
@@ -123,7 +125,7 @@
 				stepper = self.largeDishStepper;
 				textField = self.largeDishTextField;
 				button = self.largeDishButton;
-				[button setImage:[UIImage imageNamed:IMG_DISH] forState:UIControlStateNormal];
+				[button setImage:[UIImage imageNamed:IMG_DISH3] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_LARGEDISH;
 				scale = IMAGEVIEW_SCALE_LARGEDISH;
 				break;
