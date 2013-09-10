@@ -25,7 +25,18 @@
     if (self)
 	{
 		self.view.frame = frame;
+	
+		_totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_totalIV = [[UIImageView alloc] initWithFrame:CGRectZero];
+		_totalField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_totalStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		
+		_tipLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_tipIV = [[UIImageView alloc] initWithFrame:CGRectZero];
+		_tipField = [[UITextField alloc] initWithFrame:CGRectZero];
+		_tipStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+		
+		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }

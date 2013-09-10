@@ -9,7 +9,23 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BSTotalMarkupViewController : UIViewController
+#import "UIVerticalStepper.h"
+
+@interface BSTotalMarkupViewController : UIViewController <
+	UIVerticalStepperDelegate
+>
+
+	@property (nonatomic, strong) UILabel *totalLabel;
+	@property (strong, nonatomic) UIImageView *totalIV;
+	@property (strong, nonatomic) UITextField *totalField;
+	@property (nonatomic, strong) UIVerticalStepper *totalStepper;
+
+	@property (nonatomic, strong) UILabel *tipLabel;
+	@property (strong, nonatomic) UIImageView *tipIV;
+	@property (strong, nonatomic) UITextField *tipField;
+	@property (nonatomic, strong) UIVerticalStepper *tipStepper;
+
+	@property (nonatomic, strong) UILabel *descriptionLabel;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
