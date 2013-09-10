@@ -348,7 +348,7 @@
 	[self.resetButton setBackgroundImage:[UIImage imageNamed:IMG_RESET]
 		forState:UIControlStateNormal];
 	[self.resetButton setBackgroundImage:[UIImage imageNamed:IMG_RESET_PRESSED]
-		forState:UIControlStateNormal];
+		forState:UIControlStateHighlighted];
 	self.resetButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 	[self.resetButton addTarget:self action:@selector(resetButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
