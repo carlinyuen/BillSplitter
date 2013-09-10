@@ -31,7 +31,8 @@
 	#define UI_SIZE_PAGECONTROL_HEIGHT 94
 
 	#define IMG_RESET @"reset.png"
-	
+	#define IMG_RESET_PRESSED @"reset_pressed.png"
+
 	typedef enum {
 		AppViewControllerPageHeadCount,
 		AppViewControllerPageDishes,
@@ -339,13 +340,15 @@
 /** @brief Setup reset button */
 - (void)setupResetButton:(CGRect)bounds
 {
-	UIImage *image = [UIImage imageNamed:IMG_RESET];
 	self.resetButton = [[UIButton alloc] initWithFrame:CGRectMake(
 		UI_SIZE_RESET_BUTTON_MARGIN,
 		bounds.size.height - UI_SIZE_RESET_BUTTON_HEIGHT - UI_SIZE_RESET_BUTTON_MARGIN,
 		UI_SIZE_RESET_BUTTON_HEIGHT, UI_SIZE_RESET_BUTTON_HEIGHT
 	)];
-	[self.resetButton setBackgroundImage:image forState:UIControlStateNormal];
+	[self.resetButton setBackgroundImage:[UIImage imageNamed:IMG_RESET]
+		forState:UIControlStateNormal];
+	[self.resetButton setBackgroundImage:[UIImage imageNamed:IMG_RESET_PRESSED]
+		forState:UIControlStateNormal];
 	self.resetButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
 	[self.resetButton addTarget:self action:@selector(resetButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];

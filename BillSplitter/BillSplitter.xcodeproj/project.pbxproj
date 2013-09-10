@@ -35,6 +35,8 @@
 		5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B817DFB1D900365348 /* dish1.png */; };
 		5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B917DFB1D900365348 /* dish2.png */; };
 		5FBAC0BD17DFB1D900365348 /* dish3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0BA17DFB1D900365348 /* dish3.png */; };
+		5FBAC0C217DFBD4700365348 /* reset_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0C017DFBD4700365348 /* reset_pressed.png */; };
+		5FBAC0C317DFBD4700365348 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0C117DFBD4700365348 /* reset.png */; };
 		5FE425BE17CBE330009F7652 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BC17CBE330009F7652 /* plus.png */; };
 		5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261517CE3C77009F7652 /* stepperBottomButton.png */; };
 		5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */; };
@@ -49,7 +51,6 @@
 		5FE4263017CEE58C009F7652 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262A17CEE58C009F7652 /* README.md */; };
 		5FE4263117CEE58C009F7652 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262B17CEE58C009F7652 /* release_notes.md */; };
 		5FE4263317CEE5DE009F7652 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE4263217CEE5DD009F7652 /* libz.dylib */; };
-		5FE4264117D1063A009F7652 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4264017D1063A009F7652 /* reset.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,8 @@
 		5FBAC0B817DFB1D900365348 /* dish1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish1.png; sourceTree = "<group>"; };
 		5FBAC0B917DFB1D900365348 /* dish2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish2.png; sourceTree = "<group>"; };
 		5FBAC0BA17DFB1D900365348 /* dish3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish3.png; sourceTree = "<group>"; };
+		5FBAC0C017DFBD4700365348 /* reset_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset_pressed.png; sourceTree = "<group>"; };
+		5FBAC0C117DFBD4700365348 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 		5FE425BC17CBE330009F7652 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		5FE4261517CE3C77009F7652 /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
 		5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
@@ -116,7 +119,6 @@
 		5FE4262D17CEE58C009F7652 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
 		5FE4262E17CEE58C009F7652 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5FE4263217CEE5DD009F7652 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
-		5FE4264017D1063A009F7652 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -274,8 +276,9 @@
 		5F7C89771790AF0900018AD7 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				5FE4264017D1063A009F7652 /* reset.png */,
 				5FE425BC17CBE330009F7652 /* plus.png */,
+				5FBAC0C017DFBD4700365348 /* reset_pressed.png */,
+				5FBAC0C117DFBD4700365348 /* reset.png */,
 				5FBAC0B817DFB1D900365348 /* dish1.png */,
 				5FBAC0B917DFB1D900365348 /* dish2.png */,
 				5FBAC0BA17DFB1D900365348 /* dish3.png */,
@@ -411,10 +414,11 @@
 				5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */,
 				5FE4263017CEE58C009F7652 /* README.md in Resources */,
 				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
-				5FE4264117D1063A009F7652 /* reset.png in Resources */,
 				5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */,
 				5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */,
 				5FBAC0BD17DFB1D900365348 /* dish3.png in Resources */,
+				5FBAC0C217DFBD4700365348 /* reset_pressed.png in Resources */,
+				5FBAC0C317DFBD4700365348 /* reset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
