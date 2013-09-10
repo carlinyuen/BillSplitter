@@ -151,19 +151,14 @@
 	
 	// Reset view, remove all distribution profiles but first
 	self.scrollView.userInteractionEnabled = false;
-	for (int i = 1; i < self.profiles.count; ++i) {
+	for (int i = 0; i < self.profiles.count; ++i) {
 		[[[self.profiles objectAtIndex:i]
 			objectForKey:BSDistributionViewControllerProfileViewCard]
 				removeFromSuperview];
 	}
-	[self.profiles removeObjectsInRange:NSMakeRange(1, self.profiles.count - 2)];
-	
-	// Resize contentSize of scrollview
-	[self refreshScrollView];
+	[self.profiles removeAllObjects];
+	[self addDiner:nil];
 	self.scrollView.userInteractionEnabled = true;
-	
-	// Update steppers
-	[self updateSteppers];
 }
 
 /** @brief Return supported orientations */
