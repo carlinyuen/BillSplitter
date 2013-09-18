@@ -76,6 +76,8 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+	
+	// Reset fields
 }
 
 /** @brief Return supported orientations */
