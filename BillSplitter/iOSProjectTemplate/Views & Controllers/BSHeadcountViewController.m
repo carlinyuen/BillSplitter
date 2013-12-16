@@ -79,8 +79,13 @@
 	self.welcomeLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.welcomeLabel.frame = CGRectMake(
 		UI_SIZE_LABEL_MARGIN, CGRectGetMaxY(frame),
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_LABEL_HEIGHT
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, 
+        bounds.size.height
 	);
+    [self.welcomeLabel sizeToFit];
+   	frame = self.welcomeLabel.frame; 
+    frame.origin.x = (bounds.size.width - CGRectGetWidth(frame)) / 2;
+   	self.welcomeLabel.frame = frame;
 	
 	frame = self.welcomeLabel.frame;
 	self.imageView.frame = CGRectMake(

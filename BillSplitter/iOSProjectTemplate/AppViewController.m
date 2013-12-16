@@ -130,7 +130,7 @@
 	// UI Setup
 	[self setupNavBar:bounds];
 	[self setupScrollView:bounds];
-//	[self setupAnimation:bounds];
+	[self setupAnimation:bounds];
 }
 
 /** @brief Last-minute setup before view appears. */
