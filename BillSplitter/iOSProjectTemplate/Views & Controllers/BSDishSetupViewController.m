@@ -159,7 +159,7 @@
 			bounds.size.width / 2, itemSize
 		);
 		textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
-		textField.borderStyle = UITextBorderStyleRoundedRect;
+		textField.borderStyle = UITextBorderStyleNone;
 		textField.keyboardAppearance = UIKeyboardAppearanceAlert;
 		textField.keyboardType = UIKeyboardTypeNumberPad;
 		textField.textAlignment = NSTextAlignmentCenter;

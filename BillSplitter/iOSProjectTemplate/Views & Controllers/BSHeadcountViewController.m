@@ -9,9 +9,8 @@
 
 #import "BSHeadcountViewController.h"
 
-	#define UI_SIZE_TAGLINELABEL_HEIGHT 36
-	#define UI_SIZE_WELCOMELABEL_HEIGHT 64
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
+   	#define UI_SIZE_LABEL_HEIGHT 36 
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
@@ -67,7 +66,7 @@
 	self.taglineLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
 	self.taglineLabel.frame = CGRectMake(
 		UI_SIZE_MARGIN, UI_SIZE_MARGIN,
-		bounds.size.width - UI_SIZE_MARGIN * 2, UI_SIZE_TAGLINELABEL_HEIGHT
+		bounds.size.width - UI_SIZE_MARGIN * 2, UI_SIZE_LABEL_HEIGHT
 	);
 	
 	frame = self.taglineLabel.frame;
@@ -76,17 +75,19 @@
 	self.welcomeLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.welcomeLabel.backgroundColor = [UIColor whiteColor];
 	self.welcomeLabel.textAlignment = NSTextAlignmentCenter;
-	self.welcomeLabel.textColor = [UIColor lightGrayColor];
+	self.welcomeLabel.textColor = [UIColor grayColor];
 	self.welcomeLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
 	self.welcomeLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN, frame.origin.y + frame.size.height,
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_WELCOMELABEL_HEIGHT
+		UI_SIZE_LABEL_MARGIN, CGRectGetMaxY(frame),
+		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_LABEL_HEIGHT
 	);
 	
 	frame = self.welcomeLabel.frame;
 	self.imageView.frame = CGRectMake(
-		UI_SIZE_MARGIN * 2, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
-		bounds.size.width / 4, bounds.size.height / 3 * 2
+		bounds.size.width / 8, 
+        CGRectGetMaxY(frame),
+		bounds.size.width / 4, 
+        bounds.size.height / 3 * 2
 	);
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.imageView.image = [UIImage imageNamed:IMG_MAN];
@@ -94,22 +95,24 @@
 	
 	frame = self.imageView.frame;
 	self.textField.frame = CGRectMake(
-		frame.origin.x + frame.size.width,
+		CGRectGetMaxX(frame),
 		(frame.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2 + frame.origin.y,
-		bounds.size.width / 4 + UI_SIZE_MARGIN, UI_SIZE_TEXTFIELD_HEIGHT
+		bounds.size.width / 4 + UI_SIZE_MARGIN, 
+        UI_SIZE_TEXTFIELD_HEIGHT
 	);
 	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	self.textField.borderStyle = UITextBorderStyleNone;
 	self.textField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.textField.keyboardType = UIKeyboardTypeNumberPad;
-	self.textField.textAlignment = NSTextAlignmentRight;
+	self.textField.textAlignment = NSTextAlignmentCenter;
 	self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	
 	frame = self.textField.frame;
 	self.stepper.frame = CGRectMake(
-		frame.origin.x + frame.size.width + UI_SIZE_MARGIN,
+		CGRectGetMaxX(frame),
 		(frame.size.height - self.stepper.frame.size.height) / 2 + frame.origin.y,
-		self.stepper.frame.size.width, self.stepper.frame.size.height
+		self.stepper.frame.size.width, 
+        self.stepper.frame.size.height
 	);
 	self.stepper.delegate = self;
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
