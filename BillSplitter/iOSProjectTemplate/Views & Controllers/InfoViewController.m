@@ -120,7 +120,12 @@
 	self.tableView.dataSource = self;
 	self.tableView.delegate = self;
 	
-	[self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:TABLEVIEW_HEADER_ID];
+    if (getDeviceOSVersionNumber() >= 6) {
+        [self.tableView registerClass:[UITableViewHeaderFooterView class] forHeaderFooterViewReuseIdentifier:TABLEVIEW_HEADER_ID];
+    } else {
+        [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setTextColor:[UIColor darkGrayColor]];
+        [[UILabel appearanceWhenContainedIn:[UITableViewHeaderFooterView class], nil] setShadowColor:[UIColor clearColor]]; 
+    }
 	
 	self.tableView.frame = bounds;
 	[self.view addSubview:self.tableView];
@@ -199,14 +204,25 @@
 	return UI_SIZE_MIN_TOUCH;
 }
 
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+   	return [[self.tableViewData objectAtIndex:section]
+		objectForKey:TABLEVIEW_DATA_KEY_LABEL]; 
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-	UITableViewHeaderFooterView *view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TABLEVIEW_HEADER_ID];
-	
-	view.textLabel.textColor = [UIColor darkGrayColor];
+    UITableViewHeaderFooterView *view;
+    
+    if (getDeviceOSVersionNumber() < 6) {
+        view = [UITableViewHeaderFooterView new];
+    } else {
+        view = [tableView dequeueReusableHeaderFooterViewWithIdentifier:TABLEVIEW_HEADER_ID];
+       	view.textLabel.textColor = [UIColor darkGrayColor];
+        view.textLabel.shadowColor = [UIColor clearColor];  
+    }
+    
 	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HEADERS size:FONT_SIZE_SECTION_HEADER];
-	view.textLabel.text = [[self.tableViewData objectAtIndex:section]
-		objectForKey:TABLEVIEW_DATA_KEY_LABEL];
 	
 	return view;
 }

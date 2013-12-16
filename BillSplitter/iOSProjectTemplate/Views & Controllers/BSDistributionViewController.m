@@ -131,9 +131,6 @@
 	[self setupAddView:bounds];
 	[self setupInstructionLabel:bounds];
 	
-	// Add first diner
-	[self addDiner:nil];
-	
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
 }
@@ -161,9 +158,6 @@
 	// Update first, or will crash when adding diner
 	[self refreshScrollView];
 	[self updateSteppers];
-	
-	// Add default diner again
-	[self addDiner:nil];
 	self.scrollView.userInteractionEnabled = true;
 }
 

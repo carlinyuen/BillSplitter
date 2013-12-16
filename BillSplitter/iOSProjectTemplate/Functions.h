@@ -82,6 +82,7 @@
 
 	/** Get Device OS version */
 	#define getDeviceOSVersionString() ([[UIDevice currentDevice] systemVersion])
+    #define getDeviceOSVersionNumber() ([[[getDeviceOSVersionString() componentsSeparatedByString:@"."] objectAtIndex:0] intValue])
 
 	/** Get Device Model */
 	#define getDevicePlatformString() ([[UIDevice currentDevice] platformString])

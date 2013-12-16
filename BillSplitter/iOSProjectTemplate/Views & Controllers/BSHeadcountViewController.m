@@ -11,7 +11,6 @@
 
 	#define UI_SIZE_TAGLINELABEL_HEIGHT 36
 	#define UI_SIZE_WELCOMELABEL_HEIGHT 64
-	#define UI_SIZE_DESCRIPTIONLABEL_HEIGHT 64
 	#define UI_SIZE_TEXTFIELD_HEIGHT 100
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
@@ -45,7 +44,6 @@
 		_imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_stepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
-		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -87,8 +85,8 @@
 	
 	frame = self.welcomeLabel.frame;
 	self.imageView.frame = CGRectMake(
-		UI_SIZE_MARGIN, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
-		bounds.size.width / 3, bounds.size.height / 3 * 2
+		UI_SIZE_MARGIN * 2, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
+		bounds.size.width / 4, bounds.size.height / 3 * 2
 	);
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.imageView.image = [UIImage imageNamed:IMG_MAN];
@@ -98,13 +96,13 @@
 	self.textField.frame = CGRectMake(
 		frame.origin.x + frame.size.width,
 		(frame.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2 + frame.origin.y,
-		bounds.size.width / 3 + UI_SIZE_MARGIN, UI_SIZE_TEXTFIELD_HEIGHT
+		bounds.size.width / 4 + UI_SIZE_MARGIN, UI_SIZE_TEXTFIELD_HEIGHT
 	);
 	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-	self.textField.borderStyle = UITextBorderStyleRoundedRect;
+	self.textField.borderStyle = UITextBorderStyleNone;
 	self.textField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.textField.keyboardType = UIKeyboardTypeNumberPad;
-	self.textField.textAlignment = NSTextAlignmentCenter;
+	self.textField.textAlignment = NSTextAlignmentRight;
 	self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	
 	frame = self.textField.frame;
@@ -119,21 +117,9 @@
 	self.stepper.value = STEPPER_MIN_VALUE;
 	
 	frame = self.imageView.frame;
-	self.descriptionLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);
-	self.descriptionLabel.numberOfLines = 0;
-	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor whiteColor];
-	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
-	self.descriptionLabel.textColor = [UIColor lightGrayColor];
-	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
-	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN, frame.origin.y + frame.size.height - UI_SIZE_MARGIN * 2,
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_DESCRIPTIONLABEL_HEIGHT
-	);
 	
 	[self.view addSubview:self.taglineLabel];
 	[self.view addSubview:self.welcomeLabel];
-	[self.view addSubview:self.descriptionLabel];
 	[self.view addSubview:self.imageView];
 	[self.view addSubview:self.stepper];
 	[self.view addSubview:self.textField];
