@@ -130,7 +130,7 @@
 	// UI Setup
 	[self setupNavBar:bounds];
 	[self setupScrollView:bounds];
-	[self setupAnimation:bounds];
+//	[self setupAnimation:bounds];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -492,13 +492,6 @@
 			forView:element
 		];
 	}
-	[self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:dishSetup.descriptionLabel
-	];
 
 	// Move with scroll for a bit
 	difference = bounds.size.height / 8;
@@ -511,13 +504,6 @@
 			forView:[elements objectAtIndex:i]
 		];
 	}
-	[self.animator setKeyFrameWithOffset: yOffset + difference
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:0
-		forView:dishSetup.descriptionLabel
-	];
 	
 	// Hide
 	difference = bounds.size.height / 4;
@@ -902,7 +888,7 @@
 	// Animate scroll so field is visible above keyboard
 	CGRect frame = [self.scrollView convertRect:field.frame fromView:field.superview];
 	frame = CGRectMake(
-		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 4,
+		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 2,
 		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
 	);
     [self.scrollView scrollRectToVisible:frame animated:YES];
@@ -923,7 +909,7 @@
 	// Animate scroll so field is visible above keyboard
 	CGRect frame = [self.scrollView convertRect:textField.frame fromView:textField.superview];
 	frame = CGRectMake(
-		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 4,
+		frame.origin.x, frame.origin.y - UI_SIZE_MIN_TOUCH * 2,
 		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
 	);
     [self.scrollView scrollRectToVisible:frame animated:YES];

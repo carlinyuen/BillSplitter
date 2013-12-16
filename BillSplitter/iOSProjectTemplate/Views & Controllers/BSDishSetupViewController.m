@@ -63,8 +63,6 @@
 		_smallDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		_mediumDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		_largeDishStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
-		
-		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -80,7 +78,7 @@
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
 	CGRect frame = CGRectZero;
-
+    
 	// Loop through and layout elements
 	UIVerticalStepper *stepper;
 	UIView *containerView;
@@ -135,7 +133,7 @@
 		
 		// Create container view
 		containerView = [[UIView alloc] initWithFrame:CGRectMake(
-			0, frame.origin.y + frame.size.height + UI_SIZE_MARGIN,
+			0, CGRectGetMaxY(frame) + UI_SIZE_MARGIN,
 			bounds.size.width, itemSize
 		)];
 		
@@ -154,7 +152,7 @@
 		
 		frame = button.frame;
 		textField.frame = CGRectMake(
-			bounds.size.width / 4 + UI_SIZE_MARGIN / 2,
+			bounds.size.width / 4 + UI_SIZE_MARGIN,
 			(frame.size.height - itemSize) / 2 + frame.origin.y,
 			bounds.size.width / 2, itemSize
 		);
@@ -166,7 +164,20 @@
 		textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 		textField.adjustsFontSizeToFitWidth = true;
 		textField.minimumFontSize = FONT_SIZE_PRICE / 3;
-		
+	 
+        frame = textField.frame; 
+        UILabel *label = [[UILabel alloc] initWithFrame:frame];
+        label.text = @"≈";
+        label.textColor = [UIColor lightGrayColor]; 
+		label.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+		label.textAlignment = NSTextAlignmentCenter;
+        [label sizeToFit];
+        label.center = textField.center;
+        frame = label.frame;
+        frame.origin.x = CGRectGetMinX(textField.frame) - CGRectGetWidth(frame) / 2;
+        label.frame = frame;
+        [containerView addSubview:label];	
+        
 		frame = textField.frame;
 		stepper.frame = CGRectMake(
 			bounds.size.width - stepper.frame.size.width - UI_SIZE_LABEL_MARGIN,
@@ -185,20 +196,6 @@
 		[self.view addSubview:containerView];
 	}
 
-	self.descriptionLabel.text = NSLocalizedString(@"DISHSETUP_DESCRIPTION_TEXT", nil);
-	self.descriptionLabel.numberOfLines = 0;
-	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor clearColor];
-	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
-	self.descriptionLabel.textColor = [UIColor lightGrayColor];
-	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
-	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_LABEL_MARGIN, CGRectGetMaxY(frame),
-		bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-		bounds.size.height - CGRectGetMaxY(frame) - UI_SIZE_MARGIN
-	);
-	
-	[self.view insertSubview:self.descriptionLabel atIndex:0];
 }
 
 /** @brief Last-minute setup before view appears. */

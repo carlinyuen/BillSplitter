@@ -38,8 +38,6 @@
 	@property (nonatomic, strong) UITextField *mediumDishTextField;
 	@property (nonatomic, strong) UITextField *largeDishTextField;
 
-	@property (nonatomic, strong) UILabel *descriptionLabel;
-
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
 
