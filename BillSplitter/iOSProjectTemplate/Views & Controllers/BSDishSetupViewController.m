@@ -87,6 +87,7 @@
 	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	float stepperValue = 0;
 	float scale = 1;
+    frame.origin.y = UI_SIZE_LABEL_MARGIN;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
 		// Setup variables
