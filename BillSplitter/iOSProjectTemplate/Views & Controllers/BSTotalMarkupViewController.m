@@ -110,20 +110,20 @@
 - (void)setupTotal:(CGRect)bounds
 {
     CGRect frame;
-	self.totalLabel.text = NSLocalizedString(@"TOTALMARKUP_TOTAL_LABEL", nil);
+	self.totalLabel.text = [NSLocalizedString(@"TOTALMARKUP_TOTAL_LABEL", nil) uppercaseString];
 	self.totalLabel.backgroundColor = [UIColor clearColor];
-	self.totalLabel.textColor = [UIColor darkGrayColor];
+	self.totalLabel.textColor = [UIColor whiteColor];
 	self.totalLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
     [self.totalLabel sizeToFit];
     frame = self.totalLabel.frame;
-    frame.origin.y = UI_SIZE_LABEL_MARGIN;
+    frame.origin.y = UI_SIZE_MARGIN;
     frame.origin.x = (bounds.size.width - frame.size.width) / 2;
     self.totalLabel.frame = frame;
 
 	frame = self.totalLabel.frame;
 	self.totalField.frame = CGRectMake(
 		UI_SIZE_LABEL_MARGIN,
-		CGRectGetMaxY(frame) - UI_SIZE_MARGIN,
+		(bounds.size.height / 3 - bounds.size.height / 5) / 2,
 		bounds.size.width / 4 * 3 - UI_SIZE_MARGIN,
         bounds.size.height / 5
 	);
