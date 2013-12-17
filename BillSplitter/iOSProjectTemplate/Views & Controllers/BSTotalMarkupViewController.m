@@ -266,6 +266,7 @@
     );
     
     frame = self.finalDivider.frame;
+    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN;
     frame.size.height = bounds.size.height / 5;
     self.finalLabel = [[UILabel alloc] initWithFrame:frame];
     self.finalLabel.text = @"$0.00";
