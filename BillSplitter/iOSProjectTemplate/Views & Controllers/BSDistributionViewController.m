@@ -350,7 +350,7 @@
 	UIView *dishView = [[self.profiles objectAtIndex:index]
 		objectForKey:BSDistributionViewControllerProfileViewDishes];
 
-	// Frame it should be in dish view
+	// Frame should be in dish view
 	CGRect frame = CGRectMake(
 		0, dishView.subviews.count * (dishView.bounds.size.width),
 		dishView.bounds.size.width, dishView.bounds.size.width
