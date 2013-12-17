@@ -874,7 +874,8 @@
             if (stepper == vc.totalStepper) {
                 [self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
             } else if (stepper == vc.tipStepper) {
-                [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string];  
+                [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
+                vc.tipField.text = [NSString stringWithFormat:@"%@%%", vc.tipField.text];
             }
             return NO;
         }
@@ -894,7 +895,7 @@
 - (void)formatIntegerTextField:(UITextField *)textField toStepper:(UIVerticalStepper *)stepper whenChangingCharactersInRange:(NSRange)range withString:(NSString *)string
 {
     // Get new text, add user entered text & replace $ signs and periods
-    NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+    NSString *newText = [[[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""] stringByReplacingOccurrencesOfString:@"%" withString:@""];
 
     // Make sure is a number
     NSNumber *number = [self.numberFormatter numberFromString:newText];

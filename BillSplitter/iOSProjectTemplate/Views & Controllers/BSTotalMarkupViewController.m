@@ -112,7 +112,7 @@
     CGRect frame;
 	self.totalLabel.text = NSLocalizedString(@"TOTALMARKUP_TOTAL_LABEL", nil);
 	self.totalLabel.backgroundColor = [UIColor clearColor];
-	self.totalLabel.textColor = [UIColor whiteColor];
+	self.totalLabel.textColor = [UIColor darkGrayColor];
 	self.totalLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
     [self.totalLabel sizeToFit];
     frame = self.totalLabel.frame;
@@ -154,14 +154,52 @@
 	[self.view addSubview:self.totalStepper];
 }
 
-/** @brief Setup Tax Fields */
-- (void)setupTax:(CGRect)bounds
-{
-}
-
 /** @brief Setup Tip Fields */
 - (void)setupTip:(CGRect)bounds
 {
+    CGRect frame;
+    self.tipField.frame = CGRectMake(
+		bounds.size.width / 4,
+		bounds.size.height / 3,
+		bounds.size.width / 2,
+        bounds.size.height / 6
+	);
+	self.tipField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    self.tipField.textColor = [UIColor darkGrayColor];
+	self.tipField.borderStyle = UITextBorderStyleNone;
+	self.tipField.keyboardAppearance = UIKeyboardAppearanceAlert;
+	self.tipField.keyboardType = UIKeyboardTypeNumberPad;
+	self.tipField.textAlignment = NSTextAlignmentCenter;
+	self.tipField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    self.tipField.adjustsFontSizeToFitWidth = true;
+    self.tipField.minimumFontSize = FONT_SIZE_PRICE / 3;
+	  
+    frame = self.tipField.frame;
+	self.tipLabel.text = NSLocalizedString(@"TOTALMARKUP_TIP_LABEL", nil);
+	self.tipLabel.backgroundColor = [UIColor clearColor];
+	self.tipLabel.textColor = [UIColor darkGrayColor];
+	self.tipLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
+    [self.tipLabel sizeToFit];
+    frame = self.tipLabel.frame;
+    frame.origin.y = CGRectGetMinY(self.tipField.frame) + (CGRectGetHeight(self.tipField.frame) - CGRectGetHeight(frame)) / 2;
+    frame.origin.x = CGRectGetMinX(self.tipField.frame) - frame.size.width;
+    self.tipLabel.frame = frame;
+	
+	frame = self.tipField.frame;
+	self.tipStepper.frame = CGRectMake(
+		bounds.size.width - self.tipStepper.frame.size.width - UI_SIZE_LABEL_MARGIN,
+		(frame.size.height - self.tipStepper.frame.size.height) / 2 + frame.origin.y,
+		self.tipStepper.frame.size.width, 
+        self.tipStepper.frame.size.height
+	);
+	self.tipStepper.delegate = self;
+	self.tipStepper.maximumValue = STEPPER_TIP_MAX_VALUE;
+	self.tipStepper.minimumValue = STEPPER_TIP_MIN_VALUE;
+	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
+	
+	[self.view addSubview:self.tipLabel];
+   	[self.view addSubview:self.tipField]; 
+	[self.view addSubview:self.tipStepper];
 }
 
 
@@ -176,12 +214,10 @@
 
 - (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
-	NSString *value = [NSString stringWithFormat:@"$%.2f", stepper.value];
-	
 	if (stepper == self.totalStepper) {
-		self.totalField.text = value;
+		self.totalField.text = [NSString stringWithFormat:@"$%.2f", stepper.value];
 	} else if (stepper == self.tipStepper) {
-		self.tipField.text = value;
+		self.tipField.text = [NSString stringWithFormat:@"%i%%", (int)stepper.value];
 	}
 }
 
