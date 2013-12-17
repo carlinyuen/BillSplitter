@@ -101,9 +101,6 @@
 		_profiles = [[NSMutableArray alloc] init];
 		_lastShownProfile = 0;
 		
-		_descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		_instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-		
 		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
 		_panGesture.delaysTouchesBegan = false;
 		
@@ -124,12 +121,10 @@
 	
 	// UI Setup
 	[self setupDishes:bounds];
-	[self setupDescriptionLabel:bounds];
 	[self setupBackgroundView:bounds];
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
 	[self setupAddView:bounds];
-	[self setupInstructionLabel:bounds];
 	
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
@@ -295,7 +290,7 @@
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
-				self.instructionLabel.alpha = 1;
+                // TODO: Animate in coachmark
 			} completion:nil];
 	}
 	
@@ -444,41 +439,6 @@
 	[self.view addSubview:button];
 }
 
-/** @brief Setup description label */
-- (void)setupDescriptionLabel:(CGRect)bounds
-{
-	self.descriptionLabel.text = NSLocalizedString(@"DISTRIBUTION_DESCRIPTION_TEXT", nil);
-	self.descriptionLabel.numberOfLines = 0;
-	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.descriptionLabel.backgroundColor = [UIColor clearColor];
-	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
-	self.descriptionLabel.textColor = [UIColor lightGrayColor];
-	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
-	self.descriptionLabel.frame = CGRectMake(
-		UI_SIZE_MARGIN, bounds.size.height / 7,
-		bounds.size.width - UI_SIZE_MARGIN * 2, bounds.size.height / 8
-	);
-	
-	[self.view addSubview:self.descriptionLabel];
-}
-
-/** @brief Setup profile instruction label */
-- (void)setupInstructionLabel:(CGRect)bounds
-{
-	self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_PROFILE_LABEL", nil);
-	self.instructionLabel.frame = CGRectMake(
-		0, bounds.size.height - UI_SIZE_MIN_TOUCH,
-		bounds.size.width, UI_SIZE_MIN_TOUCH
-	);
-	self.instructionLabel.numberOfLines = 0;
-	self.instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
-	self.instructionLabel.backgroundColor = [UIColor clearColor];
-	self.instructionLabel.textColor = [UIColor whiteColor];
-	self.instructionLabel.textAlignment = NSTextAlignmentCenter;
-	self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
-	[self.view addSubview:self.instructionLabel];
-}
-
 /** @brief Setup background view */
 - (void)setupBackgroundView:(CGRect)bounds
 {
@@ -493,7 +453,7 @@
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
-	CGRect frame = self.descriptionLabel.frame;
+	CGRect frame = self.drinkButton.frame;
 	BSDistributionContainerView *containerView
 		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
 		0, CGRectGetMaxY(frame) + UI_SIZE_PAGECONTROL_HEIGHT,
@@ -524,7 +484,7 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
-	CGRect frame = self.descriptionLabel.frame;
+	CGRect frame = self.self.drinkButton.frame;
 	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
 		0, frame.origin.y + frame.size.height,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
@@ -672,7 +632,7 @@
 			
 			// If no more cards, fade out instructions
 			if (self.profiles.count == 1) {
-				self.instructionLabel.alpha = 0;
+                // TODO: Fade out coachmark
 			}
 		}
 		completion:^(BOOL finished)

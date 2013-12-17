@@ -478,38 +478,6 @@
 	// Distribution Page
 	yTempOffset = [self offsetForPageInScrollView:AppViewControllerPageDistribution];
 	
-	// Distribution description
-	[self.animator setKeyFrameWithOffset: yTempOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:distribution.descriptionLabel
-	];
-	[self.animator setKeyFrameWithOffset: yTempOffset + bounds.size.height / 3
-		translate:CGPointMake(0, bounds.size.height / 3)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:distribution.descriptionLabel
-	];
-	
-	// Distribution instructions
-	[self.animator setKeyFrameWithOffset: yTempOffset
-		translate:CGPointMake(0, 0)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:distribution.instructionLabel
-	];
-	[self.animator setKeyFrameWithOffset: yTempOffset + bounds.size.height / 6
-		translate:CGPointMake(0, bounds.size.height / 6)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:0
-		forView:distribution.instructionLabel
-	];
-	
 	// Drink
 	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 7;
 	transform = dishSetup.drinkButton.transform;

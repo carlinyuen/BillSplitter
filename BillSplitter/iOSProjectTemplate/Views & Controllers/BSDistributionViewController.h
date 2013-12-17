@@ -38,9 +38,6 @@
 
 	@property (nonatomic, strong) NSMutableArray *profiles;
 
-	@property (nonatomic, strong) UILabel *descriptionLabel;
-	@property (nonatomic, strong) UILabel *instructionLabel;
-
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
 
