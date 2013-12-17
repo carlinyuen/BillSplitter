@@ -471,15 +471,12 @@
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
 	
-	
-	
-
 	/////////////////////////////////////////////
 	// Distribution Page
 	yTempOffset = [self offsetForPageInScrollView:AppViewControllerPageDistribution];
 	
 	// Drink
-	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 7;
+	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 6;
 	transform = dishSetup.drinkButton.transform;
 	tempSize = CGSizeMake(transform.a, transform.d);
 	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
@@ -507,7 +504,7 @@
 		alpha:1
 		forView:dishSetup.drinkButton
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH * 2
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
@@ -556,7 +553,7 @@
 		alpha:1
 		forView:dishSetup.smallDishButton
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH * 2
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
@@ -606,7 +603,7 @@
 		alpha:1
 		forView:dishSetup.mediumDishButton
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH * 2
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH
 		translate:targetPoint
 		scale:targetSize
 		rotate:0
@@ -656,7 +653,7 @@
 		alpha:1
 		forView:dishSetup.largeDishButton
 	];
-	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH * 2
+	[self.animator setKeyFrameWithOffset: yOffset + bounds.size.height - UI_SIZE_MIN_TOUCH
 		translate:targetPoint
 		scale:targetSize
 		rotate:0

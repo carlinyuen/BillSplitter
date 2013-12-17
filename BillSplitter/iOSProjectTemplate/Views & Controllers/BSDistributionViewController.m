@@ -69,6 +69,10 @@
 	@property (nonatomic, assign) CGRect frame;
 
 	/** For dragging & dropping items */
+    @property (nonatomic, strong) UIButton *drinkDragButton;
+	@property (nonatomic, strong) UIButton *smallDishDragButton;
+	@property (nonatomic, strong) UIButton *mediumDishDragButton;
+	@property (nonatomic, strong) UIButton *largeDishDragButton;
 	@property (nonatomic, assign) UIButton *tappedDish;
 	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIView *dragTargetView;
@@ -134,6 +138,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
+    [self refreshDragButtonPositions];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -390,6 +396,15 @@
 	);
 }
 
+/** @brief Refreshes positions of drag buttons to match the icons */
+- (void)refreshDragButtonPositions
+{
+    self.drinkDragButton.frame = [self.view convertRect:self.drinkButton.frame fromView:self.drinkButton.superview];
+    self.smallDishDragButton.frame = [self.view convertRect:self.smallDishButton.frame fromView:self.smallDishButton.superview];
+    self.mediumDishDragButton.frame = [self.view convertRect:self.mediumDishButton.frame fromView:self.mediumDishButton.superview];
+    self.largeDishDragButton.frame = [self.view convertRect:self.largeDishButton.frame fromView:self.largeDishButton.superview];
+}
+
 /** @brief When bringing profile into focus / becomes the current page */
 - (void)profileAtIndex:(int)index shouldShowFocus:(bool)show
 {
@@ -407,43 +422,44 @@
 - (void)setupDishes:(CGRect)bounds
 {
 	CGRect frame = CGRectMake(
-		UI_SIZE_MARGIN + UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
+		UI_SIZE_MARGIN + UI_SIZE_DINER_MARGIN, 
+        UI_SIZE_DINER_MARGIN,
 		(bounds.size.width - UI_SIZE_DINER_MARGIN * 5 - UI_SIZE_MARGIN * 2) / 4,
 		bounds.size.height / 6 - UI_SIZE_DINER_MARGIN * 2
 	);
-	UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	[button addTarget:self action:@selector(dishButtonPressed:)
+	self.drinkDragButton = [[UIButton alloc] initWithFrame:frame];
+	[self.drinkDragButton addTarget:self action:@selector(dishButtonPressed:)
 		forControlEvents:UIControlEventTouchDown];
-	button.tag = self.drinkButton.tag;
-	[self.view addSubview:button];
+	self.drinkDragButton.tag = self.drinkButton.tag;
+	[self.view addSubview:self.drinkDragButton];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	button = [[UIButton alloc] initWithFrame:frame];
-	[button addTarget:self action:@selector(dishButtonPressed:)
+	self.smallDishDragButton = [[UIButton alloc] initWithFrame:frame];
+	[self.smallDishDragButton addTarget:self action:@selector(dishButtonPressed:)
 		forControlEvents:UIControlEventTouchDown];
-	button.tag = self.smallDishButton.tag;
-	[self.view addSubview:button];
+	self.smallDishDragButton.tag = self.smallDishButton.tag;
+	[self.view addSubview:self.smallDishDragButton];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	button = [[UIButton alloc] initWithFrame:frame];
-	[button addTarget:self action:@selector(dishButtonPressed:)
+	self.mediumDishDragButton = [[UIButton alloc] initWithFrame:frame];
+	[self.mediumDishDragButton addTarget:self action:@selector(dishButtonPressed:)
 		forControlEvents:UIControlEventTouchDown];
-	button.tag = self.mediumDishButton.tag;
-	[self.view addSubview:button];
+	self.mediumDishDragButton.tag = self.mediumDishButton.tag;
+	[self.view addSubview:self.mediumDishDragButton];
 	
 	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	button = [[UIButton alloc] initWithFrame:frame];
-	[button addTarget:self action:@selector(dishButtonPressed:)
+	self.largeDishDragButton = [[UIButton alloc] initWithFrame:frame];
+	[self.largeDishDragButton addTarget:self action:@selector(dishButtonPressed:)
 		forControlEvents:UIControlEventTouchDown];
-	button.tag = self.largeDishButton.tag;
-	[self.view addSubview:button];
+	self.largeDishDragButton.tag = self.largeDishButton.tag;
+	[self.view addSubview:self.largeDishDragButton];
 }
 
 /** @brief Setup background view */
 - (void)setupBackgroundView:(CGRect)bounds
 {
 	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 7 + bounds.size.height / 8,
+		0, bounds.size.height / 4,
 		bounds.size.width, bounds.size.height * 1.15
 	)];
 	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
@@ -453,13 +469,12 @@
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
-	CGRect frame = self.drinkButton.frame;
 	BSDistributionContainerView *containerView
 		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
-		0, CGRectGetMaxY(frame) + UI_SIZE_PAGECONTROL_HEIGHT,
+		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width,
 		bounds.size.height - UI_SIZE_MIN_TOUCH
-			- (CGRectGetMaxY(frame) + UI_SIZE_PAGECONTROL_HEIGHT)
+			- (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
 	)];
 	containerView.userInteractionEnabled = true;
 	
@@ -484,9 +499,8 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
-	CGRect frame = self.self.drinkButton.frame;
 	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, frame.origin.y + frame.size.height,
+		0, bounds.size.height / 4,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
 	)];
 	
