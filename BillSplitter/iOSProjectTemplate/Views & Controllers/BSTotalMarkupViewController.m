@@ -159,9 +159,9 @@
 {
     CGRect frame;
     self.tipField.frame = CGRectMake(
-		bounds.size.width / 2 - self.tipStepper.frame.size.width - UI_SIZE_MARGIN,
+		bounds.size.width / 5 * 2 - self.tipStepper.frame.size.width - UI_SIZE_MARGIN,
 		bounds.size.height / 3,
-		bounds.size.width / 2,
+		bounds.size.width / 5 * 3,
         bounds.size.height / 6
 	);
 	self.tipField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
@@ -204,10 +204,40 @@
 	self.tipStepper.maximumValue = STEPPER_TIP_MAX_VALUE;
 	self.tipStepper.minimumValue = STEPPER_TIP_MIN_VALUE;
 	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
-	
+    
+    frame = self.tipLabel.frame;
+    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN;
+    UILabel *approxLabel = [[UILabel alloc] initWithFrame:frame];
+    approxLabel.text = @"≈";
+    approxLabel.textColor = [UIColor lightGrayColor]; 
+    approxLabel.backgroundColor = [UIColor clearColor];
+    approxLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    approxLabel.textAlignment = NSTextAlignmentRight; 
+    
+    frame = self.tipField.frame;
+    self.tipAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(
+        0,
+        0,
+        CGRectGetMaxX(frame) - CGRectGetMaxX(approxLabel.frame) - UI_SIZE_MARGIN * 3,
+        CGRectGetHeight(frame)
+    )];
+    self.tipAmountLabel.text = @"$0.00";
+    self.tipAmountLabel.textColor = [UIColor lightGrayColor]; 
+    self.tipAmountLabel.backgroundColor = [UIColor clearColor];
+    self.tipAmountLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    self.tipAmountLabel.textAlignment = NSTextAlignmentRight;
+    self.tipAmountLabel.adjustsFontSizeToFitWidth = true;
+    self.tipAmountLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
+    self.tipAmountLabel.center = approxLabel.center;
+    frame = self.tipAmountLabel.frame;
+    frame.origin.x = CGRectGetMaxX(approxLabel.frame);
+    self.tipAmountLabel.frame = frame;
+   	
 	[self.view addSubview:self.tipLabel];
    	[self.view addSubview:self.tipField]; 
-	[self.view addSubview:self.tipStepper];
+	[self.view addSubview:self.tipStepper]; 
+    [self.view addSubview:approxLabel]; 
+    [self.view addSubview:self.tipAmountLabel];	
 }
 
 

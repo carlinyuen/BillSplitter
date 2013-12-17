@@ -20,7 +20,7 @@
 "WELCOME_TEXT" = "Just give me an easy round number to pay!";
 
 "TOTALMARKUP_TOTAL_LABEL" = "Total";
-"TOTALMARKUP_TIP_LABEL" = "Tip";
+"TOTALMARKUP_TIP_LABEL" = "+ Tip";
 
 "SUMMARY_DESCRIPTION_TEXT" = "Summary Here!";
 

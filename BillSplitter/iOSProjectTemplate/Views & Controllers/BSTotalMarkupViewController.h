@@ -22,6 +22,7 @@
 	@property (nonatomic, strong) UILabel *tipLabel;
 	@property (strong, nonatomic) UITextField *tipField;
 	@property (nonatomic, strong) UIVerticalStepper *tipStepper;
+   	@property (nonatomic, strong) UILabel *tipAmountLabel; 
 
 	@property (nonatomic, strong) UILabel *finalLabel;
 
