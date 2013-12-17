@@ -875,7 +875,6 @@
                 [self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
             } else if (stepper == vc.tipStepper) {
                 [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
-                vc.tipField.text = [NSString stringWithFormat:@"%@%%", vc.tipField.text];
             }
             return NO;
         }

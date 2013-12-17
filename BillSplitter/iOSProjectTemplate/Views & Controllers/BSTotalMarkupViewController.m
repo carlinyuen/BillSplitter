@@ -169,10 +169,18 @@
 	self.tipField.borderStyle = UITextBorderStyleNone;
 	self.tipField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.tipField.keyboardType = UIKeyboardTypeNumberPad;
-	self.tipField.textAlignment = NSTextAlignmentCenter;
+	self.tipField.textAlignment = NSTextAlignmentRight;
 	self.tipField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.tipField.adjustsFontSizeToFitWidth = true;
     self.tipField.minimumFontSize = FONT_SIZE_PRICE / 3;
+    
+    UILabel *unitsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH)];
+    unitsLabel.text = @"%";
+    unitsLabel.textColor = [UIColor darkGrayColor]; 
+    unitsLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    unitsLabel.backgroundColor = [UIColor clearColor];
+    self.tipField.rightViewMode = UITextFieldViewModeAlways;
+    self.tipField.rightView = unitsLabel;
 	  
     frame = self.tipField.frame;
 	self.tipLabel.text = NSLocalizedString(@"TOTALMARKUP_TIP_LABEL", nil);
@@ -217,7 +225,7 @@
 	if (stepper == self.totalStepper) {
 		self.totalField.text = [NSString stringWithFormat:@"$%.2f", stepper.value];
 	} else if (stepper == self.tipStepper) {
-		self.tipField.text = [NSString stringWithFormat:@"%i%%", (int)stepper.value];
+		self.tipField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	}
 }
 
