@@ -793,6 +793,7 @@
 {
 	CGRect frame = self.scrollView.bounds;
 	frame.origin.y = [self offsetForPageInScrollView:pageControl.currentPage];
+    self.lastShownPage = pageControl.currentPage;
 	[self.scrollView scrollRectToVisible:frame animated:true];
 }
 
