@@ -19,7 +19,7 @@
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
 
 	#define STEPPER_MIN_VALUE 0.0
-	#define STEPPER_MAX_VALUE 9999999.99
+	#define STEPPER_MAX_VALUE 1000000.00
 	#define STEPPER_DEFAULT_VALUE_DRINK 9.0
 	#define STEPPER_DEFAULT_VALUE_SMALLDISH 5.0
 	#define STEPPER_DEFAULT_VALUE_MEDIUMDISH 15.0
@@ -87,7 +87,6 @@
 	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	float stepperValue = 0;
 	float scale = 1;
-    frame.origin.y = UI_SIZE_LABEL_MARGIN;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
 		// Setup variables
@@ -134,7 +133,7 @@
 		
 		// Create container view
 		containerView = [[UIView alloc] initWithFrame:CGRectMake(
-			0, CGRectGetMaxY(frame) + UI_SIZE_MARGIN,
+			0, CGRectGetMaxY(frame) + UI_SIZE_LABEL_MARGIN,
 			bounds.size.width, itemSize
 		)];
 		
@@ -153,9 +152,9 @@
 		
 		frame = button.frame;
 		textField.frame = CGRectMake(
-			bounds.size.width / 4 + UI_SIZE_MARGIN,
+			bounds.size.width / 4 + UI_SIZE_MARGIN * 2,
 			(frame.size.height - itemSize) / 2 + frame.origin.y,
-			bounds.size.width / 2, itemSize
+			bounds.size.width / 2 - UI_SIZE_LABEL_MARGIN, itemSize
 		);
 		textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
 		textField.borderStyle = UITextBorderStyleNone;
@@ -170,12 +169,13 @@
         UILabel *label = [[UILabel alloc] initWithFrame:frame];
         label.text = @"≈";
         label.textColor = [UIColor lightGrayColor]; 
+        label.backgroundColor = [UIColor clearColor];
 		label.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
 		label.textAlignment = NSTextAlignmentCenter;
         [label sizeToFit];
         label.center = textField.center;
         frame = label.frame;
-        frame.origin.x = CGRectGetMinX(textField.frame) - CGRectGetWidth(frame) / 2;
+        frame.origin.x = CGRectGetMinX(textField.frame) - CGRectGetWidth(frame) - UI_SIZE_MARGIN / 4;
         label.frame = frame;
         [containerView addSubview:label];	
         

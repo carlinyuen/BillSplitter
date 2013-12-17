@@ -471,51 +471,7 @@
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
 	
-	NSArray *elements = [NSArray arrayWithObjects:
-		dishSetup.drinkStepper,
-		dishSetup.drinkTextField,
-		dishSetup.smallDishStepper,
-		dishSetup.smallDishTextField,
-		dishSetup.mediumDishStepper,
-		dishSetup.mediumDishTextField,
-		dishSetup.largeDishStepper,
-		dishSetup.largeDishTextField,
-		nil];
-
-	// Starting point
-	for (UIView *element in elements) {
-		[self.animator setKeyFrameWithOffset: yOffset
-			translate:CGPointMake(0, 0)
-			scale:CGSizeMake(1, 1)
-			rotate:0
-			alpha:1
-			forView:element
-		];
-	}
-
-	// Move with scroll for a bit
-	difference = bounds.size.height / 8;
-	for (int i = 0; i < elements.count; ++i) {
-		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH * (i/2))
-			translate:CGPointMake(0, difference + (UI_SIZE_MIN_TOUCH * (i/2)))
-			scale:CGSizeMake(1, 1)
-			rotate:0
-			alpha:1
-			forView:[elements objectAtIndex:i]
-		];
-	}
 	
-	// Hide
-	difference = bounds.size.height / 4;
-	for (int i = 0; i < elements.count; ++i) {
-		[self.animator setKeyFrameWithOffset: yOffset + difference + (UI_SIZE_MIN_TOUCH * (i/2))
-			translate:CGPointMake(0, 0)
-			scale:CGSizeMake(1, 1)
-			rotate:0
-			alpha:0
-			forView:[elements objectAtIndex:i]
-		];
-	}
 	
 
 	/////////////////////////////////////////////
