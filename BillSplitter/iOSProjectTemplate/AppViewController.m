@@ -75,6 +75,8 @@
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
 	@property (nonatomic, strong) UIButton *resetButton;
+    
+    @property (nonatomic, strong) NSNumberFormatter *numberFormatter;
 
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
@@ -107,6 +109,10 @@
 		
 		// Debugging
 		_debugger = [[UIViewDebugger alloc] init];
+        
+        // Formatter
+        _numberFormatter = [NSNumberFormatter new];
+        [_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle]; 
     }
     return self;
 }
@@ -292,7 +298,14 @@
 		0, [self offsetForPageInScrollView:AppViewControllerPageTotal] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
-		
+	
+	[self.inputFields addObject:vc.totalField];
+	[self.inputFields addObject:vc.tipField];
+	vc.totalField.tag = AppViewControllerPageTotal;
+	vc.tipField.tag = AppViewControllerPageTotal;
+	vc.totalField.delegate = self;
+	vc.tipField.delegate = self;	
+    
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
@@ -848,97 +861,26 @@
 		case AppViewControllerPageHeadCount:
 		{
 			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
-			
-			// Get new text, add user entered text & replace $ signs and periods
-			NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
-	
-			// Make sure is a number
-			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-			NSNumber *number = [formatter numberFromString:newText];
-				
-			// Restrict value
-			if (!number) {
-				number = [NSNumber numberWithFloat:stepper.minimumValue];
-			} else if (number.floatValue > stepper.maximumValue) {
-				number = [NSNumber numberWithFloat:stepper.maximumValue];
-			} else if (number.floatValue < 0) {
-				number = [NSNumber numberWithFloat:stepper.minimumValue];
-			}
-			
-			// Set stepper value, always to integer
-			stepper.value = number.intValue;
-			textField.text = [NSString stringWithFormat:@"%i", number.intValue];
-			
+            [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string];
 			return NO;
 		}
 
 		// Price type (dish setup & total markup)
 		case AppViewControllerPageTotal:
-			stepper = [[self.viewControllers objectAtIndex:textField.tag] stepper];
+        {
+            BSTotalMarkupViewController *vc = [self.viewControllers objectAtIndex:textField.tag];
+            stepper = [vc stepperForTextField:textField]; 
+            if (stepper == vc.totalStepper) {
+                [self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
+            } else if (stepper == vc.tipStepper) {
+                [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string];  
+            }
+            return NO;
+        }
 		case AppViewControllerPageDishes:
 		{
-			if (!stepper) {
-				stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
-			}
-			
-			// Look for zeros in the decimal places so we can replace them
-			NSString *currentText = textField.text;
-			NSRange zeroDecimalRange = [currentText rangeOfString:@"0"
-				options:NSCaseInsensitiveSearch
-				range:NSMakeRange(currentText.length - 2, 2)];
-				
-			// If first zero is in tenths decimal place, need to make sure
-			//	there is a zero in the hundredths decimal place
-			bool hasZeroHundredthsDigit = (
-				(zeroDecimalRange.location == currentText.length - 1)
-				|| NSNotFound != [currentText rangeOfString:@"0"
-					options:NSCaseInsensitiveSearch
-					range:NSMakeRange(currentText.length - 1, 1)].location
-			);
-			
-			// If they're trying to add another zero, means they want to shift
-			bool userEnteredZero = [string isEqualToString:@"0"];
-				
-			// See if user is trying to add a number after the decimal point
-			bool userEnteredAfterDecimalPoint = (range.location >= currentText.length - 2);
-			
-			// Get new text, if user was adding numbers at end
-			//	and zero found in decimal place and user not adding a zero,
-			//	then replace with number user typed,
-			//	otherwise just shift number up and replace $ and periods
-			NSMutableString *newText = [[[[currentText
-				stringByReplacingCharactersInRange:(
-					(!userEnteredZero
-						&& userEnteredAfterDecimalPoint
-						&& hasZeroHundredthsDigit
-						&& zeroDecimalRange.location != NSNotFound)
-						? zeroDecimalRange : range)
-					withString:string]
-				stringByReplacingOccurrencesOfString:@"$" withString:@""]
-				stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
-			
-			// Add in decimal point now
-			[newText insertString:@"." atIndex:newText.length - 2];
-	
-			// Make sure is a number
-			NSNumberFormatter *formatter = [[NSNumberFormatter alloc] init];
-			[formatter setNumberStyle:NSNumberFormatterDecimalStyle];
-			NSNumber *number = [formatter numberFromString:newText];
-			
-			// Restrict value	
-			if (!number) {
-				number = [NSNumber numberWithFloat:stepper.minimumValue];
-			} else if (number.floatValue > stepper.maximumValue) {
-				number = [NSNumber numberWithFloat:stepper.maximumValue];
-			} else if (number.floatValue < 0) {
-				number = [NSNumber numberWithFloat:stepper.minimumValue];
-			}
-			
-			// Set stepper value
-			stepper.value = number.floatValue;
-			textField.text = [NSString stringWithFormat:@"$%.2f", number.floatValue];
-			
+            stepper = [[self.viewControllers objectAtIndex:textField.tag] stepperForTextField:textField];
+			[self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string];
 			return NO;
 		}
 		
@@ -946,6 +888,87 @@
 			break;
 	}
 	return YES;
+}
+
+- (void)formatIntegerTextField:(UITextField *)textField toStepper:(UIVerticalStepper *)stepper whenChangingCharactersInRange:(NSRange)range withString:(NSString *)string
+{
+    // Get new text, add user entered text & replace $ signs and periods
+    NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
+
+    // Make sure is a number
+    NSNumber *number = [self.numberFormatter numberFromString:newText];
+        
+    // Restrict value
+    if (!number) {
+        number = [NSNumber numberWithFloat:stepper.minimumValue];
+    } else if (number.floatValue > stepper.maximumValue) {
+        number = [NSNumber numberWithFloat:stepper.maximumValue];
+    } else if (number.floatValue < 0) {
+        number = [NSNumber numberWithFloat:stepper.minimumValue];
+    }
+    
+    // Set stepper value, always to integer
+    stepper.value = number.intValue;
+    textField.text = [NSString stringWithFormat:@"%i", number.intValue];
+}
+
+
+- (void)formatDecimalTextField:(UITextField *)textField toStepper:(UIVerticalStepper *)stepper whenChangingCharactersInRange:(NSRange)range withString:(NSString *)string
+{
+    // Look for zeros in the decimal places so we can replace them
+    NSString *currentText = textField.text;
+    NSRange zeroDecimalRange = [currentText rangeOfString:@"0"
+        options:NSCaseInsensitiveSearch
+        range:NSMakeRange(currentText.length - 2, 2)];
+        
+    // If first zero is in tenths decimal place, need to make sure
+    //	there is a zero in the hundredths decimal place
+    bool hasZeroHundredthsDigit = (
+        (zeroDecimalRange.location == currentText.length - 1)
+        || NSNotFound != [currentText rangeOfString:@"0"
+            options:NSCaseInsensitiveSearch
+            range:NSMakeRange(currentText.length - 1, 1)].location
+    );
+    
+    // If they're trying to add another zero, means they want to shift
+    bool userEnteredZero = [string isEqualToString:@"0"];
+        
+    // See if user is trying to add a number after the decimal point
+    bool userEnteredAfterDecimalPoint = (range.location >= currentText.length - 2);
+    
+    // Get new text, if user was adding numbers at end
+    //	and zero found in decimal place and user not adding a zero,
+    //	then replace with number user typed,
+    //	otherwise just shift number up and replace $ and periods
+    NSMutableString *newText = [[[[currentText
+        stringByReplacingCharactersInRange:(
+            (!userEnteredZero
+                && userEnteredAfterDecimalPoint
+                && hasZeroHundredthsDigit
+                && zeroDecimalRange.location != NSNotFound)
+                ? zeroDecimalRange : range)
+            withString:string]
+        stringByReplacingOccurrencesOfString:@"$" withString:@""]
+        stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
+    
+    // Add in decimal point now
+    [newText insertString:@"." atIndex:newText.length - 2];
+
+    // Make sure is a number
+    NSNumber *number = [self.numberFormatter numberFromString:newText];
+    
+    // Restrict value	
+    if (!number) {
+        number = [NSNumber numberWithFloat:stepper.minimumValue];
+    } else if (number.floatValue > stepper.maximumValue) {
+        number = [NSNumber numberWithFloat:stepper.maximumValue];
+    } else if (number.floatValue < 0) {
+        number = [NSNumber numberWithFloat:stepper.minimumValue];
+    }
+    
+    // Set stepper value
+    stepper.value = number.floatValue;
+    textField.text = [NSString stringWithFormat:@"$%.2f", number.floatValue];
 }
 
 

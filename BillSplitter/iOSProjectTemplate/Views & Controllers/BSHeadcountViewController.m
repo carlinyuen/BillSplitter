@@ -9,7 +9,6 @@
 
 #import "BSHeadcountViewController.h"
 
-	#define UI_SIZE_TEXTFIELD_HEIGHT 100
    	#define UI_SIZE_LABEL_HEIGHT 36 
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
@@ -101,9 +100,9 @@
 	frame = self.imageView.frame;
 	self.textField.frame = CGRectMake(
 		CGRectGetMaxX(frame),
-		(frame.size.height - UI_SIZE_TEXTFIELD_HEIGHT) / 2 + frame.origin.y,
-		bounds.size.width / 4 + UI_SIZE_MARGIN, 
-        UI_SIZE_TEXTFIELD_HEIGHT
+		(frame.size.height - (bounds.size.height / 3)) / 2 + frame.origin.y,
+		bounds.size.width / 3,
+        bounds.size.height / 3
 	);
 	self.textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
 	self.textField.borderStyle = UITextBorderStyleNone;
