@@ -22,8 +22,9 @@
 	@property (nonatomic, strong) UILabel *tipLabel;
 	@property (strong, nonatomic) UITextField *tipField;
 	@property (nonatomic, strong) UIVerticalStepper *tipStepper;
-   	@property (nonatomic, strong) UILabel *tipAmountLabel; 
+   	@property (nonatomic, strong) UITextField *tipAmountField; 
 
+	@property (nonatomic, strong) UIView *finalDivider;
 	@property (nonatomic, strong) UILabel *finalLabel;
 
 	/** @brief Init in screen frame */
@@ -32,7 +33,7 @@
 	/** @brief Returns one of the steppers used */
 	- (UIVerticalStepper *)stepperForTextField:(UITextField *)textField;
     
-    /** @brief Updates tip amount based on tip */
-    - (void)updateTipAmount;
+    /** @brief Updates calculations */
+    - (void)updateCalculations;
     
 @end

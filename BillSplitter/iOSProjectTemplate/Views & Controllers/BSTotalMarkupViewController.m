@@ -47,6 +47,7 @@
 		_tipField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_tipStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
 		
+       	_finalDivider = [[UIView alloc] initWithFrame:CGRectZero]; 
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
@@ -66,6 +67,7 @@
 	// Setup
 	[self setupTotal:bounds];
 	[self setupTip:bounds];
+   	[self setupFinal:bounds]; 
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -103,10 +105,10 @@
 	}
 }
 
-/** @brief Updates tip amount based on tip */
-- (void)updateTipAmount
+/** @brief Updates calculations */
+- (void)updateCalculations
 {
-    self.tipAmountLabel.text = [NSString stringWithFormat:@"$%.2f", 
+    self.tipAmountField.text = [NSString stringWithFormat:@"$%.2f", 
         self.totalStepper.value * (self.tipStepper.value / 100.f)];
 }
         
@@ -211,40 +213,53 @@
 	self.tipStepper.maximumValue = STEPPER_TIP_MAX_VALUE;
 	self.tipStepper.minimumValue = STEPPER_TIP_MIN_VALUE;
 	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
+   
+    frame = self.tipField.frame;
+    frame.origin.y = CGRectGetMaxY(frame);
+    self.tipAmountField = [[UITextField alloc] initWithFrame:frame]; 
+    self.tipAmountField.text = @"$0.00";
+    self.tipAmountField.textColor = [UIColor lightGrayColor]; 
+    self.tipAmountField.backgroundColor = [UIColor clearColor];
+    self.tipAmountField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    self.tipAmountField.textAlignment = NSTextAlignmentRight;
+    self.tipAmountField.enabled = false;
+    self.tipAmountField.adjustsFontSizeToFitWidth = true;
+    self.tipAmountField.minimumFontSize = FONT_SIZE_PRICE / 3;
+    unitsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH)];
+    unitsLabel.text = @"%";
+    unitsLabel.textColor = [UIColor whiteColor]; 
+    unitsLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_TAGLINE];
+    unitsLabel.backgroundColor = [UIColor clearColor];
+    self.tipAmountField.rightViewMode = UITextFieldViewModeAlways;
+    self.tipAmountField.rightView = unitsLabel;
     
     frame = self.tipLabel.frame;
-    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN;
+    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN * 2;
     UILabel *approxLabel = [[UILabel alloc] initWithFrame:frame];
     approxLabel.text = @"≈";
     approxLabel.textColor = [UIColor lightGrayColor]; 
     approxLabel.backgroundColor = [UIColor clearColor];
     approxLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
     approxLabel.textAlignment = NSTextAlignmentRight; 
-    
-    frame = self.tipField.frame;
-    self.tipAmountLabel = [[UILabel alloc] initWithFrame:CGRectMake(
-        0,
-        0,
-        CGRectGetMaxX(frame) - CGRectGetMaxX(approxLabel.frame) - UI_SIZE_MARGIN * 3,
-        CGRectGetHeight(frame)
-    )];
-    self.tipAmountLabel.text = @"$0.00";
-    self.tipAmountLabel.textColor = [UIColor lightGrayColor]; 
-    self.tipAmountLabel.backgroundColor = [UIColor clearColor];
-    self.tipAmountLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
-    self.tipAmountLabel.textAlignment = NSTextAlignmentRight;
-    self.tipAmountLabel.adjustsFontSizeToFitWidth = true;
-    self.tipAmountLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
-    self.tipAmountLabel.center = approxLabel.center;
-    frame = self.tipAmountLabel.frame;
-    frame.origin.x = CGRectGetMaxX(approxLabel.frame);
-    self.tipAmountLabel.frame = frame;
-   	
+    	
 	[self.view addSubview:self.tipLabel];
    	[self.view addSubview:self.tipField]; 
 	[self.view addSubview:self.tipStepper]; 
     [self.view addSubview:approxLabel]; 
-    [self.view addSubview:self.tipAmountLabel];	
+    [self.view addSubview:self.tipAmountField];	
+}
+
+- (void)setupFinal:(CGRect)bounds
+{
+    self.finalDivider.backgroundColor = [UIColor lightGrayColor];
+    self.finalDivider.frame = CGRectMake(
+        UI_SIZE_LABEL_MARGIN,
+        bounds.size.height / 3 * 2,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
+        1
+    );
+    
+    [self.view addSubview:self.finalDivider];
 }
 
 
@@ -264,7 +279,7 @@
 	} else if (stepper == self.tipStepper) {
 		self.tipField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	}
-    [self updateTipAmount]; 
+    [self updateCalculations]; 
 }
 
 @end

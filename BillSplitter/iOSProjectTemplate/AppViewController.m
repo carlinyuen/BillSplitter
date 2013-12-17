@@ -876,7 +876,7 @@
             } else if (stepper == vc.tipStepper) {
                 [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
             }
-            [vc updateTipAmount]; 
+            [vc updateCalculations]; 
             return NO;
         }
 		case AppViewControllerPageDishes:
