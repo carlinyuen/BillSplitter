@@ -108,8 +108,13 @@
 /** @brief Updates calculations */
 - (void)updateCalculations
 {
+    // Update tip amount
     self.tipAmountField.text = [NSString stringWithFormat:@"$%.2f", 
         self.totalStepper.value * (self.tipStepper.value / 100.f)];
+    
+    // Update final cost
+    self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", 
+        self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f)];
 }
         
 
@@ -251,6 +256,7 @@
 
 - (void)setupFinal:(CGRect)bounds
 {
+    CGRect frame;
     self.finalDivider.backgroundColor = [UIColor lightGrayColor];
     self.finalDivider.frame = CGRectMake(
         UI_SIZE_LABEL_MARGIN,
@@ -259,7 +265,19 @@
         1
     );
     
+    frame = self.finalDivider.frame;
+    frame.size.height = bounds.size.height / 5;
+    self.finalLabel = [[UILabel alloc] initWithFrame:frame];
+    self.finalLabel.text = @"$0.00";
+    self.finalLabel.textColor = [UIColor blackColor]; 
+    self.finalLabel.backgroundColor = [UIColor clearColor];
+    self.finalLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
+    self.finalLabel.textAlignment = NSTextAlignmentCenter;
+    self.finalLabel.adjustsFontSizeToFitWidth = true;
+    self.finalLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
+    
     [self.view addSubview:self.finalDivider];
+    [self.view addSubview:self.finalLabel]; 
 }
 
 
