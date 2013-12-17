@@ -31,4 +31,8 @@
 
 	/** @brief Returns one of the steppers used */
 	- (UIVerticalStepper *)stepperForTextField:(UITextField *)textField;
+    
+    /** @brief Updates tip amount based on tip */
+    - (void)updateTipAmount;
+    
 @end

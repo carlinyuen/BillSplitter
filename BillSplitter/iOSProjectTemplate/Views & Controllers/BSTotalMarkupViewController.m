@@ -103,6 +103,13 @@
 	}
 }
 
+/** @brief Updates tip amount based on tip */
+- (void)updateTipAmount
+{
+    self.tipAmountLabel.text = [NSString stringWithFormat:@"$%.2f", 
+        self.totalStepper.value * (self.tipStepper.value / 100.f)];
+}
+        
 
 #pragma mark - UI Setup
 
@@ -257,6 +264,7 @@
 	} else if (stepper == self.tipStepper) {
 		self.tipField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
 	}
+    [self updateTipAmount]; 
 }
 
 @end
