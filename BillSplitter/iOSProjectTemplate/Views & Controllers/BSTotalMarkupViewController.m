@@ -116,14 +116,14 @@
 	self.totalLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
     [self.totalLabel sizeToFit];
     frame = self.totalLabel.frame;
-    frame.origin.y = UI_SIZE_MARGIN;
+    frame.origin.y = UI_SIZE_LABEL_MARGIN;
     frame.origin.x = (bounds.size.width - frame.size.width) / 2;
     self.totalLabel.frame = frame;
 
 	frame = self.totalLabel.frame;
 	self.totalField.frame = CGRectMake(
 		UI_SIZE_LABEL_MARGIN,
-		CGRectGetMaxY(frame),
+		CGRectGetMaxY(frame) - UI_SIZE_MARGIN,
 		bounds.size.width / 4 * 3 - UI_SIZE_MARGIN,
         bounds.size.height / 5
 	);
@@ -132,7 +132,7 @@
 	self.totalField.borderStyle = UITextBorderStyleNone;
 	self.totalField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.totalField.keyboardType = UIKeyboardTypeNumberPad;
-	self.totalField.textAlignment = NSTextAlignmentCenter;
+	self.totalField.textAlignment = NSTextAlignmentRight;
 	self.totalField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.totalField.adjustsFontSizeToFitWidth = true;
     self.totalField.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
@@ -159,7 +159,7 @@
 {
     CGRect frame;
     self.tipField.frame = CGRectMake(
-		bounds.size.width / 4,
+		bounds.size.width / 2 - self.tipStepper.frame.size.width - UI_SIZE_MARGIN,
 		bounds.size.height / 3,
 		bounds.size.width / 2,
         bounds.size.height / 6
@@ -177,7 +177,7 @@
     UILabel *unitsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH)];
     unitsLabel.text = @"%";
     unitsLabel.textColor = [UIColor darkGrayColor]; 
-    unitsLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    unitsLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_TAGLINE];
     unitsLabel.backgroundColor = [UIColor clearColor];
     self.tipField.rightViewMode = UITextFieldViewModeAlways;
     self.tipField.rightView = unitsLabel;
