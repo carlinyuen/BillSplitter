@@ -83,7 +83,7 @@
     
     // Add description on top
     self.descriptionLabel.frame = CGRectMake(
-        UI_SIZE_LABEL_MARGIN, UI_SIZE_MARGIN,
+        UI_SIZE_LABEL_MARGIN, UI_SIZE_LABEL_MARGIN,
         bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
         bounds.size.height
     );
@@ -154,7 +154,7 @@
 		
 		// Create container view
 		containerView = [[UIView alloc] initWithFrame:CGRectMake(
-			0, CGRectGetMaxY(frame) + UI_SIZE_LABEL_MARGIN,
+			0, CGRectGetMaxY(frame) + UI_SIZE_MARGIN,
 			bounds.size.width, itemSize
 		)];
 		
