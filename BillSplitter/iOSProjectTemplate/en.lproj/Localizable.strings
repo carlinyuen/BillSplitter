@@ -16,15 +16,13 @@
 "INFO_VIEW_TITLE" = "Settings";
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
 
-"TAGLINE_TEXT" = "Splitting Bills the Simple Way";
-"WELCOME_TEXT" = "Just give me an easy round number to pay!";
+"HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
+"HEADCOUNT_DESCRIPTION_TEXT" = "Just tell me what I owe!";
 
 "TOTALMARKUP_TOTAL_LABEL" = "Bill Total";
 "TOTALMARKUP_TIP_LABEL" = "+ Tip";
 
-"SUMMARY_DESCRIPTION_TEXT" = "Summary Here!";
-
-"ERROR_DISTRIBUTION_PROFILE_SEARCH" = "Error: drag target not a valid profile!";
+"SETUP_DESCRIPTION_TEXT" = "Just doin' a little algebra...";
 
 "POPUP_OK" = "Ok";
 "POPUP_CANCEL" = "Cancel";

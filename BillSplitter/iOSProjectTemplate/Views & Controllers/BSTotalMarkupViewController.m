@@ -126,11 +126,11 @@
     CGRect frame;
 	self.totalLabel.text = [NSLocalizedString(@"TOTALMARKUP_TOTAL_LABEL", nil) uppercaseString];
 	self.totalLabel.backgroundColor = [UIColor clearColor];
-	self.totalLabel.textColor = [UIColor whiteColor];
+	self.totalLabel.textColor = [UIColor darkGrayColor];
 	self.totalLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_TAGLINE];
     [self.totalLabel sizeToFit];
     frame = self.totalLabel.frame;
-    frame.origin.y = UI_SIZE_MARGIN;
+    frame.origin.y = UI_SIZE_LABEL_MARGIN;
     frame.origin.x = (bounds.size.width - frame.size.width) / 2;
     self.totalLabel.frame = frame;
 
@@ -142,7 +142,7 @@
         bounds.size.height / 5
 	);
 	self.totalField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-    self.totalField.textColor = [UIColor whiteColor];
+    self.totalField.textColor = [UIColor darkGrayColor];
 	self.totalField.borderStyle = UITextBorderStyleNone;
 	self.totalField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.totalField.keyboardType = UIKeyboardTypeNumberPad;

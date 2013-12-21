@@ -35,9 +35,9 @@
 
 	typedef enum {
 		AppViewControllerPageHeadCount,
+        AppViewControllerPageTotal, 
 		AppViewControllerPageDishes,
 		AppViewControllerPageDistribution,
-		AppViewControllerPageTotal,
 		AppViewControllerPageSummary,
 		AppViewControllerPageCount
 	} AppViewControllerPage;

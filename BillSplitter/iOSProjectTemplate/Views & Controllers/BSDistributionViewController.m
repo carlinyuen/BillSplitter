@@ -753,8 +753,7 @@
 							
 							// Insanity checks
 							if (index == NSNotFound) {
-								NSLog(NSLocalizedString(
-									@"ERROR_DISTRIBUTION_PROFILE_SEARCH", nil));
+								NSLog(@"Warning! Not a valid drop target!");
 							}
 							else	// Add dish to diner with animation
 							{

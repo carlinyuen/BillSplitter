@@ -48,6 +48,8 @@
     if (self)
 	{
 		_frame = frame;
+        
+        _descriptionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		
 		_drinkButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		_smallDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -78,6 +80,25 @@
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
 	CGRect frame = CGRectZero;
+    
+    // Add description on top
+    self.descriptionLabel.frame = CGRectMake(
+        UI_SIZE_LABEL_MARGIN, UI_SIZE_MARGIN,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
+        bounds.size.height
+    );
+    self.descriptionLabel.text = NSLocalizedString(@"SETUP_DESCRIPTION_TEXT", nil);
+    self.descriptionLabel.numberOfLines = 0;
+	self.descriptionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+	self.descriptionLabel.backgroundColor = [UIColor whiteColor];
+	self.descriptionLabel.textAlignment = NSTextAlignmentCenter;
+	self.descriptionLabel.textColor = [UIColor grayColor];
+	self.descriptionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    [self.descriptionLabel sizeToFit];
+    frame = self.descriptionLabel.frame;
+    frame.origin.x = (bounds.size.width - frame.size.width) / 2;
+    self.descriptionLabel.frame = frame;
+    [self.view addSubview:self.descriptionLabel];
     
 	// Loop through and layout elements
 	UIVerticalStepper *stepper;

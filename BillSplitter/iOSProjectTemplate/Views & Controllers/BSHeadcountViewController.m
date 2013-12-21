@@ -58,7 +58,7 @@
 	CGRect bounds = self.view.bounds;
 	CGRect frame;
 
-	self.taglineLabel.text = NSLocalizedString(@"TAGLINE_TEXT", nil);
+	self.taglineLabel.text = NSLocalizedString(@"HEADCOUNT_TAGLINE_TEXT", nil);
 	self.taglineLabel.backgroundColor = [UIColor whiteColor];
 	self.taglineLabel.textAlignment = NSTextAlignmentCenter;
 	self.taglineLabel.textColor = [UIColor darkGrayColor];
@@ -69,7 +69,7 @@
 	);
 	
 	frame = self.taglineLabel.frame;
-	self.welcomeLabel.text = NSLocalizedString(@"WELCOME_TEXT", nil);
+	self.welcomeLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);
 	self.welcomeLabel.numberOfLines = 0;
 	self.welcomeLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.welcomeLabel.backgroundColor = [UIColor whiteColor];

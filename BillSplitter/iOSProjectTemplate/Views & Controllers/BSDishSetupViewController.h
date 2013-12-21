@@ -23,6 +23,8 @@
 	UIVerticalStepperDelegate
 >
 
+    @property (nonatomic, strong) UILabel *descriptionLabel;
+
 	@property (nonatomic, strong) UIButton *drinkButton;
 	@property (nonatomic, strong) UIButton *smallDishButton;
 	@property (nonatomic, strong) UIButton *mediumDishButton;
