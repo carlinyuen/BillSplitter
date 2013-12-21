@@ -82,6 +82,8 @@
     [super didReceiveMemoryWarning];
 	
 	// Reset fields
+	self.totalStepper.value = STEPPER_TOTAL_DEFAULT_VALUE;
+	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
 }
 
 /** @brief Return supported orientations */
