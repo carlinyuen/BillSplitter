@@ -10,6 +10,7 @@
 #import "InfoViewController.h"
 
 	#define UI_SIZE_TABLE_FOOTER_HEIGHT 64
+    #define UI_SIZE_CORNER_RADIUS 12  
 
 	#define FONT_SIZE_SECTION_HEADER 18
 	
@@ -99,7 +100,37 @@
 /** @brief Setup nav bar */
 - (void)setupNavBar
 {
-	self.navigationController.navigationBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    UINavigationBar *navBar = self.navigationController.navigationBar;
+
+    // Rounded corners
+    self.navigationController.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
+   	self.navigationController.view.clipsToBounds = true;  
+    
+    // Mask for rounded corners on top
+    CGRect frame = navBar.frame;
+    CAShapeLayer *mask = [CAShapeLayer new];
+    CGPoint leftBottomCorner = CGPointMake(0, CGRectGetMaxY(frame));
+    CGPoint rightBottomCorner = CGPointMake(CGRectGetMaxX(frame), CGRectGetMaxY(frame)); 
+    CGPoint leftTopArcCorner = CGPointMake(UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
+    CGPoint rightTopArcCorner = CGPointMake(CGRectGetMaxX(frame) - UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
+    
+    // Drawing bounds
+    CGMutablePathRef path = CGPathCreateMutable();
+    CGPathMoveToPoint(path, NULL, rightBottomCorner.x, rightBottomCorner.y);
+    CGPathAddLineToPoint(path, NULL, leftBottomCorner.x, leftBottomCorner.y); 
+   	CGPathAddArc(path, NULL, leftTopArcCorner.x, leftTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI, M_PI / 2 * 3, NO);
+    CGPathAddArc(path, NULL, rightTopArcCorner.x, rightTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI / 2 * 3, 0, NO); 
+    CGPathCloseSubpath(path);
+    
+    // Set mask to cut off corners on top two
+    mask.path = path;
+    navBar.layer.mask = mask;
+    
+    // Coloring navbar
+	navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    if ([navBar respondsToSelector:@selector(setBarTintColor:)]) {
+        [navBar setBarTintColor:navBar.tintColor];
+    }
 	
 	// Close button
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]

@@ -173,6 +173,9 @@
 		
 	// Color
 	self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    if ([self.navBar respondsToSelector:@selector(setBarTintColor:)]) {
+        [self.navBar setBarTintColor:self.navBar.tintColor]; 
+    }
 	self.navBar.translucent = true;
 
 	// Info button
