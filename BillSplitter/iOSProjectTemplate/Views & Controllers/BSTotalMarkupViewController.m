@@ -137,7 +137,7 @@
 	frame = self.totalLabel.frame;
 	self.totalField.frame = CGRectMake(
 		UI_SIZE_LABEL_MARGIN,
-		(bounds.size.height / 3 - bounds.size.height / 5) / 2,
+		CGRectGetMaxY(frame),
 		bounds.size.width / 4 * 3 - UI_SIZE_MARGIN,
         bounds.size.height / 5
 	);
