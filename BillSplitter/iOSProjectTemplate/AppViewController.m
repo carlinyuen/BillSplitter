@@ -866,9 +866,18 @@
 /** @brief When page control dot is tapped */
 - (void)pageControlPageDidChange:(CustomPageControl *)pageControl
 {
-	CGRect frame = self.scrollView.bounds;
-	frame.origin.y = [self offsetForPageInScrollView:pageControl.currentPage];
-    self.lastShownPage = pageControl.currentPage;
+    int page = pageControl.currentPage;
+    	
+	// If page is not the same as lastShownPage, let page know it'll be shown
+	if (self.lastShownPage != page) {
+		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
+		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+	}
+    self.lastShownPage = page;
+    
+    // Scroll to page
+   	CGRect frame = self.scrollView.bounds;
+	frame.origin.y = [self offsetForPageInScrollView:page]; 
 	[self.scrollView scrollRectToVisible:frame animated:true];
 }
 
