@@ -15,6 +15,7 @@
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_MAX_VALUE 50
+   	#define STEPPER_DEFAULT_VALUE 2
     
     #define SCALE_TEXTFIELD_CHANGE 1.1
 
@@ -123,7 +124,7 @@
 	self.stepper.delegate = self;
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
 	self.stepper.minimumValue = STEPPER_MIN_VALUE;
-	self.stepper.value = STEPPER_MIN_VALUE;
+	self.stepper.value = STEPPER_DEFAULT_VALUE;
 	
 	frame = self.imageView.frame;
 	

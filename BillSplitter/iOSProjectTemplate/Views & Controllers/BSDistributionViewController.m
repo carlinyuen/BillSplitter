@@ -260,7 +260,6 @@
 	removeButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
 	[removeButton addTarget:self action:@selector(removeDinerButtonPressed:)
 		forControlEvents:UIControlEventTouchUpInside];
-	removeButton.tag = self.profiles.count;
 	[containerView addSubview:removeButton];
 
 	// Stepper for textfield
@@ -310,6 +309,7 @@
 	}
 	
 	// Keeping track of elements
+    int addIndex = 0;
 	[self.profiles insertObject:@{
 		BSDistributionViewControllerProfileViewDishes : dishView,
 		BSDistributionViewControllerProfileViewImageButton : imageButton,
@@ -317,7 +317,7 @@
 		BSDistributionViewControllerProfileViewTextField : textField,
 		BSDistributionViewControllerProfileViewStepper : stepper,
 		BSDistributionViewControllerProfileViewCard : containerView,
-	} atIndex:0];
+	} atIndex:addIndex];
 	[self.scrollView addSubview:containerView];
 	
 	// Update scrollview & scroll over to new card section
@@ -347,9 +347,9 @@
 			}
 		} completion:nil];
 	
-	// Adding dish if exists
+	// Adding dish if exists to profile added index
 	if (dish) {
-		[self addDish:dish toDinerAtIndex:self.profiles.count-1 completion:nil];
+		[self addDish:dish toDinerAtIndex:addIndex completion:nil];
 	}
 }
 
@@ -392,6 +392,72 @@
 					scale, scale);
 			dish.alpha = 1;
 		} completion:completion];
+}
+
+/** @brief Removes diner */
+- (void)removeDiner:(int)index
+{
+	// Insanity check
+	if (!self.profiles.count) {
+		return;
+	}
+	
+	// Disable interaction while animating
+	self.scrollView.userInteractionEnabled = false;
+
+	UIView *card = [[self.profiles objectAtIndex:index]
+		objectForKey:BSDistributionViewControllerProfileViewCard];
+	CGRect bounds = self.scrollView.bounds;
+	
+	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+		options:UIViewAnimationOptionBeginFromCurrentState
+			| UIViewAnimationOptionCurveEaseInOut
+		animations:^
+		{
+			// Hide card being removed
+			card.alpha = 0;
+			
+			// Setup for animation
+			CGRect frame = card.frame;
+			UIView *temp;
+			
+			// If is last card on right, then shift scrollview left
+			if (index == self.profiles.count - 1)
+			{
+				frame.origin.x -= bounds.size.width;
+				self.scrollView.contentOffset = frame.origin;
+			}
+			else	// Shift over cards on the right, display focus on next one
+			{
+				[self profileAtIndex:index + 1 shouldShowFocus:true];
+			
+				for (int i = index + 1; i < self.profiles.count; ++i) {
+					temp = [[self.profiles objectAtIndex:i]
+						objectForKey:BSDistributionViewControllerProfileViewCard];
+					frame = temp.frame;
+					frame.origin.x -= bounds.size.width;
+					temp.frame = frame;
+				}
+			}
+			
+			// If no more cards, fade in instructions
+			if (self.profiles.count == 1) {
+                [self showInstructionIV:true];
+			}
+		}
+		completion:^(BOOL finished)
+		{
+			// Remove card & data
+			[card removeFromSuperview];
+			[self.profiles removeObjectAtIndex:index];
+			
+			// Resize contentSize of scrollview
+			[self refreshScrollView];
+			self.scrollView.userInteractionEnabled = true;
+			
+			// Update steppers
+			[self updateSteppers];
+		}];
 }
 
 /** @brief Update page control & content size of scrollview */
@@ -668,70 +734,10 @@
 /** @brief X button pressed on diner profile card */
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
-	// Insanity check
-	if (!self.profiles.count) {
-		return;
-	}
-	
-	// Disable interaction while animating
-	self.scrollView.userInteractionEnabled = false;
-
 	// Remove card at current page
-	int index = self.pageControl.currentPage;
-	UIView *card = [[self.profiles objectAtIndex:index]
-		objectForKey:BSDistributionViewControllerProfileViewCard];
-	CGRect bounds = self.scrollView.bounds;
-	
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseInOut
-		animations:^
-		{
-			// Hide card being removed
-			card.alpha = 0;
-			
-			// Setup for animation
-			CGRect frame = card.frame;
-			UIView *temp;
-			
-			// If is last card on right, then shift scrollview left
-			if (index == self.profiles.count - 1)
-			{
-				frame.origin.x -= bounds.size.width;
-				self.scrollView.contentOffset = frame.origin;
-			}
-			else	// Shift over cards on the right, display focus on next one
-			{
-				[self profileAtIndex:index + 1 shouldShowFocus:true];
-			
-				for (int i = index + 1; i < self.profiles.count; ++i) {
-					temp = [[self.profiles objectAtIndex:i]
-						objectForKey:BSDistributionViewControllerProfileViewCard];
-					frame = temp.frame;
-					frame.origin.x -= bounds.size.width;
-					temp.frame = frame;
-				}
-			}
-			
-			// If no more cards, fade in instructions
-			if (self.profiles.count == 1) {
-                [self showInstructionIV:true];
-			}
-		}
-		completion:^(BOOL finished)
-		{
-			// Remove card & data
-			[card removeFromSuperview];
-			[self.profiles removeObjectAtIndex:index];
-			
-			// Resize contentSize of scrollview
-			[self refreshScrollView];
-			self.scrollView.userInteractionEnabled = true;
-			
-			// Update steppers
-			[self updateSteppers];
-		}];
+    [self removeDiner:self.pageControl.currentPage];
 }
+
 
 /** @brief Dish button touch down on */
 - (void)dishButtonPressed:(UIButton *)button
