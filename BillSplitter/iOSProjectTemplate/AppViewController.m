@@ -738,22 +738,23 @@
 		alpha:1
 		forView:dishSetup.largeDishButton
 	];
-	
-    // Instructional Arrow
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH 
-		translate:CGPointZero
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:0
-		forView:distribution.instructionIV
-	]; 
-    [self.animator setKeyFrameWithOffset: yTempOffset
+
+    // Instructional Arrow Cover
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 3
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
-		forView:distribution.instructionIV
+		forView:distribution.instructionCover
+	]; 
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointMake(0, -distribution.instructionCover.frame.size.height)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.instructionCover
 	];
+    
 }
 
 

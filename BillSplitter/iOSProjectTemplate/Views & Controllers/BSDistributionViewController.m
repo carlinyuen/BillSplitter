@@ -84,6 +84,8 @@
 	@property (nonatomic, strong) UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, assign) int lastShownProfile;
+    
+    @property (nonatomic, strong) NSTimer *instructionTimer; 
 
 @end
 
@@ -105,6 +107,7 @@
 		_addButton = [UIButton new];
         
         _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
+        _instructionCover = [UIView new];
 		
 		_profiles = [NSMutableArray new];
 		_lastShownProfile = 0;
@@ -148,7 +151,7 @@
     [self refreshDragButtonPositions];
     
     // Start flashing the arrow if no profiles set
-    [self showInstructionIV:(self.profiles.count)];
+    [self showInstructionIV:(!self.profiles.count)];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -427,16 +430,19 @@
 }
 
 /** @brief Show instructional arrow */
-NSTimer *timer;
 - (void)showInstructionIV:(bool)show
 {
     if (show)
-    {
-        timer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 target:self selector:@selector(flashInstructionIV:) userInfo:nil repeats:true];
+    {   
+        if (!self.instructionTimer) {
+            self.instructionTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 target:self selector:@selector(flashInstructionIV:) userInfo:nil repeats:true];
+        }
     }
     else    // Stop
     {
-        [timer invalidate];
+        [self.instructionTimer invalidate];
+        self.instructionTimer = nil;
+        
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
@@ -512,7 +518,12 @@ NSTimer *timer;
         CGRectGetMinY(self.addButton.frame) - UI_SIZE_MARGIN
     );
     self.instructionIV.frame = frame;
+    self.instructionIV.clipsToBounds = true;
     [self.view addSubview:self.instructionIV];
+    
+    self.instructionCover.frame = self.instructionIV.bounds;
+    self.instructionCover.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    [self.instructionIV addSubview:self.instructionCover];
 }
     
 /** @brief Setup background view */

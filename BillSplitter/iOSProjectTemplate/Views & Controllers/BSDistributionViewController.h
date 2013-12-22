@@ -39,6 +39,7 @@
 	@property (nonatomic, strong) UIButton *largeDishButton;
     
     /** Instructional image */
+    @property (nonatomic, strong) UIView *instructionCover;
     @property (nonatomic, strong) UIImageView *instructionIV;
 
     /** List of profiles user sets up */
