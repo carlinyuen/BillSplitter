@@ -21,25 +21,25 @@
 	#define HOVER_SPEED 0.1
 	#define DRAG_SPEED 0.05
 	#define DRAG_ALPHA 0.66
+       
+    #define TAG_BADGE_LABEL -1 
+   	#define SCALE_BADGE_CHANGE 0.25 
 
-	#define UI_SIZE_BADGE 20
-    #define UI_SIZE_BADGE_CORNER_RADIUS 10 
-        
+	#define UI_SIZE_BADGE_HEIGHT 16 
+    #define UI_SIZE_BADGE_CORNER_RADIUS 8 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
 	#define UI_SIZE_MARGIN 16
+    
+    #define FONT_SIZE_BADGE_LABEL 11
 
 	#define IMAGEVIEW_SCALE_SMALLDISH 0.7
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
-    
-   	#define SCALE_BADGE_CHANGE 1.25
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_DEFAULT_VALUE 1
 	#define STEPPER_DEFAULT_MAX_VALUE 2
-    
-    #define TAG_BADGE_LABEL -1
 
 	#define IMG_ARROW @"arrow.png"
    	#define IMG_ARROWHEAD @"arrowhead.png" 
@@ -391,8 +391,8 @@
     NSMutableDictionary *dishCount = [[self.profiles objectAtIndex:index]
 		objectForKey:BSDistributionViewControllerProfileViewDishCount]; 
 
+    // Get count of dishes for the profile
     NSInteger count = [dishCount[@(dish.tag)] integerValue];
-    NSLog(@"Count for Dish %i: %i", dish.tag, count);
     [dishCount setObject:[NSNumber numberWithInteger:count + 1] forKey:@(dish.tag)]; 
     
     // Add dish if DNS
@@ -407,31 +407,25 @@
         );
         
         // Reset to zero size, identity transform
+        float scale = [self scaleForDishTag:dish.tag]; 
         dish.transform = CGAffineTransformIdentity;
         dish.frame = frame;
+        dish.clipsToBounds = false;
         dish.transform = CGAffineTransformMakeScale(0, 0);
         [dishView addSubview:dish];
         
-        // Setup for scale to animate to
-        float scale = 1;
-        switch (dish.tag)
-        {
-            case BSDishSetupViewControllerItemSmallDish:
-                scale = IMAGEVIEW_SCALE_SMALLDISH; break;
-            case BSDishSetupViewControllerItemMediumDish:
-                scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
-            default: break;
-        }
-        
         // Add badge number label in advance
+        float badgeScale = 1 / scale;
         UILabel *badgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(
-            CGRectGetWidth(frame) - UI_SIZE_BADGE, 
-            CGRectGetHeight(frame) - UI_SIZE_BADGE, 
-            UI_SIZE_BADGE, UI_SIZE_BADGE
+            CGRectGetWidth(frame) - UI_SIZE_BADGE_HEIGHT, 
+            CGRectGetHeight(frame) - UI_SIZE_BADGE_HEIGHT, 
+            UI_SIZE_BADGE_HEIGHT, UI_SIZE_BADGE_HEIGHT
         )];
+        badgeLabel.transform = CGAffineTransformMakeScale(badgeScale, badgeScale); 
         badgeLabel.backgroundColor = [UIColor redColor];
         badgeLabel.textColor = [UIColor whiteColor];
         badgeLabel.textAlignment = UITextAlignmentCenter;
+        badgeLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_BADGE_LABEL];
         badgeLabel.layer.cornerRadius = UI_SIZE_BADGE_CORNER_RADIUS;
         badgeLabel.alpha = 0;
         badgeLabel.text = @"1";
@@ -480,11 +474,13 @@
         }
         
         // Animate Bounce on increment
+        float scale = badgeLabel.transform.a;
+        float bounceScale = scale + SCALE_BADGE_CHANGE;
         [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
             animations:^{
                 badgeLabel.transform = CGAffineTransformMakeScale(
-                    SCALE_BADGE_CHANGE, SCALE_BADGE_CHANGE);
+                    bounceScale, bounceScale);
                 badgeLabel.alpha = 1;
             } 
             completion:^(BOOL finished) {
@@ -492,7 +488,7 @@
                     [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
                         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
                         animations:^{
-                            badgeLabel.transform = CGAffineTransformIdentity;
+                            badgeLabel.transform = CGAffineTransformMakeScale(scale, scale); 
                         } 
                         completion:nil];
                 }
