@@ -129,9 +129,11 @@
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
     if (getDeviceOSVersionNumber() >= 7) {
-        bounds.size.height += bounds.origin.y;
+        bounds.size.height += bounds.origin.y;  // Adjust for status bar
+    } else {
+        bounds.origin.y = 0;
     }
-	bounds.origin.x = bounds.origin.y = 0;
+	bounds.origin.x = 0;
 	
 	// Setup view
 	self.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
@@ -152,8 +154,10 @@
 	CGRect bounds = getScreenFrame();
     if (getDeviceOSVersionNumber() >= 7) {
         bounds.size.height += bounds.origin.y;
-    } 
-	bounds.origin.x = bounds.origin.y = 0; 
+    } else {
+        bounds.origin.y = 0; 
+    }
+	bounds.origin.x = 0;
     self.scrollView.frame = bounds;
     
     [self updatePages];
@@ -202,7 +206,7 @@
 	UIButton* infoButton = [UIButton buttonWithType:
         (isIOS7) ? UIButtonTypeInfoLight : UIButtonTypeInfoDark];
 	CGRect frame = infoButton.frame;
-	frame.size.width += (isIOS7) ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
+	frame.size.width += (!isIOS7) ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
 	infoButton.frame = frame;
 	[infoButton addTarget:self action:@selector(showInfo:)
 			forControlEvents:UIControlEventTouchUpInside];
