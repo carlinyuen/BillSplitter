@@ -746,6 +746,7 @@
     if (self.viewControllers.count)
     {
         BSHeadcountViewController *headCountVC = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
+        BSDishSetupViewController *dishSetupVC = [self.viewControllers objectAtIndex:AppViewControllerPageDishes]; 
         BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
         
          
@@ -767,6 +768,7 @@
                 options:UIViewAnimationOptionBeginFromCurrentState 
                 animations:^{
                     self.pageControl.frame = frame; 
+                    dishSetupVC.view.alpha = (headCount == 1 ? 0 : 1);
                 } completion:nil];
                            
             // Update distribution page
