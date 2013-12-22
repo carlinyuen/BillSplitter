@@ -954,7 +954,7 @@
             if (stepper == vc.tipStepper) {
                 [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
             } else {
-                [self formatDecimalTextField:textField toStepper:nil whenChangingCharactersInRange:range withString:string]; 
+                [self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
             }  
             [vc updateCalculations]; 
             return NO;
@@ -999,37 +999,13 @@
 {
     // Look for zeros in the decimal places so we can replace them
     NSString *currentText = textField.text;
-    NSRange zeroDecimalRange = [currentText rangeOfString:@"0"
-        options:NSCaseInsensitiveSearch
-        range:NSMakeRange(currentText.length - 2, 2)];
-        
-    // If first zero is in tenths decimal place, need to make sure
-    //	there is a zero in the hundredths decimal place
-    bool hasZeroHundredthsDigit = (
-        (zeroDecimalRange.location == currentText.length - 1)
-        || NSNotFound != [currentText rangeOfString:@"0"
-            options:NSCaseInsensitiveSearch
-            range:NSMakeRange(currentText.length - 1, 1)].location
-    );
-    
-    // If they're trying to add another zero, means they want to shift
-    bool userEnteredZero = [string isEqualToString:@"0"];
-        
-    // See if user is trying to add a number after the decimal point
-    bool userEnteredAfterDecimalPoint = (range.location >= currentText.length - 2);
     
     // Get new text, if user was adding numbers at end
     //	and zero found in decimal place and user not adding a zero,
     //	then replace with number user typed,
     //	otherwise just shift number up and replace $ and periods
     NSMutableString *newText = [[[[currentText
-        stringByReplacingCharactersInRange:(
-            (!userEnteredZero
-                && userEnteredAfterDecimalPoint
-                && hasZeroHundredthsDigit
-                && zeroDecimalRange.location != NSNotFound)
-                ? zeroDecimalRange : range)
-            withString:string]
+        stringByReplacingCharactersInRange:range withString:string]
         stringByReplacingOccurrencesOfString:@"$" withString:@""]
         stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
     
