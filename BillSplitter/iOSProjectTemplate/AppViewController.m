@@ -867,13 +867,6 @@
 - (void)pageControlPageDidChange:(CustomPageControl *)pageControl
 {
     int page = pageControl.currentPage;
-    	
-	// If page is not the same as lastShownPage, let page know it'll be shown
-	if (self.lastShownPage != page) {
-		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
-		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
-	}
-    self.lastShownPage = page;
     
     // Scroll to page
    	CGRect frame = self.scrollView.bounds;
@@ -1085,6 +1078,13 @@
 		self.enableAnimator = false;
 		self.scrollView.contentOffset = self.scrollView.contentOffset;
 	}
+       	
+	// If page is not the same as lastShownPage, let page know it'll be shown
+	if (self.lastShownPage != self.pageControl.currentPage) {
+		[[self.viewControllers objectAtIndex:self.pageControl.currentPage] viewWillAppear:true];
+		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+	}
+    self.lastShownPage = self.pageControl.currentPage; 
 	
 	// Re-enable paging once done with animation
 	self.scrollView.pagingEnabled = true;
