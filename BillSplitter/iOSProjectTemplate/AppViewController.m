@@ -308,10 +308,13 @@
 	
 	[self.inputFields addObject:vc.totalField];
 	[self.inputFields addObject:vc.tipField];
+   	[self.inputFields addObject:vc.tipAmountField]; 
 	vc.totalField.tag = AppViewControllerPageTotal;
 	vc.tipField.tag = AppViewControllerPageTotal;
+   	vc.tipAmountField.tag = AppViewControllerPageTotal; 
 	vc.totalField.delegate = self;
 	vc.tipField.delegate = self;	
+   	vc.tipAmountField.delegate = self;	 
     
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -909,11 +912,11 @@
         {
             BSTotalMarkupViewController *vc = [self.viewControllers objectAtIndex:textField.tag];
             stepper = [vc stepperForTextField:textField]; 
-            if (stepper == vc.totalStepper) {
-                [self formatDecimalTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
-            } else if (stepper == vc.tipStepper) {
+            if (stepper == vc.tipStepper) {
                 [self formatIntegerTextField:textField toStepper:stepper whenChangingCharactersInRange:range withString:string]; 
-            }
+            } else {
+                [self formatDecimalTextField:textField toStepper:nil whenChangingCharactersInRange:range withString:string]; 
+            }  
             [vc updateCalculations]; 
             return NO;
         }

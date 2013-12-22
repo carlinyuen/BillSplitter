@@ -46,6 +46,7 @@
 		_tipLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 		_tipField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_tipStepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+       	_tipAmountField = [[UITextField alloc] initWithFrame:CGRectZero]; 
 		
        	_finalDivider = [[UIView alloc] initWithFrame:CGRectZero]; 
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
@@ -100,7 +101,8 @@
 {
 	if (textField == self.totalField) {
 		return self.totalStepper;
-	} else if (textField == self.tipField) {
+	} else if (textField == self.tipField
+        || textField == self.tipAmountField) {
 		return self.tipStepper;
 	} else {
 		return nil;
@@ -223,7 +225,7 @@
    
     frame = self.tipField.frame;
     frame.origin.y = CGRectGetMaxY(frame);
-    self.tipAmountField = [[UITextField alloc] initWithFrame:frame]; 
+    self.tipAmountField.frame = frame;
     self.tipAmountField.text = @"$0.00";
     self.tipAmountField.textColor = [UIColor lightGrayColor]; 
     self.tipAmountField.backgroundColor = [UIColor clearColor];
