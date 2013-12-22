@@ -50,6 +50,7 @@ extern int const COLOR_HEX_ACCENT;
 extern int const COLOR_HEX_LIGHT_ACCENT;
 
 // Animations
+extern float const ANIMATION_DURATION_FASTEST;
 extern float const ANIMATION_DURATION_FAST;
 extern float const ANIMATION_DURATION_MED;
 extern float const ANIMATION_DURATION_SLOW;

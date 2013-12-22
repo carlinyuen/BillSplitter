@@ -13,7 +13,7 @@
 
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
-
+    
 	#define IMAGEVIEW_SCALE_SMALLDISH 0.7
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
@@ -307,6 +307,7 @@
 	
 	// Change image based on number
 	// TODO
+    
 }
 
 

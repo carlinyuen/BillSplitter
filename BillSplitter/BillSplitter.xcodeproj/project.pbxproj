@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2239EA621866C07E002C0552 /* BSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA611866C07E002C0552 /* BSScrollView.m */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -54,6 +55,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2239EA601866C07E002C0552 /* BSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSScrollView.h; sourceTree = "<group>"; };
+		2239EA611866C07E002C0552 /* BSScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSScrollView.m; sourceTree = "<group>"; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */,
 				5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */,
 				5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */,
+				2239EA601866C07E002C0552 /* BSScrollView.h */,
+				2239EA611866C07E002C0552 /* BSScrollView.m */,
 				5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */,
 				5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */,
 				5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */,
@@ -437,6 +442,7 @@
 				5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */,
 				5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */,
 				5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */,
+				2239EA621866C07E002C0552 /* BSScrollView.m in Sources */,
 				5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */,
 				5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */,
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,

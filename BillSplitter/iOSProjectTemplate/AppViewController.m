@@ -16,6 +16,7 @@
 #import "BSKeyboardControls.h"
 #import "UIViewDebugger.h"
 
+#import "BSScrollView.h"
 #import "InfoViewController.h"
 #import "BSHeadcountViewController.h"
 #import "BSDishSetupViewController.h"
@@ -63,7 +64,8 @@
 	CustomPageControlDelegate,
 	InfoViewControllerDelegate,
     BSHeadcountViewControllerDelegate,
-	BSKeyboardControlsDelegate
+	BSKeyboardControlsDelegate,
+    BSScrollViewDelegate
 >
 
 	/** For scrolling effect */
@@ -72,7 +74,7 @@
 
 	/** Main UI Elements */
 	@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
-	@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+	@property (weak, nonatomic) IBOutlet BSScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
 	@property (nonatomic, strong) UIButton *resetButton;
@@ -217,6 +219,7 @@
 - (void)setupScrollView:(CGRect)bounds
 {
 	// Setup content size for scrolling
+//    self.scrollView.bsDelegate = self;
 	self.scrollView.frame = bounds;
 	self.scrollView.contentSize = CGSizeMake(
 		bounds.size.width, bounds.size.height * AppViewControllerPageCount);
@@ -785,7 +788,7 @@
             
             CGRect frame = self.pageControl.frame;
             frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : 1);
-            [UIView animateWithDuration:0.1 delay:0 
+            [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
                 options:UIViewAnimationOptionBeginFromCurrentState 
                 animations:^{
                     self.pageControl.frame = frame; 
@@ -1104,6 +1107,18 @@
 - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(int)count
 {
     [self updatePages];
+}
+
+
+#pragma mark - BSScrollViewDelegate
+
+- (bool)scrollView:(BSScrollView *)scrollView shouldDelayTouchesForView:(UIView *)view
+{
+    if (view == self.resetButton) {
+        return false;
+    }
+    
+    return true;
 }
 
 

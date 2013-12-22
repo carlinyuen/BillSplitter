@@ -15,6 +15,8 @@
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_MAX_VALUE 50
+    
+    #define SCALE_TEXTFIELD_CHANGE 1.1
 
 	#define IMG_MAN @"man.png"
 
@@ -174,6 +176,24 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(headCountViewController:countChanged:)]) {
         [self.delegate headCountViewController:self countChanged:(int)stepper.value];
     }
+     
+    // Bounce on change
+    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+        animations:^{
+            self.textField.transform = CGAffineTransformMakeScale(
+                SCALE_TEXTFIELD_CHANGE, SCALE_TEXTFIELD_CHANGE);
+        } 
+        completion:^(BOOL finished) {
+            if (finished) {
+                [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+                    animations:^{
+                        self.textField.transform = CGAffineTransformIdentity;
+                    } 
+                    completion:nil];
+            }
+        }];
 }
 
 
