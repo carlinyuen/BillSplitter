@@ -306,7 +306,7 @@
 	if (stepper == self.totalStepper) {
 		self.totalField.text = [NSString stringWithFormat:@"$%.2f", stepper.value];
 	} else if (stepper == self.tipStepper) {
-		self.tipField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+		self.tipField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
 	}
     [self updateCalculations]; 
 }

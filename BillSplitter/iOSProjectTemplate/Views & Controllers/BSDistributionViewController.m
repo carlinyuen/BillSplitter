@@ -22,6 +22,9 @@
 	#define DRAG_SPEED 0.05
 	#define DRAG_ALPHA 0.66
 
+	#define UI_SIZE_BADGE 20
+    #define UI_SIZE_BADGE_CORNER_RADIUS 10 
+        
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
 	#define UI_SIZE_MARGIN 16
@@ -29,10 +32,14 @@
 	#define IMAGEVIEW_SCALE_SMALLDISH 0.7
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
+    
+   	#define SCALE_BADGE_CHANGE 1.25
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_DEFAULT_VALUE 1
 	#define STEPPER_DEFAULT_MAX_VALUE 2
+    
+    #define TAG_BADGE_LABEL -1
 
 	#define IMG_ARROW @"arrow.png"
    	#define IMG_ARROWHEAD @"arrowhead.png" 
@@ -42,6 +49,7 @@
 	#define IMG_PLUS @"plus.png"
 
 	NSString* const BSDistributionViewControllerProfileViewDishes = @"dishes";
+   	NSString* const BSDistributionViewControllerProfileViewDishCount = @"dishCount"; 
 	NSString* const BSDistributionViewControllerProfileViewImageButton = @"image";
 	NSString* const BSDistributionViewControllerProfileViewRemoveButton = @"remove";
 	NSString* const BSDistributionViewControllerProfileViewTextField = @"textField";
@@ -89,7 +97,8 @@
 	@property (nonatomic, strong) CustomPageControl *pageControl;
 	@property (nonatomic, assign) int lastShownProfile;
     
-    @property (nonatomic, strong) NSTimer *instructionTimer; 
+    /** For formatting */
+    @property (nonatomic, strong) NSNumberFormatter *numFormatter;
 
 @end
 
@@ -119,6 +128,9 @@
 		
 		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
 		_panGesture.delaysTouchesBegan = false;
+        
+        _numFormatter = [NSNumberFormatter new];
+        [_numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];  
 		
     }
     return self;
@@ -189,7 +201,7 @@
 #pragma mark - Class Functions
 
 /** @brief When setting the number of diners, also update steppers maxes */
-- (void)setHeadCount:(int)headCount
+- (void)setHeadCount:(NSInteger)headCount
 {
     // If going fewer, then need to clean up to avoid invalid state
     if (headCount < _headCount) {
@@ -213,12 +225,12 @@
 			
 		UITextField *textField = [profile
 			objectForKey:BSDistributionViewControllerProfileViewTextField];
-		textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+		textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
 	}
 }
 
 /** @brief Scrolls scrollview to page */
-- (void)scrollToPage:(int)page
+- (void)scrollToPage:(NSInteger)page
 {
 	[self.scrollView scrollRectToVisible:CGRectMake(
 		[self offsetForPageInScrollView:page], 0,
@@ -297,7 +309,7 @@
 		bounds.size.width / 2,
 		CGRectGetHeight(frame)
 	)];
-	textField.text = [NSString stringWithFormat:@"%i", (int)stepper.value];
+	textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
 	textField.textAlignment = NSTextAlignmentCenter;
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
@@ -323,6 +335,12 @@
 	// Keeping track of elements
     int addIndex = 0;
 	[self.profiles insertObject:@{
+   		BSDistributionViewControllerProfileViewDishCount : [@{
+            @(BSDishSetupViewControllerItemDrink): @0,
+            @(BSDishSetupViewControllerItemSmallDish): @0, 
+            @(BSDishSetupViewControllerItemMediumDish): @0, 
+            @(BSDishSetupViewControllerItemLargeDish): @0, 
+        } mutableCopy],
 		BSDistributionViewControllerProfileViewDishes : dishView,
 		BSDistributionViewControllerProfileViewImageButton : imageButton,
 		BSDistributionViewControllerProfileViewRemoveButton : removeButton,
@@ -366,48 +384,124 @@
 }
 
 /** @brief Add dish to diner */
-- (void)addDish:(UIView *)dish toDinerAtIndex:(int)index completion:(void (^)(BOOL finished))completion
+- (void)addDish:(UIView *)dish toDinerAtIndex:(NSInteger)index completion:(void (^)(BOOL finished))completion
 {
 	UIView *dishView = [[self.profiles objectAtIndex:index]
 		objectForKey:BSDistributionViewControllerProfileViewDishes];
+    NSMutableDictionary *dishCount = [[self.profiles objectAtIndex:index]
+		objectForKey:BSDistributionViewControllerProfileViewDishCount]; 
 
-	// Frame should be in dish view
-	CGRect frame = CGRectMake(
-		0, dishView.subviews.count * (dishView.bounds.size.width),
-		dishView.bounds.size.width, dishView.bounds.size.width
-	);
-	
-	// Reset to zero size, identity transform
-	dish.transform = CGAffineTransformIdentity;
-	dish.frame = frame;
-	dish.transform = CGAffineTransformMakeScale(0, 0);
-	[dishView addSubview:dish];
-	
-	// Setup for scale to animate to
-	float scale = 1;
-	switch (dish.tag)
-	{
-		case BSDishSetupViewControllerItemSmallDish:
-			scale = IMAGEVIEW_SCALE_SMALLDISH; break;
-		case BSDishSetupViewControllerItemMediumDish:
-			scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
-		default: break;
-	}
-	
-	// Animate blow up in dish view
-	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-		options:UIViewAnimationOptionBeginFromCurrentState
-			| UIViewAnimationOptionCurveEaseOut
-		animations:^{
-			dish.transform
-				= CGAffineTransformMakeScale(
-					scale, scale);
-			dish.alpha = 1;
-		} completion:completion];
+    NSInteger count = [dishCount[@(dish.tag)] integerValue];
+    NSLog(@"Count for Dish %i: %i", dish.tag, count);
+    [dishCount setObject:[NSNumber numberWithInteger:count + 1] forKey:@(dish.tag)]; 
+    
+    // Add dish if DNS
+    if (count <= 0)
+    {
+        // Frame should be in dish view
+        CGRect frame = CGRectMake(
+            UI_SIZE_DINER_MARGIN / 4,
+            dishView.subviews.count * (dishView.bounds.size.width),
+            dishView.bounds.size.width - UI_SIZE_DINER_MARGIN / 2, 
+            dishView.bounds.size.width
+        );
+        
+        // Reset to zero size, identity transform
+        dish.transform = CGAffineTransformIdentity;
+        dish.frame = frame;
+        dish.transform = CGAffineTransformMakeScale(0, 0);
+        [dishView addSubview:dish];
+        
+        // Setup for scale to animate to
+        float scale = 1;
+        switch (dish.tag)
+        {
+            case BSDishSetupViewControllerItemSmallDish:
+                scale = IMAGEVIEW_SCALE_SMALLDISH; break;
+            case BSDishSetupViewControllerItemMediumDish:
+                scale = IMAGEVIEW_SCALE_MEDIUMDISH; break;
+            default: break;
+        }
+        
+        // Add badge number label in advance
+        UILabel *badgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(
+            CGRectGetWidth(frame) - UI_SIZE_BADGE, 
+            CGRectGetHeight(frame) - UI_SIZE_BADGE, 
+            UI_SIZE_BADGE, UI_SIZE_BADGE
+        )];
+        badgeLabel.backgroundColor = [UIColor redColor];
+        badgeLabel.textColor = [UIColor whiteColor];
+        badgeLabel.textAlignment = UITextAlignmentCenter;
+        badgeLabel.layer.cornerRadius = UI_SIZE_BADGE_CORNER_RADIUS;
+        badgeLabel.alpha = 0;
+        badgeLabel.text = @"1";
+        badgeLabel.tag = TAG_BADGE_LABEL;
+        [dish addSubview:badgeLabel];
+        
+        // Animate blow up in dish view
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState
+                | UIViewAnimationOptionCurveEaseOut
+            animations:^{
+                dish.transform
+                    = CGAffineTransformMakeScale(
+                        scale, scale);
+                dish.alpha = 1;
+            } completion:completion];
+    }
+    else    // Add to badge number label
+    {
+        // Find the dish that matches what is being added to
+        for (UIView *subview in dishView.subviews) {
+            if (subview.tag == dish.tag) {
+                dish = subview;
+                break;
+            }
+        }
+        
+        // Find the badge label
+        UILabel *badgeLabel; 
+        for (UIView *subview in dish.subviews) {
+            if (subview.tag == TAG_BADGE_LABEL 
+                && [subview isKindOfClass:[UILabel class]]) {
+                badgeLabel = (UILabel *)subview;
+                break;
+            }
+        }
+        
+        // Increment
+        NSNumber *number = [self.numFormatter numberFromString:badgeLabel.text];
+        if (number) {
+            badgeLabel.text = [NSString stringWithFormat:@"%i", 
+                [number integerValue] + 1];
+        }
+        else {  // This shouldn't happen
+            NSLog(@"Error getting value from badgeLabel!");
+        }
+        
+        // Animate Bounce on increment
+        [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+            animations:^{
+                badgeLabel.transform = CGAffineTransformMakeScale(
+                    SCALE_BADGE_CHANGE, SCALE_BADGE_CHANGE);
+                badgeLabel.alpha = 1;
+            } 
+            completion:^(BOOL finished) {
+                if (finished) {
+                    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+                        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+                        animations:^{
+                            badgeLabel.transform = CGAffineTransformIdentity;
+                        } 
+                        completion:nil];
+                }
+            }];
+    }
 }
 
 /** @brief Removes diner */
-- (void)removeDiner:(int)index
+- (void)removeDiner:(NSInteger)index
 {
 	// Insanity check
 	if (!self.profiles.count) {
@@ -500,7 +594,7 @@
 }
 
 /** @brief When bringing profile into focus / becomes the current page */
-- (void)profileAtIndex:(int)index shouldShowFocus:(bool)show
+- (void)profileAtIndex:(NSInteger)index shouldShowFocus:(bool)show
 {
 	NSDictionary *profile = [self.profiles objectAtIndex:index];
 	[[profile objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
@@ -963,7 +1057,7 @@
 }
 
 /** @brief Get index of card, for dragging target finding */
-- (int)indexOfProfileView:(UIView *)profile
+- (NSInteger)indexOfProfileView:(UIView *)profile
 {
 	for (int i = 0; i < self.profiles.count; ++i) {
 		if ([[self.profiles objectAtIndex:i]
@@ -977,7 +1071,7 @@
 }
 
 /** @brief Current number of diners set up */
-- (int)dinerCount
+- (NSInteger)dinerCount
 {
 	int count = 0;
 	for (NSDictionary *profile in self.profiles) {
@@ -987,8 +1081,22 @@
 	return count;
 }
 
+/** Returns scaling for given dish tag */
+- (CGFloat)scaleForDishTag:(BSDishSetupViewControllerItem)tag
+{
+    switch (tag)
+    {
+        case BSDishSetupViewControllerItemSmallDish:
+            return IMAGEVIEW_SCALE_SMALLDISH;
+        case BSDishSetupViewControllerItemMediumDish:
+            return IMAGEVIEW_SCALE_MEDIUMDISH;
+        default:
+            return 1;
+    }
+}
+
 /** @brief Returns point offset for given page in scroll view */
-- (CGFloat)offsetForPageInScrollView:(int)page
+- (CGFloat)offsetForPageInScrollView:(NSInteger)page
 {
 	return self.scrollView.bounds.size.width * page;
 }
@@ -1046,7 +1154,7 @@
 {
 	[[[self.profiles objectAtIndex:self.pageControl.currentPage]
 		objectForKey:BSDistributionViewControllerProfileViewTextField]
-			setText:[NSString stringWithFormat:@"%i", (int)stepper.value]];
+			setText:[NSString stringWithFormat:@"%i", (NSInteger)stepper.value]];
 			
 	// Update all other steppers
 	[self updateSteppers];

@@ -16,7 +16,7 @@
 
     @optional
     /** Notifies delegate whenever headcount is changed */
-    - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(int)count;
+    - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count;
 
 @end
 

@@ -814,7 +814,7 @@
         
          
         // If only 1 person, only show total markup
-        int headCount = (int)headCountVC.stepper.value;
+        int headCount = (NSInteger)headCountVC.stepper.value;
         if (distributionVC.headCount != headCount)
         { 
             self.pageControl.numberOfPages 
@@ -1143,7 +1143,7 @@
 
 #pragma mark - BSHeadCountViewControllerDelegate
 
-- (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(int)count
+- (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count
 {
     [self updatePages];
 }
@@ -1163,7 +1163,7 @@
 
 #pragma mark - BSDistributionViewControllerDelegate
 
-- (void)distributionViewController:(BSDistributionViewController *)vc scrollToPage:(int)index
+- (void)distributionViewController:(BSDistributionViewController *)vc scrollToPage:(NSInteger)index
 {
     self.pageControl.currentPage = index;
     [self pageControlPageDidChange:self.pageControl];
