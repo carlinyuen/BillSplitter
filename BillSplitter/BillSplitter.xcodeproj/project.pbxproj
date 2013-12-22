@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2239EA621866C07E002C0552 /* BSScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA611866C07E002C0552 /* BSScrollView.m */; };
+		2239EA661866DB17002C0552 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA651866DB17002C0552 /* arrow@2x.png */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -57,6 +58,7 @@
 /* Begin PBXFileReference section */
 		2239EA601866C07E002C0552 /* BSScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSScrollView.h; sourceTree = "<group>"; };
 		2239EA611866C07E002C0552 /* BSScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSScrollView.m; sourceTree = "<group>"; };
+		2239EA651866DB17002C0552 /* arrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrow@2x.png"; sourceTree = "<group>"; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -281,6 +283,7 @@
 			children = (
 				5FE425BC17CBE330009F7652 /* plus.png */,
 				5FBAC0C017DFBD4700365348 /* reset_pressed.png */,
+				2239EA651866DB17002C0552 /* arrow@2x.png */,
 				5FBAC0C117DFBD4700365348 /* reset.png */,
 				5FBAC0B817DFB1D900365348 /* dish1.png */,
 				5FBAC0B917DFB1D900365348 /* dish2.png */,
@@ -421,6 +424,7 @@
 				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
 				5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */,
 				5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */,
+				2239EA661866DB17002C0552 /* arrow@2x.png in Resources */,
 				5FBAC0BD17DFB1D900365348 /* dish3.png in Resources */,
 				5FBAC0C217DFBD4700365348 /* reset_pressed.png in Resources */,
 				5FBAC0C317DFBD4700365348 /* reset.png in Resources */,

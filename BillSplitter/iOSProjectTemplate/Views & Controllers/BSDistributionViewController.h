@@ -23,19 +23,25 @@
 	UIScrollViewDelegate
 >
 
+    /** # from HeadCount view to bound # of people on profiles */
 	@property (nonatomic, assign) int headCount;
 
+    /** Profile add button */
 	@property (nonatomic, strong) UIButton *addButton;
-	@property (nonatomic, strong) UIButton *removeButton;
 
 	/** For dragging items */
 	@property (nonatomic, strong) UIPanGestureRecognizer *panGesture;
 
+    /** Reference to the buttons from dish setup */
 	@property (nonatomic, strong) UIButton *drinkButton;
 	@property (nonatomic, strong) UIButton *smallDishButton;
 	@property (nonatomic, strong) UIButton *mediumDishButton;
 	@property (nonatomic, strong) UIButton *largeDishButton;
+    
+    /** Instructional image */
+    @property (nonatomic, strong) UIImageView *instructionIV;
 
+    /** List of profiles user sets up */
 	@property (nonatomic, strong) NSMutableArray *profiles;
 
 	/** @brief Init in screen frame */

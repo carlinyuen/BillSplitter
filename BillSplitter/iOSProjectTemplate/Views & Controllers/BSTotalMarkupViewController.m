@@ -253,7 +253,7 @@
     frame = approxLabel.frame;
     frame.origin.y = CGRectGetMinY(self.tipAmountField.frame)
         + (CGRectGetHeight(self.tipAmountField.frame)
-            - CGRectGetHeight(frame)) / 2 - 2; 
+            - CGRectGetHeight(frame)) / 2 - 2;  // Stupid adjustment
     frame.origin.x = CGRectGetMaxX(self.tipLabel.frame) - CGRectGetWidth(frame);
     approxLabel.frame = frame;
     	

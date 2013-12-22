@@ -34,6 +34,7 @@
 	#define STEPPER_DEFAULT_VALUE 1
 	#define STEPPER_DEFAULT_MAX_VALUE 2
 
+	#define IMG_ARROW @"arrow.png"
 	#define IMG_DINER @"man.png"
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
@@ -73,6 +74,7 @@
 	@property (nonatomic, strong) UIButton *smallDishDragButton;
 	@property (nonatomic, strong) UIButton *mediumDishDragButton;
 	@property (nonatomic, strong) UIButton *largeDishDragButton;
+    
 	@property (nonatomic, assign) UIButton *tappedDish;
 	@property (nonatomic, strong) UIImageView *draggedView;
 	@property (nonatomic, strong) UIView *dragTargetView;
@@ -100,9 +102,11 @@
 		
 		_headCount = STEPPER_DEFAULT_MAX_VALUE;
 		
-		_addButton = [[UIButton alloc] init];
+		_addButton = [UIButton new];
+        
+        _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
 		
-		_profiles = [[NSMutableArray alloc] init];
+		_profiles = [NSMutableArray new];
 		_lastShownProfile = 0;
 		
 		_panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(viewPanned:)];
@@ -129,6 +133,7 @@
 	[self setupScrollView:bounds];
 	[self setupPageControl:bounds];
 	[self setupAddView:bounds];
+    [self setupInstructionIV:bounds]; 
 	
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
@@ -290,13 +295,13 @@
 	imageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[containerView addSubview:imageButton];
 
-	// Animate in instruction label if there were none
-	if (!self.profiles.count) {
+	// Fade out instructional image if there are profiles
+	if (self.profiles.count) {
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
 			animations:^{
-                // TODO: Animate in coachmark
+                self.instructionIV.alpha = 0;
 			} completion:nil];
 	}
 	
@@ -461,6 +466,18 @@
     }
 }
 
+/** @brief Setup instructional image view */
+- (void)setupInstructionIV:(CGRect)bounds
+{
+    CGRect frame = self.instructionIV.frame;
+    frame.origin = CGPointMake(
+        CGRectGetMaxX(self.addButton.frame) + UI_SIZE_DINER_MARGIN, 
+        CGRectGetMinY(self.addButton.frame) - UI_SIZE_MARGIN
+    );
+    self.instructionIV.frame = frame;
+    [self.view addSubview:self.instructionIV];
+}
+    
 /** @brief Setup background view */
 - (void)setupBackgroundView:(CGRect)bounds
 {
@@ -650,9 +667,14 @@
 				}
 			}
 			
-			// If no more cards, fade out instructions
+			// If no more cards, fade in instructions
 			if (self.profiles.count == 1) {
-                // TODO: Fade out coachmark
+                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+                    options:UIViewAnimationOptionBeginFromCurrentState
+                        | UIViewAnimationOptionCurveEaseInOut
+                    animations:^{
+                        self.instructionIV.alpha = 1;
+                    } completion:nil]; 
 			}
 		}
 		completion:^(BOOL finished)
