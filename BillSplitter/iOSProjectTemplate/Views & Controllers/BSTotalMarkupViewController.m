@@ -224,7 +224,7 @@
 	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
    
     frame = self.tipField.frame;
-    frame.origin.y = CGRectGetMaxY(frame);
+    frame.origin.y = CGRectGetMaxY(frame) - UI_SIZE_MARGIN;
     self.tipAmountField.frame = frame;
     self.tipAmountField.text = @"$0.00";
     self.tipAmountField.textColor = [UIColor lightGrayColor]; 
@@ -243,13 +243,19 @@
     self.tipAmountField.rightView = unitsLabel;
     
     frame = self.tipLabel.frame;
-    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN * 2;
     UILabel *approxLabel = [[UILabel alloc] initWithFrame:frame];
     approxLabel.text = @"≈";
     approxLabel.textColor = [UIColor lightGrayColor]; 
     approxLabel.backgroundColor = [UIColor clearColor];
     approxLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
     approxLabel.textAlignment = NSTextAlignmentRight; 
+    [approxLabel sizeToFit];
+    frame = approxLabel.frame;
+    frame.origin.y = CGRectGetMinY(self.tipAmountField.frame)
+        + (CGRectGetHeight(self.tipAmountField.frame)
+            - CGRectGetHeight(frame)) / 2 - 2; 
+    frame.origin.x = CGRectGetMaxX(self.tipLabel.frame) - CGRectGetWidth(frame);
+    approxLabel.frame = frame;
     	
 	[self.view addSubview:self.tipLabel];
    	[self.view addSubview:self.tipField]; 
@@ -270,7 +276,7 @@
     );
     
     frame = self.finalDivider.frame;
-    frame.origin.y = CGRectGetMaxY(frame) + UI_SIZE_MARGIN;
+    frame.origin.y = CGRectGetMaxY(frame);
     frame.size.height = bounds.size.height / 5;
     self.finalLabel = [[UILabel alloc] initWithFrame:frame];
     self.finalLabel.text = @"$0.00";
