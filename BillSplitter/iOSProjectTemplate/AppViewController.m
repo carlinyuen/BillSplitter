@@ -1000,10 +1000,7 @@
     // Look for zeros in the decimal places so we can replace them
     NSString *currentText = textField.text;
     
-    // Get new text, if user was adding numbers at end
-    //	and zero found in decimal place and user not adding a zero,
-    //	then replace with number user typed,
-    //	otherwise just shift number up and replace $ and periods
+    // Get new text, shift number up and replace $ and periods
     NSMutableString *newText = [[[[currentText
         stringByReplacingCharactersInRange:range withString:string]
         stringByReplacingOccurrencesOfString:@"$" withString:@""]
