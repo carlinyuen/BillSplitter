@@ -203,8 +203,7 @@
     }
 
 	// Info button
-	UIButton* infoButton = [UIButton buttonWithType:
-        (isIOS7) ? UIButtonTypeInfoLight : UIButtonTypeInfoDark];
+	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
 	CGRect frame = infoButton.frame;
 	frame.size.width += (!isIOS7) ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
 	infoButton.frame = frame;

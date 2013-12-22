@@ -110,7 +110,7 @@
     self.navigationController.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
    	self.navigationController.view.clipsToBounds = true;  
     
-    if (!isIOS7)
+    if (!isIOS7 && getDeviceOSVersionNumber() > 5)
     {
         // Mask for rounded corners on top
         CGRect frame = navBar.frame;
@@ -131,20 +131,20 @@
         // Set mask to cut off corners on top two
         mask.path = path;
         navBar.layer.mask = mask;
-    
-        // Coloring navbar  
-        navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);  
     }
-    else    // iOS 7
-    {  
-        // Coloring navbar 
+    
+    // Coloring navbar  
+    if (isIOS7) {  
         [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)];
         [navBar setTintColor:[UIColor whiteColor]];  
         [navBar setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor whiteColor],
         }]; 
     } 
-	
+    else {  // Pre-iOS 7
+        navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);  
+    }
+
 	// Close button
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
 		initWithBarButtonSystemItem:UIBarButtonSystemItemDone
