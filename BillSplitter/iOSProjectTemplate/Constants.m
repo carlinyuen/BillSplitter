@@ -29,6 +29,7 @@ float const FONT_SIZE_PRICE = 40;
 float const FONT_SIZE_COPY = 18;
 float const FONT_SIZE_SMALL_LABEL = 11;
 float const FONT_SIZE_BRANDING = 13;
+float const FONT_SIZE_TITLE = 30;
 
 // Time
 int const TIME_ONE_MINUTE = 60;
@@ -43,7 +44,7 @@ int const COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT = 0xBBBBBB88;
 int const COLOR_HEX_COPY_DARK = 0x464646FF;
 int const COLOR_HEX_COPY_LIGHT = 0x7D7D7DFF;
 int const COLOR_HEX_ACCENT = 0xFF9900FF;
-int const COLOR_HEX_LIGHT_ACCENT = 0xFFAA22FF;
+int const COLOR_HEX_LIGHT_ACCENT = 0xFFAA00AA;
 
 // Animations
 float const ANIMATION_DURATION_FAST = 0.3;

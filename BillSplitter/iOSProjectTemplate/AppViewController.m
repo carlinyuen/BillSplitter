@@ -128,6 +128,9 @@
 	
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
+    if (getDeviceOSVersionNumber() >= 7) {
+        bounds.size.height += bounds.origin.y;
+    }
 	bounds.origin.x = bounds.origin.y = 0;
 	
 	// Setup view
@@ -147,6 +150,9 @@
    	
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
+    if (getDeviceOSVersionNumber() >= 7) {
+        bounds.size.height += bounds.origin.y;
+    } 
 	bounds.origin.x = bounds.origin.y = 0; 
     self.scrollView.frame = bounds;
     
@@ -175,16 +181,28 @@
 	self.navBar.topItem.title = NSLocalizedString(@"APP_VIEW_TITLE", nil);
 		
 	// Color
-	self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    if ([self.navBar respondsToSelector:@selector(setBarTintColor:)]) {
-        [self.navBar setBarTintColor:self.navBar.tintColor]; 
+    if ([self.navBar respondsToSelector:@selector(setBarTintColor:)]) 
+    {
+        [self.navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)]; 
+        [self.navBar setTintColor:[UIColor whiteColor]];
+        [self.navBar setTitleTextAttributes:@{
+            UITextAttributeTextColor: [UIColor whiteColor],
+        }];
+       	CGRect frame = self.navBar.frame; 
+        frame.size.height += 20;
+        self.navBar.frame = frame;
+    } else {
+        self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT); 
+       	self.navBar.translucent = true; 
     }
-	self.navBar.translucent = true;
 
 	// Info button
-	UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
+	UIButton* infoButton = [UIButton 
+        buttonWithType:(getDeviceOSVersionNumber() < 7) 
+            ? UIButtonTypeInfoLight : UIButtonTypeInfoDark];
 	CGRect frame = infoButton.frame;
-	frame.size.width += UI_SIZE_INFO_BUTTON_MARGIN;
+	frame.size.width += (getDeviceOSVersionNumber() < 7)
+        ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
 	infoButton.frame = frame;
 	[infoButton addTarget:self action:@selector(showInfo:)
 			forControlEvents:UIControlEventTouchUpInside];
@@ -812,7 +830,7 @@
 /** @brief Info button pressed */
 - (void)showInfo:(id)sender
 {
-	InfoViewController *controller = [[InfoViewController alloc] init];
+	InfoViewController *controller = [InfoViewController new];
     controller.delegate = self;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:[[InfoViewNavigationController alloc] initWithRootViewController:controller]

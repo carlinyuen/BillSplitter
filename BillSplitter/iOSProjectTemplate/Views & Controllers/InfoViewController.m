@@ -80,6 +80,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
+    // iOS 7 fix for bouncing navigation bar after transition
+    [self.navigationController.navigationBar.layer removeAllAnimations];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -129,7 +132,10 @@
     // Coloring navbar
 	navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
     if ([navBar respondsToSelector:@selector(setBarTintColor:)]) {
-        [navBar setBarTintColor:navBar.tintColor];
+        [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_ACCENT)];
+        [navBar setTitleTextAttributes:@{
+            UITextAttributeTextColor: [UIColor whiteColor],
+        }]; 
     }
 	
 	// Close button

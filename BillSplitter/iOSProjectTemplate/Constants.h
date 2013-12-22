@@ -29,6 +29,7 @@ extern float const FONT_SIZE_SMALL_LABEL;
 extern float const FONT_SIZE_HEADCOUNT;
 extern float const FONT_SIZE_PRICE;
 extern float const FONT_SIZE_BRANDING;
+extern float const FONT_SIZE_TITLE;
 
 // Time
 extern int const TIME_ONE_MINUTE;
