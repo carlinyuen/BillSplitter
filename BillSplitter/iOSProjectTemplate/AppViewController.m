@@ -766,7 +766,7 @@
 	];
  
     frame = distribution.instructionCover.frame;
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH    * 1.5
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
