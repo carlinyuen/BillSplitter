@@ -296,7 +296,7 @@
 	[containerView addSubview:imageButton];
 
 	// Fade out instructional image if there are profiles
-	if (self.profiles.count) {
+	if (!self.profiles.count) {
 		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
 				| UIViewAnimationOptionCurveEaseInOut
@@ -496,7 +496,7 @@
 		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width,
-		bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.height - UI_SIZE_MIN_TOUCH - UI_SIZE_MARGIN
 			- (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
 	)];
 	containerView.userInteractionEnabled = true;
