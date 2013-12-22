@@ -181,7 +181,8 @@
 	self.navBar.topItem.title = NSLocalizedString(@"APP_VIEW_TITLE", nil);
 		
 	// Color
-    if ([self.navBar respondsToSelector:@selector(setBarTintColor:)]) 
+    bool isIOS7 = (getDeviceOSVersionNumber() >= 7);
+    if (isIOS7)
     {
         [self.navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)]; 
         [self.navBar setTintColor:[UIColor whiteColor]];
@@ -191,18 +192,17 @@
        	CGRect frame = self.navBar.frame; 
         frame.size.height += 20;
         self.navBar.frame = frame;
-    } else {
+    } 
+    else {
         self.navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT); 
        	self.navBar.translucent = true; 
     }
 
 	// Info button
-	UIButton* infoButton = [UIButton 
-        buttonWithType:(getDeviceOSVersionNumber() < 7) 
-            ? UIButtonTypeInfoLight : UIButtonTypeInfoDark];
+	UIButton* infoButton = [UIButton buttonWithType:
+        (isIOS7) ? UIButtonTypeInfoLight : UIButtonTypeInfoDark];
 	CGRect frame = infoButton.frame;
-	frame.size.width += (getDeviceOSVersionNumber() < 7)
-        ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
+	frame.size.width += (isIOS7) ? UI_SIZE_INFO_BUTTON_MARGIN : 0;
 	infoButton.frame = frame;
 	[infoButton addTarget:self action:@selector(showInfo:)
 			forControlEvents:UIControlEventTouchUpInside];
@@ -374,7 +374,7 @@
 	self.pageControl.currentPage = AppViewControllerPageHeadCount;
 	self.lastShownPage = AppViewControllerPageHeadCount;
 	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
+	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
 	
 	// Set images
 	
@@ -797,14 +797,14 @@
         switch (self.pageControl.currentPage)
         {
             case AppViewControllerPageDistribution:
-                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
-                self.pageControl.dotTintColor = [UIColor grayColor];
+                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_DARK_ACCENT);
+                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
                 self.scrollView.delaysContentTouches = false;
                 break;
             
             default:
-                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
                 self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT); 
                 self.scrollView.delaysContentTouches = true;
                 break;
         }

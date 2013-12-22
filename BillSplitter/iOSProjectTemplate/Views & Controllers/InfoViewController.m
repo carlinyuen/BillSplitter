@@ -104,45 +104,53 @@
 - (void)setupNavBar
 {
     UINavigationBar *navBar = self.navigationController.navigationBar;
+    bool isIOS7 = (getDeviceOSVersionNumber() >= 7); 
 
     // Rounded corners
     self.navigationController.view.layer.cornerRadius = UI_SIZE_CORNER_RADIUS;
    	self.navigationController.view.clipsToBounds = true;  
     
-    // Mask for rounded corners on top
-    CGRect frame = navBar.frame;
-    CAShapeLayer *mask = [CAShapeLayer new];
-    CGPoint leftBottomCorner = CGPointMake(0, CGRectGetMaxY(frame));
-    CGPoint rightBottomCorner = CGPointMake(CGRectGetMaxX(frame), CGRectGetMaxY(frame)); 
-    CGPoint leftTopArcCorner = CGPointMake(UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
-    CGPoint rightTopArcCorner = CGPointMake(CGRectGetMaxX(frame) - UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
+    if (!isIOS7)
+    {
+        // Mask for rounded corners on top
+        CGRect frame = navBar.frame;
+        CAShapeLayer *mask = [CAShapeLayer new];
+        CGPoint leftBottomCorner = CGPointMake(0, CGRectGetMaxY(frame));
+        CGPoint rightBottomCorner = CGPointMake(CGRectGetMaxX(frame), CGRectGetMaxY(frame)); 
+        CGPoint leftTopArcCorner = CGPointMake(UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
+        CGPoint rightTopArcCorner = CGPointMake(CGRectGetMaxX(frame) - UI_SIZE_CORNER_RADIUS, UI_SIZE_CORNER_RADIUS);
+        
+        // Drawing bounds
+        CGMutablePathRef path = CGPathCreateMutable();
+        CGPathMoveToPoint(path, NULL, rightBottomCorner.x, rightBottomCorner.y);
+        CGPathAddLineToPoint(path, NULL, leftBottomCorner.x, leftBottomCorner.y); 
+        CGPathAddArc(path, NULL, leftTopArcCorner.x, leftTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI, M_PI / 2 * 3, NO);
+        CGPathAddArc(path, NULL, rightTopArcCorner.x, rightTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI / 2 * 3, 0, NO); 
+        CGPathCloseSubpath(path);
+        
+        // Set mask to cut off corners on top two
+        mask.path = path;
+        navBar.layer.mask = mask;
     
-    // Drawing bounds
-    CGMutablePathRef path = CGPathCreateMutable();
-    CGPathMoveToPoint(path, NULL, rightBottomCorner.x, rightBottomCorner.y);
-    CGPathAddLineToPoint(path, NULL, leftBottomCorner.x, leftBottomCorner.y); 
-   	CGPathAddArc(path, NULL, leftTopArcCorner.x, leftTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI, M_PI / 2 * 3, NO);
-    CGPathAddArc(path, NULL, rightTopArcCorner.x, rightTopArcCorner.y, UI_SIZE_CORNER_RADIUS, M_PI / 2 * 3, 0, NO); 
-    CGPathCloseSubpath(path);
-    
-    // Set mask to cut off corners on top two
-    mask.path = path;
-    navBar.layer.mask = mask;
-    
-    // Coloring navbar
-	navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    if ([navBar respondsToSelector:@selector(setBarTintColor:)]) {
-        [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_ACCENT)];
+        // Coloring navbar  
+        navBar.tintColor = UIColorFromHex(COLOR_HEX_ACCENT);  
+    }
+    else    // iOS 7
+    {  
+        // Coloring navbar 
+        [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)];
+        [navBar setTintColor:[UIColor whiteColor]];  
         [navBar setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor whiteColor],
         }]; 
-    }
+    } 
 	
 	// Close button
 	self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]
 		initWithBarButtonSystemItem:UIBarButtonSystemItemDone
 		target:self action:@selector(doneButtonPressed:)];
-	self.navigationItem.leftBarButtonItem.tintColor = UIColorFromHex(COLOR_HEX_LIGHT_ACCENT);
+	self.navigationItem.leftBarButtonItem.tintColor = (isIOS7) 
+        ? [UIColor whiteColor] : UIColorFromHex(COLOR_HEX_LIGHT_ACCENT);
 }
 
 /** @brief Setup tableview */
@@ -151,7 +159,7 @@
 	self.tableView = [[UITableView alloc] initWithFrame:CGRectZero
 		style:UITableViewStyleGrouped];
 	self.tableView.backgroundView = nil;
-	self.tableView.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK);
+	self.tableView.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY);
 	self.tableView.separatorColor = UIColorFromHex(COLOR_HEX_CELL_SEPARATOR);
 	self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
 	self.tableView.dataSource = self;

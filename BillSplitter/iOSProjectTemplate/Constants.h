@@ -38,11 +38,14 @@ extern int const TIME_ONE_DAY;
 extern int const MICROSECONDS_PER_SECOND;
 
 // Colors
-extern int const COLOR_HEX_BACKGROUND_DARK;
+extern int const COLOR_HEX_BACKGROUND_DARK_GRAY;
+extern int const COLOR_HEX_BACKGROUND_LIGHT_GRAY;
 extern int const COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT;
 extern int const COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT;
+extern int const COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT;
 extern int const COLOR_HEX_COPY_DARK;
 extern int const COLOR_HEX_COPY_LIGHT;
+extern int const COLOR_HEX_DARK_ACCENT;
 extern int const COLOR_HEX_ACCENT;
 extern int const COLOR_HEX_LIGHT_ACCENT;
 
