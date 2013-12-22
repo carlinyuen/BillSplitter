@@ -399,7 +399,7 @@
 	CGSize tempSize, targetSize;
 	CGAffineTransform transform;
 	float yOffset = 0, xOffset = 0;
-	float yTempOffset = 0, xTempOffset = 0;
+	float yTempOffset = 0;
 	float difference = 0, temp = 0;
 	
 	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
@@ -493,6 +493,82 @@
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
+      
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:dishSetup.descriptionLabel
+	]; 
+   	[self.animator setKeyFrameWithOffset:yOffset 
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:dishSetup.descriptionLabel
+	]; 
+     
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:dishSetup.drinkButton
+	]; 
+   	[self.animator setKeyFrameWithOffset:yOffset 
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:dishSetup.drinkButton
+	]; 
+     
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:dishSetup.drinkStepper
+	]; 
+   	[self.animator setKeyFrameWithOffset:yOffset 
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:dishSetup.drinkStepper
+	]; 
+     
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:dishSetup.drinkTextField
+	]; 
+   	[self.animator setKeyFrameWithOffset:yOffset 
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:dishSetup.drinkTextField
+	]; 
+    
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:dishSetup.drinkLabel
+	]; 
+   	[self.animator setKeyFrameWithOffset:yOffset 
+		translate:CGPointMake(0, 0)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:dishSetup.drinkLabel
+	]; 
+    
 	
 	/////////////////////////////////////////////
 	// Distribution Page

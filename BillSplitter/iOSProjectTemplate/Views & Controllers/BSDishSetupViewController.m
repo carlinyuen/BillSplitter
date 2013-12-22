@@ -55,6 +55,11 @@
 		_smallDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		_mediumDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
 		_largeDishButton = [[UIButton alloc] initWithFrame:CGRectZero];
+       		
+		_drinkLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_smallDishLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_mediumDishLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+		_largeDishLabel = [[UILabel alloc] initWithFrame:CGRectZero]; 
 		
 		_drinkTextField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_smallDishTextField = [[UITextField alloc] initWithFrame:CGRectZero];
@@ -105,6 +110,7 @@
 	UIView *containerView;
 	UIButton *button;
 	UITextField *textField;
+   	UILabel *label; 
 	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	float stepperValue = 0;
 	float scale = 1;
@@ -117,6 +123,7 @@
 				stepper = self.drinkStepper;
 				textField = self.drinkTextField;
 				button = self.drinkButton;
+               	label = self.drinkLabel; 
 				[button setImage:[UIImage imageNamed:IMG_DRINK] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_DRINK;
 				scale = 1.0;
@@ -126,6 +133,7 @@
 				stepper = self.smallDishStepper;
 				textField = self.smallDishTextField;
 				button = self.smallDishButton;
+                label = self.smallDishLabel;  
 				[button setImage:[UIImage imageNamed:IMG_DISH1] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_SMALLDISH;
 				scale = IMAGEVIEW_SCALE_SMALLDISH;
@@ -135,6 +143,7 @@
 				stepper = self.mediumDishStepper;
 				textField = self.mediumDishTextField;
 				button = self.mediumDishButton;
+                label = self.mediumDishLabel;  
 				[button setImage:[UIImage imageNamed:IMG_DISH2] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_MEDIUMDISH;
 				scale = IMAGEVIEW_SCALE_MEDIUMDISH;
@@ -144,6 +153,7 @@
 				stepper = self.largeDishStepper;
 				textField = self.largeDishTextField;
 				button = self.largeDishButton;
+                label = self.largeDishLabel;  
 				[button setImage:[UIImage imageNamed:IMG_DISH3] forState:UIControlStateNormal];
 				stepperValue = STEPPER_DEFAULT_VALUE_LARGEDISH;
 				scale = IMAGEVIEW_SCALE_LARGEDISH;
@@ -187,7 +197,7 @@
 		textField.minimumFontSize = FONT_SIZE_PRICE / 3;
 	 
         frame = textField.frame; 
-        UILabel *label = [[UILabel alloc] initWithFrame:frame];
+        label.frame = frame;
         label.text = @"≈";
         label.textColor = [UIColor lightGrayColor]; 
         label.backgroundColor = [UIColor clearColor];

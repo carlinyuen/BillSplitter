@@ -29,6 +29,11 @@
 	@property (nonatomic, strong) UIButton *smallDishButton;
 	@property (nonatomic, strong) UIButton *mediumDishButton;
 	@property (nonatomic, strong) UIButton *largeDishButton;
+   
+	@property (nonatomic, strong) UILabel *drinkLabel;
+	@property (nonatomic, strong) UILabel *smallDishLabel;
+	@property (nonatomic, strong) UILabel *mediumDishLabel;
+	@property (nonatomic, strong) UILabel *largeDishLabel; 
 
 	@property (nonatomic, strong) UIVerticalStepper *drinkStepper;
 	@property (nonatomic, strong) UIVerticalStepper *smallDishStepper;
