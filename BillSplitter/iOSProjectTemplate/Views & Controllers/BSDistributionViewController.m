@@ -144,7 +144,11 @@
 {
 	[super viewWillAppear:animated];
     
+    // Refresh drag button positions for distro
     [self refreshDragButtonPositions];
+    
+    // Start flashing the arrow if no profiles set
+    [self showInstructionIV:(self.profiles.count)];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -297,12 +301,7 @@
 
 	// Fade out instructional image if there are profiles
 	if (!self.profiles.count) {
-		[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-			options:UIViewAnimationOptionBeginFromCurrentState
-				| UIViewAnimationOptionCurveEaseInOut
-			animations:^{
-                self.instructionIV.alpha = 0;
-			} completion:nil];
+		[self showInstructionIV:false];
 	}
 	
 	// Keeping track of elements
@@ -425,6 +424,44 @@
 		setAlpha:show];
 	[[profile objectForKey:BSDistributionViewControllerProfileViewStepper]
 		setAlpha:show];
+}
+
+/** @brief Show instructional arrow */
+NSTimer *timer;
+- (void)showInstructionIV:(bool)show
+{
+    if (show)
+    {
+        timer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 target:self selector:@selector(flashInstructionIV:) userInfo:nil repeats:true];
+    }
+    else    // Stop
+    {
+        [timer invalidate];
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+                self.instructionIV.alpha = 0;
+			} completion:nil];
+    }
+}
+
+/** @brief animate flash instructional arrow */
+- (void)flashInstructionIV:(bool)startOrStop
+{
+    [UIView animateWithDuration:ANIMATION_DURATION_SLOW delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState
+        animations:^{
+            self.instructionIV.alpha = 1;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [UIView animateWithDuration:ANIMATION_DURATION_SLOW delay:0
+                    options:UIViewAnimationOptionBeginFromCurrentState
+                    animations:^{
+                        self.instructionIV.alpha = 0.20; 
+                    } completion:nil];
+            }
+        }];  
 }
 
 
@@ -669,12 +706,7 @@
 			
 			// If no more cards, fade in instructions
 			if (self.profiles.count == 1) {
-                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-                    options:UIViewAnimationOptionBeginFromCurrentState
-                        | UIViewAnimationOptionCurveEaseInOut
-                    animations:^{
-                        self.instructionIV.alpha = 1;
-                    } completion:nil]; 
+                [self showInstructionIV:true];
 			}
 		}
 		completion:^(BOOL finished)

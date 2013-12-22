@@ -54,4 +54,5 @@ extern float const ANIMATION_DURATION_FASTEST;
 extern float const ANIMATION_DURATION_FAST;
 extern float const ANIMATION_DURATION_MED;
 extern float const ANIMATION_DURATION_SLOW;
+extern float const ANIMATION_DURATION_SLOWEST;
 
