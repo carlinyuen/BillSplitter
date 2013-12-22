@@ -432,28 +432,16 @@
 /** @brief Show instructional arrow */
 - (void)showInstructionIV:(bool)show
 {
-    if (show)
-    {   
-        if (!self.instructionTimer) {
-            self.instructionTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 target:self selector:@selector(flashInstructionIV:) userInfo:nil repeats:true];
-        }
-    }
-    else    // Stop
-    {
-        [self.instructionTimer invalidate];
-        self.instructionTimer = nil;
-        
-        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-			options:UIViewAnimationOptionBeginFromCurrentState
-				| UIViewAnimationOptionCurveEaseInOut
-			animations:^{
-                self.instructionIV.alpha = 0;
-			} completion:nil];
-    }
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState
+            | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            self.instructionIV.alpha = (show) ? 1 : 0;
+        } completion:nil];
 }
 
 /** @brief animate flash instructional arrow */
-- (void)flashInstructionIV:(bool)startOrStop
+- (void)flashInstructionIV
 {
     [UIView animateWithDuration:ANIMATION_DURATION_SLOW delay:0
         options:UIViewAnimationOptionBeginFromCurrentState
