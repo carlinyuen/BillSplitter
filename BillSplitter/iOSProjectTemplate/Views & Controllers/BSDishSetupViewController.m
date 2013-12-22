@@ -171,7 +171,7 @@
 		// Setup layout
 		button.frame = CGRectMake(
 			UI_SIZE_MARGIN / 2, 0,
-			bounds.size.width / 4, itemSize
+			bounds.size.width / 4, MIN(UI_SIZE_MIN_TOUCH * 1.75, itemSize)
 		);
 		CGPoint center = button.center;
 		button.imageView.contentMode = UIViewContentModeScaleAspectFit;

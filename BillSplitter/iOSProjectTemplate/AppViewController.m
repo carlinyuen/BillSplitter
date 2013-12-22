@@ -693,7 +693,7 @@
 	targetFrame = [dishSetup.view convertRect:dishSetup.largeDishButton.frame fromView:dishSetup.largeDishButton.superview];
 	targetPoint.y = refFrame.size.height - CGRectGetMaxY(targetFrame)
 		+ temp + targetFrame.size.height / 8;
-	targetPoint.x = 3 * xOffset;
+	targetPoint.x = 3.1 * xOffset;
 	difference = UI_SIZE_MIN_TOUCH / 4 * 3;
 	tempPoint = CGPointMake(
 		(UI_SIZE_MIN_TOUCH + difference) / (bounds.size.height - UI_SIZE_MIN_TOUCH * 2),

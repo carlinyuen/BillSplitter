@@ -399,9 +399,16 @@
 /** @brief Refreshes positions of drag buttons to match the icons */
 - (void)refreshDragButtonPositions
 {
-    self.drinkDragButton.frame = [self.view convertRect:self.drinkButton.frame fromView:self.drinkButton.superview];
+    // Custom width for drink
+    CGRect frame = [self.view convertRect:self.drinkButton.frame fromView:self.drinkButton.superview];
+    frame.origin.x += UI_SIZE_DINER_MARGIN;
+    frame.size.width -= UI_SIZE_DINER_MARGIN * 2;
+    self.drinkDragButton.frame = frame;
+    
     self.smallDishDragButton.frame = [self.view convertRect:self.smallDishButton.frame fromView:self.smallDishButton.superview];
+    
     self.mediumDishDragButton.frame = [self.view convertRect:self.mediumDishButton.frame fromView:self.mediumDishButton.superview];
+    
     self.largeDishDragButton.frame = [self.view convertRect:self.largeDishButton.frame fromView:self.largeDishButton.superview];
 }
 
@@ -421,38 +428,38 @@
 /** @brief Setup buttons for dishes */
 - (void)setupDishes:(CGRect)bounds
 {
+    NSMutableArray *dishes = [NSMutableArray new];
 	CGRect frame = CGRectMake(
 		UI_SIZE_MARGIN + UI_SIZE_DINER_MARGIN, 
         UI_SIZE_DINER_MARGIN,
 		(bounds.size.width - UI_SIZE_DINER_MARGIN * 5 - UI_SIZE_MARGIN * 2) / 4,
 		bounds.size.height / 6 - UI_SIZE_DINER_MARGIN * 2
 	);
-	self.drinkDragButton = [[UIButton alloc] initWithFrame:frame];
-	[self.drinkDragButton addTarget:self action:@selector(dishButtonPressed:)
-		forControlEvents:UIControlEventTouchDown];
+	self.drinkDragButton = [UIButton new];
 	self.drinkDragButton.tag = self.drinkButton.tag;
-	[self.view addSubview:self.drinkDragButton];
+    [dishes addObject:self.drinkDragButton];
 	
-	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	self.smallDishDragButton = [[UIButton alloc] initWithFrame:frame];
-	[self.smallDishDragButton addTarget:self action:@selector(dishButtonPressed:)
-		forControlEvents:UIControlEventTouchDown];
+	self.smallDishDragButton = [UIButton new];
 	self.smallDishDragButton.tag = self.smallDishButton.tag;
-	[self.view addSubview:self.smallDishDragButton];
+    [dishes addObject:self.smallDishDragButton]; 
 	
-	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	self.mediumDishDragButton = [[UIButton alloc] initWithFrame:frame];
-	[self.mediumDishDragButton addTarget:self action:@selector(dishButtonPressed:)
-		forControlEvents:UIControlEventTouchDown];
+	self.mediumDishDragButton = [UIButton new];
 	self.mediumDishDragButton.tag = self.mediumDishButton.tag;
-	[self.view addSubview:self.mediumDishDragButton];
+    [dishes addObject:self.mediumDishDragButton];  
 	
-	frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN;
-	self.largeDishDragButton = [[UIButton alloc] initWithFrame:frame];
-	[self.largeDishDragButton addTarget:self action:@selector(dishButtonPressed:)
-		forControlEvents:UIControlEventTouchDown];
+	self.largeDishDragButton = [UIButton new];
 	self.largeDishDragButton.tag = self.largeDishButton.tag;
-	[self.view addSubview:self.largeDishDragButton];
+    [dishes addObject:self.largeDishDragButton];   
+    
+    for (UIButton *dragButton in dishes)
+    {
+        frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN; 
+        dragButton.frame = frame;
+        dragButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
+        [dragButton addTarget:self action:@selector(dishButtonPressed:) 
+            forControlEvents:UIControlEventTouchDown]; 
+        [self.view addSubview:dragButton];
+    }
 }
 
 /** @brief Setup background view */
