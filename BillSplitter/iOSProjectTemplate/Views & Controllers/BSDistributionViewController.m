@@ -30,7 +30,7 @@
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
 	#define IMAGEVIEW_SCALE_LARGEDISH 1.0
 
-	#define STEPPER_MIN_VALUE 0
+	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_DEFAULT_VALUE 1
 	#define STEPPER_DEFAULT_MAX_VALUE 2
 
@@ -66,7 +66,10 @@
 
 #pragma mark - BSDistributionViewController
 
-@interface BSDistributionViewController () <CustomPageControlDelegate>
+@interface BSDistributionViewController () <
+    CustomPageControlDelegate,
+    UIAlertViewDelegate
+>
 
 	@property (nonatomic, assign) CGRect frame;
 
@@ -188,10 +191,12 @@
 /** @brief When setting the number of diners, also update steppers maxes */
 - (void)setHeadCount:(int)headCount
 {
+    // If going fewer, then need to clean up to avoid invalid state
+    if (headCount < _headCount) {
+        [self didReceiveMemoryWarning];
+    }
+    
 	_headCount = headCount;
-	
-	// Update steppers
-	[self updateSteppers];
 }
 
 /** @brief Updates all steppers with headCount as max */
@@ -224,6 +229,13 @@
 /** @brief Adds a new diner */
 - (void)addDiner:(UIView *)dish
 {
+    // Check if we can still add another diner and fit headcount
+    if ([self dinerCount] >= self.headCount) {
+        [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"You're over your headcount! Would you like to go to the first screen to add more people to your party?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil] show];
+        return;
+    }
+
+    // Setup
 	CGRect bounds = self.scrollView.bounds;
 	CGRect frame = bounds;
 	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
@@ -1038,6 +1050,18 @@
 			
 	// Update all other steppers
 	[self updateSteppers];
+}
+
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
+{
+    if (buttonIndex) {  // Selected Ok
+        if (self.delegate && [self.delegate respondsToSelector:@selector(distributionViewController:scrollToPage:)]) {
+            [self.delegate distributionViewController:self scrollToPage:0];
+        }
+    }
 }
 
 

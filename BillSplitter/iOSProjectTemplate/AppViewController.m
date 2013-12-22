@@ -64,6 +64,7 @@
 	CustomPageControlDelegate,
 	InfoViewControllerDelegate,
     BSHeadcountViewControllerDelegate,
+    BSDistributionViewControllerDelegate,
 	BSKeyboardControlsDelegate,
     BSScrollViewDelegate
 >
@@ -307,6 +308,7 @@
 		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
+    vc.delegate = self;
 	
 	BSDishSetupViewController *dishes = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
 	vc.drinkButton = dishes.drinkButton;
@@ -1156,6 +1158,15 @@
     }
     
     return true;
+}
+
+
+#pragma mark - BSDistributionViewControllerDelegate
+
+- (void)distributionViewController:(BSDistributionViewController *)vc scrollToPage:(int)index
+{
+    self.pageControl.currentPage = index;
+    [self pageControlPageDidChange:self.pageControl];
 }
 
 

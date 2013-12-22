@@ -19,6 +19,6 @@
 
 @interface BSScrollView : UIScrollView
     
-    @property (nonatomic, strong) id<BSScrollViewDelegate> bsDelegate;
+    @property (nonatomic, weak) id<BSScrollViewDelegate> bsDelegate;
     
 @end
