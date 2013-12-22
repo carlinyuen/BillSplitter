@@ -740,21 +740,45 @@
 	];
 
     // Instructional Arrow Cover
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 4
+    CGRect frame = distribution.instructionCover.frame;
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 2
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
 		forView:distribution.instructionCover
 	]; 
-    [self.animator setKeyFrameWithOffset: yTempOffset
-		translate:CGPointMake(0, distribution.instructionCover.frame.size.height)
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, frame.size.height / 2)
 		scale:CGSizeMake(1, 1)
-		rotate:0
+		rotate:M_PI / 8
+		alpha:1
+		forView:distribution.instructionCover
+	]; 
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointMake(-frame.size.width, frame.size.height)
+		scale:CGSizeMake(1, 1)
+		rotate:M_PI / 4
 		alpha:1
 		forView:distribution.instructionCover
 	];
-    
+ 
+    frame = distribution.instructionCover.frame;
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.instructionCover2
+	]; 
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointMake(0, frame.size.height)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.instructionCover2
+	];
+       
 }
 
 

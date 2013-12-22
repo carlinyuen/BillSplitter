@@ -35,6 +35,7 @@
 	#define STEPPER_DEFAULT_MAX_VALUE 2
 
 	#define IMG_ARROW @"arrow.png"
+   	#define IMG_ARROWHEAD @"arrowhead.png" 
 	#define IMG_DINER @"man.png"
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
@@ -106,8 +107,9 @@
 		
 		_addButton = [UIButton new];
         
-        _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
+        _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROWHEAD]];
         _instructionCover = [UIView new];
+        _instructionCover2 = [UIView new]; 
 		
 		_profiles = [NSMutableArray new];
 		_lastShownProfile = 0;
@@ -508,10 +510,18 @@
     self.instructionIV.frame = frame;
     self.instructionIV.clipsToBounds = true;
     [self.view addSubview:self.instructionIV];
+   
+    self.instructionCover2.frame = self.instructionIV.bounds;
+    self.instructionCover2.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    [self.instructionIV addSubview:self.instructionCover2];
     
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
+    imageView.frame = self.instructionIV.bounds;
+    [self.instructionIV addSubview:imageView]; 
+     
     self.instructionCover.frame = self.instructionIV.bounds;
     self.instructionCover.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    [self.instructionIV addSubview:self.instructionCover];
+    [self.instructionIV addSubview:self.instructionCover]; 
 }
     
 /** @brief Setup background view */

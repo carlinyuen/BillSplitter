@@ -40,6 +40,7 @@
     
     /** Instructional image */
     @property (nonatomic, strong) UIView *instructionCover;
+    @property (nonatomic, strong) UIView *instructionCover2; 
     @property (nonatomic, strong) UIImageView *instructionIV;
 
     /** List of profiles user sets up */
