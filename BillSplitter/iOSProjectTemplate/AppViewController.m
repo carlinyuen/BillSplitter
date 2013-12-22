@@ -308,7 +308,7 @@
 	
 	[self.inputFields addObject:vc.totalField];
 	[self.inputFields addObject:vc.tipField];
-   	[self.inputFields addObject:vc.tipAmountField]; 
+//   	[self.inputFields addObject:vc.tipAmountField]; 
 	vc.totalField.tag = AppViewControllerPageTotal;
 	vc.tipField.tag = AppViewControllerPageTotal;
    	vc.tipAmountField.tag = AppViewControllerPageTotal; 
