@@ -14,7 +14,7 @@
     
 	#define STEPPER_TOTAL_MIN_VALUE 0.0
 	#define STEPPER_TOTAL_MAX_VALUE 1000000.00
-	#define STEPPER_TOTAL_DEFAULT_VALUE 0 
+	#define STEPPER_TOTAL_DEFAULT_VALUE 20 
 
 	#define STEPPER_TIP_MIN_VALUE 0.0
 	#define STEPPER_TIP_MAX_VALUE 1000.00
@@ -69,6 +69,9 @@
 	[self setupTotal:bounds];
 	[self setupTip:bounds];
    	[self setupFinal:bounds]; 
+    
+    // Update calculations
+    [self updateCalculations];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -269,10 +272,8 @@
     CGRect frame;
     self.finalDivider.backgroundColor = [UIColor lightGrayColor];
     self.finalDivider.frame = CGRectMake(
-        UI_SIZE_LABEL_MARGIN,
-        bounds.size.height / 3 * 2,
-        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-        1
+        UI_SIZE_LABEL_MARGIN, bounds.size.height / 3 * 2,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, 1
     );
     
     frame = self.finalDivider.frame;

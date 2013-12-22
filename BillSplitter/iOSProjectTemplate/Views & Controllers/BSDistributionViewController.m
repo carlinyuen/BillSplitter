@@ -410,7 +410,6 @@
         float scale = [self scaleForDishTag:dish.tag]; 
         dish.transform = CGAffineTransformIdentity;
         dish.frame = frame;
-        dish.clipsToBounds = false;
         dish.transform = CGAffineTransformMakeScale(0, 0);
         [dishView addSubview:dish];
         
