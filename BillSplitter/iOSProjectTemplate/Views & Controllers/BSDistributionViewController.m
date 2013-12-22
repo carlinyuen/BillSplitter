@@ -455,7 +455,6 @@
     {
         frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN; 
         dragButton.frame = frame;
-        dragButton.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
         [dragButton addTarget:self action:@selector(dishButtonPressed:) 
             forControlEvents:UIControlEventTouchDown]; 
         [self.view addSubview:dragButton];
