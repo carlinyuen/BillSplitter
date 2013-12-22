@@ -69,6 +69,9 @@
 
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
+    if (getDeviceOSVersionNumber() >= 7) {
+        bounds.size.height += bounds.origin.y;
+    }
 	bounds.origin.x = bounds.origin.y = 0;
 	
 	[self setupNavBar];
