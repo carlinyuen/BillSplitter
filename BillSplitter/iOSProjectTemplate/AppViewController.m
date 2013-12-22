@@ -740,14 +740,14 @@
 	];
 	
     // Instructional Arrow
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH * 2
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH 
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
 		forView:distribution.instructionIV
 	]; 
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
+    [self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
