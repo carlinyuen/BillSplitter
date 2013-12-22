@@ -739,9 +739,21 @@
 		forView:dishSetup.largeDishButton
 	];
 	
-
-	/////////////////////////////////////////////
-	// Total Markup Page
+    // Instructional Arrow
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:distribution.instructionIV
+	]; 
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.instructionIV
+	];
 }
 
 
