@@ -741,14 +741,14 @@
 
     // Instructional Arrow Cover
     CGRect frame = distribution.instructionCover.frame;
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 2
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 3
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
 		forView:distribution.instructionCover
 	]; 
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH * 1.5
 		translate:CGPointMake(0, frame.size.height / 2)
 		scale:CGSizeMake(1, 1)
 		rotate:M_PI / 8
@@ -764,7 +764,7 @@
 	];
  
     frame = distribution.instructionCover.frame;
-    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH    * 1.5
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
