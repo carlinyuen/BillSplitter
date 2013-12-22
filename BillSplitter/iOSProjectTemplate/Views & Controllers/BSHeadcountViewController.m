@@ -169,6 +169,11 @@
 	
 	// Change image based on number
 	// TODO
+    
+    // Let delegate know
+    if (self.delegate && [self.delegate respondsToSelector:@selector(headCountViewController:countChanged:)]) {
+        [self.delegate headCountViewController:self countChanged:(int)stepper.value];
+    }
 }
 
 

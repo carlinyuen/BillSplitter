@@ -62,6 +62,7 @@
 @interface AppViewController () <
 	CustomPageControlDelegate,
 	InfoViewControllerDelegate,
+    BSHeadcountViewControllerDelegate,
 	BSKeyboardControlsDelegate
 >
 
@@ -148,6 +149,8 @@
 	CGRect bounds = getScreenFrame();
 	bounds.origin.x = bounds.origin.y = 0; 
     self.scrollView.frame = bounds;
+    
+    [self updatePages];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -236,6 +239,7 @@
 		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
+    vc.delegate = self;
 	
 	[self.inputFields addObject:vc.textField];
 	vc.textField.tag = AppViewControllerPageHeadCount;
@@ -720,27 +724,53 @@
 /** @brief Update pages that need to depends on other pages' data */
 - (void)updatePages
 {
-	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
-	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
-	
-	// Update distribution page
-	distribution.headCount = headCount.stepper.value;
-	
-	// Page-based update
-	switch (self.pageControl.currentPage)
-	{
-		case AppViewControllerPageDistribution:
-			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
-			self.pageControl.dotTintColor = [UIColor grayColor];
-			self.scrollView.delaysContentTouches = false;
-			break;
-		
-		default:
-			self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
-			self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-			self.scrollView.delaysContentTouches = true;
-			break;
-	}
+    if (self.viewControllers.count)
+    {
+        BSHeadcountViewController *headCountVC = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
+        BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
+        
+         
+        // If only 1 person, only show total markup
+        int headCount = (int)headCountVC.stepper.value;
+        if (distributionVC.headCount != headCount)
+        { 
+            self.pageControl.numberOfPages 
+                = (headCount == 1) 
+                    ? 2 : AppViewControllerPageCount;
+            self.scrollView.contentSize = CGSizeMake(
+                self.scrollView.bounds.size.width, 
+                self.scrollView.bounds.size.height
+                    * self.pageControl.numberOfPages); 
+            
+            CGRect frame = self.pageControl.frame;
+            frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : 1);
+            [UIView animateWithDuration:0.1 delay:0 
+                options:UIViewAnimationOptionBeginFromCurrentState 
+                animations:^{
+                    self.pageControl.frame = frame; 
+                } completion:nil];
+                           
+            // Update distribution page
+            distributionVC.headCount = headCount;
+        }
+        
+        // Page-based update
+        switch (self.pageControl.currentPage)
+        {
+            case AppViewControllerPageDistribution:
+                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+                self.pageControl.dotTintColor = [UIColor grayColor];
+                self.scrollView.delaysContentTouches = false;
+                break;
+            
+            default:
+                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
+                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+                self.scrollView.delaysContentTouches = true;
+                break;
+        }
+       
+    }
 }
 
 /** @brief Resets all the pages to defaults */
@@ -837,6 +867,11 @@
 
 
 #pragma mark - UITextFieldDelegate
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    [self updatePages];
+}
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
@@ -1031,11 +1066,20 @@
 	self.scrollView.pagingEnabled = true;
 }
 
+
 #pragma mark - InfoViewControllerDelegate
 
 - (void)infoViewController:(InfoViewController *)vc willCloseAnimated:(bool)animated
 {
 	[self dismissViewControllerAnimated:animated completion:nil];
+}
+
+
+#pragma mark - BSHeadCountViewControllerDelegate
+
+- (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(int)count
+{
+    [self updatePages];
 }
 
 

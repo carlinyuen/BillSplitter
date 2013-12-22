@@ -14,11 +14,17 @@
 @class BSHeadcountViewController;
 @protocol BSHeadcountViewControllerDelegate <NSObject>
 
+    @optional
+    /** Notifies delegate whenever headcount is changed */
+    - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(int)count;
+
 @end
 
 @interface BSHeadcountViewController : UIViewController <
 	UIVerticalStepperDelegate
 >
+
+    @property (nonatomic, weak) id<BSHeadcountViewControllerDelegate> delegate;
 
 	@property (nonatomic, strong) UILabel *taglineLabel;
 	@property (nonatomic, strong) UILabel *welcomeLabel;

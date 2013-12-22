@@ -229,7 +229,6 @@
     self.tipAmountField.backgroundColor = [UIColor clearColor];
     self.tipAmountField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
     self.tipAmountField.textAlignment = NSTextAlignmentRight;
-    self.tipAmountField.enabled = false;
     self.tipAmountField.adjustsFontSizeToFitWidth = true;
     self.tipAmountField.minimumFontSize = FONT_SIZE_PRICE / 3;
     unitsLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, UI_SIZE_MIN_TOUCH, UI_SIZE_MIN_TOUCH)];
