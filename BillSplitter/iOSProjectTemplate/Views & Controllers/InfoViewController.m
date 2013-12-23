@@ -138,7 +138,7 @@
     
     // Coloring navbar  
     if (isIOS7) {  
-        [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)];
+        [navBar setBarTintColor:UIColorFromHex(COLOR_HEX_NAVBAR_iOS7)];
         [navBar setTintColor:[UIColor whiteColor]];  
         [navBar setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor whiteColor],

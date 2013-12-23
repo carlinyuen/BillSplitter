@@ -191,7 +191,7 @@
     bool isIOS7 = (getDeviceOSVersionNumber() >= 7);
     if (isIOS7)
     {
-        [self.navBar setBarTintColor:UIColorFromHex(COLOR_HEX_LIGHT_ACCENT)]; 
+        [self.navBar setBarTintColor:UIColorFromHex(COLOR_HEX_NAVBAR_iOS7)]; 
         [self.navBar setTintColor:[UIColor whiteColor]];
         [self.navBar setTitleTextAttributes:@{
             UITextAttributeTextColor: [UIColor whiteColor],
