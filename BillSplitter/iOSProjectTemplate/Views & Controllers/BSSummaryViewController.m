@@ -80,7 +80,8 @@
 - (void)updateCalculations
 {
     // Get total
-    NSNumber *total = [self.numFormatter numberFromString:self.finalLabel.text];
+    NSNumber *total = [self.numFormatter numberFromString:
+        [self.finalLabel.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
     if (!total) {   // This shouldn't happen
         NSLog(@"Error parsing number from final total field!");
         return;
