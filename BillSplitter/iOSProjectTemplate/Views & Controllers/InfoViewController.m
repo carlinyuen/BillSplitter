@@ -22,6 +22,7 @@
 
 	#define TABLEVIEW_DATA_KEY_LABEL @"label"
 	#define TABLEVIEW_DATA_KEY_ROWS @"rows"
+    #define TABLEVIEW_DATA_KEY_SWITCH @"switch"
 
 @interface InfoViewController ()
 
@@ -52,16 +53,25 @@
 	
 	self.tableViewData = [[NSArray alloc] initWithObjects:
 		@{
-			TABLEVIEW_DATA_KEY_LABEL : @"Settings",
-			TABLEVIEW_DATA_KEY_ROWS : @[
-				@"Round to Nearest Dollar",
+			TABLEVIEW_DATA_KEY_LABEL: @"Settings",
+			TABLEVIEW_DATA_KEY_ROWS: @[
+				@{
+                    TABLEVIEW_DATA_KEY_LABEL: @"Round to Nearest Dollar",
+                    TABLEVIEW_DATA_KEY_SWITCH: @(true),
+                },
 			],
 		},
 		@{
-			TABLEVIEW_DATA_KEY_LABEL : @"Payments",
-			TABLEVIEW_DATA_KEY_ROWS : @[
-				@"Venmo",
-				@"Paypal",
+			TABLEVIEW_DATA_KEY_LABEL: @"Payments",
+			TABLEVIEW_DATA_KEY_ROWS: @[
+                @{
+                    TABLEVIEW_DATA_KEY_LABEL: @"Venmo",
+                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
+                }, 
+                @{
+                    TABLEVIEW_DATA_KEY_LABEL: @"Paypal",
+                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
+                },
 			],
 		},
 		nil];
@@ -282,10 +292,19 @@
 		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLEVIEW_CELL_ID];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
+    
+    // Get cell data to populate with
+    NSDictionary *cellData = [[self.tableViewData[indexPath.section]
+		objectForKey:TABLEVIEW_DATA_KEY_ROWS]
+            objectAtIndex:indexPath.row];
 	
 	cell.backgroundColor = UIColorFromHex(COLOR_HEX_CELL_BACKGROUND);
-	cell.textLabel.text = [[[self.tableViewData objectAtIndex:indexPath.section]
-		objectForKey:TABLEVIEW_DATA_KEY_ROWS] objectAtIndex:indexPath.row];
+	cell.textLabel.text = cellData[TABLEVIEW_DATA_KEY_LABEL];
+        
+    // Custom toggle for certain cells
+    if ([cellData[TABLEVIEW_DATA_KEY_SWITCH] boolValue]) {
+        cell.accessoryView = [UISwitch new];
+    }
 	
 	return cell;
 }
@@ -295,6 +314,8 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    // Fade selection out
+    [tableView deselectRowAtIndexPath:indexPath animated:true];
 }
 
 
