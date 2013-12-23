@@ -30,6 +30,7 @@
 	@property (nonatomic, strong) UIView *finalDivider;
 	@property (nonatomic, strong) UILabel *finalLabel;
    	@property (nonatomic, strong) UILabel *evenSplitLabel; 
+    @property (nonatomic, strong) UIView *coverView;  
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;

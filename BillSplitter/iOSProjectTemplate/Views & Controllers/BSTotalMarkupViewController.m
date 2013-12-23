@@ -53,6 +53,7 @@
        	_finalDivider = [[UIView alloc] initWithFrame:CGRectZero]; 
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
        	_evenSplitLabel = [[UILabel alloc] initWithFrame:CGRectZero]; 
+        _coverView = [[UIView alloc] initWithFrame:CGRectZero];  
     }
     return self;
 }
@@ -68,10 +69,10 @@
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
 	
-	// Setup
+	// Setup - setupFinal first for coverView
+    [self setupFinal:bounds];  
 	[self setupTotal:bounds];
 	[self setupTip:bounds];
-   	[self setupFinal:bounds]; 
     
     // Update calculations
     [self updateCalculations];
@@ -312,9 +313,16 @@
     self.evenSplitLabel.adjustsFontSizeToFitWidth = true;
     self.evenSplitLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
     
+    // View to block and hide the finalLabel & evenSplitLabel when scrolling up
+    frame = bounds;
+    frame.size.height = CGRectGetMinY(self.finalDivider.frame);
+    self.coverView.frame = frame;
+    self.coverView.backgroundColor = [UIColor whiteColor];
+    
     [self.view addSubview:self.finalDivider];
     [self.view addSubview:self.finalLabel]; 
     [self.view addSubview:self.evenSplitLabel];  
+    [self.view addSubview:self.coverView];
 }
 
 

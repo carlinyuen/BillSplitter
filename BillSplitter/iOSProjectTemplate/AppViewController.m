@@ -527,6 +527,7 @@
     // Total Markup Page
    	yOffset = [self offsetForPageInScrollView:AppViewControllerPageTotal]; 
      
+    // Even Split
     [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
 		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
 		scale:CGSizeMake(1, 1)
@@ -540,8 +541,16 @@
 		rotate:0
 		alpha:1
 		forView:totalMarkup.evenSplitLabel
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:totalMarkup.evenSplitLabel
 	];
-	   
+    
+    // Final Label
     [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
    		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH) 
 		scale:CGSizeMake(1, 1)
@@ -555,6 +564,52 @@
 		rotate:0
 		alpha:1
 		forView:totalMarkup.finalLabel
+	];
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:totalMarkup.finalLabel
+	];
+     
+    // Divider
+    [self.animator setKeyFrameWithOffset: yOffset
+   		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.finalDivider
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.finalDivider
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 2)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:totalMarkup.finalDivider
+	];
+     
+    // Cover view
+    [self.animator setKeyFrameWithOffset: yOffset
+   		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.coverView
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 2)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.coverView
 	];
 	
 
