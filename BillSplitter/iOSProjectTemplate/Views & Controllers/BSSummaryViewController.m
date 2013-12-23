@@ -59,8 +59,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-    
-    [self updateCalculations];
+}
+
+/** @brief Actions to take when view is shown */
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+       
+    // Calculate costs
+    [self updateCalculations]; 
 }
 
 /** @brief Dispose of any resources that can be recreated. */

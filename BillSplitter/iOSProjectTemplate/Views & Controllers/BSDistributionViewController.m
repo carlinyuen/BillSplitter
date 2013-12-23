@@ -166,6 +166,12 @@
     
     // Refresh drag button positions for distro
     [self refreshDragButtonPositions];
+}
+
+/** @brief Actions to take when view is shown */
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     
     // Start flashing the arrow if no profiles set
     [self showInstructionIV:(!self.profiles.count)];
