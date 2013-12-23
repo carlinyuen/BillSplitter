@@ -84,6 +84,8 @@
 >
 
 	@property (nonatomic, assign) CGRect frame;
+    
+   	@property (nonatomic, assign) bool viewWasShown;
 
 	/** For dragging & dropping items */
     @property (nonatomic, strong) UIButton *drinkDragButton;
@@ -118,6 +120,8 @@
     if (self)
 	{
 		_frame = frame;
+        
+        _viewWasShown = true;
 		
 		_headCount = STEPPER_DEFAULT_MAX_VALUE;
 		
@@ -166,12 +170,25 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+       
+    // Update steppers if haven't updated since last shown
+    if (self.viewWasShown) {
+        self.viewWasShown = false; 
+        [self updateSteppers]; 
+    }
 }
 
 /** @brief Actions to take when view is shown */
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Update steppers if it wasn't updated for some reason before this was called
+    if (self.viewWasShown) {
+        [self updateSteppers];  
+    } else {    // Reset flag so we can update on next viewWillAppear
+        self.viewWasShown = true;
+    }
        
     // Refresh drag button positions for distro
     [self refreshDragButtonPositions]; 
