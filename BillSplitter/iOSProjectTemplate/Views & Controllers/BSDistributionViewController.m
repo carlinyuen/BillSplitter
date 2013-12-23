@@ -43,7 +43,8 @@
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_DEFAULT_VALUE 1
-	#define STEPPER_DEFAULT_MAX_VALUE 2
+    
+	#define DEFAULT_HEADCOUNT 2
 
 	#define IMG_ARROW @"arrow.png"
    	#define IMG_ARROWHEAD @"arrowhead.png" 
@@ -126,8 +127,7 @@
 		_frame = frame;
         
         _viewWasShown = true;
-		
-		_headCount = STEPPER_DEFAULT_MAX_VALUE;
+        _lastRemainingCount = _headCount = DEFAULT_HEADCOUNT;
 		
 		_addButton = [[UIButton alloc] initWithFrame:CGRectZero];
         
@@ -244,36 +244,44 @@
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
+    // Get remaining diners to add
     int remainingCount = (self.headCount - [self dinerCount]);
 
-	for (NSDictionary *profile in self.profiles)
-	{
-		UIVerticalStepper *stepper = [profile
-			objectForKey:BSDistributionViewControllerProfileViewStepper];
-		stepper.maximumValue 
-            = MAX(stepper.minimumValue, remainingCount + stepper.value);
-			
-		UITextField *textField = [profile
-			objectForKey:BSDistributionViewControllerProfileViewTextField];
-		textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
-	}
-    
-    // Also update warning label
-    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
-        options:UIViewAnimationOptionBeginFromCurrentState
-        animations:^{
-            self.warningLabel.alpha = 0;
-        } completion:^(BOOL finished) {
-            self.warningLabel.text = (remainingCount)
-                ? [NSString stringWithFormat:@"%i %@", remainingCount, 
-                    NSLocalizedString(@"DISTRIBUTION_WARNING", nil)]
-                : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
-            [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
-                options:UIViewAnimationOptionBeginFromCurrentState
-                animations:^{
-                    self.warningLabel.alpha = 1;
-                } completion:nil];
-        }];
+    // Only do calculations if remainingCount is different from last time
+    if (remainingCount != self.lastRemainingCount)
+    {
+        // Update lastRemainingCount
+        self.lastRemainingCount = remainingCount;
+        
+        for (NSDictionary *profile in self.profiles)
+        {
+            UIVerticalStepper *stepper = [profile
+                objectForKey:BSDistributionViewControllerProfileViewStepper];
+            stepper.maximumValue 
+                = MAX(stepper.minimumValue, remainingCount + stepper.value);
+                
+            UITextField *textField = [profile
+                objectForKey:BSDistributionViewControllerProfileViewTextField];
+            textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
+        }
+        
+        // Also update warning label
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
+            options:UIViewAnimationOptionBeginFromCurrentState
+            animations:^{
+                self.warningLabel.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.warningLabel.text = (remainingCount)
+                    ? [NSString stringWithFormat:@"%i %@", remainingCount, 
+                        NSLocalizedString(@"DISTRIBUTION_WARNING", nil)]
+                    : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
+                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
+                    options:UIViewAnimationOptionBeginFromCurrentState
+                    animations:^{
+                        self.warningLabel.alpha = 1;
+                    } completion:nil];
+            }];
+    } 
 }
 
 /** @brief Scrolls scrollview to page */
