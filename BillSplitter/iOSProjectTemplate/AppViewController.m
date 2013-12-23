@@ -619,21 +619,6 @@
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
       
-   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH * 6
-		translate:CGPointZero
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:0
-		forView:dishSetup.descriptionLabel
-	]; 
-   	[self.animator setKeyFrameWithOffset:yOffset 
-		translate:CGPointZero
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:dishSetup.descriptionLabel
-	]; 
-
 
 	/////////////////////////////////////////////
 	// Distribution Page
