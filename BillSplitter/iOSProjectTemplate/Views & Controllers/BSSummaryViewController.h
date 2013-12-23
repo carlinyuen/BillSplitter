@@ -9,11 +9,19 @@
 
 #import <UIKit/UIKit.h>
 
+#import "UIVerticalStepper.h"
+
 @interface BSSummaryViewController : UIViewController
 
     /** Reference to final cost label from BSTotalMarkupViewController */
 	@property (nonatomic, strong) UILabel *finalLabel;
 
+    /** Reference to steppers from BSDishSetupViewController to get prices */
+	@property (nonatomic, strong) UIVerticalStepper *drinkStepper;
+	@property (nonatomic, strong) UIVerticalStepper *smallDishStepper;
+	@property (nonatomic, strong) UIVerticalStepper *mediumDishStepper;
+	@property (nonatomic, strong) UIVerticalStepper *largeDishStepper;
+    
     /** List of profiles user sets up, from BSDistributionViewController */
 	@property (nonatomic, strong) NSMutableArray *profiles;
 

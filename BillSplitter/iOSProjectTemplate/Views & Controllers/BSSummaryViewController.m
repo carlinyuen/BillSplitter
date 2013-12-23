@@ -11,10 +11,14 @@
 
 @interface BSSummaryViewController ()
 
+	@property (nonatomic, assign) CGRect frame;
+
     @property (nonatomic, assign) CGFloat priceDrink;
     @property (nonatomic, assign) CGFloat priceSmallDish; 
     @property (nonatomic, assign) CGFloat priceMediumDish; 
     @property (nonatomic, assign) CGFloat priceLargeDish; 
+    
+    @property (nonatomic, strong) NSNumberFormatter *numFormatter;
 
 @end
 
@@ -29,8 +33,10 @@
     self = [super init];
     if (self)
 	{
-		self.view.frame = frame;
+		_frame = frame;
 		
+        _numFormatter = [NSNumberFormatter new];
+        [_numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     }
     return self;
 }
@@ -42,6 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.frame = self.frame;
+   	CGRect bounds = self.view.bounds; 
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -70,6 +79,22 @@
 /** @brief Update calculations for variables to compute final payments */
 - (void)updateCalculations
 {
+    // Get total
+    NSNumber *total = [self.numFormatter numberFromString:self.finalLabel.text];
+    if (!total) {   // This shouldn't happen
+        NSLog(@"Error parsing number from final total field!");
+        return;
+    }
+    
+    // Get dish setup to calculate proportions
+    CGFloat drink = self.drinkStepper.value;
+    CGFloat smallDish = self.smallDishStepper.value; 
+    CGFloat mediumDish = self.mediumDishStepper.value; 
+    CGFloat largeDish = self.largeDishStepper.value; 
+    
+    // Do some math...
+    
+    // Calculate how much each profile should pay
 }
 
 

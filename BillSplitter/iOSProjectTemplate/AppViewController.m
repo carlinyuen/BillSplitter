@@ -356,8 +356,13 @@
 	)];
 	
     BSTotalMarkupViewController *totalVC = [self.viewControllers objectAtIndex:AppViewControllerPageTotal]; 
+    BSDishSetupViewController *dishesVC = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];  
     BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];  
     vc.finalLabel = totalVC.finalLabel;
+    vc.drinkStepper = dishesVC.drinkStepper;
+    vc.smallDishStepper = dishesVC.smallDishStepper; 
+    vc.mediumDishStepper = dishesVC.mediumDishStepper; 
+    vc.largeDishStepper = dishesVC.largeDishStepper; 
     vc.profiles = distributionVC.profiles;
         
 	[self.scrollView addSubview:vc.view];
