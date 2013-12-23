@@ -14,7 +14,9 @@
     
 	#define STEPPER_TOTAL_MIN_VALUE 0.0
 	#define STEPPER_TOTAL_MAX_VALUE 1000000.00
-	#define STEPPER_TOTAL_DEFAULT_VALUE 20 
+   	#define STEPPER_TOTAL_DEFAULT_VALUE_BREAKFAST 5  
+	#define STEPPER_TOTAL_DEFAULT_VALUE_LUNCH 10 
+   	#define STEPPER_TOTAL_DEFAULT_VALUE_DINNER 20  
 
 	#define STEPPER_TIP_MIN_VALUE 0.0
 	#define STEPPER_TIP_MAX_VALUE 1000.00
@@ -86,7 +88,7 @@
     [super didReceiveMemoryWarning];
 	
 	// Reset fields
-	self.totalStepper.value = STEPPER_TOTAL_DEFAULT_VALUE;
+	self.totalStepper.value = [self getDefaultValueForCurrentTime];
 	self.tipStepper.value = STEPPER_TIP_DEFAULT_VALUE;
 }
 
@@ -168,7 +170,7 @@
 	self.totalStepper.delegate = self;
 	self.totalStepper.maximumValue = STEPPER_TOTAL_MAX_VALUE;
 	self.totalStepper.minimumValue = STEPPER_TOTAL_MIN_VALUE;
-	self.totalStepper.value = STEPPER_TOTAL_DEFAULT_VALUE;
+   	self.totalStepper.value = [self getDefaultValueForCurrentTime]; 
 	
 	[self.view addSubview:self.totalLabel];
    	[self.view addSubview:self.totalField]; 
@@ -297,6 +299,23 @@
 
 
 #pragma mark - Utility Functions
+
+/** @brief Get default total value based on time of day */
+- (CGFloat)getDefaultValueForCurrentTime
+{
+    // Get current hour
+    NSCalendar *gregorianCal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *dateTime = [gregorianCal 
+        components: NSHourCalendarUnit fromDate:[NSDate date]];
+        
+    if ([dateTime hour] < 11) {
+        return STEPPER_TOTAL_DEFAULT_VALUE_BREAKFAST;
+    } else if ([dateTime hour] > 16) {
+        return STEPPER_TOTAL_DEFAULT_VALUE_DINNER; 
+    } else {
+        return STEPPER_TOTAL_DEFAULT_VALUE_LUNCH;
+    }
+}
 
 
 #pragma mark - Delegates
