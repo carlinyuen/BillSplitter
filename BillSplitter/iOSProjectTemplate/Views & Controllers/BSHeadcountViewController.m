@@ -155,7 +155,7 @@
     [super didReceiveMemoryWarning];
 	
 	// Reset values
-	self.stepper.value = STEPPER_MIN_VALUE;
+	self.stepper.value = STEPPER_DEFAULT_VALUE;
 }
 
 /** @brief Return supported orientations */
