@@ -17,6 +17,7 @@
    	#define STEPPER_TOTAL_DEFAULT_VALUE_BREAKFAST 5  
 	#define STEPPER_TOTAL_DEFAULT_VALUE_LUNCH 10 
    	#define STEPPER_TOTAL_DEFAULT_VALUE_DINNER 20  
+    #define STEPPER_TOTAL_DEFAULT_VALUE_NIGHT 30   
 
 	#define STEPPER_TIP_MIN_VALUE 0.0
 	#define STEPPER_TIP_MAX_VALUE 1000.00
@@ -338,14 +339,20 @@
     NSCalendar *gregorianCal = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *dateTime = [gregorianCal 
         components: NSHourCalendarUnit fromDate:[NSDate date]];
-        
-    if ([dateTime hour] < 11) {
-        return STEPPER_TOTAL_DEFAULT_VALUE_BREAKFAST;
-    } else if ([dateTime hour] > 16) {
-        return STEPPER_TOTAL_DEFAULT_VALUE_DINNER; 
+    
+    // Give different values based on time of day
+    CGFloat value = 0;
+    if ([dateTime hour] >= 6 && [dateTime hour] < 11) {
+        value = STEPPER_TOTAL_DEFAULT_VALUE_BREAKFAST;
+    } else if ([dateTime hour] >= 11 && [dateTime hour] < 16) { 
+        value = STEPPER_TOTAL_DEFAULT_VALUE_LUNCH; 
+    } else if ([dateTime hour] >= 16 && [dateTime hour] < 22) {
+        value = STEPPER_TOTAL_DEFAULT_VALUE_DINNER; 
     } else {
-        return STEPPER_TOTAL_DEFAULT_VALUE_LUNCH;
+        value = STEPPER_TOTAL_DEFAULT_VALUE_NIGHT;
     }
+    
+    return value * self.headCountStepper.value;
 }
 
 
