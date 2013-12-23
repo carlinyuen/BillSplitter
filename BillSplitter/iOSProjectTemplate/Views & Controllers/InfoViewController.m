@@ -53,32 +53,33 @@
     
     bool isIOS7 = (getDeviceOSVersionNumber() >= 7);
 	
-	self.tableViewData = [[NSArray alloc] initWithObjects:
+	self.tableViewData = @[
 		@{
-			TABLEVIEW_DATA_KEY_LABEL: @"Settings",
+			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_SETTINGS_HEADER", nil),
 			TABLEVIEW_DATA_KEY_ROWS: @[
 				@{
-                    TABLEVIEW_DATA_KEY_LABEL: (isIOS7)
-                        ? @"Round to Nearest Dollar"
-                        : @"Round to Next Dollar",
+                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(isIOS7
+                        ? @"INFO_VIEW_SETTINGS_ROUND_IOS7"
+                        : @"INFO_VIEW_SETTINGS_ROUND"
+                    , nil),
                     TABLEVIEW_DATA_KEY_SWITCH: @(true),
                 },
 			],
 		},
-		@{
-			TABLEVIEW_DATA_KEY_LABEL: @"Payments",
-			TABLEVIEW_DATA_KEY_ROWS: @[
-                @{
-                    TABLEVIEW_DATA_KEY_LABEL: @"Venmo",
-                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
-                }, 
-                @{
-                    TABLEVIEW_DATA_KEY_LABEL: @"Paypal",
-                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
-                },
-			],
-		},
-		nil];
+//		@{
+//			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_HEADER", nil),
+//			TABLEVIEW_DATA_KEY_ROWS: @[
+//                @{
+//                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_VENMO", nil),
+//                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
+//                }, 
+//                @{
+//                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_PAYPAL", nil),
+//                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
+//                },
+//			],
+//		},
+    ];
 
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
