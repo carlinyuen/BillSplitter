@@ -355,10 +355,11 @@
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
 	
-	vc.view.frame = CGRectMake(
-		0, [self offsetForPageInScrollView:AppViewControllerPageSummary],
-		bounds.size.width, bounds.size.height);
-		
+    BSTotalMarkupViewController *totalVC = [self.viewControllers objectAtIndex:AppViewControllerPageTotal]; 
+    BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];  
+    vc.finalLabel = totalVC.finalLabel;
+    vc.profiles = distributionVC.profiles;
+        
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }

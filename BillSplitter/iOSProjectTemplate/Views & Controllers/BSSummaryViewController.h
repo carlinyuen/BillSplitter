@@ -11,6 +11,12 @@
 
 @interface BSSummaryViewController : UIViewController
 
+    /** Reference to final cost label from BSTotalMarkupViewController */
+	@property (nonatomic, strong) UILabel *finalLabel;
+
+    /** List of profiles user sets up, from BSDistributionViewController */
+	@property (nonatomic, strong) NSMutableArray *profiles;
+
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
 
