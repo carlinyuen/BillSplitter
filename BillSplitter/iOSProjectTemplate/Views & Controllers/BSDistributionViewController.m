@@ -25,6 +25,9 @@
     #define TAG_BADGE_LABEL -1 
    	#define SCALE_BADGE_CHANGE 0.25 
 
+    #define UI_SIZE_STATUS_BAR_HEIGHT 20
+	#define UI_SIZE_RESET_BUTTON_HEIGHT 16
+	#define UI_SIZE_RESET_BUTTON_MARGIN 8 
 	#define UI_SIZE_BADGE_HEIGHT 16 
     #define UI_SIZE_BADGE_CORNER_RADIUS 8 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
@@ -715,9 +718,12 @@
 	BSDistributionContainerView *containerView
 		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width,
-		bounds.size.height - UI_SIZE_MIN_TOUCH - UI_SIZE_MARGIN
-			- (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
+		bounds.size.width, 
+        bounds.size.height 
+            - UI_SIZE_STATUS_BAR_HEIGHT
+            - UI_SIZE_RESET_BUTTON_HEIGHT 
+            - UI_SIZE_RESET_BUTTON_MARGIN * 2
+            - (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
 	)];
 	containerView.userInteractionEnabled = true;
 	
