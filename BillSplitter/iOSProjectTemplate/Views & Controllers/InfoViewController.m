@@ -54,8 +54,7 @@
 		@{
 			TABLEVIEW_DATA_KEY_LABEL : @"Settings",
 			TABLEVIEW_DATA_KEY_ROWS : @[
-				@"Something",
-				@"Something Else",
+				@"Round to Nearest Dollar",
 			],
 		},
 		@{
@@ -239,7 +238,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-	return [[self.tableViewData objectAtIndex:section] count];
+	return [[[self.tableViewData objectAtIndex:section] objectForKey:TABLEVIEW_DATA_KEY_ROWS] count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
