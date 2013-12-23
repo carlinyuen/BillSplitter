@@ -21,8 +21,9 @@
 
 "TOTALMARKUP_TOTAL_LABEL" = "Bill Total";
 "TOTALMARKUP_TIP_LABEL" = "+ Tip";
+"TOTALMARKUP_EVEN_SPLIT_LABEL" = "split evenly";
 
-"SETUP_DESCRIPTION_TEXT" = "Just doin' a little algebra...";
+"SETUP_DESCRIPTION_TEXT" = "A little algebra for uneven splits!";
 
 "POPUP_OK" = "Ok";
 "POPUP_CANCEL" = "Cancel";

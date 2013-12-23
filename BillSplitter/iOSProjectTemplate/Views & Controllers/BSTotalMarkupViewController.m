@@ -52,6 +52,7 @@
 		
        	_finalDivider = [[UIView alloc] initWithFrame:CGRectZero]; 
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+       	_evenSplitLabel = [[UILabel alloc] initWithFrame:CGRectZero]; 
     }
     return self;
 }
@@ -122,8 +123,14 @@
         self.totalStepper.value * (self.tipStepper.value / 100.f)];
     
     // Update final cost
-    self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", 
-        self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f)];
+    CGFloat finalValue = self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f);
+    self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", finalValue];
+        
+    // Update even split
+    self.evenSplitLabel.text = [NSString stringWithFormat:@"$%.2f %@",
+        finalValue / self.headCountStepper.value,
+        NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)
+    ];
 }
         
 
@@ -151,7 +158,7 @@
         bounds.size.height / 5
 	);
 	self.totalField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
-    self.totalField.textColor = [UIColor darkGrayColor];
+    self.totalField.textColor = [UIColor blackColor];
 	self.totalField.borderStyle = UITextBorderStyleNone;
 	self.totalField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.totalField.keyboardType = UIKeyboardTypeNumberPad;
@@ -188,7 +195,7 @@
         bounds.size.height / 6
 	);
 	self.tipField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
-    self.tipField.textColor = [UIColor darkGrayColor];
+    self.tipField.textColor = [UIColor blackColor];
 	self.tipField.borderStyle = UITextBorderStyleNone;
 	self.tipField.keyboardAppearance = UIKeyboardAppearanceAlert;
 	self.tipField.keyboardType = UIKeyboardTypeNumberPad;
@@ -283,15 +290,29 @@
     frame.size.height = bounds.size.height / 5;
     self.finalLabel = [[UILabel alloc] initWithFrame:frame];
     self.finalLabel.text = @"$0.00";
-    self.finalLabel.textColor = [UIColor blackColor]; 
+    self.finalLabel.textColor = [UIColor darkGrayColor]; 
     self.finalLabel.backgroundColor = [UIColor clearColor];
     self.finalLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
     self.finalLabel.textAlignment = NSTextAlignmentCenter;
     self.finalLabel.adjustsFontSizeToFitWidth = true;
     self.finalLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
     
+    frame = self.finalLabel.frame;
+    frame.origin.y = CGRectGetMaxY(frame) - UI_SIZE_MARGIN;
+    frame.size.height = UI_SIZE_MIN_TOUCH;
+    self.evenSplitLabel = [[UILabel alloc] initWithFrame:frame];
+    self.evenSplitLabel.text = [NSString stringWithFormat:@"$0.00 %@", 
+        NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)];
+    self.evenSplitLabel.textColor = [UIColor lightGrayColor]; 
+    self.evenSplitLabel.backgroundColor = [UIColor clearColor];
+    self.evenSplitLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    self.evenSplitLabel.textAlignment = NSTextAlignmentCenter;
+    self.evenSplitLabel.adjustsFontSizeToFitWidth = true;
+    self.evenSplitLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
+    
     [self.view addSubview:self.finalDivider];
     [self.view addSubview:self.finalLabel]; 
+    [self.view addSubview:self.evenSplitLabel];  
 }
 
 

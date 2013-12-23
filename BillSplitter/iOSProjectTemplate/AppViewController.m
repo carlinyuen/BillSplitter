@@ -332,6 +332,9 @@
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
 	
+    BSHeadcountViewController *headCountVC = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];  
+    vc.headCountStepper = headCountVC.stepper;
+    
 	[self.inputFields addObject:vc.totalField];
 	[self.inputFields addObject:vc.tipField];
 //   	[self.inputFields addObject:vc.tipAmountField]; 
@@ -1151,6 +1154,9 @@
 
 - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count
 {
+    if (self.viewControllers.count) {
+        [self.viewControllers[AppViewControllerPageTotal] updateCalculations];
+    }
     [self updatePages];
 }
 

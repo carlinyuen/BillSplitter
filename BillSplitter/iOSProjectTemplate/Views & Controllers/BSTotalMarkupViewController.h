@@ -15,6 +15,9 @@
 	UIVerticalStepperDelegate
 >
 
+    /** Reference to HeadCount stepper from BSHeadCountViewController */
+    @property (nonatomic, strong) UIVerticalStepper *headCountStepper;
+
 	@property (nonatomic, strong) UILabel *totalLabel;
 	@property (strong, nonatomic) UITextField *totalField;
 	@property (nonatomic, strong) UIVerticalStepper *totalStepper;
@@ -26,6 +29,7 @@
 
 	@property (nonatomic, strong) UIView *finalDivider;
 	@property (nonatomic, strong) UILabel *finalLabel;
+   	@property (nonatomic, strong) UILabel *evenSplitLabel; 
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
