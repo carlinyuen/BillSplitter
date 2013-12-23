@@ -711,7 +711,7 @@
 {
 	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4,
-		bounds.size.width, bounds.size.height * 1.15
+		bounds.size.width, bounds.size.height + UI_SIZE_MIN_TOUCH * 2
 	)];
 	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 	[self.view addSubview:backgroundView];
