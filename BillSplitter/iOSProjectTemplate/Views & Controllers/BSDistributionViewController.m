@@ -332,9 +332,9 @@
 		[self showInstructionIV:false];
 	}
 	
-	// Keeping track of elements
+	// Keeping track of elements, need to be mutable for edits later
     int addIndex = 0;
-	[self.profiles insertObject:@{
+	[self.profiles insertObject:[@{
    		BSDistributionViewControllerProfileViewDishCount : [@{
             @(BSDishSetupViewControllerItemDrink): @0,
             @(BSDishSetupViewControllerItemSmallDish): @0, 
@@ -347,7 +347,7 @@
 		BSDistributionViewControllerProfileViewTextField : textField,
 		BSDistributionViewControllerProfileViewStepper : stepper,
 		BSDistributionViewControllerProfileViewCard : containerView,
-	} atIndex:addIndex];
+	} mutableCopy] atIndex:addIndex];
 	[self.scrollView addSubview:containerView];
 	
 	// Update scrollview & scroll over to new card section

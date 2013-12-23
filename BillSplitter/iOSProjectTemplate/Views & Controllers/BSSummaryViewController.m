@@ -9,6 +9,8 @@
 
 #import "BSSummaryViewController.h"
 
+	NSString* const BSSummaryViewControllerProfileBill = @"bill";
+    
 @interface BSSummaryViewController ()
 
 	@property (nonatomic, assign) CGRect frame;
@@ -86,16 +88,85 @@
         NSLog(@"Error parsing number from final total field!");
         return;
     }
+    NSLog(@"Total Cost: %@", total);
     
     // Get dish setup to calculate proportions
-    CGFloat drink = self.drinkStepper.value;
-    CGFloat smallDish = self.smallDishStepper.value; 
-    CGFloat mediumDish = self.mediumDishStepper.value; 
-    CGFloat largeDish = self.largeDishStepper.value; 
+    CGFloat drinkValue = self.drinkStepper.value;
+    CGFloat smallDishValue = self.smallDishStepper.value; 
+    CGFloat mediumDishValue = self.mediumDishStepper.value; 
+    CGFloat largeDishValue = self.largeDishStepper.value; 
+    NSLog(@"Dish Values: %f, %f, %f, %f", 
+        drinkValue, smallDishValue, mediumDishValue, largeDishValue);
     
-    // Do some math...
+    // Count up all the different dishes people had
+    NSInteger drinkCount = 0;
+    NSInteger smallDishCount = 0; 
+    NSInteger mediumDishCount = 0; 
+    NSInteger largeDishCount = 0; 
+    for (NSDictionary *profile in self.profiles)
+    {
+        NSDictionary *dishCount = profile[BSDistributionViewControllerProfileViewDishCount];
+        for (NSNumber *tag in dishCount) 
+        {
+            switch ([tag integerValue])
+            {
+                case BSDishSetupViewControllerItemDrink:
+                    drinkCount += [dishCount[tag] integerValue];
+                    break;
+                case BSDishSetupViewControllerItemSmallDish: 
+                    smallDishCount += [dishCount[tag] integerValue];
+                    break; 
+                case BSDishSetupViewControllerItemMediumDish: 
+                    mediumDishCount += [dishCount[tag] integerValue];
+                    break;  
+                case BSDishSetupViewControllerItemLargeDish: 
+                    largeDishCount += [dishCount[tag] integerValue];
+                    break;  
+                default: break;
+            }
+        }
+    }
+    NSLog(@"Counts: %i, %i, %i, %i", 
+        drinkCount, smallDishCount, mediumDishCount, largeDishCount);
     
-    // Calculate how much each profile should pay
+    // Do some math... calculate for mysterious A 
+    //  A stands for the lowest unit of cost of a shared part
+    CGFloat A = [total floatValue] / (
+        (drinkValue * drinkCount) 
+        + (smallDishValue * smallDishCount)
+        + (mediumDishValue * mediumDishCount) 
+        + (largeDishValue * largeDishCount)
+    );
+    NSLog(@"A = %f", A);
+    
+    // Calculate how much each profile should pay and save it in
+    NSNumber *bill;
+    for (int i = 0; i < self.profiles.count; ++i)
+    {
+        NSMutableDictionary *profile = self.profiles[i];
+        NSDictionary *dishCount = profile[BSDistributionViewControllerProfileViewDishCount];
+        
+        // Figure out bill
+        bill = @(
+            A * (
+                [dishCount[@(BSDishSetupViewControllerItemDrink)] integerValue] * drinkValue
+                + [dishCount[@(BSDishSetupViewControllerItemSmallDish)] integerValue] * smallDishValue
+                + [dishCount[@(BSDishSetupViewControllerItemMediumDish)] integerValue] * mediumDishValue
+                + [dishCount[@(BSDishSetupViewControllerItemLargeDish)] integerValue] * largeDishValue
+            )
+        );
+        NSLog(@"Bill for profile %i: %@", i, bill);
+        
+        [profile setObject:bill forKey:BSSummaryViewControllerProfileBill];
+    }
+    
+    // Update ui
+    [self updateUI];
+}
+
+/** @brief Update UI elements to show new calculations */
+- (void)updateUI
+{
 }
 
 

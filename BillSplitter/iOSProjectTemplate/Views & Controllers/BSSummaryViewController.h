@@ -9,8 +9,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UIVerticalStepper.h"
+#import "BSDishSetupViewController.h"
+#import "BSDistributionViewController.h"
 
+	extern NSString* const BSSummaryViewControllerProfileBill;
+    
 @interface BSSummaryViewController : UIViewController
 
     /** Reference to final cost label from BSTotalMarkupViewController */
