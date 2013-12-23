@@ -238,7 +238,7 @@
 	}
     
     // Also update warning label
-    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
         options:UIViewAnimationOptionBeginFromCurrentState
         animations:^{
             self.warningLabel.alpha = 0;
@@ -247,7 +247,7 @@
                 ? [NSString stringWithFormat:@"%i %@", remainingCount, 
                     NSLocalizedString(@"DISTRIBUTION_WARNING", nil)]
                 : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
-            [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+            [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
                 options:UIViewAnimationOptionBeginFromCurrentState
                 animations:^{
                     self.warningLabel.alpha = 1;
