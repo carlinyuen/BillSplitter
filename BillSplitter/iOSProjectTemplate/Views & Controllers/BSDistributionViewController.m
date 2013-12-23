@@ -223,19 +223,36 @@
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
-	int currentCount = [self dinerCount];
+    int remainingCount = (self.headCount - [self dinerCount]);
 
 	for (NSDictionary *profile in self.profiles)
 	{
 		UIVerticalStepper *stepper = [profile
 			objectForKey:BSDistributionViewControllerProfileViewStepper];
-		stepper.maximumValue = MAX(stepper.minimumValue,
-			(self.headCount - currentCount) + stepper.value);
+		stepper.maximumValue 
+            = MAX(stepper.minimumValue, remainingCount + stepper.value);
 			
 		UITextField *textField = [profile
 			objectForKey:BSDistributionViewControllerProfileViewTextField];
 		textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
 	}
+    
+    // Also update warning label
+    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+        options:UIViewAnimationOptionBeginFromCurrentState
+        animations:^{
+            self.warningLabel.alpha = 0;
+        } completion:^(BOOL finished) {
+            self.warningLabel.text = (remainingCount)
+                ? [NSString stringWithFormat:@"%i %@", remainingCount, 
+                    NSLocalizedString(@"DISTRIBUTION_WARNING", nil)]
+                : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
+            [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+                options:UIViewAnimationOptionBeginFromCurrentState
+                animations:^{
+                    self.warningLabel.alpha = 1;
+                } completion:nil];
+        }];
 }
 
 /** @brief Scrolls scrollview to page */
@@ -805,7 +822,7 @@
     );
     self.warningLabel.text = [NSString stringWithFormat:@"%i %@",
         self.headCount - [self dinerCount],
-        NSLocalizedString(@"DISTRIBUTION_WARNING_LABEL", nil)];
+        NSLocalizedString(@"DISTRIBUTION_WARNING", nil)];
     self.warningLabel.numberOfLines = 0;
 	self.warningLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.warningLabel.backgroundColor = [UIColor clearColor];
