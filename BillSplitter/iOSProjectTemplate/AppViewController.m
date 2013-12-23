@@ -1196,7 +1196,6 @@
 		
 	// If page is not the same as lastShownPage, let page know it'll be shown
 	if (self.lastShownPage != page) {
-        NSLog(@"calling viewWillAppear"); 
 		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
 		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
 	}
@@ -1209,28 +1208,27 @@
 {
 	if (self.lastShownPage != self.pageControl.currentPage) 
     {
-        NSLog(@"calling viewDidAppear");  
-		self.lastShownPage = self.pageControl.currentPage;
         [[self.viewControllers objectAtIndex:self.pageControl.currentPage] viewDidAppear:true];
+        [[self.viewControllers objectAtIndex:self.lastShownPage] viewDidDisappear:true]; 
+        self.lastShownPage = self.pageControl.currentPage; 
 		[self updatePages];
 	}
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"DidEndScrollingAnimation");
-        
+    // Re-enable animator if needed
 	if (self.enableAnimator) {
 		self.animator.enabled = true;
 		self.enableAnimator = false;
-		self.scrollView.contentOffset = self.scrollView.contentOffset;
+//		self.scrollView.contentOffset = self.scrollView.contentOffset;
 	}
        	
 	// If page is not the same as lastShownPage, let page know it'll be shown
 	if (self.lastShownPage != self.pageControl.currentPage) {
-        NSLog(@"calling viewDidAppear");  
-		self.lastShownPage = self.pageControl.currentPage;
         [[self.viewControllers objectAtIndex:self.pageControl.currentPage] viewDidAppear:true]; 
+        [[self.viewControllers objectAtIndex:self.lastShownPage] viewDidDisappear:true];
+        self.lastShownPage = self.pageControl.currentPage; 
 	}
 	
 	// Re-enable paging once done with animation
