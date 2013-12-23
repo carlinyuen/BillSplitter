@@ -176,7 +176,7 @@
     // Refresh drag button positions for distro
     [self refreshDragButtonPositions]; 
     
-    // Start flashing the arrow if no profiles set
+    // Show the arrow if no profiles set
     [self showInstructionIV:(!self.profiles.count)];
 }
 
@@ -617,24 +617,6 @@
         animations:^{
             self.instructionIV.alpha = (show) ? 1 : 0;
         } completion:nil];
-}
-
-/** @brief animate flash instructional arrow */
-- (void)flashInstructionIV
-{
-    [UIView animateWithDuration:ANIMATION_DURATION_SLOW delay:0
-        options:UIViewAnimationOptionBeginFromCurrentState
-        animations:^{
-            self.instructionIV.alpha = 1;
-        } completion:^(BOOL finished) {
-            if (finished) {
-                [UIView animateWithDuration:ANIMATION_DURATION_SLOW delay:0
-                    options:UIViewAnimationOptionBeginFromCurrentState
-                    animations:^{
-                        self.instructionIV.alpha = 0.20; 
-                    } completion:nil];
-            }
-        }];  
 }
 
 

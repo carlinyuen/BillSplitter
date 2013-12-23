@@ -20,10 +20,16 @@
     #define SCALE_TEXTFIELD_CHANGE 1.1
 
 	#define IMG_MAN @"man.png"
+   	#define IMG_DOWN @"down.png" 
+    
+    #define KEY_TIMER_DURATION @"duration"
+    #define KEY_TIMER_VIEW @"view" 
 
 @interface BSHeadcountViewController ()
 
 	@property (nonatomic, assign) CGRect frame;
+    
+   	@property (nonatomic, strong) NSTimer *flashTimer;
 
 @end
 
@@ -45,6 +51,8 @@
 		_imageView = [[UIImageView alloc] initWithFrame:CGRectZero];
 		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_stepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
+        
+        _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_DOWN]];
     }
     return self;
 }
@@ -158,6 +166,62 @@
 
 
 #pragma mark - Class Functions
+
+/** @brief Show instructionIV by flashing */
+- (void)showInstructions:(bool)show
+{
+    if (show)
+    {
+        self.flashTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 
+            target:self selector:@selector(flashView:) userInfo:@{
+                KEY_TIMER_VIEW: self.instructionIV,
+                KEY_TIMER_DURATION: @(ANIMATION_DURATION_SLOW * 2),
+            } repeats:true];
+    }
+    else    // Hide
+    {
+        if (self.flashTimer) {
+            [self.flashTimer invalidate];
+            self.flashTimer = nil;
+        }
+    
+        // Fade out
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState
+                | UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                self.instructionIV.alpha = 1;
+            } completion:nil];
+    }
+}
+
+/** @brief Animate flash view with duration (one flash) */
+- (void)flashView:(NSTimer *)timer
+{
+    // Get data from timer if exists
+    CGFloat duration = ANIMATION_DURATION_SLOW;
+    UIView *view = nil;
+    if (timer)
+    {
+        duration = [timer.userInfo[KEY_TIMER_DURATION] floatValue];
+        view = timer.userInfo[KEY_TIMER_VIEW];
+    }
+    
+    // Animate
+    [UIView animateWithDuration:duration / 2 delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState
+        animations:^{
+            [view setAlpha:1];
+        } completion:^(BOOL finished) {
+            if (finished) {
+                [UIView animateWithDuration:duration / 2 delay:0
+                    options:UIViewAnimationOptionBeginFromCurrentState
+                    animations:^{
+                        [view setAlpha:0.20];
+                    } completion:nil];
+            }
+        }];  
+}
 
 
 #pragma mark - Utility Functions

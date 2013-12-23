@@ -31,6 +31,8 @@
 	@property (strong, nonatomic) UIImageView *imageView;
 	@property (strong, nonatomic) UITextField *textField;
 	@property (nonatomic, strong) UIVerticalStepper *stepper;
+       
+    @property (nonatomic, strong) UIImageView *instructionIV;  
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
