@@ -619,15 +619,15 @@
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
       
-   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH * 3
-		translate:CGPointMake(0, 0)
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH * 6
+		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
 		forView:dishSetup.descriptionLabel
 	]; 
    	[self.animator setKeyFrameWithOffset:yOffset 
-		translate:CGPointMake(0, 0)
+		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
@@ -864,7 +864,7 @@
 		forView:distribution.instructionCover
 	];
  
-    refFrame = distribution.instructionCover.frame;
+    refFrame = distribution.instructionCover2.frame;
     [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH    * 3
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -880,6 +880,28 @@
 		forView:distribution.instructionCover2
 	];
        
+    // Warning label
+    [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:distribution.warningLabel
+	]; 
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.warningLabel
+	];
+    [self.animator setKeyFrameWithOffset: yTempOffset + UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 2)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:distribution.warningLabel
+	];  
 }
 
 
