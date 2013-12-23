@@ -50,13 +50,17 @@
     [super viewDidLoad];
 	
 	self.title = NSLocalizedString(@"INFO_VIEW_TITLE", nil);
+    
+    bool isIOS7 = (getDeviceOSVersionNumber() >= 7);
 	
 	self.tableViewData = [[NSArray alloc] initWithObjects:
 		@{
 			TABLEVIEW_DATA_KEY_LABEL: @"Settings",
 			TABLEVIEW_DATA_KEY_ROWS: @[
 				@{
-                    TABLEVIEW_DATA_KEY_LABEL: @"Round to Nearest Dollar",
+                    TABLEVIEW_DATA_KEY_LABEL: (isIOS7)
+                        ? @"Round to Nearest Dollar"
+                        : @"Round to Next Dollar",
                     TABLEVIEW_DATA_KEY_SWITCH: @(true),
                 },
 			],
@@ -78,7 +82,7 @@
 
 	// Get device screen size
 	CGRect bounds = getScreenFrame();
-    if (getDeviceOSVersionNumber() >= 7) {
+    if (isIOS7) {
         bounds.size.height += bounds.origin.y;
     }
 	bounds.origin.x = bounds.origin.y = 0;
