@@ -25,5 +25,7 @@
 
 "SETUP_DESCRIPTION_TEXT" = "A little algebra for uneven splits!";
 
+"DISTRIBUTION_WARNING_LABEL" = "people left in party";
+
 "POPUP_OK" = "Ok";
 "POPUP_CANCEL" = "Cancel";

@@ -306,7 +306,7 @@
 	BSDistributionViewController *vc = [[BSDistributionViewController alloc]
 		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
     vc.delegate = self;
 	

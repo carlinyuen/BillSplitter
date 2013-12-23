@@ -32,9 +32,10 @@
     #define UI_SIZE_BADGE_CORNER_RADIUS 8 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
+   	#define UI_SIZE_LABEL_MARGIN 24 
 	#define UI_SIZE_MARGIN 16
     
-    #define FONT_SIZE_BADGE_LABEL 11
+    #define FONT_SIZE_WARNING_LABEL 15
 
 	#define IMAGEVIEW_SCALE_SMALLDISH 0.7
 	#define IMAGEVIEW_SCALE_MEDIUMDISH 0.8
@@ -156,9 +157,6 @@
 	[self setupDishes:bounds];
 	[self setupBackgroundView:bounds];
 	[self setupScrollView:bounds];
-	[self setupPageControl:bounds];
-	[self setupAddView:bounds];
-    [self setupInstructionIV:bounds]; 
 	
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
@@ -436,7 +434,7 @@
         badgeLabel.backgroundColor = [UIColor redColor];
         badgeLabel.textColor = [UIColor whiteColor];
         badgeLabel.textAlignment = UITextAlignmentCenter;
-        badgeLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_BADGE_LABEL];
+        badgeLabel.font = [UIFont fontWithName:FONT_NAME_TAGLINE size:FONT_SIZE_SMALL_LABEL];
         badgeLabel.layer.cornerRadius = UI_SIZE_BADGE_CORNER_RADIUS;
         badgeLabel.alpha = 0;
         badgeLabel.text = @"1";
@@ -659,32 +657,7 @@
         [self.view addSubview:dragButton];
     }
 }
-
-/** @brief Setup instructional image view */
-- (void)setupInstructionIV:(CGRect)bounds
-{
-    CGRect frame = self.instructionIV.frame;
-    frame.origin = CGPointMake(
-        CGRectGetMaxX(self.addButton.frame) + UI_SIZE_DINER_MARGIN, 
-        CGRectGetMinY(self.addButton.frame) - UI_SIZE_MARGIN
-    );
-    self.instructionIV.frame = frame;
-    self.instructionIV.clipsToBounds = true;
-    [self.view addSubview:self.instructionIV];
    
-    self.instructionCover2.frame = self.instructionIV.bounds;
-    self.instructionCover2.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    [self.instructionIV addSubview:self.instructionCover2];
-    
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
-    imageView.frame = self.instructionIV.bounds;
-    [self.instructionIV addSubview:imageView]; 
-     
-    self.instructionCover.frame = self.instructionIV.bounds;
-    self.instructionCover.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    [self.instructionIV addSubview:self.instructionCover]; 
-}
-    
 /** @brief Setup background view */
 - (void)setupBackgroundView:(CGRect)bounds
 {
@@ -696,6 +669,24 @@
 	[self.view addSubview:backgroundView];
 }
 
+/** @brief Setup page control */
+- (void)setupPageControl:(CGRect)bounds
+{
+	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 4,
+		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
+	)];
+	
+	// Configure
+	self.pageControl.delegate = self;
+	self.pageControl.numberOfPages = 0;
+	self.pageControl.currentPage = 0;
+	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
+	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	
+	[self.view addSubview:self.pageControl];
+}
+
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
@@ -704,7 +695,6 @@
 		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width, 
         bounds.size.height 
-            - UI_SIZE_STATUS_BAR_HEIGHT
             - UI_SIZE_RESET_BUTTON_HEIGHT 
             - UI_SIZE_RESET_BUTTON_MARGIN * 2
             - (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
@@ -727,24 +717,10 @@
 	containerView.targetView = self.scrollView;
 	[containerView addSubview:self.scrollView];
 	[self.view addSubview:containerView];
-}
-
-/** @brief Setup page control */
-- (void)setupPageControl:(CGRect)bounds
-{
-	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4,
-		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
-	)];
-	
-	// Configure
-	self.pageControl.delegate = self;
-	self.pageControl.numberOfPages = 0;
-	self.pageControl.currentPage = 0;
-	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
-	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
-	
-	[self.view addSubview:self.pageControl];
+    
+    // Setup other elements that depend on this view's frame
+   	[self setupPageControl:bounds];
+    [self setupAddView:bounds];  
 }
 
 /** @brief Setup add view */
@@ -785,8 +761,60 @@
 	[self.addButton addGestureRecognizer:swipe];
 	
 	[self.view addSubview:self.addButton];
+    
+    // Setup other elements that depend on this view's frame  
+    [self setupInstructionIV:bounds];   
+    [self setupWarningLabel:bounds]; 
 }
 
+/** @brief Setup instructional image view */
+- (void)setupInstructionIV:(CGRect)bounds
+{
+    CGRect frame = self.instructionIV.frame;
+    frame.origin = CGPointMake(
+        CGRectGetMaxX(self.addButton.frame) + UI_SIZE_DINER_MARGIN, 
+        CGRectGetMinY(self.addButton.frame) - UI_SIZE_MARGIN
+    );
+    self.instructionIV.frame = frame;
+    self.instructionIV.clipsToBounds = true;
+    [self.view addSubview:self.instructionIV];
+   
+    self.instructionCover2.frame = self.instructionIV.bounds;
+    self.instructionCover2.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    [self.instructionIV addSubview:self.instructionCover2];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
+    imageView.frame = self.instructionIV.bounds;
+    [self.instructionIV addSubview:imageView]; 
+     
+    self.instructionCover.frame = self.instructionIV.bounds;
+    self.instructionCover.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    [self.instructionIV addSubview:self.instructionCover]; 
+}
+
+/** @brief Setup warning label for when user hasn't met their headcount */
+- (void)setupWarningLabel:(CGRect)bounds
+{
+    CGRect frame = self.addButton.frame;
+    
+    self.warningLabel.frame = CGRectMake(
+        UI_SIZE_LABEL_MARGIN, 
+        CGRectGetMaxY(frame),
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
+        (bounds.size.height - CGRectGetMaxY(frame))
+    );
+    self.warningLabel.text = [NSString stringWithFormat:@"%i %@",
+        self.headCount - [self dinerCount],
+        NSLocalizedString(@"DISTRIBUTION_WARNING_LABEL", nil)];
+    self.warningLabel.numberOfLines = 0;
+	self.warningLabel.lineBreakMode = NSLineBreakByWordWrapping;
+	self.warningLabel.backgroundColor = [UIColor clearColor];
+	self.warningLabel.textAlignment = NSTextAlignmentCenter;
+	self.warningLabel.textColor = [UIColor whiteColor];
+	self.warningLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_WARNING_LABEL];
+    [self.view addSubview:self.warningLabel];
+}
+ 
 
 #pragma mark - UI Events
 
