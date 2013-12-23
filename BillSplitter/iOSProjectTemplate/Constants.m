@@ -9,7 +9,7 @@
 #import "Constants.h"
 
 // UI
-float const UI_SIZE_MIN_TOUCH = 44;
+CGFloat const UI_SIZE_MIN_TOUCH = 44;
 
 // Cached Data
 NSString* const CACHE_KEY_USER_SETTINGS = @"cacheUserSettings";
@@ -23,13 +23,13 @@ NSString* const FONT_NAME_HEADERS = @"HelveticaNeue-Bold";
 NSString* const FONT_NAME_COPY = @"HelveticaNeue-Light";
 NSString* const FONT_NAME_TEXTFIELD = @"MarkerFelt-Wide";
 NSString* const FONT_NAME_TAGLINE = @"MarkerFelt-Thin";
-float const FONT_SIZE_TAGLINE = 24;
-float const FONT_SIZE_HEADCOUNT = 60;
-float const FONT_SIZE_PRICE = 40;
-float const FONT_SIZE_COPY = 18;
-float const FONT_SIZE_SMALL_LABEL = 11;
-float const FONT_SIZE_BRANDING = 13;
-float const FONT_SIZE_TITLE = 30;
+CGFloat const FONT_SIZE_TAGLINE = 24;
+CGFloat const FONT_SIZE_HEADCOUNT = 60;
+CGFloat const FONT_SIZE_PRICE = 40;
+CGFloat const FONT_SIZE_COPY = 18;
+CGFloat const FONT_SIZE_SMALL_LABEL = 11;
+CGFloat const FONT_SIZE_BRANDING = 13;
+CGFloat const FONT_SIZE_TITLE = 30;
 
 // Time
 int const TIME_ONE_MINUTE = 60;
@@ -51,9 +51,9 @@ int const COLOR_HEX_ACCENT = 0xFF9900FF;
 int const COLOR_HEX_LIGHT_ACCENT = 0xFF9900BB;
 
 // Animations
-float const ANIMATION_DURATION_FASTEST = 0.15;
-float const ANIMATION_DURATION_FAST = 0.3;
-float const ANIMATION_DURATION_MED = 0.5;
-float const ANIMATION_DURATION_SLOW = 0.7;
-float const ANIMATION_DURATION_SLOWEST = 1.0;
+CGFloat const ANIMATION_DURATION_FASTEST = 0.15;
+CGFloat const ANIMATION_DURATION_FAST = 0.3;
+CGFloat const ANIMATION_DURATION_MED = 0.5;
+CGFloat const ANIMATION_DURATION_SLOW = 0.7;
+CGFloat const ANIMATION_DURATION_SLOWEST = 1.0;
 

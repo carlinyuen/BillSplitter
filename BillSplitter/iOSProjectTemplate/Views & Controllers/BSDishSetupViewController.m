@@ -111,9 +111,9 @@
 	UIButton *button;
 	UITextField *textField;
    	UILabel *label; 
-	float itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
-	float stepperValue = 0;
-	float scale = 1;
+	CGFloat itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
+	CGFloat stepperValue = 0;
+	CGFloat scale = 1;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
 		// Setup variables

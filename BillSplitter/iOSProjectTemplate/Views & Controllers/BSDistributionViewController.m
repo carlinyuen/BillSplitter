@@ -85,7 +85,11 @@
 
 	@property (nonatomic, assign) CGRect frame;
     
+    /** Flag to let us call updateSteppers only once in viewWillAppear */
    	@property (nonatomic, assign) bool viewWasShown;
+    
+    /** RemainingCount from last time updateSteppers was called */
+    @property (nonatomic, assign) NSInteger lastRemainingCount;
 
 	/** For dragging & dropping items */
     @property (nonatomic, strong) UIButton *drinkDragButton;
@@ -101,7 +105,7 @@
 	/** For sideswipping between diners */
 	@property (nonatomic, strong) UIScrollView *scrollView;
 	@property (nonatomic, strong) CustomPageControl *pageControl;
-	@property (nonatomic, assign) int lastShownProfile;
+	@property (nonatomic, assign) NSInteger lastShownProfile;
     
     /** For formatting */
     @property (nonatomic, strong) NSNumberFormatter *numFormatter;
@@ -293,7 +297,7 @@
     // Setup
 	CGRect bounds = self.scrollView.bounds;
 	CGRect frame = bounds;
-	float itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
+	CGFloat itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
 	frame.origin.x = -self.scrollView.frame.origin.x - bounds.size.width;
@@ -451,14 +455,14 @@
         );
         
         // Reset to zero size, identity transform
-        float scale = [self scaleForDishTag:dish.tag]; 
+        CGFloat scale = [self scaleForDishTag:dish.tag]; 
         dish.transform = CGAffineTransformIdentity;
         dish.frame = frame;
         dish.transform = CGAffineTransformMakeScale(0, 0);
         [dishView addSubview:dish];
         
         // Add badge number label in advance
-        float badgeScale = 1 / scale;
+        CGFloat badgeScale = 1 / scale;
         UILabel *badgeLabel = [[UILabel alloc] initWithFrame:CGRectMake(
             CGRectGetWidth(frame) - UI_SIZE_BADGE_HEIGHT, 
             CGRectGetHeight(frame) - UI_SIZE_BADGE_HEIGHT, 
@@ -517,8 +521,8 @@
         }
         
         // Animate Bounce on increment
-        float scale = badgeLabel.transform.a;
-        float bounceScale = scale + SCALE_BADGE_CHANGE;
+        CGFloat scale = badgeLabel.transform.a;
+        CGFloat bounceScale = scale + SCALE_BADGE_CHANGE;
         [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
             animations:^{
@@ -1085,7 +1089,7 @@
 /** @brief Returns view that is most overlapped by the given CGRect, with the index in the view's tag property */
 - (UIView *)profileViewMostIntersectedByRect:(CGRect)frame
 {
-	float largestArea = 0, tempArea = 0;
+	CGFloat largestArea = 0, tempArea = 0;
 	UIView *largestView, *tempView;
 	CGRect tempFrame;
 	
@@ -1173,7 +1177,7 @@
 {
 	// Change page control accordingly:
 	//	Update the page when more than 50% of the previous/next page is visible
-    float pageSize = scrollView.bounds.size.width;
+    CGFloat pageSize = scrollView.bounds.size.width;
     int page = floor((scrollView.contentOffset.x - pageSize / 2) / pageSize) + 1;
 
 	// Bound page limits

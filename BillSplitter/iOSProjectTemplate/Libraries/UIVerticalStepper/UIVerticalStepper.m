@@ -25,10 +25,10 @@
 // THE SOFTWARE.
 
 // These constants define the control frame of 35.0 width and 63.0 height
-float const kRPStepperWidth = 35.0;
-float const kRPStepperTopButtonHeight = 31.0;
-float const kRPStepperBottomButtonHeight = 32.0;
-float const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButtonHeight;
+CGFloat const kRPStepperWidth = 35.0;
+CGFloat const kRPStepperTopButtonHeight = 31.0;
+CGFloat const kRPStepperBottomButtonHeight = 32.0;
+CGFloat const kRPStepperHeight = kRPStepperTopButtonHeight + kRPStepperBottomButtonHeight;
 
 #import "UIVerticalStepper.h"
 

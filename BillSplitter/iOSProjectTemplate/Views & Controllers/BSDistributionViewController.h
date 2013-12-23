@@ -40,7 +40,7 @@
     @property (nonatomic, weak) id<BSDistributionViewControllerDelegate> delegate;
 
     /** # from HeadCount view to bound # of people on profiles */
-	@property (nonatomic, assign) int headCount;
+	@property (nonatomic, assign) NSInteger headCount;
 
     /** Profile add button */
 	@property (nonatomic, strong) UIButton *addButton;

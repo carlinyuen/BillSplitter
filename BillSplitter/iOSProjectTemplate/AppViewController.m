@@ -433,9 +433,9 @@
 	CGPoint tempPoint, targetPoint;
 	CGSize tempSize, targetSize;
 	CGAffineTransform transform;
-	float yOffset = 0, xOffset = 0;
-	float yTempOffset = 0;
-	float difference = 0, temp = 0;
+	CGFloat yOffset = 0, xOffset = 0;
+	CGFloat yTempOffset = 0;
+	CGFloat difference = 0, temp = 0;
 	
 	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
 	BSDishSetupViewController *dishSetup = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
@@ -1184,7 +1184,7 @@
 {
 	// Change page control accordingly:
 	//	Update the page when more than 50% of the previous/next page is visible
-    float pageSize = scrollView.bounds.size.height;
+    CGFloat pageSize = scrollView.bounds.size.height;
     int page = floor((scrollView.contentOffset.y - pageSize / 2) / pageSize) + 1;
 
 	// Bound page limits
