@@ -127,6 +127,8 @@
     self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", finalValue];
         
     // Update even split
+    self.evenSplitLabel.textColor = (self.headCountStepper.value <= 1)
+        ? [UIColor whiteColor] : [UIColor lightGrayColor];
     self.evenSplitLabel.text = [NSString stringWithFormat:@"$%.2f %@",
         finalValue / self.headCountStepper.value,
         NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)

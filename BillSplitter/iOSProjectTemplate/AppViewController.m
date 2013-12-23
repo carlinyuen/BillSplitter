@@ -440,7 +440,7 @@
 	BSHeadcountViewController *headCount = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
 	BSDishSetupViewController *dishSetup = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
 	BSDistributionViewController *distribution = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
-	BSTotalMarkupViewController *total = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
+	BSTotalMarkupViewController *totalMarkup = [self.viewControllers objectAtIndex:AppViewControllerPageTotal];
 	BSSummaryViewController *summary = [self.viewControllers objectAtIndex:AppViewControllerPageSummary];
 
 
@@ -521,6 +521,41 @@
 		alpha:0
 		forView:headCount.taglineLabel
 	];
+    
+    
+    /////////////////////////////////////////////
+    // Total Markup Page
+   	yOffset = [self offsetForPageInScrollView:AppViewControllerPageTotal]; 
+     
+    [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:totalMarkup.evenSplitLabel
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.evenSplitLabel
+	];
+	   
+    [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
+   		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH) 
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:totalMarkup.finalLabel
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:totalMarkup.finalLabel
+	];
 	
 
 	/////////////////////////////////////////////
@@ -529,7 +564,7 @@
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
       
-   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH
+   	[self.animator setKeyFrameWithOffset:yOffset - UI_SIZE_MIN_TOUCH * 3
 		translate:CGPointMake(0, 0)
 		scale:CGSizeMake(1, 1)
 		rotate:0
@@ -751,7 +786,7 @@
 	];
 
     // Instructional Arrow Cover
-    CGRect frame = distribution.instructionCover.frame;
+    refFrame = distribution.instructionCover.frame;
     [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH   * 3
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -760,21 +795,21 @@
 		forView:distribution.instructionCover
 	]; 
     [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH * 2
-		translate:CGPointMake(0, frame.size.height / 2)
+		translate:CGPointMake(0, refFrame.size.height / 2)
 		scale:CGSizeMake(1, 1)
 		rotate:M_PI / 8
 		alpha:1
 		forView:distribution.instructionCover
 	]; 
     [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH
-		translate:CGPointMake(-frame.size.width, frame.size.height)
+		translate:CGPointMake(-refFrame.size.width, refFrame.size.height)
 		scale:CGSizeMake(1, 1)
 		rotate:M_PI / 4
 		alpha:1
 		forView:distribution.instructionCover
 	];
  
-    frame = distribution.instructionCover.frame;
+    refFrame = distribution.instructionCover.frame;
     [self.animator setKeyFrameWithOffset: yTempOffset - UI_SIZE_MIN_TOUCH    * 3
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -783,7 +818,7 @@
 		forView:distribution.instructionCover2
 	]; 
     [self.animator setKeyFrameWithOffset: yTempOffset
-		translate:CGPointMake(0, frame.size.height)
+		translate:CGPointMake(0, refFrame.size.height)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
