@@ -273,7 +273,9 @@
             } completion:^(BOOL finished) {
                 self.warningLabel.text = (remainingCount)
                     ? [NSString stringWithFormat:@"%i %@", remainingCount, 
-                        NSLocalizedString(@"DISTRIBUTION_WARNING", nil)]
+                        NSLocalizedString((remainingCount > 1 
+                            ? @"DISTRIBUTION_WARNING_MULTIPLE" 
+                            : @"DISTRIBUTION_WARNING_SINGLE"), nil)]
                     : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
                 [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
                     options:UIViewAnimationOptionBeginFromCurrentState
@@ -851,7 +853,7 @@
     );
     self.warningLabel.text = [NSString stringWithFormat:@"%i %@",
         self.headCount - [self dinerCount],
-        NSLocalizedString(@"DISTRIBUTION_WARNING", nil)];
+        NSLocalizedString(@"DISTRIBUTION_WARNING_MULTIPLE", nil)];
     self.warningLabel.numberOfLines = 0;
 	self.warningLabel.lineBreakMode = NSLineBreakByWordWrapping;
 	self.warningLabel.backgroundColor = [UIColor clearColor];
