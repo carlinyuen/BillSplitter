@@ -581,15 +581,15 @@
 		alpha:1
 		forView:totalMarkup.finalDivider
 	]; 
-    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH
-		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 2)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
 		forView:totalMarkup.finalDivider
 	]; 
-    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 2
-		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 2)
+    [self.animator setKeyFrameWithOffset: yOffset + UI_SIZE_MIN_TOUCH * 4
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH * 4)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
@@ -1217,11 +1217,16 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
+    NSLog(@"didEndScrollingAnimation with enableAnimator: %i", self.enableAnimator);
+
     // Re-enable animator if needed
-	if (self.enableAnimator) {
+	if (self.enableAnimator) 
+    {
 		self.animator.enabled = true;
 		self.enableAnimator = false;
-//		self.scrollView.contentOffset = self.scrollView.contentOffset;
+        
+        // Needed to get animator to refresh and show elements again
+		self.scrollView.contentOffset = self.scrollView.contentOffset;
 	}
        	
 	// If page is not the same as lastShownPage, let page know it'll be shown
