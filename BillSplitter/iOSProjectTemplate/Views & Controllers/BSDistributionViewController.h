@@ -58,6 +58,9 @@
     @property (nonatomic, strong) UIView *instructionCover;
     @property (nonatomic, strong) UIView *instructionCover2; 
     @property (nonatomic, strong) UIImageView *instructionIV;
+    
+    /** Warning label */
+    @property (nonatomic, strong) UILabel *warningLabel;
 
     /** List of profiles user sets up */
 	@property (nonatomic, strong) NSMutableArray *profiles;

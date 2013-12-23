@@ -120,11 +120,13 @@
 		
 		_headCount = STEPPER_DEFAULT_MAX_VALUE;
 		
-		_addButton = [UIButton new];
+		_addButton = [[UIButton alloc] initWithFrame:CGRectZero];
         
         _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROWHEAD]];
-        _instructionCover = [UIView new];
-        _instructionCover2 = [UIView new]; 
+        _instructionCover = [[UIView alloc] initWithFrame:CGRectZero];
+        _instructionCover2 = [[UIView alloc] initWithFrame:CGRectZero]; 
+        
+        _warningLabel = [[UILabel alloc] initWithFrame:CGRectZero];  
 		
 		_profiles = [NSMutableArray new];
 		_lastShownProfile = 0;
