@@ -1217,8 +1217,6 @@
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
-    NSLog(@"didEndScrollingAnimation with enableAnimator: %i", self.enableAnimator);
-
     // Re-enable animator if needed
 	if (self.enableAnimator) 
     {
