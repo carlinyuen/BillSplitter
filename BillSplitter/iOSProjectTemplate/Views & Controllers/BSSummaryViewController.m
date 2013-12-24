@@ -73,6 +73,7 @@
     
     [self setupProfileCover:bounds];
     [self setupErrorLabel:bounds];
+    [self setupScrollView:bounds];
 }
 
 
@@ -105,6 +106,8 @@
                 self.errorLabel.alpha = 0;
             } completion:nil];
     }
+
+    // Clean up scrollview 
 
     [super viewWillDisappear:animated];
 }
@@ -250,6 +253,20 @@
         }];
 }
 
+/** @brief Clear scroll view's elements */
+- (void)clearScrollView
+{
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            self.scrollView.alpha = 0;
+        } completion:^(BOOL finished) {
+            for (UIView *subview in self.scrollView.subviews) {
+                [subview removeFromSuperview];
+            }
+        }];
+}
+
 /** @brief Update UI elements to show new calculations */
 - (void)updateUI
 {
@@ -280,8 +297,14 @@
 /** @brief Set target view of cover when set */
 - (void)setProfileScrollView:(UIScrollView *)profileScrollView
 {
+    // Clean up observer and replace
+	[_profileScrollView removeObserver:self forKeyPath:@"contentOffset"];
     _profileScrollView = profileScrollView;
-    self.profileScrollViewCover.targetView = _profileScrollView; 
+   
+    // Add target for cover and add observer
+    self.profileScrollViewCover.targetView = _profileScrollView;
+	[_profileScrollView addObserver:self forKeyPath:@"contentOffset"
+		options:NSKeyValueObservingOptionNew context:nil];
 }
 
 /** @brief Set target view of cover when set */
@@ -312,6 +335,33 @@
     [self.view addSubview:self.errorLabel];
 }
 
+/** @brief Set up scroll view for results */
+- (void)setupScrollView:(CGRect)bounds
+{
+    BSTouchPassingView *containerView
+		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
+		0, 0, bounds.size.width, bounds.size.height / 5
+	)];
+	containerView.userInteractionEnabled = true;
+	
+	self.scrollView.frame = CGRectMake(
+		bounds.size.width / 4, 0,
+		bounds.size.width / 2, containerView.bounds.size.height
+	);
+	self.scrollView.contentSize = CGSizeMake(
+		bounds.size.width + 1, self.scrollView.bounds.size.height);
+	self.scrollView.showsHorizontalScrollIndicator = false;
+	self.scrollView.showsVerticalScrollIndicator = false;
+	self.scrollView.directionalLockEnabled = true;
+	self.scrollView.pagingEnabled = true;
+	self.scrollView.clipsToBounds = false;
+	self.scrollView.delegate = self;
+	
+	containerView.targetView = self.scrollView;
+	[containerView addSubview:self.scrollView];
+	[self.view addSubview:containerView];
+}
+
 
 #pragma mark - UI Events
 
@@ -321,5 +371,13 @@
 
 #pragma mark - Delegates
 
+/** @brief Tracking the updating of the scrollview */
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object
+	change:(NSDictionary *)change context:(void *)context
+{
+	if (object == self.profileScrollView) {
+		[self.scrollView setContentOffset:self.profileScrollView.contentOffset animated:true];
+	}
+}
 
 @end

@@ -14,7 +14,9 @@
 
 	extern NSString* const BSSummaryViewControllerProfileBill;
     
-@interface BSSummaryViewController : UIViewController
+@interface BSSummaryViewController : UIViewController <
+    UIScrollViewDelegate
+>
     
     /** Reference to final cost label from BSTotalMarkupViewController */
 	@property (nonatomic, strong) UILabel *finalLabel;

@@ -1049,7 +1049,7 @@
 	[[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"APP_VIEW_WARNING_TITLE", nil)
 		message:NSLocalizedString(@"APP_VIEW_WARNING_RESET", nil)
 		delegate:self
-		cancelButtonTitle:NSLocalizedString(@"POPUP_CANCEL", nil)
+		cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_CANCEL", nil)
 		otherButtonTitles:NSLocalizedString(@"APP_VIEW_WARNING_RESET_OK", nil), nil] show];
 }
 

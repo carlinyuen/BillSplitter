@@ -42,6 +42,8 @@
 
 	#define STEPPER_MIN_VALUE 1
 	#define STEPPER_DEFAULT_VALUE 1
+
+    #define PROFILE_MAX 12
     
 	#define DEFAULT_HEADCOUNT 2
 
@@ -323,7 +325,21 @@
 {
     // Check if we can still add another diner and fit headcount
     if ([self dinerCount] >= self.headCount) {
-        [[[UIAlertView alloc] initWithTitle:@"Oops!" message:@"You're over your headcount! Would you like to go to the first screen to add more people to your party?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil] show];
+        [[[UIAlertView alloc] initWithTitle:@"Oops!"
+            message:NSLocalizedString(@"DISTRIBUTION_ERROR_HEADCOUNT", nil)
+            delegate:self
+            cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_CANCEL", nil)
+            otherButtonTitles:NSLocalizedString(@"POPUP_BUTTON_OK", nil), nil] show];
+        return;
+    }
+
+    // Check if we hit max for profiles (pagecontrol will overflow)
+    if (self.profiles.count >= PROFILE_MAX) {
+        [[[UIAlertView alloc] initWithTitle:@"Oops!"
+            message:NSLocalizedString(@"DISTRIBUTION_ERROR_PROFILE_MAX", nil)
+            delegate:self
+            cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
+            otherButtonTitles:nil] show];
         return;
     }
 
