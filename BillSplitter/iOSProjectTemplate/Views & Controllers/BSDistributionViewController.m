@@ -738,7 +738,7 @@
 	containerView.userInteractionEnabled = true;
 	
 	self.profileScrollView.frame = CGRectMake(
-		bounds.size.width / 4, 0,
+		bounds.size.width / 4 + UI_SIZE_MARGIN / 2, 0,
 		bounds.size.width / 2, containerView.bounds.size.height
 	);
 	self.profileScrollView.contentSize = CGSizeMake(
