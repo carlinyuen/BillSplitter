@@ -109,6 +109,7 @@
 		_frame = frame;
         
         _viewWasShown = true;
+        _viewInFocus = false;
         _lastRemainingCount = _headCount = DEFAULT_HEADCOUNT;
 		
 		_addButton = [[UIButton alloc] initWithFrame:CGRectZero];
@@ -174,7 +175,7 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    
+
     // Update steppers if it wasn't updated for some reason before this was called
     if (self.viewWasShown) {
         [self updateSteppers];  
@@ -187,6 +188,34 @@
     
     // Show the arrow if no profiles set
     [self showInstructionIV:(!self.profiles.count)];
+
+    // Flag view in focus
+    self.viewInFocus = true;
+
+    // Fade in remove / stepper buttons
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				[self profileAtIndex:self.lastShownProfile shouldShowFocus:true];
+			} completion:nil];
+}
+
+/** @brief Actions to take when view has left screen */
+- (void)viewDidDisappear:(BOOL)animated
+{
+    // Flag view in focus
+    self.viewInFocus = false;
+
+    // Fade out remove / stepper buttons
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+			options:UIViewAnimationOptionBeginFromCurrentState
+				| UIViewAnimationOptionCurveEaseInOut
+			animations:^{
+				[self profileAtIndex:self.lastShownProfile shouldShowFocus:false];
+			} completion:nil];
+
+    [super viewDidDisappear:animated];
 }
 
 /** @brief Dispose of any resources that can be recreated. */
@@ -637,11 +666,17 @@
 /** @brief When bringing profile into focus / becomes the current page */
 - (void)profileAtIndex:(NSInteger)index shouldShowFocus:(bool)show
 {
-	NSDictionary *profile = [self.profiles objectAtIndex:index];
-	[[profile objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
-		setAlpha:show];
-	[[profile objectForKey:BSDistributionViewControllerProfileViewStepper]
-		setAlpha:show];
+    if (index >= 0 && index < self.profiles.count)
+    {
+        // If view is not in focus, don't ever show
+        show = self.viewInFocus && show;
+
+        NSDictionary *profile = [self.profiles objectAtIndex:index];
+        [[profile objectForKey:BSDistributionViewControllerProfileViewRemoveButton]
+            setAlpha:show];
+        [[profile objectForKey:BSDistributionViewControllerProfileViewStepper]
+            setAlpha:show];
+    }
 }
 
 /** @brief Show instructional arrow */

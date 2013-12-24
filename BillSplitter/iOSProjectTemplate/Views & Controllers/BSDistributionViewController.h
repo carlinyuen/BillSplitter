@@ -62,6 +62,9 @@
     
     /** Warning label */
     @property (nonatomic, strong) UILabel *warningLabel;
+
+    /** Flag for whether viewcontroller is in focus or not */
+   	@property (nonatomic, assign) bool viewInFocus;
     
     /** Page control of profiles */
     @property (nonatomic, strong) CustomPageControl *profilePageControl;   
