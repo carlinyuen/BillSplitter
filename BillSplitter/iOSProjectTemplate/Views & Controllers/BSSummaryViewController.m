@@ -407,7 +407,7 @@
     // Add "fade-out" covers on sides
     UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(
         0, bounds.size.height / 4,
-        bounds.size.width / 4, bounds.size.height / 4 * 3
+        bounds.size.width / 3, bounds.size.height / 4 * 3
     )];
 	CAGradientLayer *gradientBG = [CAGradientLayer layer];
 	gradientBG.colors = [NSArray arrayWithObjects:
@@ -423,8 +423,8 @@
     [self.view addSubview:coverView];
 
     coverView = [[UIView alloc] initWithFrame:CGRectMake(
-        bounds.size.width / 4 * 3, bounds.size.height / 4,
-        bounds.size.width / 4, bounds.size.height / 4 * 3
+        bounds.size.width / 3 * 2, bounds.size.height / 4,
+        bounds.size.width / 3, bounds.size.height / 4 * 3
     )];
 	gradientBG = [CAGradientLayer layer];
 	gradientBG.colors = [NSArray arrayWithObjects:
