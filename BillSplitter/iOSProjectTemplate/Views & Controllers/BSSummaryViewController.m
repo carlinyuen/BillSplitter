@@ -312,9 +312,9 @@
             frame.origin.x = i * frame.size.width;
             button = [[UIButton alloc] initWithFrame:frame];
             button.titleLabel.backgroundColor = [UIColor clearColor];
-            button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
+            button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
-            button.titleLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
+            button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button setTitle:[self.numFormatter stringFromNumber:bill] forState:UIControlStateNormal];
             button.alpha = ALPHA_UNFOCUSED;
@@ -354,7 +354,7 @@
 {
     // Only update if last bill is not the current page
     NSInteger currentBill = self.profilePageControl.currentPage;
-    if (currentBill != self.lastFocusedBill)
+    if (currentBill != self.lastFocusedBill && self.profileBillViews.count)
     {
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
             options:UIViewAnimationOptionBeginFromCurrentState
