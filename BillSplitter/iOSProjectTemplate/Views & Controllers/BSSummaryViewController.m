@@ -98,14 +98,7 @@
 /** @brief Actions to take when view is leaving */
 - (void)viewWillDisappear:(BOOL)animated
 {
-    // Fade out error message if showing
-    if (self.errorLabel.alpha == 1) {
-        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-            animations:^{
-                self.errorLabel.alpha = 0;
-            } completion:nil];
-    }
+    [self clearErrorLabel];
 
     [super viewWillDisappear:animated];
 }
@@ -258,6 +251,21 @@
         }];
 }
 
+/** @brief Clear error label */
+- (void)clearErrorLabel
+{
+    // Fade out error message if showing
+    if (self.errorLabel.alpha == 1) {
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                self.errorLabel.alpha = 0;
+            } completion:^(BOOL finished) {
+                self.errorLabel.text = @"";
+            }];
+    }
+}
+
 /** @brief Clear scroll view's elements */
 - (void)clearScrollView:(void(^)())completion
 {
@@ -281,6 +289,7 @@
 - (void)updateScrollView
 {
     // Clear old views
+    [self clearErrorLabel];
     [self clearScrollView:^
     {
         // Build elements
@@ -289,13 +298,17 @@
             NSMutableDictionary *profile = self.profiles[i];
             NSNumber *bill = profile[BSSummaryViewControllerProfileBill];
 
-            UIButton *button = [[UIButton alloc] initWithFrame:self.scrollView.bounds];
-            button.titleLabel.textColor = [UIColor whiteColor];
+            CGRect frame = self.scrollView.bounds;
+            frame.origin.x = i * frame.size.width;
+            UIButton *button = [[UIButton alloc] initWithFrame:frame];
             button.titleLabel.backgroundColor = [UIColor clearColor];
             button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
             button.titleLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
-            button.titleLabel.text = [self.numFormatter stringFromNumber:bill];
+            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            [button setTitle:[self.numFormatter stringFromNumber:bill] forState:UIControlStateNormal];
+
+            NSLog(@"Button Text: %@", button.titleLabel.text);
 
             [self.scrollView addSubview:button];
         }
@@ -405,7 +418,7 @@
 	change:(NSDictionary *)change context:(void *)context
 {
 	if (object == self.profileScrollView) {
-		[self.scrollView setContentOffset:self.profileScrollView.contentOffset animated:true];
+		self.scrollView.contentOffset = self.profileScrollView.contentOffset;
 	}
 }
 
