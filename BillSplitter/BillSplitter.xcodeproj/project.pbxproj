@@ -315,10 +315,10 @@
 				5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */,
 				5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */,
 				5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */,
-				5F7C897E1790B17700018AD7 /* InfoViewController.h */,
-				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
 				2239EA6B18691B69002C0552 /* BSTouchPassingView.h */,
 				2239EA6C18691B69002C0552 /* BSTouchPassingView.m */,
+				5F7C897E1790B17700018AD7 /* InfoViewController.h */,
+				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";

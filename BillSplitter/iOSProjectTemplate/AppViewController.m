@@ -909,7 +909,6 @@
 		alpha:1
 		forView:distribution.profileScrollView
 	]; 
-    
      
     [self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointZero
@@ -986,7 +985,7 @@
         switch (self.pageControl.currentPage)
         {
             case AppViewControllerPageDistribution:
-                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_DARK_ACCENT);
+                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
                 self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
                 self.scrollView.delaysContentTouches = false;
                 break;

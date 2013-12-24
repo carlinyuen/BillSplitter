@@ -28,6 +28,7 @@
 
     /** Pass events to target view */
     @property (nonatomic, strong) BSTouchPassingView *profileScrollViewCover;
+    @property (nonatomic, strong) BSTouchPassingView *profilePageControlCover; 
     
 @end
 
@@ -49,6 +50,7 @@
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _profileScrollViewCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
+        _profilePageControlCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero]; 
     }
     return self;
 }
@@ -64,7 +66,7 @@
     self.view.frame = self.frame;
    	CGRect bounds = self.view.bounds; 
     
-    [self setupProfileScrollView:bounds];
+    [self setupProfileCover:bounds];
 }
 
 
@@ -78,6 +80,9 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    
+    // Refresh cover positions
+    [self refreshCoverPositions];
        
     // Calculate costs
     [self updateCalculations]; 
@@ -189,22 +194,39 @@
 {
 }
 
+/** @brief Refresh the cover positions so they match their target views */
+- (void)refreshCoverPositions
+{
+    self.profilePageControlCover.frame = [self.view convertRect:self.profilePageControl.frame fromView:self.profilePageControl.superview];
+    
+    CGRect frame = [self.view convertRect:self.profileScrollView.frame fromView:self.profileScrollView.superview];
+    frame.origin.x = 0;
+    frame.size.width = CGRectGetWidth(self.view.bounds);
+    self.profileScrollViewCover.frame = frame;
+}
+
 
 #pragma mark - UI Setup
 
-- (void)setProfileScrollView:(UIView *)profileScrollView
+/** @brief Set target view of cover when set */
+- (void)setProfileScrollView:(UIScrollView *)profileScrollView
 {
     _profileScrollView = profileScrollView;
-    
     self.profileScrollViewCover.targetView = _profileScrollView; 
 }
 
-/** @brief Set up view to pass events to scroll view */
-- (void)setupProfileScrollView:(CGRect)bounds
+/** @brief Set target view of cover when set */
+- (void)setProfilePageControl:(CustomPageControl *)profilePageControl
 {
-    self.profileScrollViewCover.frame = CGRectMake(0, bounds.size.height / 5, bounds.size.width, bounds.size.height / 5 * 4);
-    self.profileScrollViewCover.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
+    _profilePageControl = profilePageControl;
+    self.profilePageControlCover.targetView = _profilePageControl; 
+}
+
+/** @brief Set up view to pass events to scroll view */
+- (void)setupProfileCover:(CGRect)bounds
+{
     [self.view addSubview:self.profileScrollViewCover];
+    [self.view addSubview:self.profilePageControlCover]; 
 }
 
 
