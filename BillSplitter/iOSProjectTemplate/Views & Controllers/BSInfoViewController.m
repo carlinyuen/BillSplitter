@@ -23,7 +23,13 @@
 	#define TABLEVIEW_DATA_KEY_LABEL @"label"
 	#define TABLEVIEW_DATA_KEY_ROWS @"rows"
     #define TABLEVIEW_DATA_KEY_SWITCH @"switch"
+    #define TABLEVIEW_DATA_KEY_URL @"url"
     #define TABLEVIEW_DATA_KEY_VIEWCONTROLLER @"vc"
+
+    #define URL_FORMAT_APP_STORE @"itms-apps://itunes.apple.com/app/id%@?at=10l6dK"
+    #define URL_FORMAT_APP_STORE_IOS7 @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@&at=10l6dK"
+    #define ID_APP_STORE 12345
+
 
 @interface BSInfoViewController ()
 
@@ -72,6 +78,12 @@
 			TABLEVIEW_DATA_KEY_ROWS: @[
                 @{
                     TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
+                    TABLEVIEW_DATA_KEY_URL: [NSURL
+                        URLWithString:[NSString
+                        stringWithFormat:(getDeviceOSVersionNumber() >= 7
+                            ? URL_FORMAT_APP_STORE_IOS7
+                            : URL_FORMAT_APP_STORE),
+                                @(ID_APP_STORE)]]
                 },
 			],
 		},
@@ -327,6 +339,14 @@
     UIViewController *vc = cellData[TABLEVIEW_DATA_KEY_VIEWCONTROLLER];
     if (vc) {
         [self.navigationController pushViewController:vc animated:true];
+        return;
+    }
+
+    // If row has url, open it
+    NSURL *url = cellData[TABLEVIEW_DATA_KEY_URL];
+    if (url) {
+        [[UIApplication sharedApplication] openURL:url];
+        return;
     }
 }
 
