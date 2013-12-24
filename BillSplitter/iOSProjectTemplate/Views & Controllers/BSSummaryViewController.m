@@ -213,15 +213,16 @@
     NSLog(@"showError: %@", message);
 
     // Setup frame and resize for message
+    CGRect viewFrame = self.view.frame;
     self.errorLabel.frame = CGRectMake(
         UI_SIZE_LABEL_MARGIN, UI_SIZE_MARGIN,
-        self.view.frame.size.width - UI_SIZE_LABEL_MARGIN * 2,
-        self.view.frame.size.height / 5
+        viewFrame.size.width - UI_SIZE_LABEL_MARGIN * 2, viewFrame.size.height
     );
     self.errorLabel.text = message;
     [self.errorLabel sizeToFit];
     CGRect frame = self.errorLabel.frame;
     frame.origin.x = (self.view.frame.size.width - CGRectGetWidth(frame)) / 2;
+    frame.size.height = viewFrame.size.height / 5 - UI_SIZE_MARGIN;
     self.errorLabel.frame = frame;
 
     // Fade out scrollview with results
