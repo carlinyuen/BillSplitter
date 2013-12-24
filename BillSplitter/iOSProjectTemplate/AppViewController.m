@@ -933,8 +933,15 @@
 		alpha:1
 		forView:distribution.addButton
 	];    
-    [self.animator setKeyFrameWithOffset: yOffset + (yOffset - yTempOffset) / 2
-		translate:CGPointMake(0, (yOffset - yTempOffset) / 2)
+    [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, yOffset - yTempOffset - UI_SIZE_MIN_TOUCH)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.addButton
+	]; 
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, yOffset - yTempOffset)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
