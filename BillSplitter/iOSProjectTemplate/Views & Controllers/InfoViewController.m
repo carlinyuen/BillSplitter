@@ -23,6 +23,7 @@
 	#define TABLEVIEW_DATA_KEY_LABEL @"label"
 	#define TABLEVIEW_DATA_KEY_ROWS @"rows"
     #define TABLEVIEW_DATA_KEY_SWITCH @"switch"
+    #define TABLEVIEW_DATA_KEY_VIEWCONTROLLER @"vc"
 
 @interface InfoViewController ()
 
@@ -302,7 +303,7 @@
 	cell.textLabel.text = cellData[TABLEVIEW_DATA_KEY_LABEL];
         
     // Custom toggle for certain cells
-    if ([cellData[TABLEVIEW_DATA_KEY_SWITCH] boolValue]) {
+    if (cellData[TABLEVIEW_DATA_KEY_SWITCH]) {
         cell.accessoryView = [UISwitch new];
     }
 	
@@ -316,6 +317,17 @@
 {
     // Fade selection out
     [tableView deselectRowAtIndexPath:indexPath animated:true];
+
+    // Cell data
+    NSDictionary *cellData = [[self.tableViewData[indexPath.section]
+		objectForKey:TABLEVIEW_DATA_KEY_ROWS]
+            objectAtIndex:indexPath.row];
+
+    // If row has viewcontroller, push to it
+    UIViewController *vc = cellData[TABLEVIEW_DATA_KEY_VIEWCONTROLLER];
+    if (vc) {
+        [self.navigationController pushViewController:vc animated:true];
+    }
 }
 
 
