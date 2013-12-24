@@ -405,7 +405,42 @@
 - (void)setupProfileCover:(CGRect)bounds
 {
     [self.view addSubview:self.profileScrollViewCover];
-    [self.view addSubview:self.profilePageControlCover]; 
+    [self.view addSubview:self.profilePageControlCover];
+
+    // Add "fade-out" covers on sides
+    UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(
+        0, bounds.size.height / 4,
+        bounds.size.width / 4, bounds.size.height / 4 * 3
+    )];
+	CAGradientLayer *gradientBG = [CAGradientLayer layer];
+	gradientBG.colors = [NSArray arrayWithObjects:
+		(id)UIColorFromHex(0xFFFFFF00).CGColor,
+		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
+		(id)UIColorFromHex(0xFFFFFFDD).CGColor,
+		nil     // Gradient background
+	];
+	gradientBG.transform = CATransform3DMakeRotation(
+		degreesToRadians(90), 0, 0, 1);
+	gradientBG.frame = coverView.bounds;
+	[coverView.layer insertSublayer:gradientBG atIndex:0];
+    [self.view addSubview:coverView];
+
+    coverView = [[UIView alloc] initWithFrame:CGRectMake(
+        bounds.size.width / 4 * 3, bounds.size.height / 4,
+        bounds.size.width / 4, bounds.size.height / 4 * 3
+    )];
+	gradientBG = [CAGradientLayer layer];
+	gradientBG.colors = [NSArray arrayWithObjects:
+		(id)UIColorFromHex(0xFFFFFF00).CGColor,
+		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
+		(id)UIColorFromHex(0xFFFFFFDD).CGColor,
+		nil     // Gradient background
+	];
+	gradientBG.transform = CATransform3DMakeRotation(
+		degreesToRadians(-90), 0, 0, 1);
+	gradientBG.frame = coverView.bounds;
+	[coverView.layer insertSublayer:gradientBG atIndex:0];
+    [self.view addSubview:coverView];
 }
 
 /** @brief Set up error label for messages to display to user */
