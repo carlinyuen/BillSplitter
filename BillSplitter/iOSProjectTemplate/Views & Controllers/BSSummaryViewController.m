@@ -298,12 +298,14 @@
 - (void)setupErrorLabel:(CGRect)bounds
 {
     self.errorLabel.backgroundColor = [UIColor clearColor];
-    self.errorLabel.textColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    self.errorLabel.textColor = [UIColor whiteColor];
     self.errorLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.errorLabel.numberOfLines = 0;
     self.errorLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.errorLabel.textAlignment = UITextAlignmentCenter;
+    self.errorLabel.alpha = 0;
 
+    [self.view addSubview:self.errorLabel];
 }
 
 
