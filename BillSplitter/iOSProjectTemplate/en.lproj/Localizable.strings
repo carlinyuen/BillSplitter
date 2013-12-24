@@ -32,7 +32,7 @@
 "SETUP_DESCRIPTION_TEXT" = "A little algebra for uneven splits!";
 
 "DISTRIBUTION_ERROR_HEADCOUNT" = "You're over your headcount! Would you like to go to the first screen to add more people to your party?";
-"DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of profiles! Try to simplify and reorganize them.";
+"DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
 "DISTRIBUTION_WARNING_SINGLE" = "person left in your party";
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left in your party";
 "DISTRIBUTION_COMPLETE" = "You're good to go!";
