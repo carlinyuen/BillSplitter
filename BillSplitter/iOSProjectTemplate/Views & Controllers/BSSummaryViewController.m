@@ -404,9 +404,6 @@
 /** @brief Set up view to pass events to scroll view */
 - (void)setupProfileCover:(CGRect)bounds
 {
-    [self.view addSubview:self.profileScrollViewCover];
-    [self.view addSubview:self.profilePageControlCover];
-
     // Add "fade-out" covers on sides
     UIView *coverView = [[UIView alloc] initWithFrame:CGRectMake(
         0, bounds.size.height / 4,
@@ -441,6 +438,10 @@
 	gradientBG.frame = coverView.bounds;
 	[coverView.layer insertSublayer:gradientBG atIndex:0];
     [self.view addSubview:coverView];
+
+    // Add the covers for scrollview & pagecontrol on top
+    [self.view addSubview:self.profileScrollViewCover];
+    [self.view addSubview:self.profilePageControlCover];
 }
 
 /** @brief Set up error label for messages to display to user */
