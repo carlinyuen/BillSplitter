@@ -166,6 +166,15 @@
     [self updatePages];
 }
 
+/** @brief Actions to take when view appears */
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+
+    // Custom update call for summary view in case anything changed
+    [self.viewControllers[AppViewControllerPageSummary] updateCalculations];
+}
+
 /** @brief Dispose of any resources that can be recreated. */
 - (void)didReceiveMemoryWarning
 {
