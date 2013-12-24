@@ -15,6 +15,7 @@
 		2239EA72186987CA002C0552 /* BSFeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */; };
 		2239EA7718698AF9002C0552 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA7418698AF9002C0552 /* iRate.bundle */; };
 		2239EA7818698AF9002C0552 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7618698AF9002C0552 /* iRate.m */; };
+		2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7A18698BA1002C0552 /* BSInfoViewController.m */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -38,7 +39,6 @@
 		5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C895D1790A65000018AD7 /* Localizable.strings */; };
 		5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C897A1790AF3200018AD7 /* AppViewController.m */; };
 		5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C897B1790AF3300018AD7 /* AppViewController.xib */; };
-		5F7C89801790B17800018AD7 /* InfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C897F1790B17800018AD7 /* InfoViewController.m */; };
 		5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C8981179439A600018AD7 /* Default-568h@2x.png */; };
 		5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B817DFB1D900365348 /* dish1.png */; };
 		5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B917DFB1D900365348 /* dish2.png */; };
@@ -74,6 +74,8 @@
 		2239EA7418698AF9002C0552 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
 		2239EA7518698AF9002C0552 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
 		2239EA7618698AF9002C0552 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
+		2239EA7918698BA1002C0552 /* BSInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSInfoViewController.h; sourceTree = "<group>"; };
+		2239EA7A18698BA1002C0552 /* BSInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSInfoViewController.m; sourceTree = "<group>"; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -113,8 +115,6 @@
 		5F7C89791790AF3200018AD7 /* AppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppViewController.h; sourceTree = "<group>"; };
 		5F7C897A1790AF3200018AD7 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
 		5F7C897B1790AF3300018AD7 /* AppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppViewController.xib; sourceTree = "<group>"; };
-		5F7C897E1790B17700018AD7 /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
-		5F7C897F1790B17800018AD7 /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
 		5F7C8981179439A600018AD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
 		5FBAC0B817DFB1D900365348 /* dish1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish1.png; sourceTree = "<group>"; };
 		5FBAC0B917DFB1D900365348 /* dish2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish2.png; sourceTree = "<group>"; };
@@ -329,8 +329,13 @@
 				5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */,
 				5F459EF617C5481300DCBDD9 /* BSDistributionViewController.h */,
 				5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */,
+				2239EA6E186987CA002C0552 /* BSFeedbackViewController.h */,
+				2239EA6F186987CA002C0552 /* BSFeedbackViewController.m */,
+				2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */,
 				5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */,
 				5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */,
+				2239EA7918698BA1002C0552 /* BSInfoViewController.h */,
+				2239EA7A18698BA1002C0552 /* BSInfoViewController.m */,
 				2239EA601866C07E002C0552 /* BSScrollView.h */,
 				2239EA611866C07E002C0552 /* BSScrollView.m */,
 				5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */,
@@ -339,11 +344,6 @@
 				5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */,
 				2239EA6B18691B69002C0552 /* BSTouchPassingView.h */,
 				2239EA6C18691B69002C0552 /* BSTouchPassingView.m */,
-				5F7C897E1790B17700018AD7 /* InfoViewController.h */,
-				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
-				2239EA6E186987CA002C0552 /* BSFeedbackViewController.h */,
-				2239EA6F186987CA002C0552 /* BSFeedbackViewController.m */,
-				2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";
@@ -478,9 +478,9 @@
 				5F7C893F1790A36700018AD7 /* AppDelegate.m in Sources */,
 				5F7C89571790A42400018AD7 /* Constants.m in Sources */,
 				5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */,
-				5F7C89801790B17800018AD7 /* InfoViewController.m in Sources */,
 				5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */,
 				2239EA6D18691B69002C0552 /* BSTouchPassingView.m in Sources */,
+				2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */,
 				2239EA7818698AF9002C0552 /* iRate.m in Sources */,
 				5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */,
 				5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */,

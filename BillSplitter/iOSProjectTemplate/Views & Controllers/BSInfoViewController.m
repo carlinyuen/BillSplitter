@@ -1,5 +1,5 @@
 /**
-	@file	InfoViewController.m
+	@file	BSInfoViewController.m
 	@author	Carlin
 	@date	7/12/13
 	@brief	iOSProjectTemplate
@@ -7,7 +7,7 @@
 //  Copyright (c) 2013 Carlin. All rights reserved.
 
 
-#import "InfoViewController.h"
+#import "BSInfoViewController.h"
 
 	#define UI_SIZE_TABLE_FOOTER_HEIGHT 64
     #define UI_SIZE_CORNER_RADIUS 12  
@@ -25,7 +25,7 @@
     #define TABLEVIEW_DATA_KEY_SWITCH @"switch"
     #define TABLEVIEW_DATA_KEY_VIEWCONTROLLER @"vc"
 
-@interface InfoViewController ()
+@interface BSInfoViewController ()
 
 	/** UI Elements */
 	@property (nonatomic, strong) UIView *tableHeaderView;
@@ -40,7 +40,7 @@
 
 #pragma mark - Implementation
 
-@implementation InfoViewController
+@implementation BSInfoViewController
 
 
 #pragma mark - View Lifecycle

@@ -17,7 +17,7 @@
 #import "UIViewDebugger.h"
 
 #import "BSScrollView.h"
-#import "InfoViewController.h"
+#import "BSInfoViewController.h"
 #import "BSHeadcountViewController.h"
 #import "BSDishSetupViewController.h"
 #import "BSDistributionViewController.h"
@@ -62,7 +62,7 @@
 
 @interface AppViewController () <
 	CustomPageControlDelegate,
-	InfoViewControllerDelegate,
+	BSInfoViewControllerDelegate,
     BSHeadcountViewControllerDelegate,
     BSDistributionViewControllerDelegate,
 	BSKeyboardControlsDelegate,
@@ -1050,7 +1050,7 @@
 /** @brief Info button pressed */
 - (void)showInfo:(id)sender
 {
-	InfoViewController *controller = [InfoViewController new];
+	BSInfoViewController *controller = [BSInfoViewController new];
     controller.delegate = self;
     controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
     [self presentViewController:[[InfoViewNavigationController alloc] initWithRootViewController:controller]
@@ -1317,7 +1317,7 @@
 
 #pragma mark - InfoViewControllerDelegate
 
-- (void)infoViewController:(InfoViewController *)vc willCloseAnimated:(bool)animated
+- (void)infoViewController:(BSInfoViewController *)vc willCloseAnimated:(bool)animated
 {
 	[self dismissViewControllerAnimated:animated completion:nil];
 }
