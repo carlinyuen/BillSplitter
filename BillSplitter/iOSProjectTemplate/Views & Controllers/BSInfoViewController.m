@@ -9,6 +9,8 @@
 
 #import "BSInfoViewController.h"
 
+#import <MessageUI/MFMailComposeViewController.h>
+
 	#define UI_SIZE_TABLE_FOOTER_HEIGHT 64
     #define UI_SIZE_CORNER_RADIUS 12  
 
@@ -29,12 +31,16 @@
     #define URL_FORMAT_APP_STORE @"itms-apps://itunes.apple.com/app/id%@?at=10l6dK"
     #define URL_FORMAT_APP_STORE_IOS7 @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@&at=10l6dK"
     #define ID_APP_STORE 12345
+    #define FEEDBACK_EMAIL @"email.me@carlinyuen.com"
+    #define FEEDBACK_URL @"http://www.carlinyuen.com"
 
     typedef enum {
         BSInfoViewControllerItemRounding = 1000,
     } BSInfoViewControllerItem;
 
-@interface BSInfoViewController ()
+@interface BSInfoViewController () <
+    MFMailComposeViewControllerDelegate
+>
 
 	/** UI Elements */
 	@property (nonatomic, strong) UIView *tableHeaderView;
@@ -243,6 +249,31 @@
 /** @brief When branding is pressed */
 - (void)brandingPressed:(UIButton*)sender
 {
+    // Send email to me
+    if ([MFMailComposeViewController canSendMail])
+    {
+        MFMailComposeViewController* controller = [MFMailComposeViewController new];
+        controller.mailComposeDelegate = self;
+        [controller setSubject:NSLocalizedString(@"INFO_VIEW_MAIL_SUBJECT", nil)];
+        [controller setToRecipients:@[FEEDBACK_EMAIL]];
+
+        if (controller) { 
+            [self presentViewController:controller animated:YES completion:nil];
+        }
+    }
+    else  // Can't send mail! What should we do?
+    {
+        NSURL *url = [NSURL URLWithString:FEEDBACK_URL];
+        if ([[UIApplication sharedApplication] canOpenURL:url]) {
+            [[UIApplication sharedApplication] openURL:url];
+        }
+        else {    // Can't open website! What should we do?
+            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP", nil)
+                message:@"" delegate:nil
+                cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
+                otherButtonTitles:nil] show];
+        }
+    }
 }
 
 /** @brief When switch is toggled */
@@ -379,6 +410,24 @@
         [[UIApplication sharedApplication] openURL:url];
         return;
     }
+}
+
+
+#pragma mark - MFMailComposeViewControllerDelegate
+
+- (void)mailComposeController:(MFMailComposeViewController*)controller  
+          didFinishWithResult:(MFMailComposeResult)result 
+                        error:(NSError*)error;
+{
+  [self dismissViewControllerAnimated:true completion:^{
+      if (result == MFMailComposeResultSent) {
+          [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"INFO_VIEW_MAIL_POPUP_TITLE", nil)
+            message:NSLocalizedString(@"INFO_VIEW_MAIL_POPUP_MESSAGE", nil)
+            delegate:nil
+            cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
+            otherButtonTitles:nil] show];
+      }  
+  }];
 }
 
 

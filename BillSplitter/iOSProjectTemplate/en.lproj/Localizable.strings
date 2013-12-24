@@ -20,6 +20,10 @@
 "INFO_VIEW_ABOUT_HEADER" = "About";
 "INFO_VIEW_ABOUT_FEEDBACK" = "App Feedback";
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
+"INFO_VIEW_FEEDBACK_POPUP" = "Questions? Feedback? Feel free to send them along to email.me@carlinyuen.com!";
+"INFO_VIEW_MAIL_SUBJECT" = "About Bill Spitter";
+"INFO_VIEW_MAIL_POPUP_TITLE" = "Thanks for the note!";
+"INFO_VIEW_MAIL_POPUP_MESSAGE" = "Let me know if you have any issues or feedback. :o)";
 
 "HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
 "HEADCOUNT_DESCRIPTION_TEXT" = "Just tell me what I owe!";
