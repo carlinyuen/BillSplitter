@@ -11,6 +11,9 @@
 
 #import "BSTouchPassingView.h"
 
+	#define UI_SIZE_LABEL_MARGIN 24
+	#define UI_SIZE_MARGIN 16
+
 	NSString* const BSSummaryViewControllerProfileBill = @"bill";
     
 #pragma mark - BSSummaryViewController
@@ -50,7 +53,9 @@
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _profileScrollViewCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
-        _profilePageControlCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero]; 
+        _profilePageControlCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
+
+        _errorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -67,6 +72,7 @@
    	CGRect bounds = self.view.bounds; 
     
     [self setupProfileCover:bounds];
+    [self setupErrorLabel:bounds];
 }
 
 
@@ -122,6 +128,12 @@
     CGFloat largeDishValue = self.largeDishStepper.value; 
     NSLog(@"Dish Values: %f, %f, %f, %f", 
         drinkValue, smallDishValue, mediumDishValue, largeDishValue);
+
+    // Insanity Check
+    if (drinkValue + smallDishValue + mediumDishValue + largeDishValue <= 0) {
+        [self showError:NSLocalizedString(@"SUMMARY_ERROR_ZERO_VALUE", nil)];
+        return;
+    }
     
     // Count up all the different dishes people had
     NSInteger drinkCount = 0;
@@ -154,6 +166,12 @@
     NSLog(@"Counts: %i, %i, %i, %i", 
         drinkCount, smallDishCount, mediumDishCount, largeDishCount);
     
+    // Insanity Check
+    if (drinkCount + smallDishCount + mediumDishCount + largeDishCount <= 0) {
+        [self showError:NSLocalizedString(@"SUMMARY_ERROR_ZERO_COUNT", nil)];
+        return;
+    }
+
     // Do some math... calculate for mysterious A 
     //  A stands for the lowest unit of cost of a shared part
     CGFloat A = [total floatValue] / (
@@ -189,9 +207,56 @@
     [self updateUI];
 }
 
+/** @brief Show error */
+- (void)showError:(NSString *)message
+{
+    // Setup frame and resize for message
+    self.errorLabel.frame = CGRectMake(
+        UI_SIZE_LABEL_MARGIN, UI_SIZE_MARGIN,
+        self.view.frame.size.width - UI_SIZE_LABEL_MARGIN * 2,
+        self.view.frame.size.height / 5
+    );
+    self.errorLabel.text = message;
+    [self.errorLabel sizeToFit];
+    CGRect frame = self.errorLabel.frame;
+    frame.origin.x = (self.view.frame.size.width - CGRectGetWidth(frame)) / 2;
+    self.errorLabel.frame = frame;
+
+    // Fade out scrollview with results
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            self.scrollView.alpha = 0;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                // Show error message in place
+                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                    animations:^{
+                        self.errorLabel.alpha = 1;
+                    } completion:nil];
+            }
+        }];
+}
+
 /** @brief Update UI elements to show new calculations */
 - (void)updateUI
 {
+    // Fade out error message if showing
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            self.errorLabel.alpha = 0;
+        } completion:^(BOOL finished) {
+            if (finished) {
+                // Show error message in place
+                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                    animations:^{
+                        self.scrollView.alpha = 1;
+                    } completion:nil];
+            }
+        }];
 }
 
 /** @brief Refresh the cover positions so they match their target views */
@@ -227,6 +292,18 @@
 {
     [self.view addSubview:self.profileScrollViewCover];
     [self.view addSubview:self.profilePageControlCover]; 
+}
+
+/** @brief Set up error label for messages to display to user */
+- (void)setupErrorLabel:(CGRect)bounds
+{
+    self.errorLabel.backgroundColor = [UIColor clearColor];
+    self.errorLabel.textColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    self.errorLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    self.errorLabel.numberOfLines = 0;
+    self.errorLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.errorLabel.textAlignment = UITextAlignmentCenter;
+
 }
 
 

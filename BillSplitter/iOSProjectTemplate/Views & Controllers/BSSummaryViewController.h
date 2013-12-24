@@ -33,7 +33,10 @@
     @property (nonatomic, strong) CustomPageControl *profilePageControl; 
     
     /** Scroll view for results */
-    @property (nonatomic, strong) UIScrollView *scrollView; 
+    @property (nonatomic, strong) UIScrollView *scrollView;
+
+    /** Label for error messages */
+    @property (nonatomic, strong) UILabel *errorLabel;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
