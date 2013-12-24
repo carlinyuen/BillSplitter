@@ -219,7 +219,11 @@
             billHasChanged = true;
         }
     }
-    
+
+    // Adjust formatter's rounding based on user settings
+    self.numFormatter.maximumFractionDigits = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS])
+        ? 0 : 2;
+
     // Update scrollview with new results if bill has changed
     if (billHasChanged) {
         [self updateScrollView];

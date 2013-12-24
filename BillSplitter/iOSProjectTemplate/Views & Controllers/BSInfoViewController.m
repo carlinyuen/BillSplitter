@@ -30,6 +30,9 @@
     #define URL_FORMAT_APP_STORE_IOS7 @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@&at=10l6dK"
     #define ID_APP_STORE 12345
 
+    typedef enum {
+        BSInfoViewControllerItemRounding = 1000,
+    } BSInfoViewControllerItem;
 
 @interface BSInfoViewController ()
 
@@ -69,7 +72,7 @@
                         ? @"INFO_VIEW_SETTINGS_ROUND_IOS7"
                         : @"INFO_VIEW_SETTINGS_ROUND"
                     , nil),
-                    TABLEVIEW_DATA_KEY_SWITCH: @(true),
+                    TABLEVIEW_DATA_KEY_SWITCH: @(BSInfoViewControllerItemRounding),
                 },
 			],
 		},
@@ -242,6 +245,20 @@
 {
 }
 
+/** @brief When switch is toggled */
+- (void)switchToggled:(UISwitch *)sender
+{
+    switch (sender.tag)
+    {
+        case BSInfoViewControllerItemRounding: {
+            [[NSUserDefaults standardUserDefaults] setBool:sender.selected forKey:CACHE_KEY_USER_SETTINGS];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        } break;
+
+        default: break;
+    }
+}
+
 /** @brief When back button on navigation bar is pressed */
 - (void)doneButtonPressed:(UIBarButtonItem *)sender
 {
@@ -315,8 +332,13 @@
 	cell.textLabel.text = cellData[TABLEVIEW_DATA_KEY_LABEL];
         
     // Custom toggle for certain cells
-    if (cellData[TABLEVIEW_DATA_KEY_SWITCH]) {
-        cell.accessoryView = [UISwitch new];
+    NSNumber *switchTag = cellData[TABLEVIEW_DATA_KEY_SWITCH];
+    if (switchTag)
+    {
+        UISwitch *toggle = [UISwitch new];
+        toggle.tag = [switchTag integerValue];
+        [toggle addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];
+        cell.accessoryView = toggle;
     }
 	
 	return cell;
