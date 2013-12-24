@@ -172,7 +172,7 @@
     [super viewDidAppear:animated];
 
     // Custom update call for summary view in case anything changed
-    [self.viewControllers[AppViewControllerPageSummary] updateCalculations];
+    [self.viewControllers[AppViewControllerPageSummary] updateScrollView];
 }
 
 /** @brief Dispose of any resources that can be recreated. */

@@ -221,11 +221,6 @@
         }
     }
 
-    // Adjust formatter's rounding based on user settings
-    self.numFormatter.minimumFractionDigits
-        = self.numFormatter.maximumFractionDigits
-        = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) ? 0 : 2;
-
     // Update scrollview with new results if bill has changed
     if (billHasChanged) {
         [self updateScrollView];
@@ -308,6 +303,11 @@
     [self clearErrorLabel];
     [self clearScrollView:^
     {
+        // Adjust formatter's rounding based on user settings
+        self.numFormatter.minimumFractionDigits
+            = self.numFormatter.maximumFractionDigits
+            = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) ? 0 : 2;
+
         // Build elements
         CGRect frame = self.scrollView.bounds;
         UIButton *button;

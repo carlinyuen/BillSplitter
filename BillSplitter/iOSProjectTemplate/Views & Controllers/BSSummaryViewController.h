@@ -44,4 +44,7 @@
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
 
+    /** @brief Create UI elements to show new calculations */
+    - (void)updateScrollView;
+
 @end
