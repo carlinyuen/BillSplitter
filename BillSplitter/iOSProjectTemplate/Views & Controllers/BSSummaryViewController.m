@@ -466,7 +466,22 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    [self updateFocusedBill];
+    // Change page control accordingly:
+	//	Update the page when more than 50% of the previous/next page is visible
+    CGFloat pageSize = scrollView.bounds.size.width;
+    int page = floor((scrollView.contentOffset.x - pageSize / 2) / pageSize) + 1;
+
+	// Bound page limits
+	if (page >= self.profiles.count) {
+		page = self.profiles.count - 1;
+	} else if (page < 0) {
+		page = 0;
+	}
+	
+    self.profilePageControl.currentPage = page;
+
+    // Also update the profile scrollView
+    self.profileScrollView.contentOffset = self.scrollView.contentOffset;
 }
 
 
