@@ -137,15 +137,12 @@
         NSLog(@"Error parsing number from final total field!");
         return;
     }
-    NSLog(@"Total Cost: %@", total);
-    
+
     // Get dish setup to calculate proportions
     CGFloat drinkValue = self.drinkStepper.value;
     CGFloat smallDishValue = self.smallDishStepper.value; 
     CGFloat mediumDishValue = self.mediumDishStepper.value; 
     CGFloat largeDishValue = self.largeDishStepper.value; 
-    NSLog(@"Dish Values: %f, %f, %f, %f", 
-        drinkValue, smallDishValue, mediumDishValue, largeDishValue);
 
     // Insanity Check
     if (drinkValue + smallDishValue + mediumDishValue + largeDishValue <= 0) {
@@ -181,9 +178,7 @@
             }
         }
     }
-    NSLog(@"Counts: %i, %i, %i, %i", 
-        drinkCount, smallDishCount, mediumDishCount, largeDishCount);
-    
+
     // Insanity Check
     if (drinkCount + smallDishCount + mediumDishCount + largeDishCount <= 0) {
         [self showError:NSLocalizedString(@"SUMMARY_ERROR_ZERO_COUNT", nil)];
@@ -198,8 +193,7 @@
         + (mediumDishValue * mediumDishCount) 
         + (largeDishValue * largeDishCount)
     );
-    NSLog(@"A = %f", A);
-    
+
     // Calculate how much each profile should pay and save it in
     NSNumber *bill;
     for (int i = 0; i < self.profiles.count; ++i)
@@ -228,8 +222,6 @@
 /** @brief Show error */
 - (void)showError:(NSString *)message
 {
-    NSLog(@"showError: %@", message);
-
     // Setup frame and resize for message
     CGRect viewFrame = self.view.frame;
     self.errorLabel.frame = CGRectMake(
