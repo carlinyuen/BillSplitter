@@ -889,12 +889,12 @@
 		alpha:0
 		forView:distribution.warningLabel
 	];  
-    
-    
+
+
     //////////////////////////////////////////
     // Summary Page
     yOffset = [self offsetForPageInScrollView:AppViewControllerPageSummary];
-    
+
     [self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -909,7 +909,7 @@
 		alpha:1
 		forView:distribution.profileScrollView
 	]; 
-     
+
     [self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -924,6 +924,23 @@
 		alpha:1
 		forView:distribution.profilePageControl
 	]; 
+
+    // Add button
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.addButton
+	];    
+    [self.animator setKeyFrameWithOffset: yOffset + (yOffset - yTempOffset) / 2
+		translate:CGPointMake(0, (yOffset - yTempOffset) / 2)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:distribution.addButton
+	];
+
 }
 
 
