@@ -942,6 +942,20 @@
 		forView:distribution.addButton
 	];
 
+    [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
+		translate:CGPointMake(0, UI_SIZE_MIN_TOUCH)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:0
+		forView:summary.scrollView
+	];    
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:summary.scrollView
+	];
 }
 
 

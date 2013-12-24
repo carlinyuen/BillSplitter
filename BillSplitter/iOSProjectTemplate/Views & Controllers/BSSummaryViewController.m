@@ -285,6 +285,7 @@
                     [button removeFromSuperview];
                 }
                 [self.profileBillViews removeAllObjects];
+                self.lastFocusedBill = -1;
 
                 // Call completion handler if exists
                 if (completion) {
@@ -311,7 +312,6 @@
 
             frame.origin.x = i * frame.size.width;
             button = [[UIButton alloc] initWithFrame:frame];
-            button.titleLabel.backgroundColor = [UIColor clearColor];
             button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
             button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
@@ -325,16 +325,15 @@
 
         // Update scrollview content size
         self.scrollView.contentSize = CGSizeMake(
-            self.profiles.count * frame.size.width, frame.size.height);
+            self.profiles.count * frame.size.width + 1, frame.size.height);
 
         // Show scrollview with results
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
             animations:^{
                 self.scrollView.alpha = 1;
-            } completion:^(BOOL finished) {
                 [self updateFocusedBill];
-            }];
+            } completion:nil];
     }];
 }
 
@@ -363,7 +362,9 @@
                 if (self.lastFocusedBill >= 0 && self.lastFocusedBill < self.profileBillViews.count) {
                     [self.profileBillViews[self.lastFocusedBill] setAlpha:ALPHA_UNFOCUSED];
                 }
-                [self.profileBillViews[currentBill] setAlpha:ALPHA_FOCUSED];
+                if (currentBill >= 0 && currentBill < self.profileBillViews.count) {
+                    [self.profileBillViews[currentBill] setAlpha:ALPHA_FOCUSED];
+                }
             }
             completion:^(BOOL finished) {
                 self.lastFocusedBill = currentBill;
@@ -420,7 +421,7 @@
 {
     BSTouchPassingView *containerView
 		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
-		0, 0, bounds.size.width, bounds.size.height / 5
+		0, 0, bounds.size.width, bounds.size.height / 4
 	)];
 	containerView.userInteractionEnabled = true;
 	
