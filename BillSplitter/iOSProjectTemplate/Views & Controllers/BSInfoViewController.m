@@ -248,8 +248,6 @@
 /** @brief When switch is toggled */
 - (void)switchToggled:(UISwitch *)sender
 {
-    NSLog(@"switchToggled: %i", sender.tag);
-
     switch (sender.tag)
     {
         case BSInfoViewControllerItemRounding: {

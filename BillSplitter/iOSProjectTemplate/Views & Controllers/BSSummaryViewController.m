@@ -213,7 +213,7 @@
                 + [dishCount[@(BSDishSetupViewControllerItemLargeDish)] integerValue] * largeDishValue
             )
         );
-        NSLog(@"Bill for profile %i: %@", i, bill);
+//        NSLog(@"Bill for profile %i: %@", i, bill);
 
         if (!lastBill || ![bill isEqualToNumber:lastBill]) {
             [profile setObject:bill forKey:BSSummaryViewControllerProfileBill];
