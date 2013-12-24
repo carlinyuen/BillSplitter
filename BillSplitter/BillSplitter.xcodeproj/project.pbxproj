@@ -11,6 +11,10 @@
 		2239EA661866DB17002C0552 /* arrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA651866DB17002C0552 /* arrow@2x.png */; };
 		2239EA6A1866EB50002C0552 /* arrowhead@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA691866EB50002C0552 /* arrowhead@2x.png */; };
 		2239EA6D18691B69002C0552 /* BSTouchPassingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA6C18691B69002C0552 /* BSTouchPassingView.m */; };
+		2239EA71186987CA002C0552 /* BSFeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA6F186987CA002C0552 /* BSFeedbackViewController.m */; };
+		2239EA72186987CA002C0552 /* BSFeedbackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */; };
+		2239EA7718698AF9002C0552 /* iRate.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 2239EA7418698AF9002C0552 /* iRate.bundle */; };
+		2239EA7818698AF9002C0552 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7618698AF9002C0552 /* iRate.m */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -64,6 +68,12 @@
 		2239EA691866EB50002C0552 /* arrowhead@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "arrowhead@2x.png"; sourceTree = "<group>"; };
 		2239EA6B18691B69002C0552 /* BSTouchPassingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTouchPassingView.h; sourceTree = "<group>"; };
 		2239EA6C18691B69002C0552 /* BSTouchPassingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTouchPassingView.m; sourceTree = "<group>"; };
+		2239EA6E186987CA002C0552 /* BSFeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSFeedbackViewController.h; sourceTree = "<group>"; };
+		2239EA6F186987CA002C0552 /* BSFeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSFeedbackViewController.m; sourceTree = "<group>"; };
+		2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BSFeedbackViewController.xib; sourceTree = "<group>"; };
+		2239EA7418698AF9002C0552 /* iRate.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = iRate.bundle; sourceTree = "<group>"; };
+		2239EA7518698AF9002C0552 /* iRate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iRate.h; sourceTree = "<group>"; };
+		2239EA7618698AF9002C0552 /* iRate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iRate.m; sourceTree = "<group>"; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -148,6 +158,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2239EA7318698AF9002C0552 /* iRate */ = {
+			isa = PBXGroup;
+			children = (
+				2239EA7418698AF9002C0552 /* iRate.bundle */,
+				2239EA7518698AF9002C0552 /* iRate.h */,
+				2239EA7618698AF9002C0552 /* iRate.m */,
+			);
+			name = iRate;
+			path = iRate/iRate;
+			sourceTree = "<group>";
+		};
 		5F05427117C67D0100B40CCA /* UIViewDebugger */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,6 +271,7 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				2239EA7318698AF9002C0552 /* iRate */,
 				5FE4262817CEE58B009F7652 /* TestFlightSDK2.0.0 */,
 				5FE4261317CE3C77009F7652 /* UIVerticalStepper */,
 				5F05427117C67D0100B40CCA /* UIViewDebugger */,
@@ -319,6 +341,9 @@
 				2239EA6C18691B69002C0552 /* BSTouchPassingView.m */,
 				5F7C897E1790B17700018AD7 /* InfoViewController.h */,
 				5F7C897F1790B17800018AD7 /* InfoViewController.m */,
+				2239EA6E186987CA002C0552 /* BSFeedbackViewController.h */,
+				2239EA6F186987CA002C0552 /* BSFeedbackViewController.m */,
+				2239EA70186987CA002C0552 /* BSFeedbackViewController.xib */,
 			);
 			path = "Views & Controllers";
 			sourceTree = "<group>";
@@ -416,6 +441,8 @@
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
 				5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */,
 				5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */,
+				2239EA72186987CA002C0552 /* BSFeedbackViewController.xib in Resources */,
+				2239EA7718698AF9002C0552 /* iRate.bundle in Resources */,
 				5F459F0A17C54FA900DCBDD9 /* drink.png in Resources */,
 				5F459F0B17C54FA900DCBDD9 /* man.png in Resources */,
 				5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */,
@@ -454,9 +481,11 @@
 				5F7C89801790B17800018AD7 /* InfoViewController.m in Sources */,
 				5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */,
 				2239EA6D18691B69002C0552 /* BSTouchPassingView.m in Sources */,
+				2239EA7818698AF9002C0552 /* iRate.m in Sources */,
 				5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */,
 				5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */,
 				2239EA621866C07E002C0552 /* BSScrollView.m in Sources */,
+				2239EA71186987CA002C0552 /* BSFeedbackViewController.m in Sources */,
 				5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */,
 				5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */,
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,
