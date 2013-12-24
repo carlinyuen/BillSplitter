@@ -49,7 +49,7 @@
 		_frame = frame;
 		
         _numFormatter = [NSNumberFormatter new];
-        [_numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        [_numFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _profileScrollViewCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
@@ -107,8 +107,6 @@
             } completion:nil];
     }
 
-    // Clean up scrollview 
-
     [super viewWillDisappear:animated];
 }
 
@@ -118,7 +116,7 @@
     [super didReceiveMemoryWarning];
 
     // Reset fields
-
+    [self clearScrollView:nil];
 }
 
 /** @brief Return supported orientations */
@@ -134,8 +132,8 @@
 - (void)updateCalculations
 {
     // Get total
-    NSNumber *total = [self.numFormatter numberFromString:
-        [self.finalLabel.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
+    NSNumber *total = [self.numFormatter numberFromString:self.finalLabel.text];
+//        [self.finalLabel.text stringByReplacingOccurrencesOfString:@"$" withString:@""]];
     if (!total) {   // This shouldn't happen
         NSLog(@"Error parsing number from final total field!");
         return;
@@ -199,9 +197,11 @@
 
     // Calculate how much each profile should pay and save it in
     NSNumber *bill;
+    bool billHasChanged = false;
     for (int i = 0; i < self.profiles.count; ++i)
     {
         NSMutableDictionary *profile = self.profiles[i];
+        NSNumber *lastBill = profile[BSSummaryViewControllerProfileBill];
         NSDictionary *dishCount = profile[BSDistributionViewControllerProfileViewDishCount];
         
         // Figure out bill
@@ -214,12 +214,17 @@
             )
         );
         NSLog(@"Bill for profile %i: %@", i, bill);
-        
-        [profile setObject:bill forKey:BSSummaryViewControllerProfileBill];
+
+        if (!lastBill || ![bill isEqualToNumber:lastBill]) {
+            [profile setObject:bill forKey:BSSummaryViewControllerProfileBill];
+            billHasChanged = true;
+        }
     }
     
-    // Update ui
-    [self updateUI];
+    // Update scrollview with new results if bill has changed
+    if (billHasChanged) {
+        [self updateScrollView];
+    }
 }
 
 /** @brief Show error */
@@ -254,30 +259,54 @@
 }
 
 /** @brief Clear scroll view's elements */
-- (void)clearScrollView
+- (void)clearScrollView:(void(^)())completion
 {
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
         animations:^{
             self.scrollView.alpha = 0;
         } completion:^(BOOL finished) {
-            for (UIView *subview in self.scrollView.subviews) {
-                [subview removeFromSuperview];
+            if (finished) {
+                for (UIView *subview in self.scrollView.subviews) {
+                    [subview removeFromSuperview];
+                }
+                if (completion) {
+                    completion();
+                }
             }
         }];
 }
 
-/** @brief Update UI elements to show new calculations */
-- (void)updateUI
+/** @brief Create UI elements to show new calculations */
+- (void)updateScrollView
 {
-    // Build UI
+    // Clear old views
+    [self clearScrollView:^
+    {
+        // Build elements
+        for (int i = 0; i < self.profiles.count; ++i)
+        {
+            NSMutableDictionary *profile = self.profiles[i];
+            NSNumber *bill = profile[BSSummaryViewControllerProfileBill];
 
-    // Show scrollview with results
-    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-        animations:^{
-            self.scrollView.alpha = 1;
-        } completion:nil];
+            UIButton *button = [[UIButton alloc] initWithFrame:self.scrollView.bounds];
+            button.titleLabel.textColor = [UIColor whiteColor];
+            button.titleLabel.backgroundColor = [UIColor clearColor];
+            button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
+            button.titleLabel.adjustsFontSizeToFitWidth = true;
+            button.titleLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
+            button.titleLabel.text = [self.numFormatter stringFromNumber:bill];
+
+            [self.scrollView addSubview:button];
+        }
+
+        // Show scrollview with results
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                self.scrollView.alpha = 1;
+            } completion:nil];
+    }];
 }
 
 /** @brief Refresh the cover positions so they match their target views */
