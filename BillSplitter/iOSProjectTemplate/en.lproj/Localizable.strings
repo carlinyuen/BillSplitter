@@ -17,9 +17,8 @@
 "INFO_VIEW_SETTINGS_HEADER" = "Settings";
 "INFO_VIEW_SETTINGS_ROUND" = "Round to Next Dollar";
 "INFO_VIEW_SETTINGS_ROUND_IOS7" = "Round to Nearest Dollar";
-"INFO_VIEW_PAYMENTS_HEADER" = "Payments";
-"INFO_VIEW_PAYMENTS_VENMO" = "Venmo";
-"INFO_VIEW_PAYMENTS_PAYPAL" = "Paypal";
+"INFO_VIEW_ABOUT_HEADER" = "About";
+"INFO_VIEW_ABOUT_FEEDBACK" = "App Feedback";
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
 
 "HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";

@@ -66,19 +66,14 @@
                 },
 			],
 		},
-//		@{
-//			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_HEADER", nil),
-//			TABLEVIEW_DATA_KEY_ROWS: @[
-//                @{
-//                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_VENMO", nil),
-//                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
-//                }, 
-//                @{
-//                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_PAYMENTS_PAYPAL", nil),
-//                    TABLEVIEW_DATA_KEY_SWITCH: @(false),
-//                },
-//			],
-//		},
+		@{
+			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_HEADER", nil),
+			TABLEVIEW_DATA_KEY_ROWS: @[
+                @{
+                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
+                },
+			],
+		},
     ];
 
 	// Get device screen size
