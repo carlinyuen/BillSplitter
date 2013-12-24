@@ -1029,12 +1029,14 @@
                 self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
                 self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
                 self.scrollView.delaysContentTouches = false;
+                distributionVC.viewInFocus = true;
                 break;
             
             default:
                 self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
                 self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT); 
                 self.scrollView.delaysContentTouches = true;
+                distributionVC.viewInFocus = false;
                 break;
         }
        

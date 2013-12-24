@@ -191,16 +191,13 @@
     // Show the arrow if no profiles set
     [self showInstructionIV:(!self.profiles.count)];
 
-    // Flag view in focus
-    self.viewInFocus = true;
-
     // Fade in remove / stepper buttons
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-			options:UIViewAnimationOptionBeginFromCurrentState
-				| UIViewAnimationOptionCurveEaseInOut
-			animations:^{
-				[self profileAtIndex:self.lastShownProfile shouldShowFocus:true];
-			} completion:nil];
+        options:UIViewAnimationOptionBeginFromCurrentState
+            | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            [self profileAtIndex:self.lastShownProfile shouldShowFocus:true];
+        } completion:nil];
 }
 
 /** @brief Actions to take when view is leaving screen */
@@ -241,6 +238,7 @@
 	[self.profiles removeAllObjects];
 	
 	// Update first, or will crash when adding diner
+    self.viewInFocus = false;
 	[self refreshScrollView];
 	[self updateSteppers];
 	self.profileScrollView.userInteractionEnabled = true;
