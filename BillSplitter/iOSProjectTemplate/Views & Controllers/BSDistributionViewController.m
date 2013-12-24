@@ -201,12 +201,18 @@
 			} completion:nil];
 }
 
-/** @brief Actions to take when view has left screen */
-- (void)viewDidDisappear:(BOOL)animated
+/** @brief Actions to take when view is leaving screen */
+- (void)viewWillDisappear:(BOOL)animated
 {
     // Flag view in focus
     self.viewInFocus = false;
 
+    [super viewWillDisappear:animated];
+}
+
+/** @brief Actions to take when view has left screen */
+- (void)viewDidDisappear:(BOOL)animated
+{
     // Fade out remove / stepper buttons
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 			options:UIViewAnimationOptionBeginFromCurrentState
@@ -811,7 +817,7 @@
 	// Gradient background
 	CAGradientLayer *gradientBG = [CAGradientLayer layer];
 	gradientBG.colors = [NSArray arrayWithObjects:
-		(id)UIColorFromHex(0xFFFFFF44).CGColor,
+		(id)UIColorFromHex(0xFFFFFF88).CGColor,
 		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
 		(id)UIColorFromHex(0xFFFFFFFF).CGColor,
 		nil

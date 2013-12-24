@@ -903,7 +903,7 @@
 		forView:distribution.profileScrollView
 	];    
     [self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, yOffset - yTempOffset)
+		translate:CGPointMake(0, bounds.size.height + UI_SIZE_MIN_TOUCH / 4)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
@@ -918,7 +918,7 @@
 		forView:distribution.profilePageControl
 	];    
     [self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, yOffset - yTempOffset)
+		translate:CGPointMake(0, bounds.size.height)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:1
@@ -926,6 +926,7 @@
 	]; 
 
     // Add button
+    refFrame = distribution.addButton.frame;
     [self.animator setKeyFrameWithOffset: yTempOffset
 		translate:CGPointZero
 		scale:CGSizeMake(1, 1)
@@ -934,14 +935,7 @@
 		forView:distribution.addButton
 	];    
     [self.animator setKeyFrameWithOffset: yOffset - UI_SIZE_MIN_TOUCH
-		translate:CGPointMake(0, yOffset - yTempOffset - UI_SIZE_MIN_TOUCH)
-		scale:CGSizeMake(1, 1)
-		rotate:0
-		alpha:1
-		forView:distribution.addButton
-	]; 
-    [self.animator setKeyFrameWithOffset: yOffset
-		translate:CGPointMake(0, yOffset - yTempOffset)
+		translate:CGPointMake(-refFrame.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH + UI_SIZE_MIN_TOUCH / 4)
 		scale:CGSizeMake(1, 1)
 		rotate:0
 		alpha:0
