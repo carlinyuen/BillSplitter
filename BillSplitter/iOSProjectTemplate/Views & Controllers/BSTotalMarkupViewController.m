@@ -247,6 +247,7 @@
     self.tipAmountField.backgroundColor = [UIColor clearColor];
     self.tipAmountField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
     self.tipAmountField.textAlignment = NSTextAlignmentRight;
+   	self.tipAmountField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     self.tipAmountField.adjustsFontSizeToFitWidth = true;
     self.tipAmountField.minimumFontSize = FONT_SIZE_PRICE / 3;
     self.tipAmountField.enabled = false;
@@ -257,7 +258,7 @@
     unitsLabel.backgroundColor = [UIColor clearColor];
     self.tipAmountField.rightViewMode = UITextFieldViewModeAlways;
     self.tipAmountField.rightView = unitsLabel;
-    
+
     frame = self.tipLabel.frame;
     UILabel *approxLabel = [[UILabel alloc] initWithFrame:frame];
     approxLabel.text = @"≈";
