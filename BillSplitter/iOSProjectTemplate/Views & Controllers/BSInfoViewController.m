@@ -235,8 +235,11 @@
 	[self.tableFooterView addSubview:button];
 	
 	self.tableFooterView.frame = CGRectMake(
-		0, 0, self.view.bounds.size.width, UI_SIZE_TABLE_FOOTER_HEIGHT);
-	self.tableView.tableFooterView = self.tableFooterView;
+		0, bounds.size.height - UI_SIZE_TABLE_FOOTER_HEIGHT,
+        bounds.size.width, UI_SIZE_TABLE_FOOTER_HEIGHT
+    );
+    [self.view addSubview:self.tableFooterView];
+//	self.tableView.tableFooterView = self.tableFooterView;
 }
 
 
@@ -268,8 +271,10 @@
             [[UIApplication sharedApplication] openURL:url];
         }
         else {    // Can't open website! What should we do?
-            [[[UIAlertView alloc] initWithTitle:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP", nil)
-                message:@"" delegate:nil
+            [[[UIAlertView alloc]
+                initWithTitle:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP_TITLE", nil)
+                message:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP_MESSAGE", nil)
+                delegate:nil
                 cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
                 otherButtonTitles:nil] show];
         }
