@@ -293,14 +293,15 @@
     [self clearScrollView:^
     {
         // Build elements
+        CGRect frame = self.scrollView.bounds;
+        UIButton *button;
         for (int i = 0; i < self.profiles.count; ++i)
         {
             NSMutableDictionary *profile = self.profiles[i];
             NSNumber *bill = profile[BSSummaryViewControllerProfileBill];
 
-            CGRect frame = self.scrollView.bounds;
             frame.origin.x = i * frame.size.width;
-            UIButton *button = [[UIButton alloc] initWithFrame:frame];
+            button = [[UIButton alloc] initWithFrame:frame];
             button.titleLabel.backgroundColor = [UIColor clearColor];
             button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
@@ -308,10 +309,12 @@
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button setTitle:[self.numFormatter stringFromNumber:bill] forState:UIControlStateNormal];
 
-            NSLog(@"Button Text: %@", button.titleLabel.text);
-
             [self.scrollView addSubview:button];
         }
+
+        // Update scrollview content size
+        self.scrollView.contentSize = CGSizeMake(
+            self.profiles.count * frame.size.width, frame.size.height);
 
         // Show scrollview with results
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0

@@ -1180,7 +1180,7 @@
 - (void)formatIntegerTextField:(UITextField *)textField toStepper:(UIVerticalStepper *)stepper whenChangingCharactersInRange:(NSRange)range withString:(NSString *)string
 {
     // Get new text, add user entered text & replace $ signs and periods
-    NSString *newText = [[[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""] stringByReplacingOccurrencesOfString:@"%" withString:@""];
+    NSString *newText = [[textField.text stringByReplacingCharactersInRange:range withString:string] stringByReplacingOccurrencesOfString:@"$" withString:@""];
 
     // Make sure is a number
     NSNumber *number = [self.numberFormatter numberFromString:newText];
