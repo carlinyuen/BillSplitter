@@ -367,6 +367,8 @@
     vc.mediumDishStepper = dishesVC.mediumDishStepper; 
     vc.largeDishStepper = dishesVC.largeDishStepper; 
     vc.profiles = distributionVC.profiles;
+    vc.profileScrollView = distributionVC.profileScrollView;
+    vc.profilePageControl = distributionVC.profilePageControl; 
         
 	[self.scrollView addSubview:vc.view];
 	return vc;
@@ -618,12 +620,12 @@
 	yOffset = [self offsetForPageInScrollView:AppViewControllerPageDishes];
 	xOffset = (bounds.size.width - UI_SIZE_MIN_TOUCH) / 4;
 	refFrame = dishSetup.view.frame;
-      
+   
 
 	/////////////////////////////////////////////
 	// Distribution Page
 	yTempOffset = [self offsetForPageInScrollView:AppViewControllerPageDistribution];
-	
+
 	// Drink
 	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 6;
 	transform = dishSetup.drinkButton.transform;
@@ -887,6 +889,42 @@
 		alpha:0
 		forView:distribution.warningLabel
 	];  
+    
+    
+    //////////////////////////////////////////
+    // Summary Page
+    yOffset = [self offsetForPageInScrollView:AppViewControllerPageSummary];
+    
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.profileScrollView
+	];    
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, yOffset - yTempOffset)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.profileScrollView
+	]; 
+    
+     
+    [self.animator setKeyFrameWithOffset: yTempOffset
+		translate:CGPointZero
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.profilePageControl
+	];    
+    [self.animator setKeyFrameWithOffset: yOffset
+		translate:CGPointMake(0, yOffset - yTempOffset)
+		scale:CGSizeMake(1, 1)
+		rotate:0
+		alpha:1
+		forView:distribution.profilePageControl
+	]; 
 }
 
 

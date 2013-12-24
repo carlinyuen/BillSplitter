@@ -9,6 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CustomPageControl.h"
 #import "UIVerticalStepper.h"
 
 @class BSDistributionViewController;
@@ -61,6 +62,12 @@
     
     /** Warning label */
     @property (nonatomic, strong) UILabel *warningLabel;
+    
+    /** Page control of profiles */
+    @property (nonatomic, strong) CustomPageControl *profilePageControl;   
+    
+    /** Scrollview of profiles */ 
+    @property (nonatomic, strong) UIScrollView *profileScrollView;  
 
     /** List of profiles user sets up */
 	@property (nonatomic, strong) NSMutableArray *profiles;

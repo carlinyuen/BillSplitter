@@ -11,9 +11,8 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "CustomPageControl.h"
-
 #import "BSDishSetupViewController.h"
+#import "BSTouchPassingView.h"
 
 	#define TABLEVIEW_ROW_ID @"RowCell"
 
@@ -61,21 +60,6 @@
 	NSString* const BSDistributionViewControllerProfileViewStepper = @"stepper";
 	NSString* const BSDistributionViewControllerProfileViewCard = @"card";
 
-#pragma mark - Internal mini class for scrollView container
-
-@interface BSDistributionContainerView : UIView
-	@property (nonatomic, strong) UIView *targetView;
-@end
-@implementation BSDistributionContainerView
-- (UIView *) hitTest:(CGPoint) point withEvent:(UIEvent *)event {
-	UIView* child = nil;
-    if ((child = [super hitTest:point withEvent:event]) == self) {
-    	return self.targetView;
-	}
-    return child;
-}
-@end
-
 
 #pragma mark - BSDistributionViewController
 
@@ -103,9 +87,7 @@
 	@property (nonatomic, strong) UIView *dragTargetView;
 	@property (nonatomic, assign) CGPoint dragPointer;
 
-	/** For sideswipping between diners */
-	@property (nonatomic, strong) UIScrollView *scrollView;
-	@property (nonatomic, strong) CustomPageControl *pageControl;
+	/** To track last shown profile */
 	@property (nonatomic, assign) NSInteger lastShownProfile;
     
     /** For formatting */
@@ -137,6 +119,7 @@
         
         _warningLabel = [[UILabel alloc] initWithFrame:CGRectZero];  
 		
+        _profileScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
 		_profiles = [NSMutableArray new];
 		_lastShownProfile = 0;
 		
@@ -160,6 +143,11 @@
 	
 	self.view.frame = self.frame;
 	CGRect bounds = self.view.bounds;
+    
+    // Adjust for longer view to let us use scrollview in summary screen
+    CGRect frame = self.frame;
+    frame.size.height *= 2;
+    self.view.frame = frame;
 	
 	// UI Setup
 	[self setupDishes:bounds];
@@ -207,7 +195,7 @@
     [super didReceiveMemoryWarning];
 	
 	// Reset view, remove all distribution profiles but first
-	self.scrollView.userInteractionEnabled = false;
+	self.profileScrollView.userInteractionEnabled = false;
 	for (int i = 0; i < self.profiles.count; ++i) {
 		[[[self.profiles objectAtIndex:i]
 			objectForKey:BSDistributionViewControllerProfileViewCard]
@@ -218,7 +206,7 @@
 	// Update first, or will crash when adding diner
 	[self refreshScrollView];
 	[self updateSteppers];
-	self.scrollView.userInteractionEnabled = true;
+	self.profileScrollView.userInteractionEnabled = true;
 }
 
 /** @brief Return supported orientations */
@@ -289,9 +277,9 @@
 /** @brief Scrolls scrollview to page */
 - (void)scrollToPage:(NSInteger)page
 {
-	[self.scrollView scrollRectToVisible:CGRectMake(
+	[self.profileScrollView scrollRectToVisible:CGRectMake(
 		[self offsetForPageInScrollView:page], 0,
-		self.scrollView.bounds.size.width, self.scrollView.bounds.size.height
+		self.profileScrollView.bounds.size.width, self.profileScrollView.bounds.size.height
 	) animated:true];
 }
 
@@ -305,12 +293,12 @@
     }
 
     // Setup
-	CGRect bounds = self.scrollView.bounds;
+	CGRect bounds = self.profileScrollView.bounds;
 	CGRect frame = bounds;
 	CGFloat itemSize = bounds.size.height - UI_SIZE_DINER_MARGIN * 2;
 	
 	// Container for elements
-	frame.origin.x = -self.scrollView.frame.origin.x - bounds.size.width;
+	frame.origin.x = -self.profileScrollView.frame.origin.x - bounds.size.width;
 	frame = CGRectInset(frame, UI_SIZE_DINER_MARGIN, 0);
 	UIView *containerView = [[UIView alloc] initWithFrame:frame];
 	containerView.clipsToBounds = true;
@@ -406,7 +394,7 @@
 		BSDistributionViewControllerProfileViewStepper : stepper,
 		BSDistributionViewControllerProfileViewCard : containerView,
 	} mutableCopy] atIndex:addIndex];
-	[self.scrollView addSubview:containerView];
+	[self.profileScrollView addSubview:containerView];
 	
 	// Update scrollview & scroll over to new card section
 	[self refreshScrollView];
@@ -562,11 +550,11 @@
 	}
 	
 	// Disable interaction while animating
-	self.scrollView.userInteractionEnabled = false;
+	self.profileScrollView.userInteractionEnabled = false;
 
 	UIView *card = [[self.profiles objectAtIndex:index]
 		objectForKey:BSDistributionViewControllerProfileViewCard];
-	CGRect bounds = self.scrollView.bounds;
+	CGRect bounds = self.profileScrollView.bounds;
 	
 	[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 		options:UIViewAnimationOptionBeginFromCurrentState
@@ -584,7 +572,7 @@
 			if (index == self.profiles.count - 1)
 			{
 				frame.origin.x -= bounds.size.width;
-				self.scrollView.contentOffset = frame.origin;
+				self.profileScrollView.contentOffset = frame.origin;
 			}
 			else	// Shift over cards on the right, display focus on next one
 			{
@@ -612,7 +600,7 @@
 			
 			// Resize contentSize of scrollview
 			[self refreshScrollView];
-			self.scrollView.userInteractionEnabled = true;
+			self.profileScrollView.userInteractionEnabled = true;
 			
 			// Update steppers
 			[self updateSteppers];
@@ -622,10 +610,10 @@
 /** @brief Update page control & content size of scrollview */
 - (void)refreshScrollView
 {
-	CGRect bounds = self.scrollView.bounds;
-	self.pageControl.numberOfPages = self.profiles.count;
-	self.scrollView.contentSize = CGSizeMake(
-		bounds.size.width * self.pageControl.numberOfPages + 1,
+	CGRect bounds = self.profileScrollView.bounds;
+	self.profilePageControl.numberOfPages = self.profiles.count;
+	self.profileScrollView.contentSize = CGSizeMake(
+		bounds.size.width * self.profilePageControl.numberOfPages + 1,
 		bounds.size.height
 	);
 }
@@ -711,7 +699,7 @@
 {
 	UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4,
-		bounds.size.width, bounds.size.height + UI_SIZE_MIN_TOUCH * 2
+		bounds.size.width, bounds.size.height + UI_SIZE_MIN_TOUCH
 	)];
 	backgroundView.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
 	[self.view addSubview:backgroundView];
@@ -720,26 +708,26 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
-	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+	self.profilePageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
 	)];
 	
 	// Configure
-	self.pageControl.delegate = self;
-	self.pageControl.numberOfPages = 0;
-	self.pageControl.currentPage = 0;
-	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
-	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	self.profilePageControl.delegate = self;
+	self.profilePageControl.numberOfPages = 0;
+	self.profilePageControl.currentPage = 0;
+	self.profilePageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
+	self.profilePageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
-	[self.view addSubview:self.pageControl];
+	[self.view addSubview:self.profilePageControl];
 }
 
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
-	BSDistributionContainerView *containerView
-		= [[BSDistributionContainerView alloc] initWithFrame:CGRectMake(
+	BSTouchPassingView *containerView
+		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width, 
         bounds.size.height 
@@ -749,21 +737,21 @@
 	)];
 	containerView.userInteractionEnabled = true;
 	
-	self.scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(
+	self.profileScrollView.frame = CGRectMake(
 		bounds.size.width / 4, 0,
 		bounds.size.width / 2, containerView.bounds.size.height
-	)];
-	self.scrollView.contentSize = CGSizeMake(
-		bounds.size.width + 1, self.scrollView.bounds.size.height);
-	self.scrollView.showsHorizontalScrollIndicator = false;
-	self.scrollView.showsVerticalScrollIndicator = false;
-	self.scrollView.directionalLockEnabled = true;
-	self.scrollView.pagingEnabled = true;
-	self.scrollView.clipsToBounds = false;
-	self.scrollView.delegate = self;
+	);
+	self.profileScrollView.contentSize = CGSizeMake(
+		bounds.size.width + 1, self.profileScrollView.bounds.size.height);
+	self.profileScrollView.showsHorizontalScrollIndicator = false;
+	self.profileScrollView.showsVerticalScrollIndicator = false;
+	self.profileScrollView.directionalLockEnabled = true;
+	self.profileScrollView.pagingEnabled = true;
+	self.profileScrollView.clipsToBounds = false;
+	self.profileScrollView.delegate = self;
 	
-	containerView.targetView = self.scrollView;
-	[containerView addSubview:self.scrollView];
+	containerView.targetView = self.profileScrollView;
+	[containerView addSubview:self.profileScrollView];
 	[self.view addSubview:containerView];
     
     // Setup other elements that depend on this view's frame
@@ -775,8 +763,8 @@
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		0, self.pageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
-		bounds.size.width / 8, self.scrollView.bounds.size.height
+		0, self.profilePageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
+		bounds.size.width / 8, self.profileScrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
 	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
@@ -909,7 +897,7 @@
 - (void)removeDinerButtonPressed:(UIButton *)button
 {
 	// Remove card at current page
-    [self removeDiner:self.pageControl.currentPage];
+    [self removeDiner:self.profilePageControl.currentPage];
 }
 
 
@@ -1039,7 +1027,7 @@
 				targetView = [self profileViewIntersectedByPoint:self.dragPointer];
 				
 				// If dragged to profile not on current page, shift over one
-				if (targetView && targetView.tag != self.pageControl.currentPage) {
+				if (targetView && targetView.tag != self.profilePageControl.currentPage) {
 					[self scrollToPage:targetView.tag];
 				}
 			}
@@ -1166,7 +1154,7 @@
 /** @brief Returns point offset for given page in scroll view */
 - (CGFloat)offsetForPageInScrollView:(NSInteger)page
 {
-	return self.scrollView.bounds.size.width * page;
+	return self.profileScrollView.bounds.size.width * page;
 }
 
 
@@ -1175,9 +1163,9 @@
 
 - (void)pageControlPageDidChange:(CustomPageControl *)pageControl
 {
-	CGRect frame = self.scrollView.bounds;
+	CGRect frame = self.profileScrollView.bounds;
 	frame.origin.x = [self offsetForPageInScrollView:pageControl.currentPage];
-	[self.scrollView scrollRectToVisible:frame animated:true];	
+	[self.profileScrollView scrollRectToVisible:frame animated:true];	
 }
 
 
@@ -1212,7 +1200,7 @@
 		self.lastShownProfile = page;
 	}
 		
-    self.pageControl.currentPage = page;
+    self.profilePageControl.currentPage = page;
 }
 
 
@@ -1220,7 +1208,7 @@
 
 - (void)stepperValueDidChange:(UIVerticalStepper *)stepper
 {
-	[[[self.profiles objectAtIndex:self.pageControl.currentPage]
+	[[[self.profiles objectAtIndex:self.profilePageControl.currentPage]
 		objectForKey:BSDistributionViewControllerProfileViewTextField]
 			setText:[NSString stringWithFormat:@"%i", (NSInteger)stepper.value]];
 			

@@ -9,7 +9,11 @@
 
 #import "BSSummaryViewController.h"
 
+#import "BSTouchPassingView.h"
+
 	NSString* const BSSummaryViewControllerProfileBill = @"bill";
+    
+#pragma mark - BSSummaryViewController
     
 @interface BSSummaryViewController ()
 
@@ -22,6 +26,9 @@
     
     @property (nonatomic, strong) NSNumberFormatter *numFormatter;
 
+    /** Pass events to target view */
+    @property (nonatomic, strong) BSTouchPassingView *profileScrollViewCover;
+    
 @end
 
 
@@ -39,6 +46,9 @@
 		
         _numFormatter = [NSNumberFormatter new];
         [_numFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
+        
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
+        _profileScrollViewCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -53,7 +63,10 @@
     
     self.view.frame = self.frame;
    	CGRect bounds = self.view.bounds; 
+    
+    [self setupProfileScrollView:bounds];
 }
+
 
 /** @brief Last-minute setup before view appears. */
 - (void)viewWillAppear:(BOOL)animated
@@ -178,6 +191,21 @@
 
 
 #pragma mark - UI Setup
+
+- (void)setProfileScrollView:(UIView *)profileScrollView
+{
+    _profileScrollView = profileScrollView;
+    
+    self.profileScrollViewCover.targetView = _profileScrollView; 
+}
+
+/** @brief Set up view to pass events to scroll view */
+- (void)setupProfileScrollView:(CGRect)bounds
+{
+    self.profileScrollViewCover.frame = CGRectMake(0, bounds.size.height / 5, bounds.size.width, bounds.size.height / 5 * 4);
+    self.profileScrollViewCover.backgroundColor = UIColorFromHex(COLOR_HEX_BACKGROUND_GRAY_TRANSLUCENT);
+    [self.view addSubview:self.profileScrollViewCover];
+}
 
 
 #pragma mark - UI Events

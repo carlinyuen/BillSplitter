@@ -15,7 +15,7 @@
 	extern NSString* const BSSummaryViewControllerProfileBill;
     
 @interface BSSummaryViewController : UIViewController
-
+    
     /** Reference to final cost label from BSTotalMarkupViewController */
 	@property (nonatomic, strong) UILabel *finalLabel;
 
@@ -27,6 +27,13 @@
     
     /** List of profiles user sets up, from BSDistributionViewController */
 	@property (nonatomic, strong) NSMutableArray *profiles;
+
+    /** Reference to scrollView and page control from BSDistributionViewController */
+    @property (nonatomic, strong) UIScrollView *profileScrollView;
+    @property (nonatomic, strong) CustomPageControl *profilePageControl; 
+    
+    /** Scroll view for results */
+    @property (nonatomic, strong) UIScrollView *scrollView; 
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
