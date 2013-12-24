@@ -35,7 +35,7 @@
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left in your party";
 "DISTRIBUTION_COMPLETE" = "You're good to go!";
 
-"SUMMARY_ERROR_ZERO_VALUE" = "Uh-oh! All dish values can't be zero!";
+"SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";
 
 "POPUP_OK" = "Ok";
