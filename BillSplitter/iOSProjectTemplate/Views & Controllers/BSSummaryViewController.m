@@ -94,10 +94,28 @@
     [self updateCalculations]; 
 }
 
+/** @brief Actions to take when view is leaving */
+- (void)viewWillDisappear:(BOOL)animated
+{
+    // Fade out error message if showing
+    if (self.errorLabel.alpha == 1) {
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                self.errorLabel.alpha = 0;
+            } completion:nil];
+    }
+
+    [super viewWillDisappear:animated];
+}
+
 /** @brief Dispose of any resources that can be recreated. */
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
+
+    // Reset fields
+
 }
 
 /** @brief Return supported orientations */
@@ -243,19 +261,14 @@
 /** @brief Update UI elements to show new calculations */
 - (void)updateUI
 {
-    // Fade out error message if showing
+    // Build UI
+
+    // Show scrollview with results
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
         animations:^{
-            self.errorLabel.alpha = 0;
-        } completion:^(BOOL finished) {
-            // Show error message in place
-            [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-                options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-                animations:^{
-                    self.scrollView.alpha = 1;
-                } completion:nil];
-        }];
+            self.scrollView.alpha = 1;
+        } completion:nil];
 }
 
 /** @brief Refresh the cover positions so they match their target views */
