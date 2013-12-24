@@ -248,10 +248,12 @@
 /** @brief When switch is toggled */
 - (void)switchToggled:(UISwitch *)sender
 {
+    NSLog(@"switchToggled: %i", sender.tag);
+
     switch (sender.tag)
     {
         case BSInfoViewControllerItemRounding: {
-            [[NSUserDefaults standardUserDefaults] setBool:sender.selected forKey:CACHE_KEY_USER_SETTINGS];
+            [[NSUserDefaults standardUserDefaults] setBool:sender.on forKey:CACHE_KEY_USER_SETTINGS];
             [[NSUserDefaults standardUserDefaults] synchronize];
         } break;
 
@@ -339,6 +341,15 @@
         toggle.tag = [switchTag integerValue];
         [toggle addTarget:self action:@selector(switchToggled:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = toggle;
+
+        switch (toggle.tag)
+        {
+            case BSInfoViewControllerItemRounding:
+                toggle.on = [[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS];
+                break;
+
+            default: break;
+        }
     }
 	
 	return cell;

@@ -158,21 +158,22 @@
     for (NSDictionary *profile in self.profiles)
     {
         NSDictionary *dishCount = profile[BSDistributionViewControllerProfileViewDishCount];
+        UIVerticalStepper *stepper = profile[BSDistributionViewControllerProfileViewStepper];
         for (NSNumber *tag in dishCount) 
         {
             switch ([tag integerValue])
             {
                 case BSDishSetupViewControllerItemDrink:
-                    drinkCount += [dishCount[tag] integerValue];
+                    drinkCount += [dishCount[tag] integerValue] * stepper.value;
                     break;
                 case BSDishSetupViewControllerItemSmallDish: 
-                    smallDishCount += [dishCount[tag] integerValue];
+                    smallDishCount += [dishCount[tag] integerValue] * stepper.value;
                     break; 
                 case BSDishSetupViewControllerItemMediumDish: 
-                    mediumDishCount += [dishCount[tag] integerValue];
+                    mediumDishCount += [dishCount[tag] integerValue] * stepper.value;
                     break;  
                 case BSDishSetupViewControllerItemLargeDish: 
-                    largeDishCount += [dishCount[tag] integerValue];
+                    largeDishCount += [dishCount[tag] integerValue] * stepper.value;
                     break;  
                 default: break;
             }
@@ -221,8 +222,9 @@
     }
 
     // Adjust formatter's rounding based on user settings
-    self.numFormatter.maximumFractionDigits = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS])
-        ? 0 : 2;
+    self.numFormatter.minimumFractionDigits
+        = self.numFormatter.maximumFractionDigits
+        = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) ? 0 : 2;
 
     // Update scrollview with new results if bill has changed
     if (billHasChanged) {
