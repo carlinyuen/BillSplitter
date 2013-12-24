@@ -29,6 +29,7 @@
     
     /** List of profiles user sets up, from BSDistributionViewController */
 	@property (nonatomic, strong) NSMutableArray *profiles;
+   	@property (nonatomic, strong) NSMutableArray *profileBillViews;
 
     /** Reference to scrollView and page control from BSDistributionViewController */
     @property (nonatomic, strong) UIScrollView *profileScrollView;

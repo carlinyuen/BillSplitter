@@ -14,6 +14,9 @@
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
+    #define ALPHA_UNFOCUSED 0.5
+    #define ALPHA_FOCUSED 1.0
+
 	NSString* const BSSummaryViewControllerProfileBill = @"bill";
     
 #pragma mark - BSSummaryViewController
@@ -22,12 +25,11 @@
 
 	@property (nonatomic, assign) CGRect frame;
 
-    @property (nonatomic, assign) CGFloat priceDrink;
-    @property (nonatomic, assign) CGFloat priceSmallDish; 
-    @property (nonatomic, assign) CGFloat priceMediumDish; 
-    @property (nonatomic, assign) CGFloat priceLargeDish; 
-    
+    /** To help with parsing prices */
     @property (nonatomic, strong) NSNumberFormatter *numFormatter;
+
+    /** Keep track of last focused bill */
+    @property (nonatomic, assign) NSInteger lastFocusedBill;
 
     /** Pass events to target view */
     @property (nonatomic, strong) BSTouchPassingView *profileScrollViewCover;
@@ -47,9 +49,13 @@
     if (self)
 	{
 		_frame = frame;
+
+        _lastFocusedBill = -1;
 		
         _numFormatter = [NSNumberFormatter new];
         [_numFormatter setNumberStyle:NSNumberFormatterCurrencyStyle];
+
+        _profileBillViews = [NSMutableArray new];
         
         _scrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
         _profileScrollViewCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
@@ -275,9 +281,12 @@
             self.scrollView.alpha = 0;
         } completion:^(BOOL finished) {
             if (finished) {
-                for (UIView *subview in self.scrollView.subviews) {
-                    [subview removeFromSuperview];
+                for (UIView *button in self.profileBillViews) {
+                    [button removeFromSuperview];
                 }
+                [self.profileBillViews removeAllObjects];
+
+                // Call completion handler if exists
                 if (completion) {
                     completion();
                 }
@@ -308,8 +317,10 @@
             button.titleLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
             [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             [button setTitle:[self.numFormatter stringFromNumber:bill] forState:UIControlStateNormal];
+            button.alpha = ALPHA_UNFOCUSED;
 
             [self.scrollView addSubview:button];
+            [self.profileBillViews addObject:button];
         }
 
         // Update scrollview content size
@@ -321,7 +332,9 @@
             options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
             animations:^{
                 self.scrollView.alpha = 1;
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                [self updateFocusedBill];
+            }];
     }];
 }
 
@@ -334,6 +347,28 @@
     frame.origin.x = 0;
     frame.size.width = CGRectGetWidth(self.view.bounds);
     self.profileScrollViewCover.frame = frame;
+}
+
+/** @brief Updates UI to show focused bill view properly */
+- (void)updateFocusedBill
+{
+    // Only update if last bill is not the current page
+    NSInteger currentBill = self.profilePageControl.currentPage;
+    if (currentBill != self.lastFocusedBill)
+    {
+        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState
+                | UIViewAnimationOptionCurveEaseInOut
+            animations:^{
+                if (self.lastFocusedBill >= 0 && self.lastFocusedBill < self.profileBillViews.count) {
+                    [self.profileBillViews[self.lastFocusedBill] setAlpha:ALPHA_UNFOCUSED];
+                }
+                [self.profileBillViews[currentBill] setAlpha:ALPHA_FOCUSED];
+            }
+            completion:^(BOOL finished) {
+                self.lastFocusedBill = currentBill;
+            }];
+    }
 }
 
 
@@ -422,7 +457,18 @@
 {
 	if (object == self.profileScrollView) {
 		self.scrollView.contentOffset = self.profileScrollView.contentOffset;
+        [self updateFocusedBill];
 	}
 }
+
+
+#pragma mark - UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self updateFocusedBill];
+}
+
+
 
 @end
