@@ -210,6 +210,8 @@
 /** @brief Show error */
 - (void)showError:(NSString *)message
 {
+    NSLog(@"showError: %@", message);
+
     // Setup frame and resize for message
     self.errorLabel.frame = CGRectMake(
         UI_SIZE_LABEL_MARGIN, UI_SIZE_MARGIN,
@@ -228,14 +230,12 @@
         animations:^{
             self.scrollView.alpha = 0;
         } completion:^(BOOL finished) {
-            if (finished) {
-                // Show error message in place
-                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-                    animations:^{
-                        self.errorLabel.alpha = 1;
-                    } completion:nil];
-            }
+            // Show error message in place
+            [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+                options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                animations:^{
+                    self.errorLabel.alpha = 1;
+                } completion:nil];
         }];
 }
 
@@ -248,14 +248,12 @@
         animations:^{
             self.errorLabel.alpha = 0;
         } completion:^(BOOL finished) {
-            if (finished) {
-                // Show error message in place
-                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
-                    animations:^{
-                        self.scrollView.alpha = 1;
-                    } completion:nil];
-            }
+            // Show error message in place
+            [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+                options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+                animations:^{
+                    self.scrollView.alpha = 1;
+                } completion:nil];
         }];
 }
 
