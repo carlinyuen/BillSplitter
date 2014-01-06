@@ -299,25 +299,28 @@
     
     // Bounce small dish
     if (sender == self.smallDishButton) {
-        [UIView animateWithDuration:ANIMATION_DURATION_MED delay:0
-            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse
-            animations:^{
-                sender.transform = CGAffineTransformIdentity;
-            }
-            completion:^(BOOL finished) {
-                sender.transform = CGAffineTransformMakeScale(
-                    IMAGEVIEW_SCALE_SMALLDISH, IMAGEVIEW_SCALE_SMALLDISH);
-            }];
-
         CABasicAnimation *animation = [CABasicAnimation
+            animationWithKeyPath:@"transform.scale"];
+        animation.duration = ANIMATION_DURATION_MED;
+        animation.repeatCount = 0;
+        animation.autoreverses = YES;
+        animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(
+            IMAGEVIEW_SCALE_SMALLDISH, IMAGEVIEW_SCALE_SMALLDISH
+        )];
+        animation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseInEaseOut];
+        [sender.layer addAnimation:animation forKey:@"scale"];
+
+        animation = [CABasicAnimation
             animationWithKeyPath:@"transform.rotation.x"];
-        animation.toValue = @(M_PI * 2.0 * ANIMATION_DURATION_SLOWEST);
+        animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
         animation.duration = ANIMATION_DURATION_SLOWEST;
         animation.cumulative = YES;
         animation.repeatCount = 0;
         animation.timingFunction = [CAMediaTimingFunction functionWithName:
-            kCAMediaTimingFunctionEaseInEaseOut];
-        [sender.layer addAnimation:animation forKey:@"animation"];
+            kCAMediaTimingFunctionEaseOut];
+        [sender.layer addAnimation:animation forKey:@"rotation"];
     }
 
     // Twirl medium dish
