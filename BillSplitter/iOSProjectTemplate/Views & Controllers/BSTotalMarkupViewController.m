@@ -27,6 +27,8 @@
 
 	@property (nonatomic, assign) CGRect frame;
 
+    @property (nonatomic, strong) NSNumberFormatter *numFormatter;
+
 @end
 
 
@@ -54,7 +56,10 @@
        	_finalDivider = [[UIView alloc] initWithFrame:CGRectZero]; 
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
        	_evenSplitLabel = [[UILabel alloc] initWithFrame:CGRectZero]; 
-        _coverView = [[UIView alloc] initWithFrame:CGRectZero];  
+        _coverView = [[UIView alloc] initWithFrame:CGRectZero];
+
+        _numFormatter = [NSNumberFormatter new];
+        _numFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
     }
     return self;
 }
@@ -127,12 +132,18 @@
     // Update final cost
     CGFloat finalValue = self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f);
     self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", finalValue];
-        
+
+    // Update format for even split based on rounding preference
+    self.numFormatter.minimumFractionDigits
+        = self.numFormatter.maximumFractionDigits
+        = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) ? 0 : 2;
+
     // Update even split
     self.evenSplitLabel.textColor = (self.headCountStepper.value <= 1)
         ? [UIColor whiteColor] : [UIColor lightGrayColor];
-    self.evenSplitLabel.text = [NSString stringWithFormat:@"$%.2f %@",
-        finalValue / self.headCountStepper.value,
+    self.evenSplitLabel.text = [NSString stringWithFormat:@"%@ %@",
+        [self.numFormatter stringFromNumber:
+            @(finalValue / self.headCountStepper.value)],
         NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)
     ];
 }
@@ -308,7 +319,7 @@
     self.evenSplitLabel = [[UILabel alloc] initWithFrame:frame];
     self.evenSplitLabel.text = [NSString stringWithFormat:@"$0.00 %@", 
         NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)];
-    self.evenSplitLabel.textColor = [UIColor lightGrayColor]; 
+    self.evenSplitLabel.textColor = [UIColor grayColor];
     self.evenSplitLabel.backgroundColor = [UIColor clearColor];
     self.evenSplitLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.evenSplitLabel.textAlignment = NSTextAlignmentCenter;

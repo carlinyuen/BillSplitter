@@ -88,9 +88,7 @@
     
     // Add description on top
     self.descriptionLabel.frame = CGRectMake(
-        UI_SIZE_LABEL_MARGIN, UI_SIZE_LABEL_MARGIN,
-        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-        bounds.size.height
+        0, UI_SIZE_MARGIN, bounds.size.width, bounds.size.height
     );
     self.descriptionLabel.text = NSLocalizedString(@"SETUP_DESCRIPTION_TEXT", nil);
     self.descriptionLabel.numberOfLines = 0;
@@ -114,6 +112,7 @@
 	CGFloat itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	CGFloat stepperValue = 0;
 	CGFloat scale = 1;
+    frame.size.height -= UI_SIZE_MARGIN / 2;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
 		// Setup variables
