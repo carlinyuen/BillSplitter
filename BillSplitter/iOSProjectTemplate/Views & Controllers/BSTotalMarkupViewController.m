@@ -27,8 +27,6 @@
 
 	@property (nonatomic, assign) CGRect frame;
 
-    @property (nonatomic, strong) NSNumberFormatter *numFormatter;
-
 @end
 
 
@@ -57,9 +55,6 @@
 		_finalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
        	_evenSplitLabel = [[UILabel alloc] initWithFrame:CGRectZero]; 
         _coverView = [[UIView alloc] initWithFrame:CGRectZero];
-
-        _numFormatter = [NSNumberFormatter new];
-        _numFormatter.numberStyle = NSNumberFormatterCurrencyStyle;
     }
     return self;
 }
@@ -133,18 +128,15 @@
     CGFloat finalValue = self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f);
     self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", finalValue];
 
-    // Update format for even split based on rounding preference
-    self.numFormatter.minimumFractionDigits
-        = self.numFormatter.maximumFractionDigits
-        = ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) ? 0 : 2;
-
-    // Update even split
+    // Update even split, round up using ceil
+    CGFloat evenSplit = finalValue / self.headCountStepper.value;
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS]) {
+        evenSplit = ceilf(evenSplit);
+    }
     self.evenSplitLabel.textColor = (self.headCountStepper.value <= 1)
         ? [UIColor whiteColor] : [UIColor lightGrayColor];
-    self.evenSplitLabel.text = [NSString stringWithFormat:@"%@ %@",
-        [self.numFormatter stringFromNumber:
-            @(finalValue / self.headCountStepper.value)],
-        NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)
+    self.evenSplitLabel.text = [NSString stringWithFormat:@"$%.2f %@",
+        evenSplit, NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)
     ];
 }
         
