@@ -281,7 +281,70 @@
 
 - (void)buttonPressed:(UIButton *)sender
 {
-	debugFunc(sender);
+    // Shake drink
+    if (sender == self.drinkButton) {
+        CABasicAnimation *animation = [CABasicAnimation
+            animationWithKeyPath:@"position"];
+        animation.duration = ANIMATION_DURATION_FAST / 8;
+        animation.repeatCount = 8;
+        animation.autoreverses = YES;
+        animation.fromValue = [NSValue valueWithCGPoint:
+            CGPointMake([sender center].x - 3.0f, [sender center].y)];
+        animation.toValue = [NSValue valueWithCGPoint:
+            CGPointMake([sender center].x + 3.0f, [sender center].y)];
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseOut];
+        [sender.layer addAnimation:animation forKey:@"animation"];
+    }
+    
+    // Bounce small dish
+    if (sender == self.smallDishButton) {
+        [UIView animateWithDuration:ANIMATION_DURATION_MED delay:0
+            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut | UIViewAnimationOptionAutoreverse
+            animations:^{
+                sender.transform = CGAffineTransformIdentity;
+            }
+            completion:^(BOOL finished) {
+                sender.transform = CGAffineTransformMakeScale(
+                    IMAGEVIEW_SCALE_SMALLDISH, IMAGEVIEW_SCALE_SMALLDISH);
+            }];
+
+        CABasicAnimation *animation = [CABasicAnimation
+            animationWithKeyPath:@"transform.rotation.x"];
+        animation.toValue = @(M_PI * 2.0 * ANIMATION_DURATION_SLOWEST);
+        animation.duration = ANIMATION_DURATION_SLOWEST;
+        animation.cumulative = YES;
+        animation.repeatCount = 0;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseInEaseOut];
+        [sender.layer addAnimation:animation forKey:@"animation"];
+    }
+
+    // Twirl medium dish
+    if (sender == self.mediumDishButton) {
+        CABasicAnimation* animation = [CABasicAnimation
+            animationWithKeyPath:@"transform.rotation.y"];
+        animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
+        animation.duration = ANIMATION_DURATION_SLOWEST;
+        animation.cumulative = YES;
+        animation.repeatCount = 0;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseOut];
+        [sender.layer addAnimation:animation forKey:@"animation"];
+    }
+
+    // Spin large dish
+    if (sender == self.largeDishButton) {
+        CABasicAnimation* animation = [CABasicAnimation
+            animationWithKeyPath:@"transform.rotation.z"];
+        animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
+        animation.duration = ANIMATION_DURATION_SLOWEST;
+        animation.cumulative = YES;
+        animation.repeatCount = 0;
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseInEaseOut];
+        [sender.layer addAnimation:animation forKey:@"animation"];
+    }
 }
 
 
