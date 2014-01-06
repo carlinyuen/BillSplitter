@@ -314,7 +314,7 @@
 
         animation = [CABasicAnimation
             animationWithKeyPath:@"transform.rotation.x"];
-        animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
+        animation.toValue = @(M_PI * 2.0 * ANIMATION_DURATION_SLOWEST);
         animation.duration = ANIMATION_DURATION_SLOWEST;
         animation.cumulative = YES;
         animation.repeatCount = 0;
