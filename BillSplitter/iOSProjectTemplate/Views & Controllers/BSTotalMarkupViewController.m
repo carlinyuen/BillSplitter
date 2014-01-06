@@ -295,7 +295,7 @@
     frame.size.height = bounds.size.height / 5;
     self.finalLabel = [[UILabel alloc] initWithFrame:frame];
     self.finalLabel.text = @"$0.00";
-    self.finalLabel.textColor = [UIColor darkGrayColor]; 
+    self.finalLabel.textColor = [UIColor lightGrayColor];
     self.finalLabel.backgroundColor = [UIColor clearColor];
     self.finalLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_HEADCOUNT];
     self.finalLabel.textAlignment = NSTextAlignmentCenter;

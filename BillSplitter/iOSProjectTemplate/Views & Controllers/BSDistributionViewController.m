@@ -408,7 +408,7 @@
 	)];
 	textField.text = [NSString stringWithFormat:@"%i", (NSInteger)stepper.value];
 	textField.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
-    textField.textColor = [UIColor grayColor];
+    textField.textColor = [UIColor lightGrayColor];
 	textField.textAlignment = NSTextAlignmentCenter;
 	textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	textField.userInteractionEnabled = false;
