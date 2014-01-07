@@ -147,7 +147,8 @@
     self.instructionLabel = [[UILabel alloc] initWithFrame:self.instructionButton.bounds];
     self.instructionLabel.text = NSLocalizedString(@"HEADCOUNT_INSTRUCTION_LABEL", nil);
     self.instructionLabel.textColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    self.instructionLabel.font = [UIFont
+        fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.instructionLabel.textAlignment = NSTextAlignmentCenter;
     [self.instructionButton addSubview:self.instructionLabel];
 	[self.instructionButton addTarget:self
