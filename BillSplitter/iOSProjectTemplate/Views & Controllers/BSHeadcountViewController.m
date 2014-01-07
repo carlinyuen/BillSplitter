@@ -30,6 +30,9 @@
     
    	@property (nonatomic, strong) NSTimer *flashTimer;
 
+    /** For flashing instruction label */
+    @property (nonatomic, strong) UILabel *instructionLabel;
+
 @end
 
 
@@ -141,10 +144,12 @@
         bounds.size.height / 5 * 4,
         UI_SIZE_MIN_TOUCH * 3, UI_SIZE_MIN_TOUCH
     );
-    [self.instructionButton setTitleColor:UIColorFromHex(COLOR_HEX_ACCENT) forState:UIControlStateNormal];
-    [self.instructionButton
-        setTitle:NSLocalizedString(@"HEADCOUNT_INSTRUCTION_LABEL", nil)
-        forState:UIControlStateNormal];
+    self.instructionLabel = [[UILabel alloc] initWithFrame:self.instructionButton.bounds];
+    self.instructionLabel.text = NSLocalizedString(@"HEADCOUNT_INSTRUCTION_LABEL", nil);
+    self.instructionLabel.textColor = UIColorFromHex(COLOR_HEX_ACCENT);
+    self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    self.instructionLabel.textAlignment = NSTextAlignmentCenter;
+    [self.instructionButton addSubview:self.instructionLabel];
 	[self.instructionButton addTarget:self
         action:@selector(instructionButtonPressed:)
         forControlEvents:UIControlEventTouchUpInside];
@@ -186,27 +191,29 @@
 /** @brief Show instructionIV by flashing */
 - (void)showInstructions:(bool)show
 {
+    // Clear timer
+    if (self.flashTimer) {
+        [self.flashTimer invalidate];
+        self.flashTimer = nil;
+    }
+
     if (show)
     {
         self.flashTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOWEST * 2
             target:self selector:@selector(flashView:) userInfo:@{
-                KEY_TIMER_VIEW: self.instructionButton,
+                KEY_TIMER_VIEW: self.instructionLabel,
                 KEY_TIMER_DURATION: @(ANIMATION_DURATION_SLOWEST * 2),
             } repeats:true];
+        [self flashView:self.flashTimer];
     }
     else    // Hide
     {
-        if (self.flashTimer) {
-            [self.flashTimer invalidate];
-            self.flashTimer = nil;
-        }
-    
         // Fade out
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
             options:UIViewAnimationOptionBeginFromCurrentState
                 | UIViewAnimationOptionCurveEaseInOut
             animations:^{
-                self.instructionButton.alpha = 1;
+                self.instructionLabel.alpha = 0;
             } completion:nil];
     }
 }
@@ -233,7 +240,7 @@
                 [UIView animateWithDuration:duration / 2 delay:0
                     options:UIViewAnimationOptionBeginFromCurrentState
                     animations:^{
-                        [view setAlpha:0.20];
+                        [view setAlpha:0.10];
                     } completion:nil];
             }
         }];  
