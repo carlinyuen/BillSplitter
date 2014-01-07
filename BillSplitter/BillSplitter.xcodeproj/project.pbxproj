@@ -448,6 +448,11 @@
 			attributes = {
 				LastUpgradeCheck = 0460;
 				ORGANIZATIONNAME = Carlin;
+				TargetAttributes = {
+					5F7C892A1790A36700018AD7 = {
+						DevelopmentTeam = 8FWA72NP3B;
+					};
+				};
 			};
 			buildConfigurationList = 5F7C89261790A36700018AD7 /* Build configuration list for PBXProject "BillSplitter" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -635,7 +640,7 @@
 		5F7C89521790A36700018AD7 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Carlin Yuen (CB7P22G8XW)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Carlin Yuen (CB7P22G8XW)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
@@ -656,7 +661,7 @@
 		5F7C89531790A36700018AD7 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Carlin Yuen (8FWA72NP3B)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Carlin Yuen (8FWA72NP3B)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "iOSProjectTemplate/BillSplitter-Prefix.pch";
