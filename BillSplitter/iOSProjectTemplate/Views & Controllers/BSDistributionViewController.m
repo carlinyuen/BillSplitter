@@ -49,6 +49,7 @@
 
 	#define IMG_ARROW @"arrow.png"
    	#define IMG_ARROWHEAD @"arrowhead.png" 
+    #define IMG_LITTLEARROW @"littlearrow.png"
 	#define IMG_DINER @"man.png"
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
@@ -89,6 +90,11 @@
 	@property (nonatomic, strong) UIView *dragTargetView;
 	@property (nonatomic, assign) CGPoint dragPointer;
 
+    /** Instructional elements */
+    @property (nonatomic, strong) UILabel *instructionLabel;
+    @property (nonatomic, strong) UILabel *countInstructionLabel;
+    @property (nonatomic, strong) UIImageView *countInstructionIV;
+
 	/** To track last shown profile */
 	@property (nonatomic, assign) NSInteger lastShownProfile;
     
@@ -117,10 +123,12 @@
 		_addButton = [[UIButton alloc] initWithFrame:CGRectZero];
         
         _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROWHEAD]];
+        _instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _instructionCover = [[UIView alloc] initWithFrame:CGRectZero];
         _instructionCover2 = [[UIView alloc] initWithFrame:CGRectZero];
-        _instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        
+        _countInstructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_LITTLEARROW]];
+        _countInstructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+
         _warningLabel = [[UILabel alloc] initWithFrame:CGRectZero];  
 		
         _profileScrollView = [[UIScrollView alloc] initWithFrame:CGRectZero];
@@ -906,6 +914,30 @@
     self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
     [self.instructionLabel sizeToFit];
     [self.view addSubview:self.instructionLabel];
+
+    // Count Instructions
+    self.countInstructionIV.contentMode = UIViewContentModeScaleAspectFit;
+    self.countInstructionIV.frame = CGRectMake(
+       bounds.size.width / 4 * 3, bounds.size.height / 3 * 2,
+       bounds.size.width / 4 - UI_SIZE_LABEL_MARGIN, bounds.size.height / 4
+    );
+    [self.view addSubview:self.countInstructionIV];
+
+    frame = self.countInstructionIV.frame;
+    self.countInstructionLabel.frame = CGRectMake(
+        frame.origin.x, bounds.size.height / 2,
+        bounds.size.width - frame.origin.x, CGRectGetMinY(frame)
+    );
+    self.countInstructionLabel.text = NSLocalizedString(@"DISTRIBUTION_COUNT_INSTRUCTION_LABEL", nil);
+    self.countInstructionLabel.textColor = [UIColor whiteColor];
+    self.countInstructionLabel.textAlignment = NSTextAlignmentCenter;
+    self.countInstructionLabel.numberOfLines = 0;
+    self.countInstructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.countInstructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+    [self.countInstructionLabel sizeToFit];
+    [self.view addSubview:self.countInstructionLabel];
+
+    self.countInstructionIV.alpha = self.countInstructionLabel.alpha = 1;
 }
 
 /** @brief Setup warning label for when user hasn't met their headcount */
