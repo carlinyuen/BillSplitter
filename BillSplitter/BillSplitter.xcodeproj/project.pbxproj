@@ -30,6 +30,9 @@
 		22BA03D2187B9A9300F93F2E /* app-icon6.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D1187B9A9300F93F2E /* app-icon6.png */; };
 		22BA03D5187B9B5200F93F2E /* app-icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D3187B9B5200F93F2E /* app-icon57.png */; };
 		22BA03D6187B9B5200F93F2E /* app-icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D4187B9B5200F93F2E /* app-icon114.png */; };
+		22BA03DA187BA23600F93F2E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D7187BA23600F93F2E /* Default.png */; };
+		22BA03DB187BA23600F93F2E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D8187BA23600F93F2E /* Default@2x.png */; };
+		22BA03DC187BA23600F93F2E /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D9187BA23600F93F2E /* Default~iphone.png */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -95,6 +98,9 @@
 		22BA03D1187B9A9300F93F2E /* app-icon6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon6.png"; sourceTree = SOURCE_ROOT; };
 		22BA03D3187B9B5200F93F2E /* app-icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon57.png"; sourceTree = SOURCE_ROOT; };
 		22BA03D4187B9B5200F93F2E /* app-icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon114.png"; sourceTree = SOURCE_ROOT; };
+		22BA03D7187BA23600F93F2E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
+		22BA03D8187BA23600F93F2E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
+		22BA03D9187BA23600F93F2E /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = SOURCE_ROOT; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -181,6 +187,22 @@
 			path = iRate/iRate;
 			sourceTree = "<group>";
 		};
+		22BA03DD187BA23F00F93F2E /* App Icons & Images */ = {
+			isa = PBXGroup;
+			children = (
+				22BA03D7187BA23600F93F2E /* Default.png */,
+				22BA03D8187BA23600F93F2E /* Default@2x.png */,
+				22BA03D9187BA23600F93F2E /* Default~iphone.png */,
+				22BA03CB187B9A0F00F93F2E /* app-icon1.png */,
+				22BA03CC187B9A0F00F93F2E /* app-icon7.png */,
+				22BA03D1187B9A9300F93F2E /* app-icon6.png */,
+				22BA03CD187B9A0F00F93F2E /* app-icon71.png */,
+				22BA03D3187B9B5200F93F2E /* app-icon57.png */,
+				22BA03D4187B9B5200F93F2E /* app-icon114.png */,
+			);
+			name = "App Icons & Images";
+			sourceTree = "<group>";
+		};
 		5F05427117C67D0100B40CCA /* UIViewDebugger */ = {
 			isa = PBXGroup;
 			children = (
@@ -238,12 +260,12 @@
 		5F7C892D1790A36700018AD7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				2239EA7C1869A2D0002C0552 /* MessageUI.framework */,
+				5F7C89321790A36700018AD7 /* CoreGraphics.framework */,
+				5F7C89301790A36700018AD7 /* Foundation.framework */,
 				5FE4263217CEE5DD009F7652 /* libz.dylib */,
+				2239EA7C1869A2D0002C0552 /* MessageUI.framework */,
 				5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */,
 				5F7C892E1790A36700018AD7 /* UIKit.framework */,
-				5F7C89301790A36700018AD7 /* Foundation.framework */,
-				5F7C89321790A36700018AD7 /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -305,6 +327,7 @@
 		5F7C89751790AF0900018AD7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				22BA03DD187BA23F00F93F2E /* App Icons & Images */,
 				5F7C89761790AF0900018AD7 /* fonts */,
 				5F7C89771790AF0900018AD7 /* images */,
 			);
@@ -324,12 +347,6 @@
 				2239EA651866DB17002C0552 /* arrow@2x.png */,
 				22BA03BB187B8F8D00F93F2E /* dish1@2x.png */,
 				22BA03BC187B8F8D00F93F2E /* dish2@2x.png */,
-				22BA03CB187B9A0F00F93F2E /* app-icon1.png */,
-				22BA03CC187B9A0F00F93F2E /* app-icon7.png */,
-				22BA03D1187B9A9300F93F2E /* app-icon6.png */,
-				22BA03CD187B9A0F00F93F2E /* app-icon71.png */,
-				22BA03D3187B9B5200F93F2E /* app-icon57.png */,
-				22BA03D4187B9B5200F93F2E /* app-icon114.png */,
 				22BA03BD187B8F8D00F93F2E /* dish3@2x.png */,
 				22BA03BE187B8F8D00F93F2E /* drink@2x.png */,
 				22BA03BF187B8F8D00F93F2E /* man@2x.png */,
@@ -454,6 +471,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BA03DB187BA23600F93F2E /* Default@2x.png in Resources */,
 				22BA03CE187B9A0F00F93F2E /* app-icon1.png in Resources */,
 				5F7C89391790A36700018AD7 /* InfoPlist.strings in Resources */,
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
@@ -484,8 +502,10 @@
 				22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */,
 				22BA03D2187B9A9300F93F2E /* app-icon6.png in Resources */,
 				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
+				22BA03DC187BA23600F93F2E /* Default~iphone.png in Resources */,
 				2239EA661866DB17002C0552 /* arrow@2x.png in Resources */,
 				22BA03CF187B9A0F00F93F2E /* app-icon7.png in Resources */,
+				22BA03DA187BA23600F93F2E /* Default.png in Resources */,
 				2239EA6A1866EB50002C0552 /* arrowhead@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
