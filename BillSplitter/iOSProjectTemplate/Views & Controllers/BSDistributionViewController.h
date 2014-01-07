@@ -55,10 +55,11 @@
 	@property (nonatomic, strong) UIButton *mediumDishButton;
 	@property (nonatomic, strong) UIButton *largeDishButton;
     
-    /** Instructional image */
+    /** Instructional elements */
     @property (nonatomic, strong) UIView *instructionCover;
     @property (nonatomic, strong) UIView *instructionCover2; 
     @property (nonatomic, strong) UIImageView *instructionIV;
+    @property (nonatomic, strong) UILabel *instructionLabel;
     
     /** Warning label */
     @property (nonatomic, strong) UILabel *warningLabel;

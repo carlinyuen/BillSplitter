@@ -118,7 +118,8 @@
         
         _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROWHEAD]];
         _instructionCover = [[UIView alloc] initWithFrame:CGRectZero];
-        _instructionCover2 = [[UIView alloc] initWithFrame:CGRectZero]; 
+        _instructionCover2 = [[UIView alloc] initWithFrame:CGRectZero];
+        _instructionLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         
         _warningLabel = [[UILabel alloc] initWithFrame:CGRectZero];  
 		
@@ -709,7 +710,9 @@
         options:UIViewAnimationOptionBeginFromCurrentState
             | UIViewAnimationOptionCurveEaseInOut
         animations:^{
-            self.instructionIV.alpha = (show) ? 1 : 0;
+            self.instructionIV.alpha
+                = self.instructionLabel.alpha
+                = (show) ? 1 : 0;
         } completion:nil];
 }
 
@@ -864,6 +867,7 @@
 /** @brief Setup instructional image view */
 - (void)setupInstructionIV:(CGRect)bounds
 {
+    // Covers for "drawing" animation
     CGRect frame = self.instructionIV.frame;
     frame.origin = CGPointMake(
         CGRectGetMaxX(self.addButton.frame) + UI_SIZE_DINER_MARGIN, 
@@ -876,14 +880,32 @@
     self.instructionCover2.frame = self.instructionIV.bounds;
     self.instructionCover2.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
     [self.instructionIV addSubview:self.instructionCover2];
-    
+
+    // Arrow
     UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_ARROW]];
     imageView.frame = self.instructionIV.bounds;
     [self.instructionIV addSubview:imageView]; 
      
     self.instructionCover.frame = self.instructionIV.bounds;
     self.instructionCover.backgroundColor = UIColorFromHex(COLOR_HEX_ACCENT);
-    [self.instructionIV addSubview:self.instructionCover]; 
+    [self.instructionIV addSubview:self.instructionCover];
+
+    // Label
+    frame = self.instructionIV.frame;
+    self.instructionLabel.frame = CGRectMake(
+        CGRectGetMaxX(frame) - UI_SIZE_MARGIN * 2,
+        CGRectGetMaxY(frame) - UI_SIZE_MARGIN * 3,
+        bounds.size.width - CGRectGetMaxX(frame),
+        bounds.size.height
+    );
+    self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_DRAG_INSTRUCTION_LABEL", nil);
+    self.instructionLabel.textColor = [UIColor whiteColor];
+    self.instructionLabel.textAlignment = NSTextAlignmentCenter;
+    self.instructionLabel.numberOfLines = 0;
+    self.instructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    self.instructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
+    [self.instructionLabel sizeToFit];
+    [self.view addSubview:self.instructionLabel];
 }
 
 /** @brief Setup warning label for when user hasn't met their headcount */
