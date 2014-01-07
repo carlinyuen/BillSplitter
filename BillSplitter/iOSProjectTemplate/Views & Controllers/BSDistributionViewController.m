@@ -926,7 +926,7 @@
     frame = self.countInstructionIV.frame;
     self.countInstructionLabel.frame = CGRectMake(
         frame.origin.x, bounds.size.height / 2,
-        bounds.size.width - frame.origin.x, CGRectGetMinY(frame)
+        bounds.size.width - frame.origin.x, bounds.size.height
     );
     self.countInstructionLabel.text = NSLocalizedString(@"DISTRIBUTION_COUNT_INSTRUCTION_LABEL", nil);
     self.countInstructionLabel.textColor = [UIColor whiteColor];
@@ -935,6 +935,9 @@
     self.countInstructionLabel.lineBreakMode = NSLineBreakByWordWrapping;
     self.countInstructionLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_COPY];
     [self.countInstructionLabel sizeToFit];
+    frame = self.countInstructionLabel.frame;
+    frame.origin.y = CGRectGetMinY(self.countInstructionIV.frame) - frame.size.height;
+    self.countInstructionLabel.frame = frame;
     [self.view addSubview:self.countInstructionLabel];
 
     self.countInstructionIV.alpha = self.countInstructionLabel.alpha = 1;
