@@ -18,6 +18,9 @@
     /** Notifies delegate whenever headcount is changed */
     - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count;
 
+    /** Notifies delegate if instruction button is pressed */
+    - (void)headCountViewController:(BSHeadcountViewController *)vc instructionsPressed:(UIButton *)button;
+
 @end
 
 @interface BSHeadcountViewController : UIViewController <
@@ -32,7 +35,7 @@
 	@property (strong, nonatomic) UITextField *textField;
 	@property (nonatomic, strong) UIVerticalStepper *stepper;
        
-    @property (nonatomic, strong) UIImageView *instructionIV;  
+    @property (nonatomic, strong) UIButton *instructionButton;
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;

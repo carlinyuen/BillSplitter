@@ -13,6 +13,10 @@
 "APP_VIEW_WARNING_RESET" = "Are you sure you want to reset all fields?";
 "APP_VIEW_WARNING_RESET_OK" = "Reset";
 
+"HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
+"HEADCOUNT_DESCRIPTION_TEXT" = "For those who don't want to nitpick over every little detail.";
+"HEADCOUNT_INSTRUCTION_LABEL" = "swipe down";
+
 "INFO_VIEW_TITLE" = "Settings";
 "INFO_VIEW_SETTINGS_HEADER" = "Settings";
 "INFO_VIEW_SETTINGS_ROUND" = "Round to Next Dollar";
@@ -26,15 +30,14 @@
 "INFO_VIEW_MAIL_POPUP_TITLE" = "Thanks for the note!";
 "INFO_VIEW_MAIL_POPUP_MESSAGE" = "Let me know if you have any issues or feedback! :o)";
 
-"HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
-"HEADCOUNT_DESCRIPTION_TEXT" = "Just tell me what I owe!";
-
 "TOTALMARKUP_TOTAL_LABEL" = "Bill Total";
 "TOTALMARKUP_TIP_LABEL" = "+ Tip";
 "TOTALMARKUP_EVEN_SPLIT_LABEL" = "split evenly";
 
 "SETUP_DESCRIPTION_TEXT" = "Algebra for uneven splits! Enter approximate costs for average dishes.";
 
+"DISTRIBUTION_DRAG_INSTRUCTION_LABEL" = "Drag dishes into a meal profile";
+"DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo?";
 "DISTRIBUTION_ERROR_HEADCOUNT" = "You're over your headcount! Would you like to go to the first screen to add more people to your party?";
 "DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
 "DISTRIBUTION_WARNING_SINGLE" = "person left in your party";

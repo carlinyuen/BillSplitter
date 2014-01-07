@@ -20,8 +20,7 @@
     #define SCALE_TEXTFIELD_CHANGE 1.1
 
 	#define IMG_MAN @"man.png"
-   	#define IMG_DOWN @"down.png" 
-    
+
     #define KEY_TIMER_DURATION @"duration"
     #define KEY_TIMER_VIEW @"view" 
 
@@ -52,7 +51,7 @@
 		_textField = [[UITextField alloc] initWithFrame:CGRectZero];
 		_stepper = [[UIVerticalStepper alloc] initWithFrame:CGRectZero];
         
-        _instructionIV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:IMG_DOWN]];
+        _instructionButton = [[UIButton alloc] initWithFrame:CGRectZero];
     }
     return self;
 }
@@ -78,7 +77,8 @@
 		UI_SIZE_MARGIN, UI_SIZE_MARGIN,
 		bounds.size.width - UI_SIZE_MARGIN * 2, UI_SIZE_LABEL_HEIGHT
 	);
-	
+
+    // Welcome Label
 	frame = self.taglineLabel.frame;
 	self.welcomeLabel.text = NSLocalizedString(@"HEADCOUNT_DESCRIPTION_TEXT", nil);
 	self.welcomeLabel.numberOfLines = 0;
@@ -96,18 +96,18 @@
    	frame = self.welcomeLabel.frame; 
     frame.origin.x = (bounds.size.width - CGRectGetWidth(frame)) / 2;
    	self.welcomeLabel.frame = frame;
-	
+
+    // Imageview
 	frame = self.welcomeLabel.frame;
 	self.imageView.frame = CGRectMake(
-		bounds.size.width / 8, 
-        CGRectGetMaxY(frame),
-		bounds.size.width / 4, 
-        bounds.size.height / 3 * 2
+		bounds.size.width / 8, bounds.size.height / 6,
+		bounds.size.width / 4, bounds.size.height / 3 * 2
 	);
 	self.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	self.imageView.image = [UIImage imageNamed:IMG_MAN];
 	self.imageView.clipsToBounds = true;
-	
+
+    // Textfield
 	frame = self.imageView.frame;
 	self.textField.frame = CGRectMake(
 		CGRectGetMaxX(frame),
@@ -121,7 +121,8 @@
 	self.textField.keyboardType = UIKeyboardTypeNumberPad;
 	self.textField.textAlignment = NSTextAlignmentCenter;
 	self.textField.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-	
+
+    // Stepper
 	frame = self.textField.frame;
 	self.stepper.frame = CGRectMake(
 		CGRectGetMaxX(frame),
@@ -133,14 +134,29 @@
 	self.stepper.maximumValue = STEPPER_MAX_VALUE;
 	self.stepper.minimumValue = STEPPER_MIN_VALUE;
 	self.stepper.value = STEPPER_DEFAULT_VALUE;
-	
-	frame = self.imageView.frame;
-	
+
+    // Instruction Button
+    self.instructionButton.frame = CGRectMake(
+        (bounds.size.width - UI_SIZE_MIN_TOUCH * 3) / 2,
+        bounds.size.height / 5 * 4,
+        UI_SIZE_MIN_TOUCH * 3, UI_SIZE_MIN_TOUCH
+    );
+    [self.instructionButton setTitleColor:UIColorFromHex(COLOR_HEX_ACCENT) forState:UIControlStateNormal];
+    [self.instructionButton
+        setTitle:NSLocalizedString(@"HEADCOUNT_INSTRUCTION_LABEL", nil)
+        forState:UIControlStateNormal];
+	[self.instructionButton addTarget:self
+        action:@selector(instructionButtonPressed:)
+        forControlEvents:UIControlEventTouchUpInside];
+
 	[self.view addSubview:self.taglineLabel];
 	[self.view addSubview:self.welcomeLabel];
 	[self.view addSubview:self.imageView];
 	[self.view addSubview:self.stepper];
 	[self.view addSubview:self.textField];
+    [self.view addSubview:self.instructionButton];
+
+    [self showInstructions:true];
 }
 
 /** @brief Last-minute setup before view appears. */
@@ -172,10 +188,10 @@
 {
     if (show)
     {
-        self.flashTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOW * 2 
+        self.flashTimer = [NSTimer scheduledTimerWithTimeInterval:ANIMATION_DURATION_SLOWEST * 2
             target:self selector:@selector(flashView:) userInfo:@{
-                KEY_TIMER_VIEW: self.instructionIV,
-                KEY_TIMER_DURATION: @(ANIMATION_DURATION_SLOW * 2),
+                KEY_TIMER_VIEW: self.instructionButton,
+                KEY_TIMER_DURATION: @(ANIMATION_DURATION_SLOWEST * 2),
             } repeats:true];
     }
     else    // Hide
@@ -190,7 +206,7 @@
             options:UIViewAnimationOptionBeginFromCurrentState
                 | UIViewAnimationOptionCurveEaseInOut
             animations:^{
-                self.instructionIV.alpha = 1;
+                self.instructionButton.alpha = 1;
             } completion:nil];
     }
 }
@@ -199,7 +215,7 @@
 - (void)flashView:(NSTimer *)timer
 {
     // Get data from timer if exists
-    CGFloat duration = ANIMATION_DURATION_SLOW;
+    CGFloat duration = ANIMATION_DURATION_SLOWEST;
     UIView *view = nil;
     if (timer)
     {
@@ -224,7 +240,16 @@
 }
 
 
-#pragma mark - Utility Functions
+#pragma mark - Event Handlers
+
+/** @brief Instructions button pressed */
+- (void)instructionButtonPressed:(UIButton *)sender
+{
+    // Let delegate know
+    if (self.delegate && [self.delegate respondsToSelector:@selector(headCountViewController:instructionsPressed:)]) {
+        [self.delegate headCountViewController:self instructionsPressed:sender];
+    }
+}
 
 
 #pragma mark - Delegates

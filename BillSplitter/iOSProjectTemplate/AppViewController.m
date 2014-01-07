@@ -1359,10 +1359,16 @@
 
 - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count
 {
+    // Update view controllers if they're set up
     if (self.viewControllers.count) {
         [self.viewControllers[AppViewControllerPageTotal] updateCalculations];
     }
     [self updatePages];
+}
+
+- (void)headCountViewController:(BSHeadcountViewController *)vc instructionsPressed:(UIButton *)button {
+    self.pageControl.currentPage++;
+    [self pageControlPageDidChange:self.pageControl];
 }
 
 
