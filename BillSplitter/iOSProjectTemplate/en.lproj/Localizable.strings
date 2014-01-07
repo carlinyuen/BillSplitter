@@ -38,7 +38,7 @@
 "SETUP_DESCRIPTION_TEXT" = "Algebra for uneven splits! Enter approximate costs for average dishes.";
 
 "DISTRIBUTION_DRAG_INSTRUCTION_LABEL" = "Drag dishes into a meal profile!";
-"DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo?";
+"DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo";
 "DISTRIBUTION_ERROR_HEADCOUNT" = "You're over your headcount! Would you like to go to the first screen to add more people to your party?";
 "DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
 "DISTRIBUTION_WARNING_SINGLE" = "person left in your party";

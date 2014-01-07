@@ -197,8 +197,9 @@
     // Refresh drag button positions for distro
     [self refreshDragButtonPositions]; 
     
-    // Show the arrow if no profiles set
-    [self showInstructionIV:(!self.profiles.count)];
+    // Show instructions if no profiles set
+    [self showDragInstructions:(!self.profiles.count)];
+    [self showCountInstructions:(self.profiles.count == 1)];
 
     // Fade in remove / stepper buttons
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
@@ -434,11 +435,13 @@
 	imageButton.imageView.contentMode = UIViewContentModeScaleAspectFill;
 	[containerView addSubview:imageButton];
 
-	// Fade out instructional image if there are profiles
-	if (!self.profiles.count) {
-		[self showInstructionIV:false];
-	}
-	
+	// Fade out drag instructions if there were previously no profiles,
+    //  and fade in count instructions
+    if (!self.profiles.count) {
+        [self showDragInstructions:false];
+        [self showCountInstructions:true];
+    }
+
 	// Keeping track of elements, need to be mutable for edits later
     int addIndex = 0;
 	[self.profiles insertObject:[@{
@@ -647,10 +650,16 @@
 					temp.frame = frame;
 				}
 			}
+
+            // If one more card left after removal, show count instructions
+            if (self.profiles.count == 2) {
+                [self showCountInstructions:true];
+            }
 			
-			// If no more cards, fade in instructions
-			if (self.profiles.count == 1) {
-                [self showInstructionIV:true];
+			// If no more cards after removal, show drag instructions
+			else if (self.profiles.count == 1) {
+                [self showDragInstructions:true];
+                [self showCountInstructions:false];
 			}
 		}
 		completion:^(BOOL finished)
@@ -711,8 +720,8 @@
     }
 }
 
-/** @brief Show instructional arrow */
-- (void)showInstructionIV:(bool)show
+/** @brief Show instructional drag arrow & label */
+- (void)showDragInstructions:(bool)show
 {
     [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
         options:UIViewAnimationOptionBeginFromCurrentState
@@ -720,6 +729,19 @@
         animations:^{
             self.instructionIV.alpha
                 = self.instructionLabel.alpha
+                = (show) ? 1 : 0;
+        } completion:nil];
+}
+
+/** @brief Show instructional count arrow & label */
+- (void)showCountInstructions:(bool)show
+{
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
+        options:UIViewAnimationOptionBeginFromCurrentState
+            | UIViewAnimationOptionCurveEaseInOut
+        animations:^{
+            self.countInstructionIV.alpha
+                = self.countInstructionLabel.alpha
                 = (show) ? 1 : 0;
         } completion:nil];
 }
@@ -940,7 +962,7 @@
     self.countInstructionLabel.frame = frame;
     [self.view addSubview:self.countInstructionLabel];
 
-    self.countInstructionIV.alpha = self.countInstructionLabel.alpha = 1;
+    self.countInstructionIV.alpha = self.countInstructionLabel.alpha = 0;
 }
 
 /** @brief Setup warning label for when user hasn't met their headcount */
