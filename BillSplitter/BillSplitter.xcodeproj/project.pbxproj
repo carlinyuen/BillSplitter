@@ -15,6 +15,15 @@
 		2239EA7818698AF9002C0552 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7618698AF9002C0552 /* iRate.m */; };
 		2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7A18698BA1002C0552 /* BSInfoViewController.m */; };
 		2239EA7D1869A2D0002C0552 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2239EA7C1869A2D0002C0552 /* MessageUI.framework */; };
+		22BA03BA187B8F3200F93F2E /* littlearrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */; };
+		22BA03C3187B8F8D00F93F2E /* dish1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BB187B8F8D00F93F2E /* dish1@2x.png */; };
+		22BA03C4187B8F8D00F93F2E /* dish2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BC187B8F8D00F93F2E /* dish2@2x.png */; };
+		22BA03C5187B8F8D00F93F2E /* dish3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BD187B8F8D00F93F2E /* dish3@2x.png */; };
+		22BA03C6187B8F8D00F93F2E /* drink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BE187B8F8D00F93F2E /* drink@2x.png */; };
+		22BA03C7187B8F8D00F93F2E /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BF187B8F8D00F93F2E /* man@2x.png */; };
+		22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C0187B8F8D00F93F2E /* plus@2x.png */; };
+		22BA03C9187B8F8D00F93F2E /* reset_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */; };
+		22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C2187B8F8D00F93F2E /* reset@2x.png */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -23,8 +32,6 @@
 		5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */; };
 		5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */; };
 		5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */; };
-		5F459F0A17C54FA900DCBDD9 /* drink.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0517C54FA900DCBDD9 /* drink.png */; };
-		5F459F0B17C54FA900DCBDD9 /* man.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F0617C54FA900DCBDD9 /* man.png */; };
 		5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */; };
 		5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459F1617C5719C00DCBDD9 /* BSKeyboardControls.m */; };
 		5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5F459F1717C5719C00DCBDD9 /* BSKeyboardControls.strings */; };
@@ -39,12 +46,6 @@
 		5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C897A1790AF3200018AD7 /* AppViewController.m */; };
 		5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C897B1790AF3300018AD7 /* AppViewController.xib */; };
 		5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C8981179439A600018AD7 /* Default-568h@2x.png */; };
-		5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B817DFB1D900365348 /* dish1.png */; };
-		5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0B917DFB1D900365348 /* dish2.png */; };
-		5FBAC0BD17DFB1D900365348 /* dish3.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0BA17DFB1D900365348 /* dish3.png */; };
-		5FBAC0C217DFBD4700365348 /* reset_pressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0C017DFBD4700365348 /* reset_pressed.png */; };
-		5FBAC0C317DFBD4700365348 /* reset.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FBAC0C117DFBD4700365348 /* reset.png */; };
-		5FE425BE17CBE330009F7652 /* plus.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE425BC17CBE330009F7652 /* plus.png */; };
 		5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261517CE3C77009F7652 /* stepperBottomButton.png */; };
 		5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */; };
 		5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */; };
@@ -73,6 +74,15 @@
 		2239EA7918698BA1002C0552 /* BSInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSInfoViewController.h; sourceTree = "<group>"; };
 		2239EA7A18698BA1002C0552 /* BSInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSInfoViewController.m; sourceTree = "<group>"; };
 		2239EA7C1869A2D0002C0552 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "littlearrow@2x.png"; sourceTree = "<group>"; };
+		22BA03BB187B8F8D00F93F2E /* dish1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish1@2x.png"; sourceTree = "<group>"; };
+		22BA03BC187B8F8D00F93F2E /* dish2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish2@2x.png"; sourceTree = "<group>"; };
+		22BA03BD187B8F8D00F93F2E /* dish3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish3@2x.png"; sourceTree = "<group>"; };
+		22BA03BE187B8F8D00F93F2E /* drink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drink@2x.png"; sourceTree = "<group>"; };
+		22BA03BF187B8F8D00F93F2E /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
+		22BA03C0187B8F8D00F93F2E /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
+		22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_pressed@2x.png"; sourceTree = "<group>"; };
+		22BA03C2187B8F8D00F93F2E /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -88,8 +98,6 @@
 		5F459EFC17C5482100DCBDD9 /* BSDishSetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSDishSetupViewController.m; sourceTree = "<group>"; };
 		5F459F0017C5483B00DCBDD9 /* BSTotalMarkupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSTotalMarkupViewController.h; sourceTree = "<group>"; };
 		5F459F0117C5483B00DCBDD9 /* BSTotalMarkupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSTotalMarkupViewController.m; sourceTree = "<group>"; };
-		5F459F0517C54FA900DCBDD9 /* drink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = drink.png; sourceTree = "<group>"; };
-		5F459F0617C54FA900DCBDD9 /* man.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = man.png; sourceTree = "<group>"; };
 		5F459F0F17C5505800DCBDD9 /* BSSummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSSummaryViewController.h; sourceTree = "<group>"; };
 		5F459F1017C5505900DCBDD9 /* BSSummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSSummaryViewController.m; sourceTree = "<group>"; };
 		5F459F1517C5719C00DCBDD9 /* BSKeyboardControls.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSKeyboardControls.h; sourceTree = "<group>"; };
@@ -113,12 +121,6 @@
 		5F7C897A1790AF3200018AD7 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
 		5F7C897B1790AF3300018AD7 /* AppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppViewController.xib; sourceTree = "<group>"; };
 		5F7C8981179439A600018AD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		5FBAC0B817DFB1D900365348 /* dish1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish1.png; sourceTree = "<group>"; };
-		5FBAC0B917DFB1D900365348 /* dish2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish2.png; sourceTree = "<group>"; };
-		5FBAC0BA17DFB1D900365348 /* dish3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dish3.png; sourceTree = "<group>"; };
-		5FBAC0C017DFBD4700365348 /* reset_pressed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset_pressed.png; sourceTree = "<group>"; };
-		5FBAC0C117DFBD4700365348 /* reset.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = reset.png; sourceTree = "<group>"; };
-		5FE425BC17CBE330009F7652 /* plus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = plus.png; sourceTree = "<group>"; };
 		5FE4261517CE3C77009F7652 /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
 		5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
 		5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperMinusSymbol.png; sourceTree = "<group>"; };
@@ -307,16 +309,17 @@
 		5F7C89771790AF0900018AD7 /* images */ = {
 			isa = PBXGroup;
 			children = (
-				2239EA691866EB50002C0552 /* arrowhead@2x.png */,
-				5FE425BC17CBE330009F7652 /* plus.png */,
-				5FBAC0C017DFBD4700365348 /* reset_pressed.png */,
 				2239EA651866DB17002C0552 /* arrow@2x.png */,
-				5FBAC0C117DFBD4700365348 /* reset.png */,
-				5FBAC0B817DFB1D900365348 /* dish1.png */,
-				5FBAC0B917DFB1D900365348 /* dish2.png */,
-				5FBAC0BA17DFB1D900365348 /* dish3.png */,
-				5F459F0517C54FA900DCBDD9 /* drink.png */,
-				5F459F0617C54FA900DCBDD9 /* man.png */,
+				22BA03BB187B8F8D00F93F2E /* dish1@2x.png */,
+				22BA03BC187B8F8D00F93F2E /* dish2@2x.png */,
+				22BA03BD187B8F8D00F93F2E /* dish3@2x.png */,
+				22BA03BE187B8F8D00F93F2E /* drink@2x.png */,
+				22BA03BF187B8F8D00F93F2E /* man@2x.png */,
+				22BA03C0187B8F8D00F93F2E /* plus@2x.png */,
+				22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */,
+				22BA03C2187B8F8D00F93F2E /* reset@2x.png */,
+				2239EA691866EB50002C0552 /* arrowhead@2x.png */,
+				22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -436,29 +439,30 @@
 				5F7C89391790A36700018AD7 /* InfoPlist.strings in Resources */,
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
 				5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */,
+				22BA03C9187B8F8D00F93F2E /* reset_pressed@2x.png in Resources */,
 				5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */,
 				2239EA7718698AF9002C0552 /* iRate.bundle in Resources */,
-				5F459F0A17C54FA900DCBDD9 /* drink.png in Resources */,
-				5F459F0B17C54FA900DCBDD9 /* man.png in Resources */,
+				22BA03BA187B8F3200F93F2E /* littlearrow@2x.png in Resources */,
 				5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */,
-				5FE425BE17CBE330009F7652 /* plus.png in Resources */,
 				5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */,
+				22BA03C5187B8F8D00F93F2E /* dish3@2x.png in Resources */,
 				5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */,
 				5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */,
+				22BA03C7187B8F8D00F93F2E /* man@2x.png in Resources */,
 				5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */,
 				5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */,
 				5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */,
 				5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */,
+				22BA03C4187B8F8D00F93F2E /* dish2@2x.png in Resources */,
+				22BA03C3187B8F8D00F93F2E /* dish1@2x.png in Resources */,
 				5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */,
 				5FE4263017CEE58C009F7652 /* README.md in Resources */,
+				22BA03C6187B8F8D00F93F2E /* drink@2x.png in Resources */,
+				22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */,
+				22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */,
 				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
-				5FBAC0BB17DFB1D900365348 /* dish1.png in Resources */,
-				5FBAC0BC17DFB1D900365348 /* dish2.png in Resources */,
 				2239EA661866DB17002C0552 /* arrow@2x.png in Resources */,
 				2239EA6A1866EB50002C0552 /* arrowhead@2x.png in Resources */,
-				5FBAC0BD17DFB1D900365348 /* dish3.png in Resources */,
-				5FBAC0C217DFBD4700365348 /* reset_pressed.png in Resources */,
-				5FBAC0C317DFBD4700365348 /* reset.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
