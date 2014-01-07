@@ -10,7 +10,7 @@
 "APP_VIEW_TITLE" = "Bill Splitter";
 
 "APP_VIEW_WARNING_TITLE" = "Warning";
-"APP_VIEW_WARNING_RESET" = "Are you sure you want to reset all fields?";
+"APP_VIEW_WARNING_RESET" = "This will reset all fields! Continue?";
 "APP_VIEW_WARNING_RESET_OK" = "Reset";
 
 "HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";

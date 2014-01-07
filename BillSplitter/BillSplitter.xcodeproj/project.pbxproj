@@ -24,6 +24,12 @@
 		22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C0187B8F8D00F93F2E /* plus@2x.png */; };
 		22BA03C9187B8F8D00F93F2E /* reset_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */; };
 		22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C2187B8F8D00F93F2E /* reset@2x.png */; };
+		22BA03CE187B9A0F00F93F2E /* app-icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03CB187B9A0F00F93F2E /* app-icon1.png */; };
+		22BA03CF187B9A0F00F93F2E /* app-icon7.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03CC187B9A0F00F93F2E /* app-icon7.png */; };
+		22BA03D0187B9A0F00F93F2E /* app-icon71.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03CD187B9A0F00F93F2E /* app-icon71.png */; };
+		22BA03D2187B9A9300F93F2E /* app-icon6.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D1187B9A9300F93F2E /* app-icon6.png */; };
+		22BA03D5187B9B5200F93F2E /* app-icon57.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D3187B9B5200F93F2E /* app-icon57.png */; };
+		22BA03D6187B9B5200F93F2E /* app-icon114.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D4187B9B5200F93F2E /* app-icon114.png */; };
 		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
@@ -83,6 +89,12 @@
 		22BA03C0187B8F8D00F93F2E /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_pressed@2x.png"; sourceTree = "<group>"; };
 		22BA03C2187B8F8D00F93F2E /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
+		22BA03CB187B9A0F00F93F2E /* app-icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon1.png"; sourceTree = SOURCE_ROOT; };
+		22BA03CC187B9A0F00F93F2E /* app-icon7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon7.png"; sourceTree = SOURCE_ROOT; };
+		22BA03CD187B9A0F00F93F2E /* app-icon71.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon71.png"; sourceTree = SOURCE_ROOT; };
+		22BA03D1187B9A9300F93F2E /* app-icon6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon6.png"; sourceTree = SOURCE_ROOT; };
+		22BA03D3187B9B5200F93F2E /* app-icon57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon57.png"; sourceTree = SOURCE_ROOT; };
+		22BA03D4187B9B5200F93F2E /* app-icon114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon114.png"; sourceTree = SOURCE_ROOT; };
 		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
 		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
@@ -312,6 +324,12 @@
 				2239EA651866DB17002C0552 /* arrow@2x.png */,
 				22BA03BB187B8F8D00F93F2E /* dish1@2x.png */,
 				22BA03BC187B8F8D00F93F2E /* dish2@2x.png */,
+				22BA03CB187B9A0F00F93F2E /* app-icon1.png */,
+				22BA03CC187B9A0F00F93F2E /* app-icon7.png */,
+				22BA03D1187B9A9300F93F2E /* app-icon6.png */,
+				22BA03CD187B9A0F00F93F2E /* app-icon71.png */,
+				22BA03D3187B9B5200F93F2E /* app-icon57.png */,
+				22BA03D4187B9B5200F93F2E /* app-icon114.png */,
 				22BA03BD187B8F8D00F93F2E /* dish3@2x.png */,
 				22BA03BE187B8F8D00F93F2E /* drink@2x.png */,
 				22BA03BF187B8F8D00F93F2E /* man@2x.png */,
@@ -436,9 +454,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22BA03CE187B9A0F00F93F2E /* app-icon1.png in Resources */,
 				5F7C89391790A36700018AD7 /* InfoPlist.strings in Resources */,
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
 				5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */,
+				22BA03D5187B9B5200F93F2E /* app-icon57.png in Resources */,
+				22BA03D0187B9A0F00F93F2E /* app-icon71.png in Resources */,
 				22BA03C9187B8F8D00F93F2E /* reset_pressed@2x.png in Resources */,
 				5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */,
 				2239EA7718698AF9002C0552 /* iRate.bundle in Resources */,
@@ -448,6 +469,7 @@
 				22BA03C5187B8F8D00F93F2E /* dish3@2x.png in Resources */,
 				5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */,
 				5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */,
+				22BA03D6187B9B5200F93F2E /* app-icon114.png in Resources */,
 				22BA03C7187B8F8D00F93F2E /* man@2x.png in Resources */,
 				5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */,
 				5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */,
@@ -460,8 +482,10 @@
 				22BA03C6187B8F8D00F93F2E /* drink@2x.png in Resources */,
 				22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */,
 				22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */,
+				22BA03D2187B9A9300F93F2E /* app-icon6.png in Resources */,
 				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
 				2239EA661866DB17002C0552 /* arrow@2x.png in Resources */,
+				22BA03CF187B9A0F00F93F2E /* app-icon7.png in Resources */,
 				2239EA6A1866EB50002C0552 /* arrowhead@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
