@@ -23,6 +23,7 @@
 "INFO_VIEW_SETTINGS_ROUND_IOS7" = "Round to Nearest Dollar";
 "INFO_VIEW_ABOUT_HEADER" = "About";
 "INFO_VIEW_ABOUT_FEEDBACK" = "Review App";
+"INFO_VIEW_ABOUT_VERSION" = "Version";
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
 "INFO_VIEW_FEEDBACK_POPUP_TITLE" = "Questions? Feedback?";
 "INFO_VIEW_FEEDBACK_POPUP_MESSAGE" = "Feel free to send them along to email.me@carlinyuen.com!";

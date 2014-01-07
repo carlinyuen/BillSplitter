@@ -26,6 +26,7 @@
 	#define TABLEVIEW_DATA_KEY_ROWS @"rows"
     #define TABLEVIEW_DATA_KEY_SWITCH @"switch"
     #define TABLEVIEW_DATA_KEY_URL @"url"
+    #define TABLEVIEW_DATA_KEY_DETAIL @"detail"
     #define TABLEVIEW_DATA_KEY_VIEWCONTROLLER @"vc"
 
     #define URL_FORMAT_APP_STORE @"itms-apps://itunes.apple.com/app/id%@?at=10l6dK"
@@ -85,6 +86,12 @@
 		@{
 			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_HEADER", nil),
 			TABLEVIEW_DATA_KEY_ROWS: @[
+
+                @{
+                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_VERSION", nil),
+                    TABLEVIEW_DATA_KEY_DETAIL: [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey],
+                },
+
                 @{
                     TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
                     TABLEVIEW_DATA_KEY_URL: [NSURL
@@ -94,6 +101,7 @@
                             : URL_FORMAT_APP_STORE),
                                 @(ID_APP_STORE)]]
                 },
+
 			],
 		},
     ];
@@ -355,7 +363,7 @@
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:TABLEVIEW_CELL_ID];
 	
 	if (cell == nil) {
-		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:TABLEVIEW_CELL_ID];
+		cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:TABLEVIEW_CELL_ID];
 		cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	}
     
@@ -366,6 +374,8 @@
 	
 	cell.backgroundColor = UIColorFromHex(COLOR_HEX_CELL_BACKGROUND);
 	cell.textLabel.text = cellData[TABLEVIEW_DATA_KEY_LABEL];
+   	cell.detailTextLabel.text = cellData[TABLEVIEW_DATA_KEY_DETAIL];
+    cell.detailTextLabel.textColor = [UIColor darkGrayColor];
         
     // Custom toggle for certain cells
     NSNumber *switchTag = cellData[TABLEVIEW_DATA_KEY_SWITCH];
