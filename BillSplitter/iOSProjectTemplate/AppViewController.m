@@ -1143,7 +1143,7 @@
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
-    [self updatePages];
+    [self updatePages];     // Update pages
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -1292,8 +1292,27 @@
 	[self updatePages];
 }
 
+/** @brief Called when the user starts to initiate a scroll motion */
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    // Re-enable animator if needed, in case it wasn't reactivated
+	if (self.enableAnimator) 
+    {
+		self.animator.enabled = true;
+		self.enableAnimator = false;
+        
+        // Needed to get animator to refresh and show elements again
+		self.scrollView.contentOffset = self.scrollView.contentOffset;
+       	
+        // Re-enable paging once done with animation
+        self.scrollView.pagingEnabled = true;
+	}
+}
+
+/** @brief This gets called when the scrollview stops scrolling after a user-initiated scroll motion */
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+	// If page is not the same as lastShownPage, let page know it'll be shown
 	if (self.lastShownPage != self.pageControl.currentPage) 
     {
         [[self.viewControllers objectAtIndex:self.pageControl.currentPage] viewDidAppear:true];
@@ -1303,6 +1322,7 @@
 	}
 }
 
+/** @brief This gets called at the end of scrolling animations from "scrollToRect" messages */
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     // Re-enable animator if needed
@@ -1313,6 +1333,9 @@
         
         // Needed to get animator to refresh and show elements again
 		self.scrollView.contentOffset = self.scrollView.contentOffset;
+       	
+        // Re-enable paging once done with animation
+        self.scrollView.pagingEnabled = true;
 	}
        	
 	// If page is not the same as lastShownPage, let page know it'll be shown
@@ -1321,9 +1344,6 @@
         [[self.viewControllers objectAtIndex:self.lastShownPage] viewDidDisappear:true];
         self.lastShownPage = self.pageControl.currentPage; 
 	}
-	
-	// Re-enable paging once done with animation
-	self.scrollView.pagingEnabled = true;
 }
 
 
