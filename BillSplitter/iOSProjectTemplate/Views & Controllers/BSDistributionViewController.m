@@ -440,6 +440,8 @@
     if (!self.profiles.count) {
         [self showDragInstructions:false];
         [self showCountInstructions:true];
+    } else {    // Hide count if more than one profile
+        [self showCountInstructions:false];
     }
 
 	// Keeping track of elements, need to be mutable for edits later
