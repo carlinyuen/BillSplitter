@@ -781,8 +781,10 @@
     {
         frame.origin.x = CGRectGetMaxX(frame) + UI_SIZE_DINER_MARGIN; 
         dragButton.frame = frame;
-        [dragButton addTarget:self action:@selector(dishButtonPressed:) 
-            forControlEvents:UIControlEventTouchDown]; 
+        [dragButton addTarget:self action:@selector(dishButtonPressed:)
+            forControlEvents:UIControlEventTouchDown];
+        [dragButton addTarget:self action:@selector(dishButtonTapped:)
+            forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:dragButton];
     }
 }
@@ -1044,8 +1046,12 @@
 - (void)dishButtonPressed:(UIButton *)button
 {
 	self.tappedDish = button;
+}
 
-    switch (self.tappedDish.tag)
+/** @brief Dish button tapped */
+- (void)dishButtonTapped:(UIButton *)button
+{
+    switch (button.tag)
     {
         case BSDishSetupViewControllerItemDrink:
             [self.drinkButton sendActionsForControlEvents:UIControlEventTouchUpInside]; break;
