@@ -31,6 +31,9 @@
 	#define UI_SIZE_PAGECONTROL_WIDTH 24
 	#define UI_SIZE_PAGECONTROL_HEIGHT 94
 
+    #define TEXTFIELD_MIN_DIGITS 3
+    #define TEXTFIELD_NUM_DECIMAL_PLACES 2
+
 	#define IMG_RESET @"reset.png"
 	#define IMG_RESET_PRESSED @"reset_pressed.png"
 
@@ -1148,6 +1151,10 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+    // Select text in field, hide copy / paste menu initially
+    [textField selectAll:self];
+    [UIMenuController sharedMenuController].menuVisible = false;
+
 	// To prevent stuttering of scrolling
 	self.scrollView.pagingEnabled = false;
 	self.animator.enabled = false;
@@ -1236,9 +1243,18 @@
         stringByReplacingCharactersInRange:range withString:string]
         stringByReplacingOccurrencesOfString:@"$" withString:@""]
         stringByReplacingOccurrencesOfString:@"." withString:@""] mutableCopy];
+
+    // If text isn't large enough, pad with zeroes on the left side
+    if (newText.length < TEXTFIELD_MIN_DIGITS) {
+        newText = [NSMutableString stringWithFormat:@"%@%@",
+            [@"" stringByPaddingToLength:TEXTFIELD_MIN_DIGITS - newText.length
+                withString:@"0" startingAtIndex:0],
+            newText
+        ];
+    }
     
     // Add in decimal point now
-    [newText insertString:@"." atIndex:newText.length - 2];
+    [newText insertString:@"." atIndex:newText.length - TEXTFIELD_NUM_DECIMAL_PLACES];
 
     // Make sure is a number
     NSNumber *number = [self.numberFormatter numberFromString:newText];
@@ -1254,7 +1270,9 @@
     
     // Set stepper value
     stepper.value = number.floatValue;
-    textField.text = [NSString stringWithFormat:@"$%.2f", number.floatValue];
+    textField.text = [NSString stringWithFormat:
+        [@[@"$%.", @(TEXTFIELD_NUM_DECIMAL_PLACES), @"f"]
+            componentsJoinedByString:@""], number.floatValue];
 }
 
 
