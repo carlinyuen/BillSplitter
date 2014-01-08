@@ -1044,6 +1044,23 @@
 - (void)dishButtonPressed:(UIButton *)button
 {
 	self.tappedDish = button;
+
+    switch (self.tappedDish.tag)
+    {
+        case BSDishSetupViewControllerItemDrink:
+            [self.drinkButton sendActionsForControlEvents:UIControlEventTouchUpInside]; break;
+
+        case BSDishSetupViewControllerItemSmallDish:
+            [self.smallDishButton sendActionsForControlEvents:UIControlEventTouchUpInside]; break;
+
+        case BSDishSetupViewControllerItemMediumDish:
+            [self.mediumDishButton sendActionsForControlEvents:UIControlEventTouchUpInside]; break;
+
+        case BSDishSetupViewControllerItemLargeDish:
+            [self.largeDishButton sendActionsForControlEvents:UIControlEventTouchUpInside]; break;
+
+        default: break;
+    }
 }
 
 /** @brief View panned on, to do dragging */
