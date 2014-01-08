@@ -1123,12 +1123,14 @@
 		// Stopped dragging, let go of item
 		case UIGestureRecognizerStateEnded:
 		{
+            // Make reference so it doesn't get garbage collected mid-animation
+            UIView *draggedView = self.draggedView;
 			[UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
 				options:UIViewAnimationOptionBeginFromCurrentState
 					| UIViewAnimationOptionCurveEaseIn
 				animations:^{
 					// Shrink animation for drop
-					self.draggedView.transform
+					draggedView.transform
 						= CGAffineTransformMakeScale(0, 0);
 				}
 				completion:^(BOOL finished)
@@ -1142,8 +1144,10 @@
 						// If is add button, then add new diner with dish
 						if (self.dragTargetView == self.addButton)
 						{
-							[self addDiner:self.draggedView];
-							self.draggedView = nil;
+							[self addDiner:draggedView];
+                            if (self.draggedView == draggedView) {
+                                self.draggedView = nil;
+                            }
 						}
 						else	// Find diner profile to add to
 						{
@@ -1156,17 +1160,21 @@
 							}
 							else	// Add dish to diner with animation
 							{
-								[self addDish:self.draggedView
+								[self addDish:draggedView
 									toDinerAtIndex:index
 									completion:nil];
-								self.draggedView = nil;
+                                if (self.draggedView == draggedView) {
+                                    self.draggedView = nil;
+                                }
 							}
 						}
 					}
 					else	// Not dropped in anything, remove and clear
 					{
-						[self.draggedView removeFromSuperview];
-						self.draggedView = nil;
+						[draggedView removeFromSuperview];
+                        if (self.draggedView == draggedView) {
+                            self.draggedView = nil;
+                        }
 					}
 				}];
 			
