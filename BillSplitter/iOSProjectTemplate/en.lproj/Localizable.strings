@@ -14,7 +14,7 @@
 "APP_VIEW_WARNING_RESET_OK" = "Reset";
 
 "HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
-"HEADCOUNT_DESCRIPTION_TEXT" = "For those who don't want to nitpick over every little detail.\nHave your receipt ready!";
+"HEADCOUNT_DESCRIPTION_TEXT" = "without putting in every dish!";
 "HEADCOUNT_INSTRUCTION_LABEL" = "swipe down";
 
 "INFO_VIEW_TITLE" = "Settings";
@@ -35,7 +35,7 @@
 "TOTALMARKUP_TIP_LABEL" = "+ Tip";
 "TOTALMARKUP_EVEN_SPLIT_LABEL" = "split evenly";
 
-"SETUP_DESCRIPTION_TEXT" = "Algebra for uneven splits! Enter approximate costs for average dishes.";
+"SETUP_DESCRIPTION_TEXT" = "Put in average costs for a drink, or\na small / medium / large dish.";
 
 "DISTRIBUTION_DRAG_INSTRUCTION_LABEL" = "Drag dishes into a meal profile!";
 "DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo";
@@ -43,7 +43,7 @@
 "DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
 "DISTRIBUTION_WARNING_SINGLE" = "person left in your party";
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left to distribute";
-"DISTRIBUTION_COMPLETE" = "0 people left! Swipe down.";
+"DISTRIBUTION_COMPLETE" = "Distribution complete! Swipe down.";
 
 "SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";

@@ -988,7 +988,7 @@
 	self.warningLabel.backgroundColor = [UIColor clearColor];
 	self.warningLabel.textAlignment = NSTextAlignmentCenter;
 	self.warningLabel.textColor = [UIColor whiteColor];
-	self.warningLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_WARNING_LABEL];
+	self.warningLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_WARNING_LABEL];
     [self.view addSubview:self.warningLabel];
 }
  
