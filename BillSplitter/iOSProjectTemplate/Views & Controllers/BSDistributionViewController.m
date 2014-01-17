@@ -304,27 +304,34 @@
         }
         
         // Also update warning label
-        [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
-            options:UIViewAnimationOptionBeginFromCurrentState
-            animations:^{
-                self.warningLabel.alpha = 0;
-            } completion:^(BOOL finished) {
-                if (finished)
-                {
-                    self.warningLabel.text = (remainingCount)
-                        ? [NSString stringWithFormat:@"%i %@", remainingCount, 
-                            NSLocalizedString((remainingCount > 1 
-                                ? @"DISTRIBUTION_WARNING_MULTIPLE" 
-                                : @"DISTRIBUTION_WARNING_SINGLE"), nil)]
-                        : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
-                    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
-                        options:UIViewAnimationOptionBeginFromCurrentState
-                        animations:^{
-                            self.warningLabel.alpha = 1;
-                        } completion:nil];
-                }
-            }];
+        [self updateWarningLabel];
     } 
+}
+
+/** @brief Update warning label based on remaining count */
+- (void)updateWarningLabel
+{
+    [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
+        options:UIViewAnimationOptionBeginFromCurrentState
+        animations:^{
+            self.warningLabel.alpha = 0;
+        } completion:^(BOOL finished) {
+            if (finished)
+            {
+                self.warningLabel.text = (self.lastRemainingCount)
+                    ? [NSString stringWithFormat:@"%i %@",
+                        self.lastRemainingCount,
+                        NSLocalizedString((self.lastRemainingCount > 1
+                            ? @"DISTRIBUTION_WARNING_MULTIPLE" 
+                            : @"DISTRIBUTION_WARNING_SINGLE"), nil)]
+                    : NSLocalizedString(@"DISTRIBUTION_COMPLETE", nil); 
+                [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0 
+                    options:UIViewAnimationOptionBeginFromCurrentState
+                    animations:^{
+                        self.warningLabel.alpha = 1;
+                    } completion:nil];
+            }
+        }];
 }
 
 /** @brief Scrolls scrollview to page */
