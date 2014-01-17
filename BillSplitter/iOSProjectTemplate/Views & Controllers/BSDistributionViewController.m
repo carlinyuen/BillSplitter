@@ -236,7 +236,23 @@
 {
     [super didReceiveMemoryWarning];
 	
-	// Reset view, remove all distribution profiles but first
+	// Reset
+    [self reset];
+}
+
+/** @brief Return supported orientations */
+- (NSUInteger)supportedInterfaceOrientations
+{
+	return UIInterfaceOrientationMaskAllButUpsideDown;
+}
+
+
+#pragma mark - Class Functions
+
+/** @brief Reset viewcontroller and ui elements */
+- (void)reset
+{
+    // Reset view, remove all distribution profiles but first
 	self.profileScrollView.userInteractionEnabled = false;
 	for (int i = 0; i < self.profiles.count; ++i) {
 		[[[self.profiles objectAtIndex:i]
@@ -252,21 +268,12 @@
 	self.profileScrollView.userInteractionEnabled = true;
 }
 
-/** @brief Return supported orientations */
-- (NSUInteger)supportedInterfaceOrientations
-{
-	return UIInterfaceOrientationMaskAllButUpsideDown;
-}
-
-
-#pragma mark - Class Functions
-
 /** @brief When setting the number of diners, also update steppers maxes */
 - (void)setHeadCount:(NSInteger)headCount
 {
     // If going fewer, then need to clean up to avoid invalid state
     if (headCount < _headCount) {
-        [self didReceiveMemoryWarning];
+        [self reset];
     }
     
 	_headCount = headCount;

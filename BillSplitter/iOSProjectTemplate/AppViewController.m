@@ -1006,11 +1006,11 @@
         BSDishSetupViewController *dishSetupVC = [self.viewControllers objectAtIndex:AppViewControllerPageDishes]; 
         BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
         
-         
-        // If only 1 person, only show total markup
+        // Update headcount for distributionVC
         int headCount = (NSInteger)headCountVC.stepper.value;
         if (distributionVC.headCount != headCount)
-        { 
+        {
+            // If only 1 person, only show total markup
             self.pageControl.numberOfPages 
                 = (headCount == 1) 
                     ? 2 : AppViewControllerPageCount;
