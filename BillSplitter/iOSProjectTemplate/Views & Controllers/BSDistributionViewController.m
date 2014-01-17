@@ -1387,9 +1387,10 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
 {
     if (buttonIndex) {  // Selected Ok
-        if (self.delegate && [self.delegate respondsToSelector:@selector(distributionViewController:scrollToPage:)]) {
-            [self.delegate distributionViewController:self scrollToPage:0];
-        }
+        // Send notification
+        [[NSNotificationCenter defaultCenter] 
+            postNotificationName:@"ScrollToHeadCountPage"
+            object:self userInfo:nil];
     }
 }
 

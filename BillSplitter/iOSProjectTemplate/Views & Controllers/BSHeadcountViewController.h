@@ -11,23 +11,9 @@
 
 #import "UIVerticalStepper.h"
 
-@class BSHeadcountViewController;
-@protocol BSHeadcountViewControllerDelegate <NSObject>
-
-    @optional
-    /** Notifies delegate whenever headcount is changed */
-    - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count;
-
-    /** Notifies delegate if instruction button is pressed */
-    - (void)headCountViewController:(BSHeadcountViewController *)vc instructionsPressed:(UIButton *)button;
-
-@end
-
 @interface BSHeadcountViewController : UIViewController <
 	UIVerticalStepperDelegate
 >
-
-    @property (nonatomic, weak) id<BSHeadcountViewControllerDelegate> delegate;
 
 	@property (nonatomic, strong) UILabel *taglineLabel;
 	@property (nonatomic, strong) UILabel *welcomeLabel;

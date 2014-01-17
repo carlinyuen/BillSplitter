@@ -12,18 +12,6 @@
 #import "CustomPageControl.h"
 #import "UIVerticalStepper.h"
 
-@class BSDistributionViewController;
-@protocol BSDistributionViewControllerDelegate <NSObject>
-
-    @optional
-    /** User requested to scroll to given page */
-    - (void)distributionViewController:(BSDistributionViewController *)vc scrollToPage:(NSInteger)index;
-
-@end
-
-
-#pragma mark - BSDistributionViewController
-
 	extern NSString* const BSDistributionViewControllerProfileViewDishes;
    	extern NSString* const BSDistributionViewControllerProfileViewDishCount;
 	extern NSString* const BSDistributionViewControllerProfileViewImageButton;
@@ -36,9 +24,6 @@
 	UIVerticalStepperDelegate,
 	UIScrollViewDelegate
 >
-
-    /** Delegate */
-    @property (nonatomic, weak) id<BSDistributionViewControllerDelegate> delegate;
 
     /** # from HeadCount view to bound # of people on profiles */
 	@property (nonatomic, assign) NSInteger headCount;

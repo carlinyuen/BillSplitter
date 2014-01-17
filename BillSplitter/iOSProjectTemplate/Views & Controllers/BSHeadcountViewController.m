@@ -253,10 +253,10 @@
 /** @brief Instructions button pressed */
 - (void)instructionButtonPressed:(UIButton *)sender
 {
-    // Let delegate know
-    if (self.delegate && [self.delegate respondsToSelector:@selector(headCountViewController:instructionsPressed:)]) {
-        [self.delegate headCountViewController:self instructionsPressed:sender];
-    }
+    // Send notification
+    [[NSNotificationCenter defaultCenter] 
+        postNotificationName:@"ScrollToNextPage"
+        object:self userInfo:nil];
 }
 
 
@@ -269,12 +269,12 @@
 	
 	// Change image based on number
 	// TODO
-    
-    // Let delegate know
-    if (self.delegate && [self.delegate respondsToSelector:@selector(headCountViewController:countChanged:)]) {
-        [self.delegate headCountViewController:self countChanged:(NSInteger)stepper.value];
-    }
-     
+
+    // Send notification
+    [[NSNotificationCenter defaultCenter] 
+        postNotificationName:@"Update"
+        object:self userInfo:nil];
+
     // Bounce on change
     [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
         options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 

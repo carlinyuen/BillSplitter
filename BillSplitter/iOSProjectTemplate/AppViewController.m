@@ -66,8 +66,6 @@
 @interface AppViewController () <
 	CustomPageControlDelegate,
 	BSInfoViewControllerDelegate,
-    BSHeadcountViewControllerDelegate,
-    BSDistributionViewControllerDelegate,
 	BSKeyboardControlsDelegate,
     BSScrollViewDelegate
 >
@@ -119,9 +117,14 @@
         
         // Formatter
         _numberFormatter = [NSNumberFormatter new];
-        [_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle]; 
+        [_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -262,6 +265,11 @@
 				
 			default: break;
 		}
+
+        // Listen for notifications
+        [[NSNotificationCenter defaultCenter] addObserver:self
+            selector:@selector(receivedNotification:)
+            name:nil object:vcs[i]];
 	}
 	
 	[self setupPageControl:bounds];
@@ -277,12 +285,11 @@
 		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
 	)];
-    vc.delegate = self;
 	
 	[self.inputFields addObject:vc.textField];
 	vc.textField.tag = AppViewControllerPageHeadCount;
 	vc.textField.delegate = self;
-	
+
 	[self.scrollView addSubview:vc.view];
 	return vc;
 }
@@ -321,7 +328,6 @@
 		0, [self offsetForPageInScrollView:AppViewControllerPageDistribution] + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
-    vc.delegate = self;
 	
 	BSDishSetupViewController *dishes = [self.viewControllers objectAtIndex:AppViewControllerPageDishes];
 	vc.drinkButton = dishes.drinkButton;
@@ -1055,7 +1061,13 @@
 	}
 	
 	// Scroll to first page
-	self.pageControl.currentPage = AppViewControllerPageHeadCount;
+	[self scrollToPage:AppViewControllerPageHeadCount];
+}
+
+/** @brief Scroll to page and update page control */
+- (void)scrollToPage:(AppViewControllerPage)page
+{
+    self.pageControl.currentPage = page;
 	[self pageControlPageDidChange:self.pageControl];
 }
 
@@ -1091,8 +1103,27 @@
 	}
 }
 
+/** @brief Notification posted from viewcontroller */
+- (void)receivedNotification:(NSNotification *)notification
+{
+    if ([notification.name isEqualToString:@"Update"])
+    {
+        // Update view controllers
+        [self.viewControllers[AppViewControllerPageTotal] updateCalculations];
+        [self updatePages];
+    }
+    else if (notification.object == self.viewControllers[AppViewControllerPageHeadCount])
+    {
+        [self scrollToPage:self.pageControl.currentPage + 1];
+    }
+    else if (notification.object == self.viewControllers[AppViewControllerPageDistribution])
+    {
+        [self scrollToPage:AppViewControllerPageHeadCount];
+    }
+}
 
-#pragma mark - Delegates
+
+#pragma mark - Protocols
 #pragma mark - CustomPageControlDelegate
 
 /** @brief When page control dot is tapped */
@@ -1377,16 +1408,7 @@
 
 - (void)headCountViewController:(BSHeadcountViewController *)vc countChanged:(NSInteger)count
 {
-    // Update view controllers if they're set up
-    if (self.viewControllers.count) {
-        [self.viewControllers[AppViewControllerPageTotal] updateCalculations];
-    }
-    [self updatePages];
-}
 
-- (void)headCountViewController:(BSHeadcountViewController *)vc instructionsPressed:(UIButton *)button {
-    self.pageControl.currentPage++;
-    [self pageControlPageDidChange:self.pageControl];
 }
 
 
@@ -1399,15 +1421,6 @@
     }
     
     return true;
-}
-
-
-#pragma mark - BSDistributionViewControllerDelegate
-
-- (void)distributionViewController:(BSDistributionViewController *)vc scrollToPage:(NSInteger)index
-{
-    self.pageControl.currentPage = index;
-    [self pageControlPageDidChange:self.pageControl];
 }
 
 
