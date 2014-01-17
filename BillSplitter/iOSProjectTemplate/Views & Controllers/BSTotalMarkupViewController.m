@@ -134,7 +134,7 @@
         evenSplit = ceilf(evenSplit);
     }
     self.evenSplitLabel.textColor = (self.headCountStepper.value <= 1)
-        ? [UIColor whiteColor] : [UIColor lightGrayColor];
+        ? [UIColor whiteColor] : [UIColor grayColor];
     self.evenSplitLabel.text = [NSString stringWithFormat:@"$%.2f %@",
         evenSplit, NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)
     ];
@@ -311,7 +311,7 @@
     self.evenSplitLabel = [[UILabel alloc] initWithFrame:frame];
     self.evenSplitLabel.text = [NSString stringWithFormat:@"$0.00 %@", 
         NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)];
-    self.evenSplitLabel.textColor = [UIColor darkGrayColor];
+    self.evenSplitLabel.textColor = [UIColor whiteColor];
     self.evenSplitLabel.backgroundColor = [UIColor clearColor];
     self.evenSplitLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.evenSplitLabel.textAlignment = NSTextAlignmentCenter;

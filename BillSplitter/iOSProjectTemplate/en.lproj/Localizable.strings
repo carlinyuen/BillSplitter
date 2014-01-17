@@ -41,9 +41,9 @@
 "DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo";
 "DISTRIBUTION_ERROR_HEADCOUNT" = "You have no more people to distribute! Go to the first screen to add more people to your party?";
 "DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
-"DISTRIBUTION_WARNING_SINGLE" = "person left in your party";
+"DISTRIBUTION_WARNING_SINGLE" = "person left to distribute";
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left to distribute";
-"DISTRIBUTION_COMPLETE" = "Distribution complete! Swipe down.";
+"DISTRIBUTION_COMPLETE" = "distribution done! swipe down";
 
 "SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";

@@ -162,8 +162,8 @@
 	// UI Setup
 	[self setupDishes:bounds];
 	[self setupBackgroundView:bounds];
-	[self setupScrollView:bounds];
-	
+    [self setupPageControl:bounds];
+
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
 }
@@ -814,6 +814,9 @@
 	self.profilePageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
 	[self.view addSubview:self.profilePageControl];
+ 
+    // Setup other elements that depend on this view's frame
+   	[self setupScrollView:bounds];
 }
 
 /** @brief Setup scrollView */
@@ -821,12 +824,12 @@
 {
 	BSTouchPassingView *containerView
 		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4 + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, 
-        bounds.size.height 
-            - (bounds.size.height / 4 + UI_SIZE_MIN_TOUCH)
-            - UI_SIZE_MIN_TOUCH
-	)];
+            0, CGRectGetMaxY(self.profilePageControl.frame),
+            bounds.size.width, 
+            bounds.size.height
+                - CGRectGetMaxY(self.profilePageControl.frame)
+                - UI_SIZE_MIN_TOUCH
+        )];
 	containerView.userInteractionEnabled = true;
 	
 	self.profileScrollView.frame = CGRectMake(
@@ -845,18 +848,17 @@
 	containerView.targetView = self.profileScrollView;
 	[containerView addSubview:self.profileScrollView];
 	[self.view addSubview:containerView];
-    
+ 
     // Setup other elements that depend on this view's frame
-   	[self setupPageControl:bounds];
-    [self setupAddView:bounds];  
+    [self setupAddView:bounds];
 }
 
 /** @brief Setup add view */
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		0, self.profilePageControl.frame.origin.y + UI_SIZE_MIN_TOUCH,
-		bounds.size.width / 8, self.profileScrollView.bounds.size.height
+		0, CGRectGetMaxY(self.profilePageControl.frame),
+		bounds.size.width / 8, CGRectGetHeight(self.profileScrollView.bounds)
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
 	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
@@ -941,14 +943,14 @@
     // Count Instructions
     self.countInstructionIV.contentMode = UIViewContentModeScaleAspectFit;
     self.countInstructionIV.frame = CGRectMake(
-       bounds.size.width / 4 * 3, bounds.size.height / 3 * 2,
+       bounds.size.width / 4 * 3, bounds.size.height / 3 * 2 - UI_SIZE_MARGIN,
        bounds.size.width / 4 - UI_SIZE_LABEL_MARGIN, bounds.size.height / 4
     );
     [self.view addSubview:self.countInstructionIV];
 
     frame = self.countInstructionIV.frame;
     self.countInstructionLabel.frame = CGRectMake(
-        frame.origin.x, bounds.size.height / 2,
+        frame.origin.x, 0,
         bounds.size.width - frame.origin.x, bounds.size.height
     );
     self.countInstructionLabel.text = NSLocalizedString(@"DISTRIBUTION_COUNT_INSTRUCTION_LABEL", nil);
@@ -966,16 +968,12 @@
     self.countInstructionIV.alpha = self.countInstructionLabel.alpha = 0;
 }
 
-/** @brief Setup warning label for when user hasn't met their headcount */
+/** @brief Setup warning label for when user hasn't distributed everyone yet */
 - (void)setupWarningLabel:(CGRect)bounds
 {
-    CGRect frame = self.addButton.frame;
-    
     self.warningLabel.frame = CGRectMake(
-        UI_SIZE_LABEL_MARGIN, 
-        CGRectGetMaxY(frame),
-        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2,
-        (bounds.size.height - CGRectGetMaxY(frame))
+        UI_SIZE_LABEL_MARGIN, CGRectGetMaxY(bounds) - UI_SIZE_MARGIN * 2,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_MARGIN * 2
     );
     self.warningLabel.text = [NSString stringWithFormat:@"%i %@",
         self.headCount - [self dinerCount],
