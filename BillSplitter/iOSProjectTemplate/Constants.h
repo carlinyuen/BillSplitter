@@ -19,7 +19,7 @@ extern NSString* const ONCE_KEY_APP_OPENED;
 
 // Fonts
 extern NSString* const FONT_NAME_BRANDING;
-extern NSString* const FONT_NAME_HEADERS;
+extern NSString* const FONT_NAME_INSTRUCTIONS;
 extern NSString* const FONT_NAME_COPY;
 extern NSString* const FONT_NAME_TEXTFIELD;
 extern NSString* const FONT_NAME_TAGLINE;

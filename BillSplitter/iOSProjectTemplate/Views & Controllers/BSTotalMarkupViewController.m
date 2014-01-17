@@ -311,12 +311,12 @@
     self.evenSplitLabel = [[UILabel alloc] initWithFrame:frame];
     self.evenSplitLabel.text = [NSString stringWithFormat:@"$0.00 %@", 
         NSLocalizedString(@"TOTALMARKUP_EVEN_SPLIT_LABEL", nil)];
-    self.evenSplitLabel.textColor = [UIColor grayColor];
+    self.evenSplitLabel.textColor = [UIColor darkGrayColor];
     self.evenSplitLabel.backgroundColor = [UIColor clearColor];
     self.evenSplitLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.evenSplitLabel.textAlignment = NSTextAlignmentCenter;
     self.evenSplitLabel.adjustsFontSizeToFitWidth = true;
-    self.evenSplitLabel.minimumFontSize = FONT_SIZE_HEADCOUNT / 3;
+    self.evenSplitLabel.minimumFontSize = FONT_SIZE_COPY / 3;
     
     // View to block and hide the finalLabel & evenSplitLabel when scrolling up
     frame = bounds;

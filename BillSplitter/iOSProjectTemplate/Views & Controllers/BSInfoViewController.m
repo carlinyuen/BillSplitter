@@ -353,7 +353,7 @@
         view.textLabel.shadowColor = [UIColor clearColor];  
     }
     
-	view.textLabel.font = [UIFont fontWithName:FONT_NAME_HEADERS size:FONT_SIZE_SECTION_HEADER];
+	view.textLabel.font = [UIFont fontWithName:FONT_NAME_INSTRUCTIONS size:FONT_SIZE_SECTION_HEADER];
 	
 	return view;
 }

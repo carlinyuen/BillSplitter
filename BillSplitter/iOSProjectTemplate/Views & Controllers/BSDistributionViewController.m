@@ -25,9 +25,7 @@
    	#define SCALE_BADGE_CHANGE 0.25 
 
     #define UI_SIZE_STATUS_BAR_HEIGHT 20
-	#define UI_SIZE_RESET_BUTTON_HEIGHT 16
-	#define UI_SIZE_RESET_BUTTON_MARGIN 8 
-	#define UI_SIZE_BADGE_HEIGHT 16 
+	#define UI_SIZE_BADGE_HEIGHT 16
     #define UI_SIZE_BADGE_CORNER_RADIUS 8 
 	#define UI_SIZE_PAGECONTROL_HEIGHT 24
 	#define UI_SIZE_DINER_MARGIN 8
@@ -823,12 +821,11 @@
 {
 	BSTouchPassingView *containerView
 		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
+		0, bounds.size.height / 4 + UI_SIZE_MIN_TOUCH,
 		bounds.size.width, 
         bounds.size.height 
-            - UI_SIZE_RESET_BUTTON_HEIGHT 
-            - UI_SIZE_RESET_BUTTON_MARGIN * 2
-            - (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
+            - (bounds.size.height / 4 + UI_SIZE_MIN_TOUCH)
+            - UI_SIZE_MIN_TOUCH
 	)];
 	containerView.userInteractionEnabled = true;
 	
@@ -858,7 +855,7 @@
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		0, self.profilePageControl.frame.origin.y + UI_SIZE_PAGECONTROL_HEIGHT,
+		0, self.profilePageControl.frame.origin.y + UI_SIZE_MIN_TOUCH,
 		bounds.size.width / 8, self.profileScrollView.bounds.size.height
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
@@ -988,7 +985,7 @@
 	self.warningLabel.backgroundColor = [UIColor clearColor];
 	self.warningLabel.textAlignment = NSTextAlignmentCenter;
 	self.warningLabel.textColor = [UIColor whiteColor];
-	self.warningLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_WARNING_LABEL];
+	self.warningLabel.font = [UIFont fontWithName:FONT_NAME_INSTRUCTIONS size:FONT_SIZE_WARNING_LABEL];
     [self.view addSubview:self.warningLabel];
 }
  
