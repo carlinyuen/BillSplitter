@@ -62,5 +62,8 @@
 
 	/** @brief Init in screen frame */
 	- (id)initWithFrame:(CGRect)frame;
+
+    /** @brief Get current number of diners distributed */
+    - (NSInteger)getDinerCount;
     
 @end

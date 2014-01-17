@@ -279,18 +279,37 @@
 	_headCount = headCount;
 }
 
+/** @brief Get current number of diners distributed */
+- (NSInteger)getDinerCount
+{
+	int count = 0;
+	for (NSDictionary *profile in self.profiles) {
+		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
+		count += stepper.value;
+	}
+	return count;
+}
+
 /** @brief Updates all steppers with headCount as max */
 - (void)updateSteppers
 {
     // Get remaining diners to add
-    int remainingCount = (self.headCount - [self dinerCount]);
+    int remainingCount = (self.headCount - [self getDinerCount]);
 
     // Only do calculations if remainingCount is different from last time
     if (remainingCount != self.lastRemainingCount)
     {
+        // Notify if remainingCount changes to or from zero
+        if (remainingCount == 0 || self.lastRemainingCount == 0) {
+            [[NSNotificationCenter defaultCenter]
+                postNotificationName:@"UpdatePageControl"
+                object:self userInfo:nil];
+        }
+
         // Update lastRemainingCount
         self.lastRemainingCount = remainingCount;
-        
+
+        // Update max values for the steppers on each profile
         for (NSDictionary *profile in self.profiles)
         {
             UIVerticalStepper *stepper = [profile
@@ -305,7 +324,7 @@
         
         // Also update warning label
         [self updateWarningLabel];
-    } 
+    }
 }
 
 /** @brief Update warning label based on remaining count */
@@ -347,7 +366,7 @@
 - (void)addDiner:(UIView *)dish
 {
     // Check if we can still add another diner and fit headcount
-    if ([self dinerCount] >= self.headCount) {
+    if ([self getDinerCount] >= self.headCount) {
         [[[UIAlertView alloc] initWithTitle:@"Oops!"
             message:NSLocalizedString(@"DISTRIBUTION_ERROR_HEADCOUNT", nil)
             delegate:self
@@ -414,8 +433,8 @@
 	);
 	stepper.minimumValue = STEPPER_MIN_VALUE;
 	stepper.maximumValue = MAX(STEPPER_MIN_VALUE,
-		(self.headCount - [self dinerCount]));
-	stepper.value = ([self dinerCount] >= self.headCount)
+		(self.headCount - [self getDinerCount]));
+	stepper.value = ([self getDinerCount] >= self.headCount)
 		? 0 : STEPPER_DEFAULT_VALUE;
 	stepper.delegate = self;
 	[containerView addSubview:stepper];
@@ -990,7 +1009,7 @@
         bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_MARGIN * 2
     );
     self.warningLabel.text = [NSString stringWithFormat:@"%i %@",
-        self.headCount - [self dinerCount],
+        self.headCount - [self getDinerCount],
         NSLocalizedString(@"DISTRIBUTION_WARNING_MULTIPLE", nil)];
     self.warningLabel.numberOfLines = 0;
 	self.warningLabel.lineBreakMode = NSLineBreakByWordWrapping;
@@ -1303,17 +1322,6 @@
 	}
 	
 	return NSNotFound;
-}
-
-/** @brief Current number of diners set up */
-- (NSInteger)dinerCount
-{
-	int count = 0;
-	for (NSDictionary *profile in self.profiles) {
-		UIVerticalStepper *stepper = [profile objectForKey:BSDistributionViewControllerProfileViewStepper];
-		count += stepper.value;
-	}
-	return count;
 }
 
 /** Returns scaling for given dish tag */

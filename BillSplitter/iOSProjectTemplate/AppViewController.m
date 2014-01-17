@@ -268,7 +268,7 @@
 
         // Listen for notifications
         [[NSNotificationCenter defaultCenter] addObserver:self
-            selector:@selector(receivedNotification:)
+            selector:@selector(notificationRecieved:)
             name:nil object:vcs[i]];
 	}
 	
@@ -997,39 +997,22 @@
 		textRangeFromPosition:start toPosition:end]];
 }
 
-/** @brief Update pages that need to depends on other pages' data */
+/** @brief Update view controllers based on shared data */
 - (void)updatePages
 {
     if (self.viewControllers.count)
     {
-        BSHeadcountViewController *headCountVC = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];
-        BSDishSetupViewController *dishSetupVC = [self.viewControllers objectAtIndex:AppViewControllerPageDishes]; 
-        BSDistributionViewController *distributionVC = [self.viewControllers objectAtIndex:AppViewControllerPageDistribution];
-        
         // Update headcount for distributionVC
-        int headCount = (NSInteger)headCountVC.stepper.value;
+        BSDistributionViewController *distributionVC
+            = self.viewControllers[AppViewControllerPageDistribution];
+        int headCount = (NSInteger)((BSHeadcountViewController *)self.viewControllers[AppViewControllerPageHeadCount]).stepper.value;
         if (distributionVC.headCount != headCount)
         {
-            // If only 1 person, only show total markup
-            self.pageControl.numberOfPages 
-                = (headCount == 1) 
-                    ? 2 : AppViewControllerPageCount;
-            self.scrollView.contentSize = CGSizeMake(
-                self.scrollView.bounds.size.width, 
-                self.scrollView.bounds.size.height
-                    * self.pageControl.numberOfPages); 
-            
-            CGRect frame = self.pageControl.frame;
-            frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : 1);
-            [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
-                options:UIViewAnimationOptionBeginFromCurrentState 
-                animations:^{
-                    self.pageControl.frame = frame; 
-                    dishSetupVC.view.alpha = (headCount == 1 ? 0 : 1);
-                } completion:nil];
-                           
             // Update distribution page
             distributionVC.headCount = headCount;
+
+            // Update page control
+            [self updatePageControl];
         }
         
         // Page-based update
@@ -1051,6 +1034,37 @@
         }
        
     }
+}
+
+/** @brief Update page control */
+- (void)updatePageControl
+{
+    int headCount = (NSInteger)((BSDistributionViewController *)self.viewControllers[AppViewControllerPageDistribution]).headCount;
+    int distroCount = (NSInteger)[((BSDistributionViewController *)self.viewControllers[AppViewControllerPageDistribution]) getDinerCount];
+
+    // If only 1 person, only show total markup
+    // If distro != headcount, don't show summary page
+    self.pageControl.numberOfPages
+        = (headCount == 1) 
+            ? AppViewControllerPageTotal + 1
+            : (distroCount != headCount)
+                ? AppViewControllerPageDistribution + 1
+                : AppViewControllerPageCount;
+    self.scrollView.contentSize = CGSizeMake(
+        self.scrollView.bounds.size.width, 
+        self.scrollView.bounds.size.height
+            * self.pageControl.numberOfPages); 
+    
+    CGRect frame = self.pageControl.frame;
+    frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : 1);
+    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+        options:UIViewAnimationOptionBeginFromCurrentState 
+        animations:^{
+            self.pageControl.frame = frame; 
+            ((BSDishSetupViewController *)self.viewControllers[AppViewControllerPageDishes]).view.alpha
+                = (headCount == 1 ? 0 : 1);
+        } completion:nil];
+
 }
 
 /** @brief Resets all the pages to defaults */
@@ -1104,13 +1118,18 @@
 }
 
 /** @brief Notification posted from viewcontroller */
-- (void)receivedNotification:(NSNotification *)notification
+- (void)notificationRecieved:(NSNotification *)notification
 {
-    if ([notification.name isEqualToString:@"Update"])
+    if ([notification.name isEqualToString:@"UpdatePages"])
     {
         // Update view controllers
         [self.viewControllers[AppViewControllerPageTotal] updateCalculations];
         [self updatePages];
+    }
+    else if ([notification.name isEqualToString:@"UpdatePageControl"])
+    {
+        // Update page control
+        [self updatePageControl];
     }
     else if (notification.object == self.viewControllers[AppViewControllerPageHeadCount])
     {
@@ -1330,15 +1349,19 @@
 	} else if (page < 0) {
 		page = 0;
 	}
+
+    // Update page control to match dot
+    self.pageControl.currentPage = page;
 		
-	// If page is not the same as lastShownPage, let page know it'll be shown
-	if (self.lastShownPage != page) {
+	// If page is not the same as lastShownPage, update all pages
+    //  and let last page and new page know they'll be hidden / shown
+	if (self.lastShownPage != page)
+    {
 		[[self.viewControllers objectAtIndex:page] viewWillAppear:true];
 		[[self.viewControllers objectAtIndex:self.lastShownPage] viewWillDisappear:true];
+        
+       	[self updatePages];
 	}
-	
-    self.pageControl.currentPage = page;
-	[self updatePages];
 }
 
 /** @brief Called when the user starts to initiate a scroll motion */

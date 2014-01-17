@@ -272,7 +272,7 @@
 
     // Send notification
     [[NSNotificationCenter defaultCenter] 
-        postNotificationName:@"Update"
+        postNotificationName:@"UpdatePages"
         object:self userInfo:nil];
 
     // Bounce on change
