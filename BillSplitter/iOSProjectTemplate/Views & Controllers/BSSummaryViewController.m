@@ -313,16 +313,17 @@
         UIButton *button;
         for (int i = 0; i < self.profiles.count; ++i)
         {
-            NSMutableDictionary *profile = self.profiles[i];
-            NSNumber *bill = profile[BSSummaryViewControllerProfileBill];
-
+            // Setup button / price
+            NSNumber *bill = self.profiles[i][BSSummaryViewControllerProfileBill];
             frame.origin.x = i * frame.size.width;
             button = [[UIButton alloc] initWithFrame:frame];
             button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
             button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
-            [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            [button setTitle:[self.numFormatter stringFromNumber:bill] forState:UIControlStateNormal];
+            [button setTitleColor:[UIColor whiteColor]
+                forState:UIControlStateNormal];
+            [button setTitle:[self.numFormatter stringFromNumber:bill]
+                forState:UIControlStateNormal];
             button.alpha = ALPHA_UNFOCUSED;
 
             [self.scrollView addSubview:button];
