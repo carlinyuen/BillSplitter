@@ -170,6 +170,7 @@
     self.scrollView.frame = bounds;
     
     [self updatePages];
+    [self updatePageControl];
 }
 
 /** @brief Actions to take when view appears */
@@ -1056,7 +1057,7 @@
             * self.pageControl.numberOfPages); 
     
     CGRect frame = self.pageControl.frame;
-    frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : 1);
+    frame.origin.y = self.view.bounds.size.height - frame.size.height / (headCount == 1 ? 1.35 : (distroCount != headCount ? 1.1 : 1));
     [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
         options:UIViewAnimationOptionBeginFromCurrentState 
         animations:^{
