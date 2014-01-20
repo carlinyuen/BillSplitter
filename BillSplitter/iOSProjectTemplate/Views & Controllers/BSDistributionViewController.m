@@ -162,7 +162,7 @@
 	// UI Setup
 	[self setupDishes:bounds];
 	[self setupBackgroundView:bounds];
-    [self setupPageControl:bounds];
+    [self setupScrollView:bounds];
 
 	// Add pan gesture for dragging
 	[self.view addGestureRecognizer:self.panGesture];
@@ -544,7 +544,9 @@
         // Frame should be in dish view
         CGRect frame = CGRectMake(
             UI_SIZE_DINER_MARGIN / 4,
-            dishView.subviews.count * (dishView.bounds.size.width),
+            UI_SIZE_DINER_MARGIN / 4
+                + dishView.subviews.count
+                    * dishView.bounds.size.width,
             dishView.bounds.size.width - UI_SIZE_DINER_MARGIN / 2, 
             dishView.bounds.size.width
         );
@@ -831,37 +833,18 @@
 	[self.view addSubview:backgroundView];
 }
 
-/** @brief Setup page control */
-- (void)setupPageControl:(CGRect)bounds
-{
-	self.profilePageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4,
-		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
-	)];
-	
-	// Configure
-	self.profilePageControl.delegate = self;
-	self.profilePageControl.numberOfPages = 0;
-	self.profilePageControl.currentPage = 0;
-	self.profilePageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
-	self.profilePageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
-	
-	[self.view addSubview:self.profilePageControl];
- 
-    // Setup other elements that depend on this view's frame
-   	[self setupScrollView:bounds];
-}
-
 /** @brief Setup scrollView */
 - (void)setupScrollView:(CGRect)bounds
 {
 	BSTouchPassingView *containerView
 		= [[BSTouchPassingView alloc] initWithFrame:CGRectMake(
-            0, CGRectGetMaxY(self.profilePageControl.frame),
+            0,
+            bounds.size.height / 4
+                + UI_SIZE_PAGECONTROL_HEIGHT,
             bounds.size.width, 
             bounds.size.height
-                - CGRectGetMaxY(self.profilePageControl.frame)
-                - UI_SIZE_MIN_TOUCH
+                - (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
+                - UI_SIZE_MIN_TOUCH * 2
         )];
 	containerView.userInteractionEnabled = true;
 	
@@ -883,14 +866,35 @@
 	[self.view addSubview:containerView];
  
     // Setup other elements that depend on this view's frame
+    [self setupPageControl:bounds];
     [self setupAddView:bounds];
+}
+
+/** @brief Setup page control */
+- (void)setupPageControl:(CGRect)bounds
+{
+	self.profilePageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+		0, bounds.size.height / 4 + CGRectGetHeight(self.profileScrollView.frame)
+            + (bounds.size.height
+                - (bounds.size.height / 4 + CGRectGetHeight(self.profileScrollView.frame) + UI_SIZE_PAGECONTROL_HEIGHT)) / 2,
+		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
+	)];
+	
+	// Configure
+	self.profilePageControl.delegate = self;
+	self.profilePageControl.numberOfPages = 0;
+	self.profilePageControl.currentPage = 0;
+	self.profilePageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
+	self.profilePageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	
+	[self.view addSubview:self.profilePageControl];
 }
 
 /** @brief Setup add view */
 - (void)setupAddView:(CGRect)bounds
 {
 	self.addButton.frame = CGRectMake(
-		0, CGRectGetMaxY(self.profilePageControl.frame),
+		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width / 8, CGRectGetHeight(self.profileScrollView.bounds)
 	);
 	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
