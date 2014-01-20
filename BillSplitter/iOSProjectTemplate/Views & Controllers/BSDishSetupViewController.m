@@ -281,7 +281,8 @@
 - (void)buttonPressed:(UIButton *)sender
 {
     // Shake drink
-    if (sender == self.drinkButton) {
+    if (sender == self.drinkButton)
+    {
         CABasicAnimation *animation = [CABasicAnimation
             animationWithKeyPath:@"position"];
         animation.duration = ANIMATION_DURATION_FAST / 8;
@@ -297,7 +298,8 @@
     }
     
     // Bounce small dish
-    if (sender == self.smallDishButton) {
+    if (sender == self.smallDishButton)
+    {
         CABasicAnimation *animation = [CABasicAnimation
             animationWithKeyPath:@"transform.scale.x"];
         animation.duration = ANIMATION_DURATION_MED;
@@ -332,7 +334,8 @@
     }
 
     // Twirl medium dish
-    if (sender == self.mediumDishButton) {
+    if (sender == self.mediumDishButton)
+    {
         CABasicAnimation* animation = [CABasicAnimation
             animationWithKeyPath:@"transform.rotation.y"];
         animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
@@ -345,7 +348,8 @@
     }
 
     // Spin large dish
-    if (sender == self.largeDishButton) {
+    if (sender == self.largeDishButton)
+    {
         CABasicAnimation* animation = [CABasicAnimation
             animationWithKeyPath:@"transform.rotation.z"];
         animation.toValue = @(M_PI * 2.0 * 2.0 * ANIMATION_DURATION_SLOWEST);
