@@ -16,6 +16,8 @@
 
     #define TEXT_PRICE_SUFFIX @"pp"
 
+    #define SCALE_BOUNCE_CHANGE 1.1
+
     #define ALPHA_UNFOCUSED 0.5
     #define ALPHA_FOCUSED 1.0
 
@@ -73,7 +75,6 @@
         _priceNumberAttributes = @{
             NSFontAttributeName : [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE],
 			NSForegroundColorAttributeName : [UIColor whiteColor],
-//			NSParagraphStyleAttributeName : UITextAlignmentCenter,
         };
         _priceTextAttributes = @{
             NSFontAttributeName : [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE / 2],
@@ -346,6 +347,8 @@
             [button setAttributedTitle:title
                 forState:UIControlStateNormal];
             button.alpha = ALPHA_UNFOCUSED;
+            [button addTarget:self action:@selector(priceTapped:)
+                forControlEvents:UIControlEventTouchUpInside];
 
             [self.scrollView addSubview:button];
             [self.profileBillViews addObject:button];
@@ -357,7 +360,8 @@
 
         // Show scrollview with results
         [UIView animateWithDuration:ANIMATION_DURATION_FAST delay:0
-            options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut
+            options:UIViewAnimationOptionBeginFromCurrentState
+                | UIViewAnimationOptionCurveEaseInOut
             animations:^{
                 self.scrollView.alpha = 1;
                 [self updateFocusedBill];
@@ -509,6 +513,34 @@
 
 
 #pragma mark - UI Events
+
+- (void)priceTapped:(UIButton *)button
+{
+    // Bounce on change
+    [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+        options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+        animations:^{
+            button.transform = CGAffineTransformMakeScale(
+                SCALE_BOUNCE_CHANGE, SCALE_BOUNCE_CHANGE);
+        } 
+        completion:^(BOOL finished) {
+            if (finished) {
+                [UIView animateWithDuration:ANIMATION_DURATION_FASTEST delay:0 
+                    options:UIViewAnimationOptionBeginFromCurrentState | UIViewAnimationOptionCurveEaseInOut 
+                    animations:^{
+                        button.transform = CGAffineTransformIdentity;
+                    } 
+                    completion:nil];
+            }
+        }];
+
+    // Show alert with message
+    [[[UIAlertView alloc]
+        initWithTitle:NSLocalizedString(@"SUMMARY_PRICE_DESCRIPTION", nil)
+        message:nil delegate:nil
+        cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
+        otherButtonTitles:nil] show];
+}
 
 
 #pragma mark - Utility Functions

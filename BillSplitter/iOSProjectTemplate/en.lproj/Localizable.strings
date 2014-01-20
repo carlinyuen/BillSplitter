@@ -45,6 +45,7 @@
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left to distribute";
 "DISTRIBUTION_COMPLETE" = "distribution done! swipe down";
 
+"SUMMARY_PRICE_DESCRIPTION" = "Prices are per person, aka each person with this profile should pay the amount.";
 "SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";
 
