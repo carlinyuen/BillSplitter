@@ -844,7 +844,7 @@
             bounds.size.width, 
             bounds.size.height
                 - (bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT)
-                - UI_SIZE_MIN_TOUCH * 2
+                - UI_SIZE_MIN_TOUCH
         )];
 	containerView.userInteractionEnabled = true;
 	
@@ -874,9 +874,10 @@
 - (void)setupPageControl:(CGRect)bounds
 {
 	self.profilePageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
-		0, bounds.size.height / 4 + CGRectGetHeight(self.profileScrollView.frame)
-            + (bounds.size.height
-                - (bounds.size.height / 4 + CGRectGetHeight(self.profileScrollView.frame) + UI_SIZE_PAGECONTROL_HEIGHT)) / 2,
+		0, bounds.size.height / 4,
+//            + CGRectGetHeight(self.profileScrollView.frame)
+//            + (bounds.size.height
+//                - (bounds.size.height / 4 + CGRectGetHeight(self.profileScrollView.frame) + UI_SIZE_PAGECONTROL_HEIGHT)) / 2,
 		bounds.size.width, UI_SIZE_PAGECONTROL_HEIGHT
 	)];
 	

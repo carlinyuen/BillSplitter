@@ -35,7 +35,11 @@
 
     /** Pass events to target view */
     @property (nonatomic, strong) BSTouchPassingView *profileScrollViewCover;
-    @property (nonatomic, strong) BSTouchPassingView *profilePageControlCover; 
+    @property (nonatomic, strong) BSTouchPassingView *profilePageControlCover;
+
+    /** Attributes for price text */
+    @property (nonatomic, strong) NSDictionary *priceNumberAttributes;
+    @property (nonatomic, strong) NSDictionary *priceTextAttributes;
     
 @end
 
@@ -64,6 +68,17 @@
         _profilePageControlCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
 
         _errorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+
+        // Price font
+        _priceNumberAttributes = @{
+            NSFontAttributeName : [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE],
+			NSForegroundColorAttributeName : [UIColor whiteColor],
+//			NSParagraphStyleAttributeName : UITextAlignmentCenter,
+        };
+        _priceTextAttributes = @{
+            NSFontAttributeName : [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE / 2],
+			NSForegroundColorAttributeName : [UIColor whiteColor],
+        };
     }
     return self;
 }
@@ -319,12 +334,16 @@
             NSNumber *bill = self.profiles[i][BSSummaryViewControllerProfileBill];
             frame.origin.x = i * frame.size.width;
             button = [[UIButton alloc] initWithFrame:frame];
-            button.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
             button.titleLabel.adjustsFontSizeToFitWidth = true;
-            button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
-            [button setTitleColor:[UIColor whiteColor]
-                forState:UIControlStateNormal];
-            [button setTitle:[NSString stringWithFormat:@"%@%@", [self.numFormatter stringFromNumber:bill], TEXT_PRICE_SUFFIX]
+            button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 10;
+            NSMutableAttributedString *title
+                = [[NSMutableAttributedString alloc] initWithString:[NSString
+                    stringWithFormat:@"%@%@", [self.numFormatter
+                        stringFromNumber:bill], TEXT_PRICE_SUFFIX]
+                    attributes:self.priceNumberAttributes];
+            [title setAttributes:self.priceTextAttributes range:NSMakeRange(
+                title.length - TEXT_PRICE_SUFFIX.length, TEXT_PRICE_SUFFIX.length)];
+            [button setAttributedTitle:title
                 forState:UIControlStateNormal];
             button.alpha = ALPHA_UNFOCUSED;
 
