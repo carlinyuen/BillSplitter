@@ -14,6 +14,8 @@
 	#define UI_SIZE_LABEL_MARGIN 24
 	#define UI_SIZE_MARGIN 16
 
+    #define TEXT_PRICE_SUFFIX @"pp"
+
     #define ALPHA_UNFOCUSED 0.5
     #define ALPHA_FOCUSED 1.0
 
@@ -322,7 +324,7 @@
             button.titleLabel.minimumFontSize = FONT_SIZE_PRICE / 3;
             [button setTitleColor:[UIColor whiteColor]
                 forState:UIControlStateNormal];
-            [button setTitle:[self.numFormatter stringFromNumber:bill]
+            [button setTitle:[NSString stringWithFormat:@"%@%@", [self.numFormatter stringFromNumber:bill], TEXT_PRICE_SUFFIX]
                 forState:UIControlStateNormal];
             button.alpha = ALPHA_UNFOCUSED;
 
