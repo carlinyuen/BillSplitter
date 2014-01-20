@@ -299,17 +299,26 @@
     // Bounce small dish
     if (sender == self.smallDishButton) {
         CABasicAnimation *animation = [CABasicAnimation
-            animationWithKeyPath:@"transform.scale"];
+            animationWithKeyPath:@"transform.scale.x"];
         animation.duration = ANIMATION_DURATION_MED;
         animation.repeatCount = 0;
         animation.autoreverses = YES;
-        animation.fromValue = [NSValue valueWithCGPoint:CGPointMake(
-            IMAGEVIEW_SCALE_SMALLDISH, IMAGEVIEW_SCALE_SMALLDISH
-        )];
-        animation.toValue = [NSValue valueWithCGPoint:CGPointMake(1, 1)];
+        animation.fromValue = @(IMAGEVIEW_SCALE_SMALLDISH);
+        animation.toValue = @(1);
         animation.timingFunction = [CAMediaTimingFunction functionWithName:
             kCAMediaTimingFunctionEaseInEaseOut];
-        [sender.layer addAnimation:animation forKey:@"scale"];
+        [sender.layer addAnimation:animation forKey:@"scaleX"];
+
+        animation = [CABasicAnimation
+            animationWithKeyPath:@"transform.scale.y"];
+        animation.duration = ANIMATION_DURATION_MED;
+        animation.repeatCount = 0;
+        animation.autoreverses = YES;
+        animation.fromValue = @(IMAGEVIEW_SCALE_SMALLDISH);
+        animation.toValue = @(1);
+        animation.timingFunction = [CAMediaTimingFunction functionWithName:
+            kCAMediaTimingFunctionEaseInEaseOut];
+        [sender.layer addAnimation:animation forKey:@"scaleY"];
 
         animation = [CABasicAnimation
             animationWithKeyPath:@"transform.rotation.x"];
