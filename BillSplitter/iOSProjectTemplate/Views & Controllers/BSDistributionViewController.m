@@ -543,8 +543,8 @@
     {
         // Frame should be in dish view
         CGRect frame = CGRectMake(
-            UI_SIZE_DINER_MARGIN / 4,
-            UI_SIZE_DINER_MARGIN / 4
+            UI_SIZE_DINER_MARGIN / 2,
+            UI_SIZE_DINER_MARGIN / 2
                 + dishView.subviews.count
                     * dishView.bounds.size.width,
             dishView.bounds.size.width - UI_SIZE_DINER_MARGIN / 2, 
