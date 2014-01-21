@@ -521,8 +521,8 @@
 - (void)setupTotalLabel:(CGRect)bounds
 {
     self.totalLabel.frame = CGRectMake(
-        UI_SIZE_LABEL_MARGIN, bounds.size.height - UI_SIZE_LABEL_MARGIN,
-        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_LABEL_MARGIN
+        UI_SIZE_LABEL_MARGIN, bounds.size.height - UI_SIZE_MARGIN * 2,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_MARGIN * 2
     );
     self.totalLabel.backgroundColor = [UIColor clearColor];
     self.totalLabel.textColor = [UIColor lightGrayColor];

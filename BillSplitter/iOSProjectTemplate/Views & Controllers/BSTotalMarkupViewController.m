@@ -126,7 +126,8 @@
     
     // Update final cost
     CGFloat finalValue = self.totalStepper.value + self.totalStepper.value * (self.tipStepper.value / 100.f);
-    self.finalLabel.text = [NSString stringWithFormat:@"$%.2f", finalValue];
+    self.finalLabel.text = [NSString stringWithFormat:@"$%.2f",
+        ([[NSUserDefaults standardUserDefaults] boolForKey:CACHE_KEY_USER_SETTINGS] ? ceilf(finalValue) : finalValue)];
 
     // Update even split, round up using ceil
     CGFloat evenSplit = finalValue / self.headCountStepper.value;

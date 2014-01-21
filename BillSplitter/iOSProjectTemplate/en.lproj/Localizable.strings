@@ -19,8 +19,8 @@
 
 "INFO_VIEW_TITLE" = "Settings";
 "INFO_VIEW_SETTINGS_HEADER" = "Settings";
-"INFO_VIEW_SETTINGS_ROUND" = "Round to Next Dollar";
-"INFO_VIEW_SETTINGS_ROUND_IOS7" = "Round to Nearest Dollar";
+"INFO_VIEW_SETTINGS_ROUND" = "Round Up to Dollar";
+"INFO_VIEW_SETTINGS_ROUND_IOS7" = "Round Up to Nearest Dollar";
 "INFO_VIEW_ABOUT_HEADER" = "About";
 "INFO_VIEW_ABOUT_FEEDBACK" = "App Feedback";
 "INFO_VIEW_ABOUT_REVIEW" = "AppStore Review";
@@ -46,7 +46,7 @@
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left to distribute";
 "DISTRIBUTION_COMPLETE" = "distribution done! swipe down";
 
-"SUMMARY_TOTAL_LABEL" = "for total bill of";
+"SUMMARY_TOTAL_LABEL" = "total bill :";
 "SUMMARY_PRICE_DESCRIPTION" = "Prices are per person, aka each person with this profile should pay this amount.";
 "SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";
