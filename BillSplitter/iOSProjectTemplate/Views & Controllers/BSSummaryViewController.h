@@ -20,6 +20,7 @@
     
     /** Reference to final cost label from BSTotalMarkupViewController */
 	@property (nonatomic, strong) UILabel *finalLabel;
+   	@property (nonatomic, strong) UILabel *totalLabel;
 
     /** Reference to steppers from BSDishSetupViewController to get prices */
 	@property (nonatomic, strong) UIVerticalStepper *drinkStepper;

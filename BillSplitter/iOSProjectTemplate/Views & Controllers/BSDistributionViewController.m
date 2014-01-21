@@ -45,13 +45,14 @@
     
 	#define DEFAULT_HEADCOUNT 2
 
+    #define TEXT_ADD_BUTTON @"+"
+
 	#define IMG_ARROW @"arrow.png"
    	#define IMG_ARROWHEAD @"arrowhead.png" 
     #define IMG_LITTLEARROW @"littlearrow.png"
 	#define IMG_DINER @"man.png"
 	#define IMG_DRINK @"drink.png"
 	#define IMG_DISH @"plate.png"
-	#define IMG_PLUS @"plus.png"
 
 	NSString* const BSDistributionViewControllerProfileViewDishes = @"dishes";
    	NSString* const BSDistributionViewControllerProfileViewDishCount = @"dishCount"; 
@@ -898,26 +899,12 @@
 		0, bounds.size.height / 4 + UI_SIZE_PAGECONTROL_HEIGHT,
 		bounds.size.width / 8, CGRectGetHeight(self.profileScrollView.bounds)
 	);
-	[self.addButton setImage:[UIImage imageNamed:IMG_PLUS] forState:UIControlStateNormal];
-	self.addButton.imageEdgeInsets = UIEdgeInsetsMake(
-		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN,
-		UI_SIZE_DINER_MARGIN, UI_SIZE_DINER_MARGIN
-	);
-	self.addButton.imageView.contentMode = UIViewContentModeScaleAspectFit;
-	
-	// Gradient background
-	CAGradientLayer *gradientBG = [CAGradientLayer layer];
-	gradientBG.colors = [NSArray arrayWithObjects:
-		(id)UIColorFromHex(0xFFFFFF88).CGColor,
-		(id)UIColorFromHex(0xFFFFFFBB).CGColor,
-		(id)UIColorFromHex(0xFFFFFFFF).CGColor,
-		nil
-	];
-	gradientBG.transform = CATransform3DMakeRotation(
-		degreesToRadians(90), 0, 0, 1);
-	gradientBG.frame = self.addButton.bounds;
-	[self.addButton.layer insertSublayer:gradientBG atIndex:0];
-	
+    self.addButton.titleLabel.font = [UIFont fontWithName:FONT_NAME_TEXTFIELD size:FONT_SIZE_PRICE];
+    [self.addButton setTitleColor:UIColorFromHex(COLOR_HEX_ACCENT)
+        forState:UIControlStateNormal];
+    [self.addButton setTitle:TEXT_ADD_BUTTON forState:UIControlStateNormal];
+    self.addButton.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.75];
+
 	[self.addButton addTarget:self action:@selector(addButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
 	
 	// Add gesture using swipe

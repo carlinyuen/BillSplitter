@@ -14,7 +14,7 @@
 "APP_VIEW_WARNING_RESET_OK" = "Reset";
 
 "HEADCOUNT_TAGLINE_TEXT" = "Splitting Bills the Easy Way";
-"HEADCOUNT_DESCRIPTION_TEXT" = "without putting in every dish!";
+"HEADCOUNT_DESCRIPTION_TEXT" = "Just tell me what people owe!";
 "HEADCOUNT_INSTRUCTION_LABEL" = "swipe down";
 
 "INFO_VIEW_TITLE" = "Settings";
@@ -22,7 +22,8 @@
 "INFO_VIEW_SETTINGS_ROUND" = "Round to Next Dollar";
 "INFO_VIEW_SETTINGS_ROUND_IOS7" = "Round to Nearest Dollar";
 "INFO_VIEW_ABOUT_HEADER" = "About";
-"INFO_VIEW_ABOUT_FEEDBACK" = "Review App";
+"INFO_VIEW_ABOUT_FEEDBACK" = "App Feedback";
+"INFO_VIEW_ABOUT_REVIEW" = "AppStore Review";
 "INFO_VIEW_ABOUT_VERSION" = "Version";
 "INFO_VIEW_BRANDING_TEXT" = "a Carlin Creation";
 "INFO_VIEW_FEEDBACK_POPUP_TITLE" = "Questions? Feedback?";
@@ -35,17 +36,18 @@
 "TOTALMARKUP_TIP_LABEL" = "+ Tip";
 "TOTALMARKUP_EVEN_SPLIT_LABEL" = "split evenly";
 
-"SETUP_DESCRIPTION_TEXT" = "Put in average costs for a drink, or\na small / medium / large dish.";
+"SETUP_DESCRIPTION_TEXT" = "Put in average costs for a drink and\na small / medium / large dish.";
 
 "DISTRIBUTION_DRAG_INSTRUCTION_LABEL" = "drag dishes into a meal profile!";
-"DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this combo";
+"DISTRIBUTION_COUNT_INSTRUCTION_LABEL" = "# of people with this profile";
 "DISTRIBUTION_ERROR_HEADCOUNT" = "You have no more people to distribute! Go to the first screen to add more people to your party?";
 "DISTRIBUTION_ERROR_PROFILE_MAX" = "You reached the max number of diner profiles supported!";
 "DISTRIBUTION_WARNING_SINGLE" = "person left to distribute";
 "DISTRIBUTION_WARNING_MULTIPLE" = "people left to distribute";
 "DISTRIBUTION_COMPLETE" = "distribution done! swipe down";
 
-"SUMMARY_PRICE_DESCRIPTION" = "Prices are per person, aka each person with this profile should pay the amount.";
+"SUMMARY_TOTAL_LABEL" = "for total bill of";
+"SUMMARY_PRICE_DESCRIPTION" = "Prices are per person, aka each person with this profile should pay this amount.";
 "SUMMARY_ERROR_ZERO_VALUE" = "All dish values can't be zero!";
 "SUMMARY_ERROR_ZERO_COUNT" = "Oops! Did you forget to distribute your dishes in the last screen?";
 

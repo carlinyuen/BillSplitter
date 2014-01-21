@@ -33,7 +33,6 @@
     #define URL_FORMAT_APP_STORE_IOS7 @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@&at=10l6dK"
     #define ID_APP_STORE 12345
     #define FEEDBACK_EMAIL @"email.me@carlinyuen.com"
-    #define FEEDBACK_URL @"http://www.carlinyuen.com"
 
     typedef enum {
         BSInfoViewControllerItemRounding = 1000,
@@ -69,7 +68,7 @@
 	self.title = NSLocalizedString(@"INFO_VIEW_TITLE", nil);
     
     bool isIOS7 = (getDeviceOSVersionNumber() >= 7);
-	
+
 	self.tableViewData = @[
 		@{
 			TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_SETTINGS_HEADER", nil),
@@ -92,8 +91,21 @@
                     TABLEVIEW_DATA_KEY_DETAIL: [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString*)kCFBundleVersionKey],
                 },
 
+                ([MFMailComposeViewController canSendMail]
+                    ? @{
+                        TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
+                        TABLEVIEW_DATA_KEY_VIEWCONTROLLER: [MFMailComposeViewController new],
+                    }
+                    : @{
+                        TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
+                        TABLEVIEW_DATA_KEY_URL: [NSURL
+                            URLWithString:[NSString
+                            stringWithFormat:@"mailto:%@", FEEDBACK_EMAIL]]
+                    }
+                ),
+
                 @{
-                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_FEEDBACK", nil),
+                    TABLEVIEW_DATA_KEY_LABEL: NSLocalizedString(@"INFO_VIEW_ABOUT_REVIEW", nil),
                     TABLEVIEW_DATA_KEY_URL: [NSURL
                         URLWithString:[NSString
                         stringWithFormat:(getDeviceOSVersionNumber() >= 7
@@ -260,33 +272,7 @@
 /** @brief When branding is pressed */
 - (void)brandingPressed:(UIButton*)sender
 {
-    // Send email to me
-    if ([MFMailComposeViewController canSendMail])
-    {
-        MFMailComposeViewController* controller = [MFMailComposeViewController new];
-        controller.mailComposeDelegate = self;
-        [controller setSubject:NSLocalizedString(@"INFO_VIEW_MAIL_SUBJECT", nil)];
-        [controller setToRecipients:@[FEEDBACK_EMAIL]];
 
-        if (controller) { 
-            [self presentViewController:controller animated:YES completion:nil];
-        }
-    }
-    else  // Can't send mail! What should we do?
-    {
-        NSURL *url = [NSURL URLWithString:FEEDBACK_URL];
-        if ([[UIApplication sharedApplication] canOpenURL:url]) {
-            [[UIApplication sharedApplication] openURL:url];
-        }
-        else {    // Can't open website! What should we do?
-            [[[UIAlertView alloc]
-                initWithTitle:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP_TITLE", nil)
-                message:NSLocalizedString(@"INFO_VIEW_FEEDBACK_POPUP_MESSAGE", nil)
-                delegate:nil
-                cancelButtonTitle:NSLocalizedString(@"POPUP_BUTTON_OK", nil)
-                otherButtonTitles:nil] show];
-        }
-    }
 }
 
 /** @brief When switch is toggled */
@@ -415,7 +401,15 @@
     // If row has viewcontroller, push to it
     UIViewController *vc = cellData[TABLEVIEW_DATA_KEY_VIEWCONTROLLER];
     if (vc) {
-        [self.navigationController pushViewController:vc animated:true];
+        if ([vc isKindOfClass:[MFMailComposeViewController class]]) {
+            MFMailComposeViewController* mailController = [MFMailComposeViewController new];
+            mailController.mailComposeDelegate = self;
+            [mailController setSubject:NSLocalizedString(@"INFO_VIEW_MAIL_SUBJECT", nil)];
+            [mailController setToRecipients:@[FEEDBACK_EMAIL]];
+            [self presentViewController:mailController animated:true completion:nil];
+        } else {
+            [self.navigationController pushViewController:vc animated:true];
+        }
         return;
     }
 

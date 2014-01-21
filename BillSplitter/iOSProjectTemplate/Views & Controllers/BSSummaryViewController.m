@@ -70,6 +70,7 @@
         _profilePageControlCover = [[BSTouchPassingView alloc] initWithFrame:CGRectZero];
 
         _errorLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+        _totalLabel = [[UILabel alloc] initWithFrame:CGRectZero];
 
         // Price font
         _priceNumberAttributes = @{
@@ -98,6 +99,7 @@
     [self setupProfileCover:bounds];
     [self setupErrorLabel:bounds];
     [self setupScrollView:bounds];
+    [self setupTotalLabel:bounds];
 }
 
 
@@ -155,6 +157,10 @@
         NSLog(@"Error parsing number from final total field!");
         return;
     }
+
+    // Update total label
+    self.totalLabel.text = [NSString stringWithFormat:@"%@ %@",
+        NSLocalizedString(@"SUMMARY_TOTAL_LABEL", nil), self.finalLabel.text];
 
     // Get dish setup to calculate proportions
     CGFloat drinkValue = self.drinkStepper.value;
@@ -509,6 +515,23 @@
 	containerView.targetView = self.scrollView;
 	[containerView addSubview:self.scrollView];
 	[self.view addSubview:containerView];
+}
+
+/** @brief Set up totalLabel for total cost for users to reference */
+- (void)setupTotalLabel:(CGRect)bounds
+{
+    self.totalLabel.frame = CGRectMake(
+        UI_SIZE_LABEL_MARGIN, bounds.size.height - UI_SIZE_LABEL_MARGIN,
+        bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_LABEL_MARGIN
+    );
+    self.totalLabel.backgroundColor = [UIColor grayColor];
+    self.totalLabel.textColor = [UIColor grayColor];
+    self.totalLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
+    self.totalLabel.textAlignment = UITextAlignmentCenter;
+    self.totalLabel.adjustsFontSizeToFitWidth = true;
+    self.totalLabel.minimumFontSize = FONT_SIZE_COPY / 3;
+
+    [self.view addSubview:self.totalLabel];
 }
 
 
