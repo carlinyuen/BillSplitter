@@ -4,3 +4,6 @@
 [submodule "BillSplitter/iOSProjectTemplate/Libraries/UIVerticalStepper"]
 	path = BillSplitter/iOSProjectTemplate/Libraries/UIVerticalStepper
 	url = https://github.com/carlinyuen/UIVerticalStepper.git
+[submodule "BillSplitter/iOSProjectTemplate/Libraries/ParallaxScrollingFramework"]
+	path = BillSplitter/iOSProjectTemplate/Libraries/ParallaxScrollingFramework
+	url = https://github.com/carlinyuen/ParallaxScrollingFramework.git

@@ -28,6 +28,7 @@
 		227075B1188DFC1400327FCA /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A7188DFC1400327FCA /* stepperTopButton@2x.png */; };
 		227075B2188DFC1400327FCA /* UIVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 227075A9188DFC1400327FCA /* UIVerticalStepper.m */; };
 		227075B6188DFC1E00327FCA /* CustomImagePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 227075B5188DFC1E00327FCA /* CustomImagePageControl.m */; };
+		227075BA188DFDC900327FCA /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 227075B9188DFDC900327FCA /* ParallaxScrollingFramework.m */; };
 		22BA03BA187B8F3200F93F2E /* littlearrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */; };
 		22BA03C3187B8F8D00F93F2E /* dish1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BB187B8F8D00F93F2E /* dish1@2x.png */; };
 		22BA03C4187B8F8D00F93F2E /* dish2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BC187B8F8D00F93F2E /* dish2@2x.png */; };
@@ -45,7 +46,6 @@
 		22BA03DA187BA23600F93F2E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D7187BA23600F93F2E /* Default.png */; };
 		22BA03DB187BA23600F93F2E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D8187BA23600F93F2E /* Default@2x.png */; };
 		22BA03DC187BA23600F93F2E /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D9187BA23600F93F2E /* Default~iphone.png */; };
-		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
 		5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */; };
 		5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */; };
 		5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */; };
@@ -99,6 +99,8 @@
 		227075A9188DFC1400327FCA /* UIVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIVerticalStepper.m; sourceTree = "<group>"; };
 		227075B4188DFC1E00327FCA /* CustomImagePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImagePageControl.h; sourceTree = "<group>"; };
 		227075B5188DFC1E00327FCA /* CustomImagePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImagePageControl.m; sourceTree = "<group>"; };
+		227075B8188DFDC900327FCA /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
+		227075B9188DFDC900327FCA /* ParallaxScrollingFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxScrollingFramework.m; sourceTree = "<group>"; };
 		22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "littlearrow@2x.png"; sourceTree = "<group>"; };
 		22BA03BB187B8F8D00F93F2E /* dish1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish1@2x.png"; sourceTree = "<group>"; };
 		22BA03BC187B8F8D00F93F2E /* dish2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish2@2x.png"; sourceTree = "<group>"; };
@@ -116,8 +118,6 @@
 		22BA03D7187BA23600F93F2E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		22BA03D8187BA23600F93F2E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		22BA03D9187BA23600F93F2E /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = SOURCE_ROOT; };
-		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
-		5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxScrollingFramework.m; sourceTree = "<group>"; };
 		5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSHeadcountViewController.h; sourceTree = "<group>"; };
 		5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSHeadcountViewController.m; sourceTree = "<group>"; };
@@ -231,13 +231,14 @@
 			path = CustomImagePageControl/CustomImagePageControl;
 			sourceTree = "<group>";
 		};
-		5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */ = {
+		227075B7188DFDC900327FCA /* ParallaxScrollingFramework */ = {
 			isa = PBXGroup;
 			children = (
-				5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */,
-				5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */,
+				227075B8188DFDC900327FCA /* ParallaxScrollingFramework.h */,
+				227075B9188DFDC900327FCA /* ParallaxScrollingFramework.m */,
 			);
-			path = ParallaxScrollingFramework;
+			name = ParallaxScrollingFramework;
+			path = ParallaxScrollingFramework/ParallaxScrollingFramework;
 			sourceTree = "<group>";
 		};
 		5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */ = {
@@ -319,7 +320,7 @@
 				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
 				227075B3188DFC1E00327FCA /* CustomImagePageControl */,
 				2239EA7318698AF9002C0552 /* iRate */,
-				5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */,
+				227075B7188DFDC900327FCA /* ParallaxScrollingFramework */,
 				22707527188DFA9D00327FCA /* TestFlightSDK2.1.4 */,
 				2270759E188DFC1400327FCA /* UIVerticalStepper */,
 			);
@@ -495,9 +496,9 @@
 				5F7C893B1790A36700018AD7 /* main.m in Sources */,
 				5F7C893F1790A36700018AD7 /* AppDelegate.m in Sources */,
 				5F7C89571790A42400018AD7 /* Constants.m in Sources */,
+				227075BA188DFDC900327FCA /* ParallaxScrollingFramework.m in Sources */,
 				227075B6188DFC1E00327FCA /* CustomImagePageControl.m in Sources */,
 				5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */,
-				5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */,
 				2239EA6D18691B69002C0552 /* BSTouchPassingView.m in Sources */,
 				2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */,
 				2239EA7818698AF9002C0552 /* iRate.m in Sources */,
