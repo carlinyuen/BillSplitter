@@ -647,7 +647,7 @@
 	yTempOffset = [self offsetForPageInScrollView:AppViewControllerPageDistribution];
 
 	// Drink
-	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 6;
+	temp = UI_SIZE_MIN_TOUCH + bounds.size.height / 6 + bounds.origin.y;
 	transform = dishSetup.drinkButton.transform;
 	tempSize = CGSizeMake(transform.a, transform.d);
 	targetSize = CGSizeMake(tempSize.width * 1.2, tempSize.height * 1.2);
