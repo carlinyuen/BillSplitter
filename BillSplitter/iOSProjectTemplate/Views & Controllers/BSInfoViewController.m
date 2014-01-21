@@ -31,7 +31,7 @@
 
     #define URL_FORMAT_APP_STORE @"itms-apps://itunes.apple.com/app/id%@?at=10l6dK"
     #define URL_FORMAT_APP_STORE_IOS7 @"itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%@&at=10l6dK"
-    #define ID_APP_STORE 12345
+    #define ID_APP_STORE 791461198
     #define FEEDBACK_EMAIL @"email.me@carlinyuen.com"
 
     typedef enum {
