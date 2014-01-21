@@ -12,9 +12,8 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "ParallaxScrollingFramework.h"
-#import "CustomPageControl.h"
+#import "CustomImagePageControl.h"
 #import "BSKeyboardControls.h"
-#import "UIViewDebugger.h"
 
 #import "BSScrollView.h"
 #import "BSInfoViewController.h"
@@ -64,7 +63,7 @@
 #pragma mark - AppViewController
 
 @interface AppViewController () <
-	CustomPageControlDelegate,
+	CustomImagePageControlDelegate,
 	BSInfoViewControllerDelegate,
 	BSKeyboardControlsDelegate,
     BSScrollViewDelegate
@@ -77,7 +76,7 @@
 	/** Main UI Elements */
 	@property (weak, nonatomic) IBOutlet UINavigationBar *navBar;
 	@property (weak, nonatomic) IBOutlet BSScrollView *scrollView;
-	@property (nonatomic, strong) CustomPageControl *pageControl;
+	@property (nonatomic, strong) CustomImagePageControl *pageControl;
 	@property (nonatomic, strong) BSKeyboardControls *keyboardControl;
 	@property (nonatomic, strong) UIButton *resetButton;
     
@@ -86,9 +85,6 @@
 	/** Controllers for user actions */
 	@property (nonatomic, strong) NSArray *viewControllers;
 	@property (nonatomic, strong) NSMutableArray *inputFields;
-
-	/** Debuggin */
-	@property (nonatomic, strong) UIViewDebugger *debugger;
 
 	/** Keep track of which page you're on */
 	@property (nonatomic, assign) AppViewControllerPage lastShownPage;
@@ -112,9 +108,6 @@
 		// Animator
 		_enableAnimator = false;
 		
-		// Debugging
-		_debugger = [[UIViewDebugger alloc] init];
-        
         // Formatter
         _numberFormatter = [NSNumberFormatter new];
         [_numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -398,7 +391,7 @@
 - (void)setupPageControl:(CGRect)bounds
 {
 	// Create and rotate to make vertical
-	self.pageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+	self.pageControl = [[CustomImagePageControl alloc] initWithFrame:CGRectMake(
 		0, 0, UI_SIZE_PAGECONTROL_HEIGHT, UI_SIZE_PAGECONTROL_WIDTH
 	)];
 	self.pageControl.transform = CGAffineTransformMakeRotation(degreesToRadians(90));
@@ -412,8 +405,8 @@
 	self.pageControl.numberOfPages = AppViewControllerPageCount;
 	self.pageControl.currentPage = AppViewControllerPageHeadCount;
 	self.lastShownPage = AppViewControllerPageHeadCount;
-	self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-	self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
+	self.pageControl.currentPageIndicatorTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+	self.pageControl.pageIndicatorTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
 	
 	// Set images
 	
@@ -1020,15 +1013,15 @@
         switch (self.pageControl.currentPage)
         {
             case AppViewControllerPageDistribution:
-                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
-                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
+                self.pageControl.currentPageIndicatorTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+                self.pageControl.pageIndicatorTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
                 self.scrollView.delaysContentTouches = false;
                 distributionVC.viewInFocus = true;
                 break;
             
             default:
-                self.pageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
-                self.pageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT); 
+                self.pageControl.currentPageIndicatorTintColor = UIColorFromHex(COLOR_HEX_ACCENT);
+                self.pageControl.pageIndicatorTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_DARK_GRAY_TRANSLUCENT);
                 self.scrollView.delaysContentTouches = true;
                 distributionVC.viewInFocus = false;
                 break;
@@ -1147,7 +1140,7 @@
 #pragma mark - CustomPageControlDelegate
 
 /** @brief When page control dot is tapped */
-- (void)pageControlPageDidChange:(CustomPageControl *)pageControl
+- (void)pageControlPageDidChange:(CustomImagePageControl *)pageControl
 {
     int page = pageControl.currentPage;
     

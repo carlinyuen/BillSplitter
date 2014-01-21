@@ -34,7 +34,7 @@
 
     /** Reference to scrollView and page control from BSDistributionViewController */
     @property (nonatomic, strong) UIScrollView *profileScrollView;
-    @property (nonatomic, strong) CustomPageControl *profilePageControl; 
+    @property (nonatomic, strong) CustomImagePageControl *profilePageControl;
     
     /** Scroll view for results */
     @property (nonatomic, strong) UIScrollView *scrollView;

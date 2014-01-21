@@ -1,0 +1,6 @@
+[submodule "BillSplitter/iOSProjectTemplate/Libraries/CustomImagePageControl"]
+	path = BillSplitter/iOSProjectTemplate/Libraries/CustomImagePageControl
+	url = https://github.com/carlinyuen/CustomImagePageControl.git
+[submodule "BillSplitter/iOSProjectTemplate/Libraries/UIVerticalStepper"]
+	path = BillSplitter/iOSProjectTemplate/Libraries/UIVerticalStepper
+	url = https://github.com/carlinyuen/UIVerticalStepper.git

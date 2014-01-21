@@ -9,7 +9,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "CustomPageControl.h"
+#import "CustomImagePageControl.h"
 #import "UIVerticalStepper.h"
 
 	extern NSString* const BSDistributionViewControllerProfileViewDishes;
@@ -52,7 +52,7 @@
    	@property (nonatomic, assign) bool viewInFocus;
     
     /** Page control of profiles */
-    @property (nonatomic, strong) CustomPageControl *profilePageControl;   
+    @property (nonatomic, strong) CustomImagePageControl *profilePageControl;   
     
     /** Scrollview of profiles */ 
     @property (nonatomic, strong) UIScrollView *profileScrollView;  

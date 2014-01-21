@@ -66,7 +66,7 @@
 #pragma mark - BSDistributionViewController
 
 @interface BSDistributionViewController () <
-    CustomPageControlDelegate,
+    CustomImagePageControlDelegate,
     UIAlertViewDelegate
 >
 
@@ -874,7 +874,7 @@
 /** @brief Setup page control */
 - (void)setupPageControl:(CGRect)bounds
 {
-	self.profilePageControl = [[CustomPageControl alloc] initWithFrame:CGRectMake(
+	self.profilePageControl = [[CustomImagePageControl alloc] initWithFrame:CGRectMake(
 		0, bounds.size.height / 4,
 //            + CGRectGetHeight(self.profileScrollView.frame)
 //            + (bounds.size.height
@@ -886,8 +886,8 @@
 	self.profilePageControl.delegate = self;
 	self.profilePageControl.numberOfPages = 0;
 	self.profilePageControl.currentPage = 0;
-	self.profilePageControl.currentDotTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
-	self.profilePageControl.dotTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
+	self.profilePageControl.currentPageIndicatorTintColor = UIColorFromHex(COLOR_HEX_COPY_DARK);
+	self.profilePageControl.pageIndicatorTintColor = UIColorFromHex(COLOR_HEX_BACKGROUND_LIGHT_TRANSLUCENT);
 	
 	[self.view addSubview:self.profilePageControl];
 }
@@ -1340,9 +1340,9 @@
 
 
 #pragma mark - Delegates
-#pragma mark - CustomPageControlDelegate
+#pragma mark - CustomImagePageControlDelegate
 
-- (void)pageControlPageDidChange:(CustomPageControl *)pageControl
+- (void)pageControlPageDidChange:(CustomImagePageControl *)pageControl
 {
 	CGRect frame = self.profileScrollView.bounds;
 	frame.origin.x = [self offsetForPageInScrollView:pageControl.currentPage];

@@ -427,7 +427,7 @@
 }
 
 /** @brief Set target view of cover when set */
-- (void)setProfilePageControl:(CustomPageControl *)profilePageControl
+- (void)setProfilePageControl:(CustomImagePageControl *)profilePageControl
 {
     _profilePageControl = profilePageControl;
     self.profilePageControlCover.targetView = _profilePageControl; 

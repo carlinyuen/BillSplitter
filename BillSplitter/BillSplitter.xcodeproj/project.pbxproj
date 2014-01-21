@@ -15,13 +15,25 @@
 		2239EA7818698AF9002C0552 /* iRate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7618698AF9002C0552 /* iRate.m */; };
 		2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2239EA7A18698BA1002C0552 /* BSInfoViewController.m */; };
 		2239EA7D1869A2D0002C0552 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2239EA7C1869A2D0002C0552 /* MessageUI.framework */; };
+		2270752E188DFA9D00327FCA /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 22707528188DFA9D00327FCA /* libTestFlight.a */; };
+		2270752F188DFA9D00327FCA /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 22707529188DFA9D00327FCA /* README.md */; };
+		22707530188DFA9D00327FCA /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 2270752A188DFA9D00327FCA /* release_notes.md */; };
+		227075AA188DFC1400327FCA /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A0188DFC1400327FCA /* stepperBottomButton.png */; };
+		227075AB188DFC1400327FCA /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A1188DFC1400327FCA /* stepperBottomButton@2x.png */; };
+		227075AC188DFC1400327FCA /* stepperMinusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A2188DFC1400327FCA /* stepperMinusSymbol.png */; };
+		227075AD188DFC1400327FCA /* stepperMinusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A3188DFC1400327FCA /* stepperMinusSymbol@2x.png */; };
+		227075AE188DFC1400327FCA /* stepperPlusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A4188DFC1400327FCA /* stepperPlusSymbol.png */; };
+		227075AF188DFC1400327FCA /* stepperPlusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A5188DFC1400327FCA /* stepperPlusSymbol@2x.png */; };
+		227075B0188DFC1400327FCA /* stepperTopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A6188DFC1400327FCA /* stepperTopButton.png */; };
+		227075B1188DFC1400327FCA /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 227075A7188DFC1400327FCA /* stepperTopButton@2x.png */; };
+		227075B2188DFC1400327FCA /* UIVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 227075A9188DFC1400327FCA /* UIVerticalStepper.m */; };
+		227075B6188DFC1E00327FCA /* CustomImagePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 227075B5188DFC1E00327FCA /* CustomImagePageControl.m */; };
 		22BA03BA187B8F3200F93F2E /* littlearrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */; };
 		22BA03C3187B8F8D00F93F2E /* dish1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BB187B8F8D00F93F2E /* dish1@2x.png */; };
 		22BA03C4187B8F8D00F93F2E /* dish2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BC187B8F8D00F93F2E /* dish2@2x.png */; };
 		22BA03C5187B8F8D00F93F2E /* dish3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BD187B8F8D00F93F2E /* dish3@2x.png */; };
 		22BA03C6187B8F8D00F93F2E /* drink@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BE187B8F8D00F93F2E /* drink@2x.png */; };
 		22BA03C7187B8F8D00F93F2E /* man@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03BF187B8F8D00F93F2E /* man@2x.png */; };
-		22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C0187B8F8D00F93F2E /* plus@2x.png */; };
 		22BA03C9187B8F8D00F93F2E /* reset_pressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */; };
 		22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03C2187B8F8D00F93F2E /* reset@2x.png */; };
 		22BA03CE187B9A0F00F93F2E /* app-icon1.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03CB187B9A0F00F93F2E /* app-icon1.png */; };
@@ -33,9 +45,7 @@
 		22BA03DA187BA23600F93F2E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D7187BA23600F93F2E /* Default.png */; };
 		22BA03DB187BA23600F93F2E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D8187BA23600F93F2E /* Default@2x.png */; };
 		22BA03DC187BA23600F93F2E /* Default~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = 22BA03D9187BA23600F93F2E /* Default~iphone.png */; };
-		5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F05427317C67D0100B40CCA /* UIViewDebugger.m */; };
 		5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */; };
-		5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */; };
 		5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */; };
 		5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */; };
 		5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F459EF717C5481300DCBDD9 /* BSDistributionViewController.m */; };
@@ -55,18 +65,6 @@
 		5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5F7C897A1790AF3200018AD7 /* AppViewController.m */; };
 		5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C897B1790AF3300018AD7 /* AppViewController.xib */; };
 		5F7C8982179439A700018AD7 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5F7C8981179439A600018AD7 /* Default-568h@2x.png */; };
-		5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261517CE3C77009F7652 /* stepperBottomButton.png */; };
-		5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */; };
-		5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */; };
-		5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */; };
-		5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */; };
-		5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */; };
-		5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261B17CE3C77009F7652 /* stepperTopButton.png */; };
-		5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */; };
-		5FE4262717CE3C77009F7652 /* UIVerticalStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */; };
-		5FE4262F17CEE58C009F7652 /* libTestFlight.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE4262917CEE58C009F7652 /* libTestFlight.a */; };
-		5FE4263017CEE58C009F7652 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262A17CEE58C009F7652 /* README.md */; };
-		5FE4263117CEE58C009F7652 /* release_notes.md in Resources */ = {isa = PBXBuildFile; fileRef = 5FE4262B17CEE58C009F7652 /* release_notes.md */; };
 		5FE4263317CEE5DE009F7652 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FE4263217CEE5DD009F7652 /* libz.dylib */; };
 /* End PBXBuildFile section */
 
@@ -83,13 +81,30 @@
 		2239EA7918698BA1002C0552 /* BSInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSInfoViewController.h; sourceTree = "<group>"; };
 		2239EA7A18698BA1002C0552 /* BSInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSInfoViewController.m; sourceTree = "<group>"; };
 		2239EA7C1869A2D0002C0552 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		22707528188DFA9D00327FCA /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
+		22707529188DFA9D00327FCA /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
+		2270752A188DFA9D00327FCA /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
+		2270752B188DFA9D00327FCA /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
+		2270752C188DFA9D00327FCA /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
+		2270752D188DFA9D00327FCA /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
+		227075A0188DFC1400327FCA /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
+		227075A1188DFC1400327FCA /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
+		227075A2188DFC1400327FCA /* stepperMinusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperMinusSymbol.png; sourceTree = "<group>"; };
+		227075A3188DFC1400327FCA /* stepperMinusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperMinusSymbol@2x.png"; sourceTree = "<group>"; };
+		227075A4188DFC1400327FCA /* stepperPlusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperPlusSymbol.png; sourceTree = "<group>"; };
+		227075A5188DFC1400327FCA /* stepperPlusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperPlusSymbol@2x.png"; sourceTree = "<group>"; };
+		227075A6188DFC1400327FCA /* stepperTopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperTopButton.png; sourceTree = "<group>"; };
+		227075A7188DFC1400327FCA /* stepperTopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperTopButton@2x.png"; sourceTree = "<group>"; };
+		227075A8188DFC1400327FCA /* UIVerticalStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVerticalStepper.h; sourceTree = "<group>"; };
+		227075A9188DFC1400327FCA /* UIVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIVerticalStepper.m; sourceTree = "<group>"; };
+		227075B4188DFC1E00327FCA /* CustomImagePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomImagePageControl.h; sourceTree = "<group>"; };
+		227075B5188DFC1E00327FCA /* CustomImagePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomImagePageControl.m; sourceTree = "<group>"; };
 		22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "littlearrow@2x.png"; sourceTree = "<group>"; };
 		22BA03BB187B8F8D00F93F2E /* dish1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish1@2x.png"; sourceTree = "<group>"; };
 		22BA03BC187B8F8D00F93F2E /* dish2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish2@2x.png"; sourceTree = "<group>"; };
 		22BA03BD187B8F8D00F93F2E /* dish3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dish3@2x.png"; sourceTree = "<group>"; };
 		22BA03BE187B8F8D00F93F2E /* drink@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "drink@2x.png"; sourceTree = "<group>"; };
 		22BA03BF187B8F8D00F93F2E /* man@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "man@2x.png"; sourceTree = "<group>"; };
-		22BA03C0187B8F8D00F93F2E /* plus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "plus@2x.png"; sourceTree = "<group>"; };
 		22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset_pressed@2x.png"; sourceTree = "<group>"; };
 		22BA03C2187B8F8D00F93F2E /* reset@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "reset@2x.png"; sourceTree = "<group>"; };
 		22BA03CB187B9A0F00F93F2E /* app-icon1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "app-icon1.png"; sourceTree = SOURCE_ROOT; };
@@ -101,12 +116,8 @@
 		22BA03D7187BA23600F93F2E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = SOURCE_ROOT; };
 		22BA03D8187BA23600F93F2E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = SOURCE_ROOT; };
 		22BA03D9187BA23600F93F2E /* Default~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default~iphone.png"; sourceTree = SOURCE_ROOT; };
-		5F05427217C67D0100B40CCA /* UIViewDebugger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewDebugger.h; sourceTree = "<group>"; };
-		5F05427317C67D0100B40CCA /* UIViewDebugger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewDebugger.m; sourceTree = "<group>"; };
 		5F459EE517C50D5F00DCBDD9 /* ParallaxScrollingFramework.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ParallaxScrollingFramework.h; sourceTree = "<group>"; };
 		5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ParallaxScrollingFramework.m; sourceTree = "<group>"; };
-		5F459EE917C526A100DCBDD9 /* CustomPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPageControl.h; sourceTree = "<group>"; };
-		5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPageControl.m; sourceTree = "<group>"; };
 		5F459EEC17C5285800DCBDD9 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		5F459EF117C547FB00DCBDD9 /* BSHeadcountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSHeadcountViewController.h; sourceTree = "<group>"; };
 		5F459EF217C547FB00DCBDD9 /* BSHeadcountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSHeadcountViewController.m; sourceTree = "<group>"; };
@@ -139,22 +150,6 @@
 		5F7C897A1790AF3200018AD7 /* AppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppViewController.m; sourceTree = "<group>"; };
 		5F7C897B1790AF3300018AD7 /* AppViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AppViewController.xib; sourceTree = "<group>"; };
 		5F7C8981179439A600018AD7 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "../Default-568h@2x.png"; sourceTree = "<group>"; };
-		5FE4261517CE3C77009F7652 /* stepperBottomButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperBottomButton.png; sourceTree = "<group>"; };
-		5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperBottomButton@2x.png"; sourceTree = "<group>"; };
-		5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperMinusSymbol.png; sourceTree = "<group>"; };
-		5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperMinusSymbol@2x.png"; sourceTree = "<group>"; };
-		5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperPlusSymbol.png; sourceTree = "<group>"; };
-		5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperPlusSymbol@2x.png"; sourceTree = "<group>"; };
-		5FE4261B17CE3C77009F7652 /* stepperTopButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stepperTopButton.png; sourceTree = "<group>"; };
-		5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stepperTopButton@2x.png"; sourceTree = "<group>"; };
-		5FE4261D17CE3C77009F7652 /* UIVerticalStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIVerticalStepper.h; sourceTree = "<group>"; };
-		5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIVerticalStepper.m; sourceTree = "<group>"; };
-		5FE4262917CEE58C009F7652 /* libTestFlight.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libTestFlight.a; sourceTree = "<group>"; };
-		5FE4262A17CEE58C009F7652 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
-		5FE4262B17CEE58C009F7652 /* release_notes.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = release_notes.md; sourceTree = "<group>"; };
-		5FE4262C17CEE58C009F7652 /* TestFlight+AsyncLogging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+AsyncLogging.h"; sourceTree = "<group>"; };
-		5FE4262D17CEE58C009F7652 /* TestFlight+ManualSessions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "TestFlight+ManualSessions.h"; sourceTree = "<group>"; };
-		5FE4262E17CEE58C009F7652 /* TestFlight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestFlight.h; sourceTree = "<group>"; };
 		5FE4263217CEE5DD009F7652 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -164,12 +159,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2239EA7D1869A2D0002C0552 /* MessageUI.framework in Frameworks */,
+				2270752E188DFA9D00327FCA /* libTestFlight.a in Frameworks */,
 				5FE4263317CEE5DE009F7652 /* libz.dylib in Frameworks */,
 				5F459EED17C5285800DCBDD9 /* QuartzCore.framework in Frameworks */,
 				5F7C892F1790A36700018AD7 /* UIKit.framework in Frameworks */,
 				5F7C89311790A36700018AD7 /* Foundation.framework in Frameworks */,
 				5F7C89331790A36700018AD7 /* CoreGraphics.framework in Frameworks */,
-				5FE4262F17CEE58C009F7652 /* libTestFlight.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,29 +182,53 @@
 			path = iRate/iRate;
 			sourceTree = "<group>";
 		};
-		22BA03DD187BA23F00F93F2E /* App Icons & Images */ = {
+		22707527188DFA9D00327FCA /* TestFlightSDK2.1.4 */ = {
 			isa = PBXGroup;
 			children = (
-				22BA03D7187BA23600F93F2E /* Default.png */,
-				22BA03D8187BA23600F93F2E /* Default@2x.png */,
-				22BA03D9187BA23600F93F2E /* Default~iphone.png */,
-				22BA03CB187B9A0F00F93F2E /* app-icon1.png */,
-				22BA03CC187B9A0F00F93F2E /* app-icon7.png */,
-				22BA03D1187B9A9300F93F2E /* app-icon6.png */,
-				22BA03CD187B9A0F00F93F2E /* app-icon71.png */,
-				22BA03D3187B9B5200F93F2E /* app-icon57.png */,
-				22BA03D4187B9B5200F93F2E /* app-icon114.png */,
+				22707528188DFA9D00327FCA /* libTestFlight.a */,
+				22707529188DFA9D00327FCA /* README.md */,
+				2270752A188DFA9D00327FCA /* release_notes.md */,
+				2270752B188DFA9D00327FCA /* TestFlight+AsyncLogging.h */,
+				2270752C188DFA9D00327FCA /* TestFlight+ManualSessions.h */,
+				2270752D188DFA9D00327FCA /* TestFlight.h */,
 			);
-			name = "App Icons & Images";
+			path = TestFlightSDK2.1.4;
 			sourceTree = "<group>";
 		};
-		5F05427117C67D0100B40CCA /* UIViewDebugger */ = {
+		2270759E188DFC1400327FCA /* UIVerticalStepper */ = {
 			isa = PBXGroup;
 			children = (
-				5F05427217C67D0100B40CCA /* UIViewDebugger.h */,
-				5F05427317C67D0100B40CCA /* UIViewDebugger.m */,
+				2270759F188DFC1400327FCA /* Stepper Images */,
+				227075A8188DFC1400327FCA /* UIVerticalStepper.h */,
+				227075A9188DFC1400327FCA /* UIVerticalStepper.m */,
 			);
-			path = UIViewDebugger;
+			name = UIVerticalStepper;
+			path = UIVerticalStepper/UIVerticalStepper;
+			sourceTree = "<group>";
+		};
+		2270759F188DFC1400327FCA /* Stepper Images */ = {
+			isa = PBXGroup;
+			children = (
+				227075A0188DFC1400327FCA /* stepperBottomButton.png */,
+				227075A1188DFC1400327FCA /* stepperBottomButton@2x.png */,
+				227075A2188DFC1400327FCA /* stepperMinusSymbol.png */,
+				227075A3188DFC1400327FCA /* stepperMinusSymbol@2x.png */,
+				227075A4188DFC1400327FCA /* stepperPlusSymbol.png */,
+				227075A5188DFC1400327FCA /* stepperPlusSymbol@2x.png */,
+				227075A6188DFC1400327FCA /* stepperTopButton.png */,
+				227075A7188DFC1400327FCA /* stepperTopButton@2x.png */,
+			);
+			path = "Stepper Images";
+			sourceTree = "<group>";
+		};
+		227075B3188DFC1E00327FCA /* CustomImagePageControl */ = {
+			isa = PBXGroup;
+			children = (
+				227075B4188DFC1E00327FCA /* CustomImagePageControl.h */,
+				227075B5188DFC1E00327FCA /* CustomImagePageControl.m */,
+			);
+			name = CustomImagePageControl;
+			path = CustomImagePageControl/CustomImagePageControl;
 			sourceTree = "<group>";
 		};
 		5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */ = {
@@ -219,15 +238,6 @@
 				5F459EE617C50D5F00DCBDD9 /* ParallaxScrollingFramework.m */,
 			);
 			path = ParallaxScrollingFramework;
-			sourceTree = "<group>";
-		};
-		5F459EE817C526A100DCBDD9 /* CustomPageControl */ = {
-			isa = PBXGroup;
-			children = (
-				5F459EE917C526A100DCBDD9 /* CustomPageControl.h */,
-				5F459EEA17C526A100DCBDD9 /* CustomPageControl.m */,
-			);
-			path = CustomPageControl;
 			sourceTree = "<group>";
 		};
 		5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */ = {
@@ -306,13 +316,12 @@
 		5F7C89731790AF0800018AD7 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				2239EA7318698AF9002C0552 /* iRate */,
-				5FE4262817CEE58B009F7652 /* TestFlightSDK2.0.0 */,
-				5FE4261317CE3C77009F7652 /* UIVerticalStepper */,
-				5F05427117C67D0100B40CCA /* UIViewDebugger */,
 				5F459F1417C5719C00DCBDD9 /* BSKeyboardControls */,
-				5F459EE817C526A100DCBDD9 /* CustomPageControl */,
+				227075B3188DFC1E00327FCA /* CustomImagePageControl */,
+				2239EA7318698AF9002C0552 /* iRate */,
 				5F459EE417C50D5F00DCBDD9 /* ParallaxScrollingFramework */,
+				22707527188DFA9D00327FCA /* TestFlightSDK2.1.4 */,
+				2270759E188DFC1400327FCA /* UIVerticalStepper */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -327,34 +336,33 @@
 		5F7C89751790AF0900018AD7 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				22BA03DD187BA23F00F93F2E /* App Icons & Images */,
-				5F7C89761790AF0900018AD7 /* fonts */,
+				22BA03D7187BA23600F93F2E /* Default.png */,
+				22BA03D8187BA23600F93F2E /* Default@2x.png */,
+				22BA03D9187BA23600F93F2E /* Default~iphone.png */,
+				22BA03CB187B9A0F00F93F2E /* app-icon1.png */,
+				22BA03CC187B9A0F00F93F2E /* app-icon7.png */,
+				22BA03D1187B9A9300F93F2E /* app-icon6.png */,
+				22BA03CD187B9A0F00F93F2E /* app-icon71.png */,
+				22BA03D3187B9B5200F93F2E /* app-icon57.png */,
+				22BA03D4187B9B5200F93F2E /* app-icon114.png */,
 				5F7C89771790AF0900018AD7 /* images */,
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		5F7C89761790AF0900018AD7 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = fonts;
 			sourceTree = "<group>";
 		};
 		5F7C89771790AF0900018AD7 /* images */ = {
 			isa = PBXGroup;
 			children = (
 				2239EA651866DB17002C0552 /* arrow@2x.png */,
+				2239EA691866EB50002C0552 /* arrowhead@2x.png */,
 				22BA03BB187B8F8D00F93F2E /* dish1@2x.png */,
 				22BA03BC187B8F8D00F93F2E /* dish2@2x.png */,
 				22BA03BD187B8F8D00F93F2E /* dish3@2x.png */,
 				22BA03BE187B8F8D00F93F2E /* drink@2x.png */,
-				22BA03BF187B8F8D00F93F2E /* man@2x.png */,
-				22BA03C0187B8F8D00F93F2E /* plus@2x.png */,
-				22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */,
-				22BA03C2187B8F8D00F93F2E /* reset@2x.png */,
-				2239EA691866EB50002C0552 /* arrowhead@2x.png */,
 				22BA03B9187B8F3200F93F2E /* littlearrow@2x.png */,
+				22BA03BF187B8F8D00F93F2E /* man@2x.png */,
+				22BA03C2187B8F8D00F93F2E /* reset@2x.png */,
+				22BA03C1187B8F8D00F93F2E /* reset_pressed@2x.png */,
 			);
 			path = images;
 			sourceTree = "<group>";
@@ -380,44 +388,6 @@
 				2239EA6C18691B69002C0552 /* BSTouchPassingView.m */,
 			);
 			path = "Views & Controllers";
-			sourceTree = "<group>";
-		};
-		5FE4261317CE3C77009F7652 /* UIVerticalStepper */ = {
-			isa = PBXGroup;
-			children = (
-				5FE4261417CE3C77009F7652 /* Stepper Images */,
-				5FE4261D17CE3C77009F7652 /* UIVerticalStepper.h */,
-				5FE4261E17CE3C77009F7652 /* UIVerticalStepper.m */,
-			);
-			path = UIVerticalStepper;
-			sourceTree = "<group>";
-		};
-		5FE4261417CE3C77009F7652 /* Stepper Images */ = {
-			isa = PBXGroup;
-			children = (
-				5FE4261517CE3C77009F7652 /* stepperBottomButton.png */,
-				5FE4261617CE3C77009F7652 /* stepperBottomButton@2x.png */,
-				5FE4261717CE3C77009F7652 /* stepperMinusSymbol.png */,
-				5FE4261817CE3C77009F7652 /* stepperMinusSymbol@2x.png */,
-				5FE4261917CE3C77009F7652 /* stepperPlusSymbol.png */,
-				5FE4261A17CE3C77009F7652 /* stepperPlusSymbol@2x.png */,
-				5FE4261B17CE3C77009F7652 /* stepperTopButton.png */,
-				5FE4261C17CE3C77009F7652 /* stepperTopButton@2x.png */,
-			);
-			path = "Stepper Images";
-			sourceTree = "<group>";
-		};
-		5FE4262817CEE58B009F7652 /* TestFlightSDK2.0.0 */ = {
-			isa = PBXGroup;
-			children = (
-				5FE4262917CEE58C009F7652 /* libTestFlight.a */,
-				5FE4262A17CEE58C009F7652 /* README.md */,
-				5FE4262B17CEE58C009F7652 /* release_notes.md */,
-				5FE4262C17CEE58C009F7652 /* TestFlight+AsyncLogging.h */,
-				5FE4262D17CEE58C009F7652 /* TestFlight+ManualSessions.h */,
-				5FE4262E17CEE58C009F7652 /* TestFlight.h */,
-			);
-			path = TestFlightSDK2.0.0;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -460,6 +430,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = 5F7C89221790A36700018AD7;
 			productRefGroup = 5F7C892C1790A36700018AD7 /* Products */;
@@ -476,10 +447,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				227075AB188DFC1400327FCA /* stepperBottomButton@2x.png in Resources */,
 				22BA03DB187BA23600F93F2E /* Default@2x.png in Resources */,
 				22BA03CE187B9A0F00F93F2E /* app-icon1.png in Resources */,
 				5F7C89391790A36700018AD7 /* InfoPlist.strings in Resources */,
 				5F7C895F1790A65000018AD7 /* Localizable.strings in Resources */,
+				227075AE188DFC1400327FCA /* stepperPlusSymbol.png in Resources */,
+				22707530188DFA9D00327FCA /* release_notes.md in Resources */,
 				5F7C897D1790AF3300018AD7 /* AppViewController.xib in Resources */,
 				22BA03D5187B9B5200F93F2E /* app-icon57.png in Resources */,
 				22BA03D0187B9A0F00F93F2E /* app-icon71.png in Resources */,
@@ -488,29 +462,25 @@
 				2239EA7718698AF9002C0552 /* iRate.bundle in Resources */,
 				22BA03BA187B8F3200F93F2E /* littlearrow@2x.png in Resources */,
 				5F459F1A17C5719C00DCBDD9 /* BSKeyboardControls.strings in Resources */,
-				5FE4261F17CE3C77009F7652 /* stepperBottomButton.png in Resources */,
+				227075AC188DFC1400327FCA /* stepperMinusSymbol.png in Resources */,
 				22BA03C5187B8F8D00F93F2E /* dish3@2x.png in Resources */,
-				5FE4262017CE3C77009F7652 /* stepperBottomButton@2x.png in Resources */,
-				5FE4262117CE3C77009F7652 /* stepperMinusSymbol.png in Resources */,
+				227075B0188DFC1400327FCA /* stepperTopButton.png in Resources */,
+				227075AD188DFC1400327FCA /* stepperMinusSymbol@2x.png in Resources */,
+				227075AF188DFC1400327FCA /* stepperPlusSymbol@2x.png in Resources */,
 				22BA03D6187B9B5200F93F2E /* app-icon114.png in Resources */,
 				22BA03C7187B8F8D00F93F2E /* man@2x.png in Resources */,
-				5FE4262217CE3C77009F7652 /* stepperMinusSymbol@2x.png in Resources */,
-				5FE4262317CE3C77009F7652 /* stepperPlusSymbol.png in Resources */,
-				5FE4262417CE3C77009F7652 /* stepperPlusSymbol@2x.png in Resources */,
-				5FE4262517CE3C77009F7652 /* stepperTopButton.png in Resources */,
 				22BA03C4187B8F8D00F93F2E /* dish2@2x.png in Resources */,
 				22BA03C3187B8F8D00F93F2E /* dish1@2x.png in Resources */,
-				5FE4262617CE3C77009F7652 /* stepperTopButton@2x.png in Resources */,
-				5FE4263017CEE58C009F7652 /* README.md in Resources */,
 				22BA03C6187B8F8D00F93F2E /* drink@2x.png in Resources */,
 				22BA03CA187B8F8D00F93F2E /* reset@2x.png in Resources */,
-				22BA03C8187B8F8D00F93F2E /* plus@2x.png in Resources */,
 				22BA03D2187B9A9300F93F2E /* app-icon6.png in Resources */,
-				5FE4263117CEE58C009F7652 /* release_notes.md in Resources */,
+				227075B1188DFC1400327FCA /* stepperTopButton@2x.png in Resources */,
+				2270752F188DFA9D00327FCA /* README.md in Resources */,
 				22BA03DC187BA23600F93F2E /* Default~iphone.png in Resources */,
 				2239EA661866DB17002C0552 /* arrow@2x.png in Resources */,
 				22BA03CF187B9A0F00F93F2E /* app-icon7.png in Resources */,
 				22BA03DA187BA23600F93F2E /* Default.png in Resources */,
+				227075AA188DFC1400327FCA /* stepperBottomButton.png in Resources */,
 				2239EA6A1866EB50002C0552 /* arrowhead@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -525,21 +495,20 @@
 				5F7C893B1790A36700018AD7 /* main.m in Sources */,
 				5F7C893F1790A36700018AD7 /* AppDelegate.m in Sources */,
 				5F7C89571790A42400018AD7 /* Constants.m in Sources */,
+				227075B6188DFC1E00327FCA /* CustomImagePageControl.m in Sources */,
 				5F7C897C1790AF3300018AD7 /* AppViewController.m in Sources */,
 				5F459EE717C50D5F00DCBDD9 /* ParallaxScrollingFramework.m in Sources */,
 				2239EA6D18691B69002C0552 /* BSTouchPassingView.m in Sources */,
 				2239EA7B18698BA1002C0552 /* BSInfoViewController.m in Sources */,
 				2239EA7818698AF9002C0552 /* iRate.m in Sources */,
-				5F459EEB17C526A100DCBDD9 /* CustomPageControl.m in Sources */,
 				5F459EF417C547FB00DCBDD9 /* BSHeadcountViewController.m in Sources */,
+				227075B2188DFC1400327FCA /* UIVerticalStepper.m in Sources */,
 				2239EA621866C07E002C0552 /* BSScrollView.m in Sources */,
 				5F459EF917C5481400DCBDD9 /* BSDistributionViewController.m in Sources */,
 				5F459EFE17C5482100DCBDD9 /* BSDishSetupViewController.m in Sources */,
 				5F459F0317C5483C00DCBDD9 /* BSTotalMarkupViewController.m in Sources */,
 				5F459F1217C5505900DCBDD9 /* BSSummaryViewController.m in Sources */,
 				5F459F1917C5719C00DCBDD9 /* BSKeyboardControls.m in Sources */,
-				5F05427417C67D0100B40CCA /* UIViewDebugger.m in Sources */,
-				5FE4262717CE3C77009F7652 /* UIVerticalStepper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -648,7 +617,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
+					/Users/macbookpro7/Documents/Personal/BillSplitter/BillSplitter/iOSProjectTemplate/Libraries/TestFlightSDK2.1.4,
 				);
 				PRODUCT_NAME = BillSplitter;
 				PROVISIONING_PROFILE = "E907CEC3-3A5A-4071-B5FF-2C9418AA5906";
@@ -669,7 +638,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/iOSProjectTemplate/Libraries/TestFlightSDK2.0.0\"",
+					/Users/macbookpro7/Documents/Personal/BillSplitter/BillSplitter/iOSProjectTemplate/Libraries/TestFlightSDK2.1.4,
 				);
 				PRODUCT_NAME = BillSplitter;
 				PROVISIONING_PROFILE = "A34E009A-B8DA-460D-8289-4A6121D88A71";
