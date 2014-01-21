@@ -284,7 +284,7 @@
 	BSHeadcountViewController *vc = [[BSHeadcountViewController alloc]
 		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageHeadCount] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
 	
 	[self.inputFields addObject:vc.textField];
@@ -301,7 +301,7 @@
 	BSDishSetupViewController *vc = [[BSDishSetupViewController alloc]
 		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageDishes] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
 		
 	[self.inputFields addObject:vc.drinkTextField];
@@ -349,7 +349,7 @@
 	BSTotalMarkupViewController *vc = [[BSTotalMarkupViewController alloc]
 		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageTotal] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
 	
     BSHeadcountViewController *headCountVC = [self.viewControllers objectAtIndex:AppViewControllerPageHeadCount];  
@@ -375,7 +375,7 @@
 	BSSummaryViewController *vc = [[BSSummaryViewController alloc]
 		initWithFrame:CGRectMake(
 		0, [self offsetForPageInScrollView:AppViewControllerPageSummary] + UI_SIZE_MIN_TOUCH,
-		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH
+		bounds.size.width, bounds.size.height - UI_SIZE_MIN_TOUCH - bounds.origin.y
 	)];
 	
     BSTotalMarkupViewController *totalVC = [self.viewControllers objectAtIndex:AppViewControllerPageTotal]; 
