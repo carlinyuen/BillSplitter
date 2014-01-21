@@ -8,15 +8,22 @@
 
 #import "AppDelegate.h"
 
+#import "TestFlight.h"
+
 #import "AppViewController.h"
+
+    #define KEY_TESTFLIGHT @"f5ce670d-2ddd-4a3d-b92d-10b763c28fa8"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	
-    // Override point for customization after application launch.
+
+    // Testflight
+    [TestFlight takeOff:KEY_TESTFLIGHT];
+
+    // App Init
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent animated:true];
 	self.viewController = [[AppViewController alloc] initWithNibName:@"AppViewController" bundle:nil];
 	self.window.rootViewController = self.viewController;
