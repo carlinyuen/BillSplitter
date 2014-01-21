@@ -112,7 +112,6 @@
 	CGFloat itemSize = (bounds.size.height / 5) - UI_SIZE_MARGIN;
 	CGFloat stepperValue = 0;
 	CGFloat scale = 1;
-    frame.size.height -= UI_SIZE_MARGIN / 2;
 	for (int i = 0; i < BSDishSetupViewControllerItemCount; ++i)
 	{
 		// Setup variables

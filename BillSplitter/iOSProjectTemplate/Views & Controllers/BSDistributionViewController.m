@@ -957,6 +957,7 @@
         bounds.size.height
     );
     self.instructionLabel.text = NSLocalizedString(@"DISTRIBUTION_DRAG_INSTRUCTION_LABEL", nil);
+    self.instructionLabel.backgroundColor = [UIColor clearColor];
     self.instructionLabel.textColor = [UIColor whiteColor];
     self.instructionLabel.textAlignment = NSTextAlignmentCenter;
     self.instructionLabel.numberOfLines = 0;
@@ -979,6 +980,7 @@
         bounds.size.width - frame.origin.x, bounds.size.height
     );
     self.countInstructionLabel.text = NSLocalizedString(@"DISTRIBUTION_COUNT_INSTRUCTION_LABEL", nil);
+    self.countInstructionLabel.backgroundColor = [UIColor clearColor];
     self.countInstructionLabel.textColor = [UIColor whiteColor];
     self.countInstructionLabel.textAlignment = NSTextAlignmentCenter;
     self.countInstructionLabel.numberOfLines = 0;

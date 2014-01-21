@@ -524,8 +524,8 @@
         UI_SIZE_LABEL_MARGIN, bounds.size.height - UI_SIZE_LABEL_MARGIN,
         bounds.size.width - UI_SIZE_LABEL_MARGIN * 2, UI_SIZE_LABEL_MARGIN
     );
-    self.totalLabel.backgroundColor = [UIColor grayColor];
-    self.totalLabel.textColor = [UIColor grayColor];
+    self.totalLabel.backgroundColor = [UIColor clearColor];
+    self.totalLabel.textColor = [UIColor lightGrayColor];
     self.totalLabel.font = [UIFont fontWithName:FONT_NAME_COPY size:FONT_SIZE_COPY];
     self.totalLabel.textAlignment = UITextAlignmentCenter;
     self.totalLabel.adjustsFontSizeToFitWidth = true;
